@@ -1,0 +1,190 @@
+﻿<Window x:Class="ChitChat.Views.ChatView"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChitChat.Views"
+        xmlns:Scroll="clr-namespace:ChitChat.Helper"
+        mc:Ignorable="d"
+        Title="ChatView" 
+        Height="821.5" 
+        Width="1281" 
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen" 
+        MouseDown="Window_MouseDown"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignDarkBackground}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        ResizeMode="NoResize">
+
+    <Grid Margin="0,0,0,2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="988"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="86*"/>
+            <ColumnDefinition Width="341*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Black Border & Exit Button-->
+        <Border Background="#FF2C2B2B" Grid.Row="0" Grid.ColumnSpan="2">
+            <Button Margin="1227,0,0,0" BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Cursor="Hand">
+                <Image Source="/Resources/Exit.png" Height="44" Width="49"></Image>
+            </Button>
+        </Border>
+
+        <Grid Background="Transparent" Grid.Row="1" Margin="0,0,0,276">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--Main Expander-->
+            <Expander FlowDirection="RightToLeft" Grid.Column="0" Grid.Row="1" Background="#FF3A3838" IsExpanded="True" Margin="0,0,0,658">
+                <Expander.Header>
+                    <DockPanel FlowDirection="LeftToRight" Height="30">
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Menu" Height="34" Width="29"></materialDesign:PackIcon>
+                            <TextBlock Text="Menu" Style="{StaticResource MaterialDesignBody1TextBlock}" Width="74" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,1"></TextBlock>
+                        </StackPanel>
+                    </DockPanel>
+                </Expander.Header>
+
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!--User Expander-->
+                        <Expander Margin="0,20" Background="#FF4F4C4C" IsExpanded="True">
+                            <Expander.Header>
+                                <DockPanel FlowDirection="LeftToRight">
+                                    <materialDesign:PackIcon Kind="People" Height="30" Width="33"></materialDesign:PackIcon>
+                                    <TextBlock Text="Users" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="AliceBlue" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="59"></TextBlock>
+                                </DockPanel>
+                            </Expander.Header>
+                            <ListView ItemsSource="{Binding Users}" FlowDirection="LeftToRight">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding DisplayName}"></TextBlock>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Expander>
+                    </Grid>
+
+                    <Grid Margin="0,-20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!--Options Expander-->
+                        <Expander Margin="0,20" Background="#FF4F4C4C" IsExpanded="False">
+                            <Expander.Header>
+                                <DockPanel FlowDirection="LeftToRight">
+                                    <materialDesign:PackIcon Kind="Settings" Height="30" Width="33"></materialDesign:PackIcon>
+                                    <TextBlock Text="Options" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="AliceBlue" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="80"></TextBlock>
+                                </DockPanel>
+                            </Expander.Header>
+
+                            <DockPanel FlowDirection="LeftToRight">
+                                <Button Foreground="Red"
+                                 DockPanel.Dock="Left"
+                               Background="#FF433F3F"
+                               BorderBrush="#FF2C2B2B"
+                               Margin="0,10,120,10"
+                               Command="{Binding Disconnect}">
+                                    <StackPanel Orientation="Horizontal" Width="121" Height="28">
+                                        <materialDesign:PackIcon Kind="Logout" Width="22" Height="18" Margin="0,5,0,0"/>
+                                        <TextBlock Text="Log Out" 
+                                               Foreground="Red"
+                                               TextAlignment="Center" Height="18" Margin="0,5" Width="55"/>
+                                    </StackPanel>
+                                </Button>
+                                <ProgressBar 
+                                    DockPanel.Dock="Left"
+                                     Value="0"
+                                     IsIndeterminate="True" 
+                                     Foreground="Silver" 
+                                    Height="24"
+                                    Width="26"
+                                    Margin="-120,-5,0,0">
+                                    <ProgressBar.Style>
+                                        <Style TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDisconnecting}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsDisconnecting}" Value="False">
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ProgressBar.Style>
+                                </ProgressBar>
+                            </DockPanel>
+                        </Expander>
+                    </Grid>
+
+                </StackPanel>
+            </Expander>
+        </Grid>
+
+        <materialDesign:Card UniformCornerRadius="5" Margin="10,1,0,939" Grid.Column="1" Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
+                <TextBlock Width="116" Text="Message History" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </materialDesign:Card>
+        <materialDesign:Card Margin="10,54,0,209" Grid.Column="1" Grid.Row="1" Background="#FF3A3838" UniformCornerRadius="5">
+            <ListView Grid.Column="1" 
+                  Background="#FF3A3838" 
+                  Grid.Row="1"                   
+                  Grid.RowSpan="2"
+                  ItemsSource="{Binding Messages}"                  
+                  Margin="0,0,0,54"
+                  Scroll:ScrollBehavior.ScrollOnNewItem="True">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel VerticalAlignment="Bottom"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}: {1}">
+                                    <Binding Path="User.DisplayName" />
+                                    <Binding Path="Message" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </materialDesign:Card>
+
+        <materialDesign:Card 
+            UniformCornerRadius="5"
+            Grid.Row="1" 
+            Grid.Column="1" 
+            Margin="24,728,18,223">
+            <TextBox VerticalAlignment="Center"
+                     FontSize="15" 
+                     Text="{Binding CurrentMessage, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="Message"
+                     Height="37"
+                     VerticalContentAlignment="Center"
+                     CaretBrush="White"
+                     materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding Send}" Key="Enter" />
+                </TextBox.InputBindings>
+            </TextBox>
+        </materialDesign:Card>
+
+    </Grid>
+</Window>

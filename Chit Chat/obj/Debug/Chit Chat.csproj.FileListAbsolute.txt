@@ -1,0 +1,21 @@
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.csprojAssemblyReference.cache
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Views\ChatView.g.cs
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Views\HomeView.g.cs
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Views\App.g.cs
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat_MarkupCompile.cache
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat_MarkupCompile.lref
+C:\Users\User\Desktop\WebSocket Chat\Chit Chat.exe.config
+C:\Users\User\Desktop\WebSocket Chat\Chit Chat.exe
+C:\Users\User\Desktop\WebSocket Chat\Chit Chat.pdb
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Views\App.baml
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Resources\ButtonStyles.baml
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Views\ChatView.baml
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Views\HomeView.baml
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.g.resources
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\ChitChat.Properties.Resources.resources
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.csproj.GenerateResource.cache
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.csproj.CoreCompileInputs.cache
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.csproj.CopyComplete
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.exe
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.pdb
