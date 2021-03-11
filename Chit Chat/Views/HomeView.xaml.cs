@@ -47,5 +47,10 @@ namespace ChitChat.Views
             var passwordBox = sender as PasswordBox;
             (DataContext as HomeViewModel).Password = passwordBox.SecurePassword;
         }
+
+        private void Register(object sender, RoutedEventArgs e)
+        {
+            Transitioner.SelectedIndex = 0;
+        }
     }
 }

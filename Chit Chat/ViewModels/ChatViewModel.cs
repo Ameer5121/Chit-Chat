@@ -37,7 +37,7 @@ namespace ChitChat.ViewModels
             _httpclient = new HttpClient();
             _heartbeatToken = new CancellationTokenSource();
             CreateHandlers();
-            _httpclient.BaseAddress = new Uri("http://79.180.212.252:5001");
+            _httpclient.BaseAddress = new Uri("http://localhost:5001");
             SendHeartBeat(_heartbeatToken.Token);
         }
 

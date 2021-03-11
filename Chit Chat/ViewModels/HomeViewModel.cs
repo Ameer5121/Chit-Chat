@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using ChitChat.Commands;
 using ChitChat.Helper;
 using System.Windows;
+using System.Net.Mail;
 using Microsoft.AspNetCore.SignalR.Client;
 using ChitChat.Events;
 using Newtonsoft.Json;
@@ -26,19 +27,23 @@ namespace ChitChat.ViewModels
     class HomeViewModel : ViewModelBase
     {
         private bool _isConnecting = false;
+        private bool _isRegistering = false;
         private string _status;
         private string _currentUserName;
         private SecureString _password;
+        private string _email;
+        private string _displayName;
         private HubConnection connection;
         private UserModel _currentUser;
         private HttpClient _httpClient;
         public EventHandler<ConnectionEventArgs> OnSuccessfulConnect;
+        public EventHandler OnRegister;
 
         public HomeViewModel()
         {
             _httpClient = new HttpClient();
             _httpClient.Timeout = TimeSpan.FromSeconds(5);
-            _httpClient.BaseAddress = new Uri("http://79.180.212.252:5001");
+            _httpClient.BaseAddress = new Uri("http://localhost:5001");
             _password = new SecureString();
         }
         public string Status
@@ -46,24 +51,54 @@ namespace ChitChat.ViewModels
             get => _status;
             set => SetPropertyValue(ref _status, value);       
         }
-
         public bool IsConnecting
         {
             get => _isConnecting;
             set => SetPropertyValue(ref _isConnecting, value);
         }
+        public bool IsRegistering
+        {
+            get => _isRegistering;
+            set => SetPropertyValue(ref _isRegistering, value);
+        }
         public string UserName
         {
             get => _currentUserName;
-            set => SetPropertyValue(ref _currentUserName, value);
+            set
+            {
+                if (value.Length > 15)
+                    return;
+                SetPropertyValue(ref _currentUserName, value);
+            }
         }
         public SecureString Password
         {
             get => _password;
-            set => SetPropertyValue(ref _password, value);
+            set
+            {
+                if (value.Length > 15)
+                    return;
+                _password = value;
+            }
+        }
+        public string Email
+        {
+            get => _email;
+            set => SetPropertyValue(ref _email, value);
+        }
+        public string DisplayName
+        {
+            get => _displayName;
+            set
+            {
+                if (value.Length > 10)
+                    return;
+                SetPropertyValue(ref _displayName, value);
+            }
         }
 
-        public ICommand Register => new RelayCommand(RegisterAccount);
+
+        public ICommand Register => new RelayCommand(RegisterAccount, CanRegisterAccount);
         public ICommand Login => new RelayCommand(LoginToServer, CanLogin);
 
 
@@ -79,13 +114,11 @@ namespace ChitChat.ViewModels
                 await Task.Run(async () =>
                 {
                     _ = LogStatus("Connecting...");
-                    var credentials = new UserCredentials(_currentUserName, _password);
-                    var user = await SendUser(credentials);
-
+                    var user = await SendUser(new UserCredentials(_currentUserName, Decrypt(_password)));
                     _currentUser = new UserModel { DisplayName = user.DisplayName };
 
                     connection = new HubConnectionBuilder()
-                      .WithUrl("http://79.180.212.252:5001/chathub")
+                      .WithUrl("http://localhost:5001/chathub")
                       .Build();
                     
 
@@ -110,9 +143,65 @@ namespace ChitChat.ViewModels
             }
         }
 
+        private bool CanRegisterAccount()
+        {
+            return String.IsNullOrEmpty(UserName) ||
+                Password.Length <= 0 ||
+                String.IsNullOrEmpty(Email) ||
+                String.IsNullOrEmpty(DisplayName) ||
+                _isRegistering ? false : true;
+        }
+
         private async Task RegisterAccount()
         {
-           
+
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    IsRegistering = true;
+                    //Validate email
+                    var email = new MailAddress(Email);
+
+                    var credentials = new UserCredentials(UserName, Decrypt(Password), Email, DisplayName);
+                    var jsonData = JsonConvert.SerializeObject(credentials);
+                    var response = await _httpClient.PostAsync("/api/chat/PostUser",
+                      new StringContent(jsonData, Encoding.UTF8, "application/json"));
+                    var userResponse = await response.GetDeserializedData();                 
+                    if (userResponse.ResponseCode == HttpStatusCode.BadRequest)
+                    {
+                        _ = LogStatus(userResponse.Message);
+                        IsRegistering = false;
+                    }
+                    else
+                    {
+                        _ = LogStatus(userResponse.Message);
+                        UserName = "";
+                        Email = "";
+                        DisplayName = "";
+                        IsRegistering = false;
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            OnRegister?.Invoke(this, EventArgs.Empty);
+                        });
+                    }
+                });
+            }
+            catch (FormatException)
+            {
+                _ = LogStatus("Email Address is Invalid");
+                IsRegistering = false;
+            }
+            catch (TaskCanceledException)
+            {
+                _ = LogStatus("Could not connect to the server.");
+                IsRegistering = false;
+            }
+            catch (HttpRequestException)
+            {
+                _ = LogStatus("Could not connect to the server.");
+                IsRegistering = false;
+            }
         }
 
         private void CreateHandlers()
@@ -121,8 +210,7 @@ namespace ChitChat.ViewModels
             {
                 // Invoke the handler from the UI thread.
                 Application.Current.Dispatcher.Invoke(() =>
-                {
-                    
+                {                   
                     OnSuccessfulConnect?.Invoke(this, new ConnectionEventArgs
                     {
                        ChatViewModelContext = new ChatViewModel(data, _currentUser, connection)                       
@@ -132,27 +220,23 @@ namespace ChitChat.ViewModels
             });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="user">The user to send to the server</param>
-        /// <param name="isExternal">Determines whether the connection is external or internal</param>
-        /// <returns></returns>
+       /// <summary>
+       /// Sends the user credentials to the server and returns a UserResponseModel.
+       /// </summary>
+       /// <param name="credentials"></param>
+       /// <returns>UserResponseModel</returns>
         private async Task<UserModel> SendUser(UserCredentials credentials)
         {
             IsConnecting = true;          
-            credentials = new UserCredentials(_currentUserName, Decrypt(credentials.EncryptedPassword));
             var jsonData = JsonConvert.SerializeObject(credentials);
-            var response = await _httpClient.PostAsync("/api/chat/LoginUser",
-                 new StringContent(jsonData, Encoding.UTF8, "application/json"));
-
-            var data = await response.Content.ReadAsStringAsync();
-            var userModel = JsonConvert.DeserializeObject<UserModel>(data);
-            if (string.IsNullOrEmpty(userModel.DisplayName))
+            var response = await _httpClient.PostAsync("/api/chat/Login",
+                  new StringContent(jsonData, Encoding.UTF8, "application/json"));
+            var userResponse = await response.GetDeserializedData();
+            if (userResponse.ResponseCode == HttpStatusCode.NotFound)
             {
-                throw new LoginException("Username or Password Incorrect!");
-            }
-            return userModel;
+                throw new LoginException(userResponse.Message);
+            }          
+            return userResponse.Payload;
         }
 
         private string Decrypt(SecureString password)

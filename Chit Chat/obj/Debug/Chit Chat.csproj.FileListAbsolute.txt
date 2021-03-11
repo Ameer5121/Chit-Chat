@@ -19,3 +19,5 @@ D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.csproj.CoreCompileInput
 D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.csproj.CopyComplete
 D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.exe
 D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Chit Chat.pdb
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Views\RegisterView.g.cs
+D:\Projects\Gits\Chit Chat\Chit Chat\obj\Debug\Views\RegisterView.baml

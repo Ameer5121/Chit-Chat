@@ -24,16 +24,25 @@
             <RowDefinition Height="135*"/>
         </Grid.RowDefinitions>
 
+        <materialDesign:Transitioner x:Name="Transitioner" Grid.Row="1" Panel.ZIndex="1" SelectedIndex="1">
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
+                <local:RegisterView Margin="0,0,0,-1"></local:RegisterView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
+
+            </materialDesign:TransitionerSlide>
+        </materialDesign:Transitioner>
+
         <!--Black Border & Exit Button-->
         <Border Background="#FF2C2B2B" Grid.Row="0">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="ChatBubbleOutline" Height="48" Width="28"></materialDesign:PackIcon>
-                <TextBlock Text="WebSocket Chat" 
+                <TextBlock Text="Chit Chat" 
                    TextAlignment="Center"
                    FontSize="15"
                    Foreground="White" Style="{StaticResource MaterialDesignHeadline3TextBlock}" 
-                  Margin="5,15,0,10" Width="111"/>
-                <Button Margin="455,0,0,0" BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Width="55">
+                  Margin="5,15,0,10" Width="70"/>
+                <Button Margin="496,0,0,0" BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Width="55">
                     <Image Source="/Resources/Exit.png" Height="44" Width="54"></Image>
                 </Button>
             </StackPanel>
@@ -44,7 +53,7 @@
         <!--User Name-->
         <TextBox HorizontalAlignment="Right" 
                  Width="184" 
-                 Margin="0,82,250,372" 
+                 Margin="0,77,250,372" 
                  Grid.Row="1"
                  FontSize="20"
                  BorderBrush="White"
@@ -61,7 +70,7 @@
         <materialDesign:PackIcon Kind="Key" Margin="193,194,0,0" Grid.Row="1" Height="25" Width="22"></materialDesign:PackIcon>
         <PasswordBox HorizontalAlignment="Right" 
                  Width="184" 
-                 Margin="0,176,250,283" 
+                 Margin="0,167,250,283" 
                  Grid.Row="1"
                  FontSize="20"
                  BorderBrush="White"
@@ -85,7 +94,7 @@
                 Background="#FF433F3F"
                 Foreground="White"
                 BorderBrush="#FF2C2B2B"
-                Command="{Binding Login}" Height="Auto"></Button>
+                Command="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Height="Auto"></Button>
 
         <!--Register-->
         <Button Margin="229,337,269,95" 
@@ -93,14 +102,14 @@
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Register" 
             FontSize="25"
-            Command="{Binding Host}"
+            Click="Register"
             Height="Auto"
             Foreground="White"
             Background="#FF433F3F"
-            BorderBrush="#FF2C2B2B"/>
+            BorderBrush="#FF2C2B2B"></Button>
 
         <TextBlock Text="{Binding Status}" 
-                   Margin="187,423,229,47"
+                   Margin="187,422,227,48"
                    Grid.Row="1"
                    FontSize="15"
                    TextAlignment="Center"
@@ -128,5 +137,6 @@
                 </Style>
             </ProgressBar.Style>
         </ProgressBar>
+       
     </Grid>
 </Window>
