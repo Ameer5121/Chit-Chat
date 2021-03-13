@@ -233,6 +233,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helper\HTTPResponseExtension.cs" />
+    <Compile Include="Services\HttpService.cs" />
     <Compile Include="Helper\LoginException.cs" />
     <Compile Include="Models\DataModel.cs" />
     <Compile Include="Events\ConnectionEventArgs.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserResponseModel.cs" />
+    <Compile Include="Services\IHttpService.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\App.xaml.cs">

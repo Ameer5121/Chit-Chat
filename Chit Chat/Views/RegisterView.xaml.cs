@@ -1,4 +1,5 @@
-﻿using ChitChat.ViewModels;
+﻿using ChitChat.Services;
+using ChitChat.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace ChitChat.Views
         public RegisterView()
         {
             InitializeComponent();
-            DataContext = new HomeViewModel();
+            DataContext = new HomeViewModel(HttpService.HttpServiceInstance);
             (DataContext as HomeViewModel).OnRegister += ClearPassword;
         }
 

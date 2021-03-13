@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using ChitChat.Events;
+using ChitChat.Services;
 using ChitChat.ViewModels;
 
 namespace ChitChat.Views
@@ -19,7 +20,7 @@ namespace ChitChat.Views
         public HomeView()
         {
             InitializeComponent();
-            DataContext = new HomeViewModel();
+            DataContext = new HomeViewModel(HttpService.HttpServiceInstance);
             (DataContext as HomeViewModel).OnSuccessfulConnect += ChangeWindow;
         }
 

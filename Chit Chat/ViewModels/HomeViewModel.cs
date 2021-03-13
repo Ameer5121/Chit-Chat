@@ -21,6 +21,7 @@ using ChitChat.Events;
 using Newtonsoft.Json;
 using System.Security;
 using System.Runtime.InteropServices;
+using ChitChat.Services;
 
 namespace ChitChat.ViewModels
 {
@@ -35,15 +36,13 @@ namespace ChitChat.ViewModels
         private string _displayName;
         private HubConnection connection;
         private UserModel _currentUser;
-        private HttpClient _httpClient;
+        private IHttpService _httpService;
         public EventHandler<ConnectionEventArgs> OnSuccessfulConnect;
         public EventHandler OnRegister;
 
-        public HomeViewModel()
+        public HomeViewModel(IHttpService httpService)
         {
-            _httpClient = new HttpClient();
-            _httpClient.Timeout = TimeSpan.FromSeconds(5);
-            _httpClient.BaseAddress = new Uri("http://localhost:5001");
+            _httpService = httpService;         
             _password = new SecureString();
         }
         public string Status
@@ -64,22 +63,12 @@ namespace ChitChat.ViewModels
         public string UserName
         {
             get => _currentUserName;
-            set
-            {
-                if (value.Length > 15)
-                    return;
-                SetPropertyValue(ref _currentUserName, value);
-            }
+            set => SetPropertyValue(ref _currentUserName, value);
         }
         public SecureString Password
         {
             get => _password;
-            set
-            {
-                if (value.Length > 15)
-                    return;
-                _password = value;
-            }
+            set => _password = value; 
         }
         public string Email
         {
@@ -91,12 +80,11 @@ namespace ChitChat.ViewModels
             get => _displayName;
             set
             {
-                if (value.Length > 10)
+                if (value.Length > 20)
                     return;
                 SetPropertyValue(ref _displayName, value);
             }
         }
-
 
         public ICommand Register => new RelayCommand(RegisterAccount, CanRegisterAccount);
         public ICommand Login => new RelayCommand(LoginToServer, CanLogin);
@@ -121,7 +109,6 @@ namespace ChitChat.ViewModels
                       .WithUrl("http://localhost:5001/chathub")
                       .Build();
                     
-
                     CreateHandlers();
                     await connection.StartAsync();
                 });
@@ -165,8 +152,7 @@ namespace ChitChat.ViewModels
 
                     var credentials = new UserCredentials(UserName, Decrypt(Password), Email, DisplayName);
                     var jsonData = JsonConvert.SerializeObject(credentials);
-                    var response = await _httpClient.PostAsync("/api/chat/PostUser",
-                      new StringContent(jsonData, Encoding.UTF8, "application/json"));
+                    var response = await _httpService.PostData("/api/chat/PostUser", jsonData);                    
                     var userResponse = await response.GetDeserializedData();                 
                     if (userResponse.ResponseCode == HttpStatusCode.BadRequest)
                     {
@@ -213,7 +199,7 @@ namespace ChitChat.ViewModels
                 {                   
                     OnSuccessfulConnect?.Invoke(this, new ConnectionEventArgs
                     {
-                       ChatViewModelContext = new ChatViewModel(data, _currentUser, connection)                       
+                       ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)                       
                     });
                 });
                 connection.Remove("Connected");
@@ -229,8 +215,7 @@ namespace ChitChat.ViewModels
         {
             IsConnecting = true;          
             var jsonData = JsonConvert.SerializeObject(credentials);
-            var response = await _httpClient.PostAsync("/api/chat/Login",
-                  new StringContent(jsonData, Encoding.UTF8, "application/json"));
+            var response = await _httpService.PostData("/api/chat/Login", jsonData);               
             var userResponse = await response.GetDeserializedData();
             if (userResponse.ResponseCode == HttpStatusCode.NotFound)
             {
