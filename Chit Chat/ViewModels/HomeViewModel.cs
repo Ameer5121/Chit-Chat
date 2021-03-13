@@ -221,10 +221,10 @@ namespace ChitChat.ViewModels
         }
 
        /// <summary>
-       /// Sends the user credentials to the server and returns a UserResponseModel.
+       /// Sends the user credentials to the server and returns a UserModel upon a successful connection.
        /// </summary>
        /// <param name="credentials"></param>
-       /// <returns>UserResponseModel</returns>
+       /// <returns>UserModel</returns>
         private async Task<UserModel> SendUser(UserCredentials credentials)
         {
             IsConnecting = true;          
