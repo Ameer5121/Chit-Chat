@@ -142,9 +142,6 @@ namespace ChitChat.ViewModels
             }               
         }
 
-        /// <summary>
-        /// Gets the correct endpoint depending on the connection type.
-        /// </summary>
         private async Task DisconnectFromServer()
         {
             IsDisconnecting = true;
