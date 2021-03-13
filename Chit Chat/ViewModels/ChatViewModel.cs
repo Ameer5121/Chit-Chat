@@ -35,9 +35,10 @@ namespace ChitChat.ViewModels
             _messages = data.Messages;
             _connection = connection;
             _httpclient = new HttpClient();
+            _httpclient.BaseAddress = new Uri("http://localhost:5001");
+            _httpclient.Timeout = TimeSpan.FromSeconds(5);
             _heartbeatToken = new CancellationTokenSource();
             CreateHandlers();
-            _httpclient.BaseAddress = new Uri("http://localhost:5001");
             SendHeartBeat(_heartbeatToken.Token);
         }
 
@@ -110,6 +111,11 @@ namespace ChitChat.ViewModels
                 {
                     //Server is down.
                    await DisconnectFromServer();
+                }
+                catch (TaskCanceledException)
+                {
+                    //Server is down.
+                    await DisconnectFromServer();
                 }
             }
         }
