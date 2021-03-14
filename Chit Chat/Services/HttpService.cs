@@ -29,9 +29,9 @@ namespace ChitChat.Services
             return response;
         }
 
-        public async Task<HttpResponseMessage> GetData(string endponit)
+        public async Task<HttpResponseMessage> GetData(string endpoint)
         {
-            var response = await _httpClient.GetAsync(endponit);
+            var response = await _httpClient.GetAsync(endpoint);
             return response;
         }
     }
