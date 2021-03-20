@@ -13,7 +13,7 @@ Login             |  Register
 * MultiThreading through **System.Threading**
 * Socket Programming through **Microsoft.AspNetCore.SignalR.Client**
 * JSON serialization through **Newtonsoft.Json**
-* **Web API** project to handle HTTP & DataBase requests. Note that this project is private as it handles sensitive information.
+* **Web API** project to handle HTTP & DataBase requests. https://github.com/Sound932/WebAPI-ChatHub.git
 
 # Core functionality:
 * Login / Register options
