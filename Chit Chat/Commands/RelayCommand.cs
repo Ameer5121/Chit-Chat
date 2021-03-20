@@ -9,14 +9,13 @@ namespace ChitChat.Commands
 {
     public class RelayCommand : ICommand
     {
-        private readonly Func<Task> Taskexecute;
-        private readonly Action execute;
-
+        private readonly Func<Task> execute1;
+        private readonly Func<bool, Task> execute2;
         private readonly Func<bool> canExecute;
         public RelayCommand(Func<Task> execute) : this(execute, canExecute: null)
         {
         }
-        public RelayCommand(Action execute) : this(execute, canExecute: null)
+        public RelayCommand(Func<bool, Task> execute) : this(execute, canExecute: null)
         {
         }
 
@@ -25,16 +24,16 @@ namespace ChitChat.Commands
             if (execute == null)
                 throw new ArgumentNullException("execute");
 
-            this.Taskexecute = execute;
+            this.execute1 = execute;
             this.canExecute = canExecute;
         }
 
-        public RelayCommand(Action execute, Func<bool> canExecute)
+        public RelayCommand(Func<bool, Task> execute, Func<bool> canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
 
-            this.execute = execute;
+            this.execute2 = execute;
             this.canExecute = canExecute;
         }
 
@@ -58,12 +57,12 @@ namespace ChitChat.Commands
 
         public async void Execute(object parameter)
         {
-            if (execute == null)
+            if (execute1 == null)
             {
-               await Taskexecute();
+               await execute2((bool)parameter);
                 return;
             }
-            execute();
+            await execute1();
         }
     }
 }

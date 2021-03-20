@@ -97,8 +97,7 @@ namespace ChitChat.ViewModels
         private async Task LoginToServer()
         {
             try
-            {
-             
+            {           
                 await Task.Run(async () =>
                 {
                     _ = LogStatus("Connecting...");
@@ -108,7 +107,6 @@ namespace ChitChat.ViewModels
                     connection = new HubConnectionBuilder()
                       .WithUrl("http://localhost:5001/chathub")
                       .Build();
-                    
                     CreateHandlers();
                     await connection.StartAsync();
                 });
@@ -196,10 +194,11 @@ namespace ChitChat.ViewModels
             {
                 // Invoke the handler from the UI thread.
                 Application.Current.Dispatcher.Invoke(() =>
-                {                   
+                {
+                    _currentUser.ConnectionID = connection.ConnectionId;
                     OnSuccessfulConnect?.Invoke(this, new ConnectionEventArgs
                     {
-                       ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)                       
+                       ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)
                     });
                 });
                 connection.Remove("Connected");

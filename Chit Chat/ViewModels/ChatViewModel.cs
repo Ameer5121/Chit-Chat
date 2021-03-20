@@ -72,7 +72,7 @@ namespace ChitChat.ViewModels
         }
         private async Task SendMessage()
         {
-             var messagetoSend = new MessageModel { Message = CurrentMessage, User = _currentUser};
+            var messagetoSend = new MessageModel { Message = CurrentMessage, User = _currentUser };
              var jsonData = JsonConvert.SerializeObject(messagetoSend);
              try
              {
@@ -81,14 +81,14 @@ namespace ChitChat.ViewModels
              }
              catch (HttpRequestException)
              {
-                 Messages.Add(new MessageModel
-                 {
-                     Message = "Could not send message.",
-                     User = new UserModel
-                     {
-                         DisplayName = "System"
-                     }
-                 });
+                Messages.Add(new MessageModel
+                {
+                    Message = "Could not send message!",
+                    User = new UserModel
+                    {
+                        DisplayName = "System"
+                    }
+                });            
              }
         }
 

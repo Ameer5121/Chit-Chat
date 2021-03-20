@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ChitChat.Models
 {
-    public struct UserModel
+    public class UserModel
     { 
-        public string DisplayName { get; set; }     
+        public string DisplayName { get; set; }
+        public string ConnectionID { get; set; }
     }
 }

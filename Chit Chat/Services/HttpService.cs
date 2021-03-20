@@ -19,8 +19,9 @@ namespace ChitChat.Services
         private HttpService() { }
         public static HttpService HttpServiceInstance
         {
-            get => _httpService;
+            get => _httpService;            
         }
+
 
         public async Task<HttpResponseMessage> PostData(string endpoint, string jsonContent)
         {

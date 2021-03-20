@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace ChitChat.Models
 {
-    public struct MessageModel
+    public class MessageModel
     {
-       public string Message { get; set; }
-      
-       public UserModel User { get; set; }
-   
+        public UserModel User { get; set; }
+        public string Message { get; set; }
+        public UserModel DestinationUser { get; set; }
     }
 }

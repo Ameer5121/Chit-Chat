@@ -37,6 +37,7 @@
             </Button>
         </Border>
 
+
         <Grid Background="Transparent" Grid.Row="1" Margin="0,0,0,276">
 
             <Grid.RowDefinitions>
@@ -66,13 +67,20 @@
                                     <TextBlock Text="Users" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="AliceBlue" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="59"></TextBlock>
                                 </DockPanel>
                             </Expander.Header>
-                            <ListView ItemsSource="{Binding Users}" FlowDirection="LeftToRight">
+
+                            <ListView ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding DisplayName}"></TextBlock>
+                                        <DockPanel LastChildFill="False" FlowDirection="LeftToRight">
+                                            <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,3,0,0"></TextBlock>
+                                            <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
+                                                <Button Width="500">PRIVATE CHATTTTTTTTTTTTTTTTTTTTT</Button>
+                                            </materialDesign:PopupBox>
+                                        </DockPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
+
                         </Expander>
                     </Grid>
 
@@ -133,6 +141,8 @@
             </Expander>
         </Grid>
 
+
+
         <materialDesign:Card UniformCornerRadius="5" Margin="10,1,0,939" Grid.Column="1" Grid.Row="1">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
@@ -146,7 +156,7 @@
                   Grid.RowSpan="2"
                   ItemsSource="{Binding Messages}"                  
                   Margin="0,0,0,54"
-                  Scroll:ScrollBehavior.ScrollOnNewItem="True">
+                  Scroll:ScrollBehavior.ScrollOnNewItem="True" RenderTransformOrigin="0.5,0.5">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel VerticalAlignment="Bottom"/>
