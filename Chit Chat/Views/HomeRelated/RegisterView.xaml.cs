@@ -25,7 +25,11 @@ namespace ChitChat.Views
         public RegisterView()
         {
             InitializeComponent();
-            DataContext = new HomeViewModel(HttpService.HttpServiceInstance);
+            this.Loaded += OnControlLoaded;       
+        }
+
+        private void OnControlLoaded(object sender, RoutedEventArgs e)
+        {
             (DataContext as HomeViewModel).OnRegister += ClearPassword;
         }
 

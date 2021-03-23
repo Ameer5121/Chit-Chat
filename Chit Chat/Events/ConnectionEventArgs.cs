@@ -8,7 +8,7 @@ using ChitChat.ViewModels;
 
 namespace ChitChat.Events
 {
-    class ConnectionEventArgs : EventArgs
+    public class ConnectionEventArgs : EventArgs
     {
         public ChatViewModel ChatViewModelContext;
     }

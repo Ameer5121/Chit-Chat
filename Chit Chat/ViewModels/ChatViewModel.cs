@@ -132,9 +132,7 @@ namespace ChitChat.ViewModels
             {
                Application.Current.Dispatcher.Invoke(() =>
                {
-                   Messages.Clear();
-                   foreach (var newData in data.Messages)
-                       Messages.Add(newData);
+                   Messages.Add(data.Messages.LastOrDefault());
                });
             }               
         }

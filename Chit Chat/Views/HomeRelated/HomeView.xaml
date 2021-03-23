@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChitChat.Views"
+        xmlns:viewmodels="clr-namespace:ChitChat.ViewModels"
         mc:Ignorable="d"
         Title="HomeView" 
         Height="549" 
@@ -18,6 +19,7 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         ResizeMode="NoResize" 
         MouseDown="Window_MouseDown">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="13*"/>

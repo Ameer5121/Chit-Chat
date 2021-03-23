@@ -33,5 +33,10 @@ namespace ChitChat.Views
             (DataContext as ChatViewModel).OnDisconnect -= ChangeToHomeWindow;
             this.Close();
         }
+
+        private void PrivateChat_Click(object sender, RoutedEventArgs e)
+        {
+            Transitioner.SelectedIndex = 0;
+        }
     }
 }

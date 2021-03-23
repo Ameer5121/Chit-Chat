@@ -30,6 +30,7 @@
             <ColumnDefinition Width="341*"/>
         </Grid.ColumnDefinitions>
 
+        
         <!--Black Border & Exit Button-->
         <Border Background="#FF2C2B2B" Grid.Row="0" Grid.ColumnSpan="2">
             <Button Margin="1227,0,0,0" BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Cursor="Hand">
@@ -74,7 +75,7 @@
                                         <DockPanel LastChildFill="False" FlowDirection="LeftToRight">
                                             <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,3,0,0"></TextBlock>
                                             <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
-                                                <Button Width="500">PRIVATE CHATTTTTTTTTTTTTTTTTTTTT</Button>
+                                                <Button Width="120" Content="Private Chat" Click="PrivateChat_Click"></Button>
                                             </materialDesign:PopupBox>
                                         </DockPanel>
                                     </DataTemplate>
@@ -142,7 +143,6 @@
         </Grid>
 
 
-
         <materialDesign:Card UniformCornerRadius="5" Margin="10,1,0,939" Grid.Column="1" Grid.Row="1">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
@@ -150,13 +150,13 @@
             </StackPanel>
         </materialDesign:Card>
         <materialDesign:Card Margin="10,54,0,209" Grid.Column="1" Grid.Row="1" Background="#FF3A3838" UniformCornerRadius="5">
-            <ListView Grid.Column="1" 
+            <ListView x:Name="mybabe1" Grid.Column="1" 
                   Background="#FF3A3838" 
                   Grid.Row="1"                   
                   Grid.RowSpan="2"
                   ItemsSource="{Binding Messages}"                  
                   Margin="0,0,0,54"
-                  Scroll:ScrollBehavior.ScrollOnNewItem="True" RenderTransformOrigin="0.5,0.5">
+                 RenderTransformOrigin="0.5,0.5" Scroll:FilterMessages.FilterMessages="Everyone">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel VerticalAlignment="Bottom"/>
@@ -195,6 +195,16 @@
                 </TextBox.InputBindings>
             </TextBox>
         </materialDesign:Card>
+
+        <!--Private Chat Window-->
+        <materialDesign:Transitioner x:Name="Transitioner" Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" Margin="24,151,321,312">
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
+                <local:PrivateChatView Margin="0,0,0,-1"></local:PrivateChatView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
+
+            </materialDesign:TransitionerSlide>
+        </materialDesign:Transitioner>
 
     </Grid>
 </Window>

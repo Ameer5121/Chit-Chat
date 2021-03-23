@@ -232,12 +232,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helper\FilterMessages.cs" />
     <Compile Include="Helper\HTTPResponseExtension.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Helper\LoginException.cs" />
     <Compile Include="Models\DataModel.cs" />
     <Compile Include="Events\ConnectionEventArgs.cs" />
-    <Compile Include="Helper\ScrollBehavior.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -254,10 +254,13 @@
     <Compile Include="Views\ChatView.xaml.cs">
       <DependentUpon>ChatView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeView.xaml.cs">
+    <Compile Include="Views\HomeRelated\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RegisterView.xaml.cs">
+    <Compile Include="Views\PrivateChatView.xaml.cs">
+      <DependentUpon>PrivateChatView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeRelated\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -310,11 +313,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomeView.xaml">
+    <Page Include="Views\HomeRelated\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RegisterView.xaml">
+    <Page Include="Views\PrivateChatView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeRelated\RegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

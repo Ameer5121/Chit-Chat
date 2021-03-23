@@ -25,7 +25,7 @@ using ChitChat.Services;
 
 namespace ChitChat.ViewModels
 {
-    class HomeViewModel : ViewModelBase
+   public class HomeViewModel : ViewModelBase
     {
         private bool _isConnecting = false;
         private bool _isRegistering = false;

@@ -116,7 +116,7 @@
             </ProgressBar.Style>
         </ProgressBar>
 
-        <!--Register-->
+        <!--Back-->
         <Button Margin="0,450,498,-1"
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Back" 
