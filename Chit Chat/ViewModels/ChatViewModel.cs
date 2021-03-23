@@ -20,7 +20,8 @@ namespace ChitChat.ViewModels
 {
     public class ChatViewModel : ViewModelBase
     {
-        private UserModel _currentUser;
+        private static UserModel _currentUser;
+        private UserModel _selectedUser;
         private ObservableCollection<UserModel> _users;
         private ObservableCollection<MessageModel> _messages;
         private CancellationTokenSource _heartbeatToken;
@@ -42,6 +43,13 @@ namespace ChitChat.ViewModels
         }
 
         public ICommand Send => new RelayCommand(SendMessage, CanSendMessage);
+
+        public UserModel SelectedUser 
+        {
+            get => _selectedUser;
+            set => _selectedUser = value;              
+        }
+
         public ObservableCollection<UserModel> Users
         {
             get => _users;
@@ -70,9 +78,17 @@ namespace ChitChat.ViewModels
         {
             return string.IsNullOrEmpty(CurrentMessage) ? false : true;
         }
-        private async Task SendMessage()
+        private async Task SendMessage(UserModel destinationUser)
         {
-            var messagetoSend = new MessageModel { Message = CurrentMessage, User = _currentUser };
+            MessageModel messagetoSend = null;
+            if (destinationUser == null)
+            {
+                messagetoSend = new MessageModel { Message = CurrentMessage, User = _currentUser };
+            }
+            else
+            {
+                messagetoSend = new MessageModel { Message = CurrentMessage, User = _currentUser, DestinationUser = destinationUser };
+            }
              var jsonData = JsonConvert.SerializeObject(messagetoSend);
              try
              {
@@ -145,6 +161,11 @@ namespace ChitChat.ViewModels
             _heartbeatToken.Cancel();
             await _connection.DisposeAsync();
             OnDisconnect?.Invoke(this, EventArgs.Empty);
+        }
+
+        public static UserModel GetCurrentUser()
+        {
+            return _currentUser;
         }
     }
 }

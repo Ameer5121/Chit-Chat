@@ -1,4 +1,5 @@
 ﻿using ChitChat.Models;
+using ChitChat.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ namespace ChitChat.Helper
     {
         private static ListView _listView;
         private static ObservableCollection<MessageModel> _collection;
+        private static UserModel _currentUser;
         public static FilterType GetFilterMessageValue(DependencyObject obj)
         {
             return (FilterType)obj.GetValue(FilterMessagesProperty);
@@ -45,6 +47,7 @@ namespace ChitChat.Helper
         private static void OnLoaded(object sender, RoutedEventArgs e)
         {
             _collection = _listView.ItemsSource as ObservableCollection<MessageModel>;
+            _currentUser = ChatViewModel.GetCurrentUser();
             if (_collection != null)
             {
                 _collection.CollectionChanged += OnCollectionChanged;
@@ -53,12 +56,18 @@ namespace ChitChat.Helper
 
         private static void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (GetFilterMessageValue(_listView) == FilterType.Everyone)
+            switch (GetFilterMessageValue(_listView))
             {
-               _listView.ItemsSource = _collection.Where(x => x.DestinationUser == null);
-               _listView.ScrollIntoView(e.NewItems[0]);
-               _listView.SelectedItem = e.NewItems[0];
+                case FilterType.Everyone:
+                    _listView.ItemsSource = _collection.Where(x => x.DestinationUser == null);
+                    break;
+                case FilterType.Private:
+                    UserModel selectedUser = _listView.SelectedItem as UserModel;
+                    _listView.ItemsSource = _collection.Where(x => x.DestinationUser == _currentUser && x.DestinationUser == selectedUser);
+                    break;
             }
+            _listView.ScrollIntoView(e.NewItems[0]);
+            _listView.SelectedItem = e.NewItems[0];
         }
 
         public enum FilterType

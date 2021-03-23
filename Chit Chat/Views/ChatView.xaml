@@ -69,7 +69,7 @@
                                 </DockPanel>
                             </Expander.Header>
 
-                            <ListView ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch">
+                            <ListView x:Name="Users" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedUser, Mode=OneWayToSource}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <DockPanel LastChildFill="False" FlowDirection="LeftToRight">

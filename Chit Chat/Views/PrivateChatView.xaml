@@ -72,7 +72,7 @@
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
                 <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding Send}" Key="Enter" />
+                    <KeyBinding Command="{Binding Send}" CommandParameter="{Binding SelectedUser}" Key="Enter" />
                 </TextBox.InputBindings>
             </TextBox>
         </materialDesign:Card>

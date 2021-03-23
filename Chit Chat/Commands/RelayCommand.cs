@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChitChat.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,12 @@ namespace ChitChat.Commands
     public class RelayCommand : ICommand
     {
         private readonly Func<Task> execute1;
-        private readonly Func<bool, Task> execute2;
+        private readonly Func<UserModel, Task> execute2;
         private readonly Func<bool> canExecute;
         public RelayCommand(Func<Task> execute) : this(execute, canExecute: null)
         {
         }
-        public RelayCommand(Func<bool, Task> execute) : this(execute, canExecute: null)
+        public RelayCommand(Func<UserModel, Task> execute) : this(execute, canExecute: null)
         {
         }
 
@@ -28,7 +29,7 @@ namespace ChitChat.Commands
             this.canExecute = canExecute;
         }
 
-        public RelayCommand(Func<bool, Task> execute, Func<bool> canExecute)
+        public RelayCommand(Func<UserModel, Task> execute, Func<bool> canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
@@ -59,7 +60,7 @@ namespace ChitChat.Commands
         {
             if (execute1 == null)
             {
-               await execute2((bool)parameter);
+               await execute2(parameter as UserModel);
                 return;
             }
             await execute1();
