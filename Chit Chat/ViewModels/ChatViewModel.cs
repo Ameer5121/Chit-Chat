@@ -62,7 +62,7 @@ namespace ChitChat.ViewModels
 
         public ICommand Send => new RelayCommand(SendMessage, CanSendMessage);
         public ICommand Disconnect => new RelayCommand(DisconnectFromServer);
-        public ICommand OnPrivateChatEnter => new RelayCommand(RefreshPrivateCollectionView, DisableControls);
+        public ICommand OnPrivateChatEnter => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
         public ICommand OnPrivateChatExit => new RelayCommand(EnableControls);
 
         public UserModel SelectedUser 
@@ -164,7 +164,10 @@ namespace ChitChat.ViewModels
         {
             ControlsEnabled = true;
         }
-
+        private void SetSelectedUser(UserModel selectedUser)
+        {
+            SelectedUser = selectedUser;
+        }
         private void RefreshPrivateCollectionView()
         {
             PrivateMessages.Refresh();

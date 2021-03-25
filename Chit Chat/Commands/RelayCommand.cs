@@ -12,8 +12,9 @@ namespace ChitChat.Commands
     {
         private readonly Func<Task> execute1;
         private readonly Func<object, Task> execute2;
-        private readonly Action execute3;
+        private readonly Action<UserModel> execute3;
         private readonly Action execute4;
+        private readonly Action execute5;
         private readonly Func<bool> canExecute;
         public RelayCommand(Func<Task> execute1) : this(execute1, canExecute: null)
         {
@@ -22,7 +23,7 @@ namespace ChitChat.Commands
         {
         }
 
-        public RelayCommand(Action execute3, Action execute4) : this(execute3, execute4, canExecute: null)
+        public RelayCommand(Action<UserModel> execute3, Action execute4, Action execute5) : this(execute3, execute4, execute5, canExecute: null)
         {
         }
 
@@ -47,21 +48,22 @@ namespace ChitChat.Commands
             this.execute2 = execute2;
             this.canExecute = canExecute;
         }
-        public RelayCommand(Action execute3, Action execute4, Func<bool> canExecute)
+        public RelayCommand(Action<UserModel> execute3, Action execute4, Action execute5, Func<bool> canExecute)
         {
-            if (execute3 == null || execute4 == null)
-                throw new ArgumentNullException("execute3 or 4 are null");
+            if (execute3 == null || execute4 == null || execute5 == null)
+                throw new ArgumentNullException("execute3, 4 or 5 are null");
 
             this.execute3 = execute3;
             this.execute4 = execute4;
+            this.execute5 = execute5;
             this.canExecute = canExecute;
         }
-        public RelayCommand(Action execute3, Func<bool> canExecute)
+        public RelayCommand(Action execute4, Func<bool> canExecute)
         {
-            if (execute3 == null)
-                throw new ArgumentNullException("execute5 is null");
+            if (execute4 == null)
+                throw new ArgumentNullException("execute4 is null");
 
-            this.execute3 = execute3;
+            this.execute4 = execute4;
             this.canExecute = canExecute;
         }
 
@@ -92,13 +94,15 @@ namespace ChitChat.Commands
             }else if(execute2 != null)
             {
                 await execute2(parameter as UserModel);
-            }else if(execute3 != null && execute4 != null)
+            }else if(execute3 != null && execute4 != null && execute5 != null)
             {
-                execute3();
+                execute3(parameter as UserModel);
                 execute4();
-            }else if (execute3 != null)
+                execute5();
+            }
+            else if (execute4 != null)
             {
-                execute3();
+                execute4();
             }
         }
     }
