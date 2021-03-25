@@ -26,5 +26,11 @@ namespace ChitChat.Views
         {
             InitializeComponent();
         }
+
+        private void OnExitClick(object sender, RoutedEventArgs e)
+        {
+            var parentWindow = Window.GetWindow(this) as ChatView;
+            parentWindow.Transitioner.SelectedIndex = 1;
+        }
     }
 }

@@ -61,7 +61,7 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <!--User Expander-->
-                        <Expander Margin="0,20" Background="#FF4F4C4C" IsExpanded="True">
+                        <Expander Margin="0,20" Background="#FF4F4C4C" IsExpanded="True" >
                             <Expander.Header>
                                 <DockPanel FlowDirection="LeftToRight">
                                     <materialDesign:PackIcon Kind="People" Height="30" Width="33"></materialDesign:PackIcon>
@@ -69,17 +69,20 @@
                                 </DockPanel>
                             </Expander.Header>
 
-                            <ListView x:Name="Users" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedUser, Mode=OneWayToSource}">
+                            <ListView x:Name="Users" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedUser, Mode=OneWayToSource}" 
+                                      IsEnabled="{Binding ControlsEnabled}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <DockPanel LastChildFill="False" FlowDirection="LeftToRight">
                                             <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,3,0,0"></TextBlock>
                                             <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
-                                                <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" DataContext="{Binding Source={x:Reference Users}, Path=BindingContext}" Command="{Binding OnPrivateChat}"></Button>
+                                                <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" 
+                                                        Command="{Binding DataContext.OnPrivateChatEnter, ElementName=Users}"></Button>
                                             </materialDesign:PopupBox>
                                         </DockPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
+                          
                             </ListView>
 
                         </Expander>
@@ -187,6 +190,7 @@
                      Text="{Binding CurrentPublicMessage, UpdateSourceTrigger=PropertyChanged}"
                      materialDesign:HintAssist.Hint="Message"
                      Height="37"
+                     IsEnabled="{Binding ControlsEnabled}"
                      VerticalContentAlignment="Center"
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
@@ -197,7 +201,7 @@
         </materialDesign:Card>
 
         <!--Private Chat Window-->
-        <materialDesign:Transitioner x:Name="Transitioner" Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" Margin="24,151,321,312">
+        <materialDesign:Transitioner x:Name="Transitioner" Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" Margin="171,127,174,336">
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                 <local:PrivateChatView Margin="0,0,0,-1"></local:PrivateChatView>
             </materialDesign:TransitionerSlide>
