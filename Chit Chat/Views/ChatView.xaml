@@ -75,7 +75,7 @@
                                         <DockPanel LastChildFill="False" FlowDirection="LeftToRight">
                                             <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,3,0,0"></TextBlock>
                                             <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
-                                                <Button Width="120" Content="Private Chat" Click="PrivateChat_Click"></Button>
+                                                <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" DataContext="{Binding Source={x:Reference Users}, Path=BindingContext}" Command="{Binding OnPrivateChat}"></Button>
                                             </materialDesign:PopupBox>
                                         </DockPanel>
                                     </DataTemplate>
@@ -150,13 +150,13 @@
             </StackPanel>
         </materialDesign:Card>
         <materialDesign:Card Margin="10,54,0,209" Grid.Column="1" Grid.Row="1" Background="#FF3A3838" UniformCornerRadius="5">
-            <ListView x:Name="mybabe1" Grid.Column="1" 
+            <ListView Grid.Column="1" 
                   Background="#FF3A3838" 
                   Grid.Row="1"                   
                   Grid.RowSpan="2"
-                  ItemsSource="{Binding Messages}"                  
+                  ItemsSource="{Binding PublicMessages}"                  
                   Margin="0,0,0,54"
-                 RenderTransformOrigin="0.5,0.5" Scroll:FilterMessages.FilterMessages="Everyone">
+                 RenderTransformOrigin="0.5,0.5" IsSynchronizedWithCurrentItem="True">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel VerticalAlignment="Bottom"/>
@@ -180,18 +180,18 @@
         <materialDesign:Card 
             UniformCornerRadius="5"
             Grid.Row="1" 
-            Grid.Column="1" 
+            Grid.Column="1"
             Margin="24,728,18,223">
             <TextBox VerticalAlignment="Center"
                      FontSize="15" 
-                     Text="{Binding CurrentMessage, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding CurrentPublicMessage, UpdateSourceTrigger=PropertyChanged}"
                      materialDesign:HintAssist.Hint="Message"
                      Height="37"
                      VerticalContentAlignment="Center"
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
                 <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding Send}" Key="Enter" />
+                    <KeyBinding Command="{Binding Send}" Key="Enter"/>
                 </TextBox.InputBindings>
             </TextBox>
         </materialDesign:Card>

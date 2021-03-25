@@ -11,14 +11,20 @@ namespace ChitChat.Commands
     public class RelayCommand : ICommand
     {
         private readonly Func<Task> execute1;
-        private readonly Func<UserModel, Task> execute2;
+        private readonly Func<object, Task> execute2;
+        private readonly Action execute3;
         private readonly Func<bool> canExecute;
         public RelayCommand(Func<Task> execute) : this(execute, canExecute: null)
         {
         }
-        public RelayCommand(Func<UserModel, Task> execute) : this(execute, canExecute: null)
+        public RelayCommand(Func<object, Task> execute) : this(execute, canExecute: null)
         {
         }
+
+        public RelayCommand(Action execute) : this(execute, canExecute: null)
+        {
+        }
+
 
         public RelayCommand(Func<Task> execute, Func<bool> canExecute)
         {
@@ -29,12 +35,20 @@ namespace ChitChat.Commands
             this.canExecute = canExecute;
         }
 
-        public RelayCommand(Func<UserModel, Task> execute, Func<bool> canExecute)
+        public RelayCommand(Func<object, Task> execute, Func<bool> canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
 
             this.execute2 = execute;
+            this.canExecute = canExecute;
+        }
+        public RelayCommand(Action execute, Func<bool> canExecute)
+        {
+            if (execute == null)
+                throw new ArgumentNullException("execute");
+
+            this.execute3 = execute;
             this.canExecute = canExecute;
         }
 
@@ -58,12 +72,16 @@ namespace ChitChat.Commands
 
         public async void Execute(object parameter)
         {
-            if (execute1 == null)
+            if (execute1 != null)
             {
-               await execute2(parameter as UserModel);
-                return;
+                await execute1();
+            }else if(execute2 != null)
+            {
+                await execute2(parameter as UserModel);
+            }else if(execute3 != null)
+            {
+                execute3();
             }
-            await execute1();
         }
     }
 }

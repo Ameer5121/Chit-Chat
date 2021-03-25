@@ -19,7 +19,7 @@
             <RowDefinition Height="29*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        
+
         <!--Black Border & Exit Button-->
         <Border Background="#FF2C2B2B" Grid.Row="0">
             <DockPanel LastChildFill="False">
@@ -27,18 +27,25 @@
                         Width="53" DockPanel.Dock="Right">
                     <Image Source="/Resources/Exit.png" Height="44" Width="53"></Image>
                 </Button>
+                <TextBlock Width="336" VerticalAlignment="Center" Margin="0,14">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}Privately chatting to: {0}">
+                            <Binding Path="SelectedUser.DisplayName" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
             </DockPanel>
         </Border>
-        
+
         <!--Message Window-->
         <materialDesign:Card Grid.Row="1" Background="#FF2E2E2E" UniformCornerRadius="5" Margin="0,0,0,41" Grid.RowSpan="2">
             <ListView Grid.Column="1" 
                   Background="Transparent" 
                   Grid.Row="1"                   
                   Grid.RowSpan="2"
-                  ItemsSource="{Binding Messages}"
+                  ItemsSource="{Binding PrivateMessages}"
                   RenderTransformOrigin="0.5,0.5"
-                  Scroll:FilterMessages.FilterMessages="Private">
+                  >
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel VerticalAlignment="Bottom"/>
@@ -65,15 +72,16 @@
             Grid.Row="2" Background="#FF303030">
             <TextBox VerticalAlignment="Center"
                      FontSize="15" 
-                     Text="{Binding CurrentMessage, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding CurrentPrivateMessage, UpdateSourceTrigger=PropertyChanged}"
                      materialDesign:HintAssist.Hint="Message"
                      Height="37"
                      VerticalContentAlignment="Center"
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
                 <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding Send}" CommandParameter="{Binding SelectedUser}" Key="Enter" />
+                    <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding Send}" Key="Enter" />
                 </TextBox.InputBindings>
+
             </TextBox>
         </materialDesign:Card>
 
