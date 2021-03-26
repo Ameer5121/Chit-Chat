@@ -19,6 +19,7 @@ Login             |  Register
 * Login / Register options
 * List of connected users, automatically updating when one joins/leaves
 * Returning to home view automatically when server is down
+* Private chatting
 * Logging out manually.
 
 # Framework:
