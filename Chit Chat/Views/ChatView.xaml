@@ -78,6 +78,7 @@
                                             <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
                                                 <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" 
                                                         Command="{Binding DataContext.OnPrivateChatEnter, ElementName=Users}" CommandParameter="{Binding}"></Button>
+                                                
                                             </materialDesign:PopupBox>
                                         </DockPanel>
                                     </DataTemplate>
@@ -168,12 +169,11 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0}: {1}">
-                                    <Binding Path="User.DisplayName" />
-                                    <Binding Path="Message" />
-                                </MultiBinding>
-                            </TextBlock.Text>
+                            <Run Text="{Binding User.DisplayName}" Foreground="Silver"></Run>
+                            <Run Text=""></Run>
+                            <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
+                            <LineBreak></LineBreak>
+                            <Run Text="{Binding Message}"></Run>
                         </TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>

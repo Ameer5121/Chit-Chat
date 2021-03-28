@@ -92,11 +92,12 @@
                 Grid.Row="1"
                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
                 Content="Login" 
-                FontSize="25"
+                FontSize="24"
                 Background="#FF433F3F"
                 Foreground="White"
                 BorderBrush="#FF2C2B2B"
                 Command="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Height="Auto"></Button>
+
 
         <!--Register-->
         <Button Margin="229,337,269,95" 

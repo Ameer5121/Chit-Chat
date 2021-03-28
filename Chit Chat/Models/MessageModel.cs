@@ -12,5 +12,6 @@ namespace ChitChat.Models
         public UserModel User { get; set; }
         public string Message { get; set; }
         public UserModel DestinationUser { get; set; }
+        public DateTime MessageDate { get; set; }
     }
 }

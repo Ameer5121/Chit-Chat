@@ -12,7 +12,9 @@
              TextElement.FontWeight="Medium"
              TextElement.FontSize="14"
              FontFamily="{materialDesign:MaterialDesignFont}"
-             Width="678" Height="525">
+             Width="678" 
+             Height="525"
+             >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -30,7 +32,7 @@
                 </Button>
                 <TextBlock Width="336" VerticalAlignment="Center" Margin="0,14">
                     <TextBlock.Text>
-                        <MultiBinding StringFormat="{}Privately chatting to: {0}">
+                        <MultiBinding StringFormat="{}Privately chatting to {0}">
                             <Binding Path="SelectedUser.DisplayName" />
                         </MultiBinding>
                     </TextBlock.Text>
@@ -55,12 +57,11 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0}: {1}">
-                                    <Binding Path="User.DisplayName" />
-                                    <Binding Path="Message" />
-                                </MultiBinding>
-                            </TextBlock.Text>
+                            <Run Text="{Binding User.DisplayName}"></Run>
+                            <Run Text=""></Run>
+                            <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
+                            <LineBreak></LineBreak>
+                            <Run Text="{Binding Message}"></Run>
                         </TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>

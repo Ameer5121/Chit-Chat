@@ -111,12 +111,23 @@ namespace ChitChat.ViewModels
             MessageModel messagetoSend = null;
             if (destinationUser == null)
             {
-                messagetoSend = new MessageModel { Message = CurrentPublicMessage, User = _currentUser };
+                messagetoSend = new MessageModel 
+                { 
+                    Message = CurrentPublicMessage,
+                    User = _currentUser, 
+                    MessageDate = DateTime.Now                
+                };
                 CurrentPublicMessage = default;
             }
             else
             {
-                messagetoSend = new MessageModel { Message = CurrentPrivateMessage, User = _currentUser, DestinationUser = destinationUser as UserModel };
+                messagetoSend = new MessageModel
+                {
+                    Message = CurrentPrivateMessage,
+                    User = _currentUser,
+                    DestinationUser = destinationUser as UserModel,
+                    MessageDate = DateTime.Now
+                };
                 CurrentPrivateMessage = default;
             }
              var jsonData = JsonConvert.SerializeObject(messagetoSend);
@@ -207,7 +218,7 @@ namespace ChitChat.ViewModels
         {
             if (data.Users.Count != _users.Count)
             {
-                _users.Add(data.Users.LastOrDefault());
+                Users = data.Users;
             }
             else if(data.Messages.Count != _messages.Count)
             {
