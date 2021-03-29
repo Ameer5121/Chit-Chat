@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChitChat.Views"
-        xmlns:Scroll="clr-namespace:ChitChat.Helper"
+        xmlns:Helper="clr-namespace:ChitChat.Helper"
         mc:Ignorable="d"
         Title="ChatView" 
         Height="821.5" 
@@ -75,11 +75,14 @@
                                     <DataTemplate>
                                         <DockPanel LastChildFill="False" FlowDirection="LeftToRight">
                                             <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,3,0,0"></TextBlock>
+
                                             <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
+
                                                 <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" 
                                                         Command="{Binding DataContext.OnPrivateChatEnter, ElementName=Users}" CommandParameter="{Binding}"></Button>
-                                                
+                                                                  
                                             </materialDesign:PopupBox>
+                                            
                                         </DockPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -168,7 +171,7 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock>
+                        <TextBlock LineHeight="18">
                             <Run Text="{Binding User.DisplayName}" Foreground="Silver"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
