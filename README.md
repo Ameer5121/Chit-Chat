@@ -4,7 +4,7 @@ Login             |  Register
 :-------------------------:|:-------------------------:
 ![1](https://user-images.githubusercontent.com/71935713/110955002-ca075580-8351-11eb-97ce-832d15ac0ad1.png)  |  ![2](https://user-images.githubusercontent.com/71935713/110955050-d68bae00-8351-11eb-9e12-406220e313a7.png)
 
-![fc2a4720c5028ae1b00b6aa7a69c21fb](https://user-images.githubusercontent.com/71935713/110955527-5dd92180-8352-11eb-988e-05944281a69d.png)
+![fc2a4720c5028ae1b00b6aa7a69c21fb](https://user-images.githubusercontent.com/71935713/112846695-00153b00-90af-11eb-9cb0-5d73f071a967.png)
 
 
 
