@@ -236,6 +236,7 @@ namespace ChitChat.ViewModels
             {
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
             }
+            _password.Dispose();
             return decryptedpassword;
         }
         private async Task LogStatus(string message)
