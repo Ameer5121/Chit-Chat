@@ -233,6 +233,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helper\HTTPResponseExtension.cs" />
+    <Compile Include="Helper\ScrollBehavior.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Helper\LoginException.cs" />
     <Compile Include="Models\DataModel.cs" />
