@@ -148,10 +148,8 @@ namespace ChitChat.ViewModels
                     Email.Validate();
 
                     await _httpService.PostData("/api/chat/PostUser", new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName));
-
                     _ = HomeLogger.LogMessage("Successfully Registered!");
                     ClearCredentials();
-
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         OnRegister?.Invoke(this, EventArgs.Empty);

@@ -130,10 +130,9 @@ namespace ChitChat.ViewModels
                 };
                 CurrentPrivateMessage = default;
             }
-             var jsonData = JsonConvert.SerializeObject(messagetoSend);
              try
              {
-                await _httpService.PostData("/api/chat/PostMessage", jsonData);
+                await _httpService.PostData("/api/chat/PostMessage", JsonConvert.SerializeObject(messagetoSend));
              }
              catch (HttpRequestException)
              {
