@@ -27,31 +27,37 @@ namespace ChitChat.Services
         }
 
 
-        public async Task<HttpResponseMessage> PostData(string endpoint, string jsonContent)
+        public async Task PostMessageData(string jsonContent)
         {
-            var response = await _httpClient.PostAsync($"{endpoint}",
+            var response = await _httpClient.PostAsync($"/api/chat/PostMessage",
                new StringContent(jsonContent, Encoding.UTF8, "application/json"));
-            return response;
         }
-        public async Task<UserModel> PostData(string endpoint, UserCredentials userCredientals)
+        public async Task<UserModel> PostUserData(string endPoint, string jsonCredentials)
         {
-            var jsonData = JsonConvert.SerializeObject(userCredientals);
-            var response = await PostData(endpoint, jsonData);
-            var userResponse = await response.GetDeserializedData();
-            if (userResponse.ResponseCode == HttpStatusCode.NotFound)
-            {
-                throw new LoginException(userResponse.Message);
-            }else if (userResponse.ResponseCode == HttpStatusCode.BadRequest)
-            {
-                throw new RegistrationException(userResponse.Message);
-            }
-            return userResponse.Payload;
+            var response = await _httpClient.PostAsync($"{endPoint}",
+               new StringContent(jsonCredentials, Encoding.UTF8, "application/json"));
+            var userResponse = await ValidateResponseCode(response);
+            return userResponse.Payload != null ? userResponse.Payload : null;
         }
-
         public async Task<HttpResponseMessage> GetData(string endpoint)
         {
             var response = await _httpClient.GetAsync(endpoint);
             return response;
         }
+
+        private async Task<UserResponseModel> ValidateResponseCode(HttpResponseMessage httpResponseMessage)
+        {
+            var userResponse = await httpResponseMessage.GetDeserializedData();
+            if (userResponse.ResponseCode == HttpStatusCode.NotFound)
+            {
+                throw new LoginException(userResponse.Message);
+            }
+            else if (userResponse.ResponseCode == HttpStatusCode.BadRequest)
+            {
+                throw new RegistrationException(userResponse.Message);
+            }
+            return userResponse;
+        }
+   
     }
 }

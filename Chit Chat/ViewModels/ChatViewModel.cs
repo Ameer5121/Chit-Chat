@@ -132,7 +132,7 @@ namespace ChitChat.ViewModels
             }
              try
              {
-                await _httpService.PostData("/api/chat/PostMessage", JsonConvert.SerializeObject(messagetoSend));
+                await _httpService.PostMessageData(JsonConvert.SerializeObject(messagetoSend));
              }
              catch (HttpRequestException)
              {

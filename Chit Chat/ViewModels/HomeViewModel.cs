@@ -96,9 +96,10 @@ namespace ChitChat.ViewModels
             {           
                 await Task.Run(async () =>
                 {
-                    var user = await _httpService.PostData("/api/chat/Login", new UserCredentials(_currentUserName, Password.DecryptPassword()));
-                    _currentUser = new UserModel { DisplayName = user.DisplayName };
+                    var user = await _httpService.PostUserData("/api/chat/Login", 
+                        JsonConvert.SerializeObject(new UserCredentials(_currentUserName, Password.DecryptPassword())));
 
+                    _currentUser = new UserModel { DisplayName = user.DisplayName };
                     BuildConnection();
                     CreateHandlers();
                     await connection.StartAsync();
@@ -139,7 +140,6 @@ namespace ChitChat.ViewModels
 
         private async Task RegisterAccount()
         {
-
             try
             {
                 await Task.Run(async () =>
@@ -147,14 +147,15 @@ namespace ChitChat.ViewModels
                     IsRegistering = true;
                     Email.Validate();
 
-                    await _httpService.PostData("/api/chat/PostUser", new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName));
+                    await _httpService.PostUserData("/api/chat/PostUser", 
+                        JsonConvert.SerializeObject(new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName)));
+
                     _ = HomeLogger.LogMessage("Successfully Registered!");
                     ClearCredentials();
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         OnRegister?.Invoke(this, EventArgs.Empty);
                     });
-
                 });
             }
             catch (FormatException)

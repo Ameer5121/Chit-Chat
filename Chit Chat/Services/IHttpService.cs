@@ -10,8 +10,8 @@ namespace ChitChat.Services
 {
     public interface IHttpService
     {
-        Task<HttpResponseMessage> PostData(string endpoint, string jsonContent);
-        Task<UserModel> PostData(string endpoint, UserCredentials userCredientals);
+        Task PostMessageData(string jsonContent);
+        Task<UserModel> PostUserData(string endPoint, string jsonCredentials);
         Task<HttpResponseMessage> GetData(string endponit);
     }
 }
