@@ -89,6 +89,7 @@
             BorderBrush="#FF2C2B2B"/>
 
         <TextBlock Text="{Binding Status}" 
+                   DataContext="{Binding HomeLogger}"
                    Margin="98,422,126,48"
                    FontSize="15"
                    TextAlignment="Center"

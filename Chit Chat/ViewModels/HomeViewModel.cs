@@ -29,9 +29,7 @@ namespace ChitChat.ViewModels
     {
         private bool _isConnecting = false;
         private bool _isRegistering = false;
-        private string _status;
         private string _currentUserName;
-        private SecureString _password;
         private string _email;
         private string _displayName;
         private HubConnection connection;
@@ -40,16 +38,14 @@ namespace ChitChat.ViewModels
         public EventHandler<ConnectionEventArgs> OnSuccessfulConnect;
         public EventHandler OnRegister;
 
-        public HomeViewModel(IHttpService httpService)
+        public HomeViewModel(IHttpService httpService, Logger logger)
         {
-            _httpService = httpService;         
-            _password = new SecureString();
+            _httpService = httpService;
+            HomeLogger = logger;
+            Password = new SecureString();
         }
-        public string Status
-        {
-            get => _status;
-            set => SetPropertyValue(ref _status, value);       
-        }
+
+        public Logger HomeLogger { get; }
         public bool IsConnecting
         {
             get => _isConnecting;
@@ -65,11 +61,8 @@ namespace ChitChat.ViewModels
             get => _currentUserName;
             set => SetPropertyValue(ref _currentUserName, value);
         }
-        public SecureString Password
-        {
-            get => _password;
-            set => _password = value; 
-        }
+        public SecureString Password { get; set; }
+
         public string Email
         {
             get => _email;
@@ -94,38 +87,45 @@ namespace ChitChat.ViewModels
         {       
             return string.IsNullOrEmpty(_currentUserName) || Password.Length == 0 ||  _isConnecting ? false : true; 
         }
+
         private async Task LoginToServer()
         {
+            IsConnecting = true;
+            _ = HomeLogger.LogMessage("Connecting...");
             try
             {           
                 await Task.Run(async () =>
                 {
-                    _ = LogStatus("Connecting...");
-                    var user = await SendUser(new UserCredentials(_currentUserName, Decrypt(_password)));
+                    var user = await _httpService.PostData("/api/chat/Login", new UserCredentials(_currentUserName, Password.DecryptPassword()));
                     _currentUser = new UserModel { DisplayName = user.DisplayName };
 
-                    connection = new HubConnectionBuilder()
-                      .WithUrl("http://localhost:5001/chathub")
-                      .Build();
+                    BuildConnection();
                     CreateHandlers();
                     await connection.StartAsync();
                 });
             }
             catch(HttpRequestException)
             {
-                _ = LogStatus($"Could not connect to the server.");
+                _ = HomeLogger.LogMessage($"Could not connect to the server.");
                 IsConnecting = false;
             }
             catch (TaskCanceledException)
             {
-                _ = LogStatus($"Could not connect to the server.");
+                _ = HomeLogger.LogMessage($"Could not connect to the server.");
                 IsConnecting = false;
             }
             catch(LoginException e)
             {
-                _ = LogStatus(e.Message);
+                _ = HomeLogger.LogMessage(e.Message);
                 IsConnecting = false;
             }
+        }
+
+        private void BuildConnection()
+        {
+            connection = new HubConnectionBuilder()
+                      .WithUrl("http://localhost:5001/chathub")
+                      .Build();
         }
 
         private bool CanRegisterAccount()
@@ -145,49 +145,49 @@ namespace ChitChat.ViewModels
                 await Task.Run(async () =>
                 {
                     IsRegistering = true;
-                    //Validate email
-                    var email = new MailAddress(Email);
+                    Email.Validate();
 
-                    var credentials = new UserCredentials(UserName, Decrypt(Password), Email, DisplayName);
-                    var jsonData = JsonConvert.SerializeObject(credentials);
-                    var response = await _httpService.PostData("/api/chat/PostUser", jsonData);                    
-                    var userResponse = await response.GetDeserializedData();                 
-                    if (userResponse.ResponseCode == HttpStatusCode.BadRequest)
+                    await _httpService.PostData("/api/chat/PostUser", new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName));
+
+                    _ = HomeLogger.LogMessage("Successfully Registered!");
+                    ClearCredentials();
+
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        _ = LogStatus(userResponse.Message);
-                        IsRegistering = false;
-                    }
-                    else
-                    {
-                        _ = LogStatus(userResponse.Message);
-                        UserName = "";
-                        Email = "";
-                        DisplayName = "";
-                        IsRegistering = false;
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            OnRegister?.Invoke(this, EventArgs.Empty);
-                        });
-                    }
+                        OnRegister?.Invoke(this, EventArgs.Empty);
+                    });
+
                 });
             }
             catch (FormatException)
             {
-                _ = LogStatus("Email Address is Invalid");
+                _ = HomeLogger.LogMessage("Email Address is Invalid");
                 IsRegistering = false;
             }
             catch (TaskCanceledException)
             {
-                _ = LogStatus("Could not connect to the server.");
+                _ = HomeLogger.LogMessage("Could not connect to the server.");
                 IsRegistering = false;
             }
             catch (HttpRequestException)
             {
-                _ = LogStatus("Could not connect to the server.");
+                _ = HomeLogger.LogMessage("Could not connect to the server.");
+                IsRegistering = false;
+            }
+            catch (RegistrationException e)
+            {
+                _ = HomeLogger.LogMessage(e.Message);
                 IsRegistering = false;
             }
         }
 
+        private void ClearCredentials()
+        {
+            UserName = "";
+            Email = "";
+            DisplayName = "";
+            IsRegistering = false;
+        }
         private void CreateHandlers()
         {
             connection.On<DataModel>("Connected", (data) =>
@@ -203,47 +203,6 @@ namespace ChitChat.ViewModels
                 });
                 connection.Remove("Connected");
             });
-        }
-
-       /// <summary>
-       /// Sends the user credentials to the server and returns a UserModel upon a successful connection.
-       /// </summary>
-       /// <param name="credentials"></param>
-       /// <returns>UserModel</returns>
-        private async Task<UserModel> SendUser(UserCredentials credentials)
-        {
-            IsConnecting = true;          
-            var jsonData = JsonConvert.SerializeObject(credentials);
-            var response = await _httpService.PostData("/api/chat/Login", jsonData);               
-            var userResponse = await response.GetDeserializedData();
-            if (userResponse.ResponseCode == HttpStatusCode.NotFound)
-            {
-                throw new LoginException(userResponse.Message);
-            }          
-            return userResponse.Payload;
-        }
-
-        private string Decrypt(SecureString password)
-        {
-            IntPtr valuePtr = IntPtr.Zero;
-            string decryptedpassword;
-            try
-            {
-                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(password);
-                decryptedpassword = Marshal.PtrToStringUni(valuePtr);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
-            }
-            _password.Dispose();
-            return decryptedpassword;
-        }
-        private async Task LogStatus(string message)
-        {
-            Status = message;
-            await Task.Delay(2000);
-            Status = default;
         }
     }
 }

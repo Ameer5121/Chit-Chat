@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChitChat.Views"
+        xmlns:Helper="clr-namespace:ChitChat.Helper"
         xmlns:viewmodels="clr-namespace:ChitChat.ViewModels"
         mc:Ignorable="d"
         Title="HomeView" 
@@ -19,7 +20,6 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         ResizeMode="NoResize" 
         MouseDown="Window_MouseDown">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="13*"/>
@@ -111,7 +111,8 @@
             Background="#FF433F3F"
             BorderBrush="#FF2C2B2B"></Button>
 
-        <TextBlock Text="{Binding Status}" 
+        <TextBlock Text="{Binding Status}"
+                   DataContext="{Binding HomeLogger}"
                    Margin="187,422,227,48"
                    Grid.Row="1"
                    FontSize="15"

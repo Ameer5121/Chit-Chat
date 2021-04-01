@@ -1,6 +1,10 @@
-﻿using System;
+﻿using ChitChat.Helper;
+using ChitChat.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +32,20 @@ namespace ChitChat.Services
             var response = await _httpClient.PostAsync($"{endpoint}",
                new StringContent(jsonContent, Encoding.UTF8, "application/json"));
             return response;
+        }
+        public async Task<UserModel> PostData(string endpoint, UserCredentials userCredientals)
+        {
+            var jsonData = JsonConvert.SerializeObject(userCredientals);
+            var response = await PostData(endpoint, jsonData);
+            var userResponse = await response.GetDeserializedData();
+            if (userResponse.ResponseCode == HttpStatusCode.NotFound)
+            {
+                throw new LoginException(userResponse.Message);
+            }else if (userResponse.ResponseCode == HttpStatusCode.BadRequest)
+            {
+                throw new RegistrationException(userResponse.Message);
+            }
+            return userResponse.Payload;
         }
 
         public async Task<HttpResponseMessage> GetData(string endpoint)

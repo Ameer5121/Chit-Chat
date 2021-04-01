@@ -97,7 +97,7 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <!--Options Expander-->
-                        <Expander Margin="0,20" Background="#FF4F4C4C" IsExpanded="False">
+                        <Expander Margin="0,20" Background="#FF4F4C4C" IsExpanded="True">
                             <Expander.Header>
                                 <DockPanel FlowDirection="LeftToRight">
                                     <materialDesign:PackIcon Kind="Settings" Height="30" Width="33"></materialDesign:PackIcon>

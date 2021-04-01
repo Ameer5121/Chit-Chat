@@ -232,7 +232,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helper\DecryptingExtension.cs" />
+    <Compile Include="Helper\EmailExtension.cs" />
     <Compile Include="Helper\HTTPResponseExtension.cs" />
+    <Compile Include="Helper\Logger.cs" />
+    <Compile Include="Helper\RegistrationException.cs" />
     <Compile Include="Helper\ScrollBehavior.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Helper\LoginException.cs" />

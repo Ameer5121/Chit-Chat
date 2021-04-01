@@ -7,7 +7,7 @@ using System.Security;
 
 namespace ChitChat.Models
 {
-    sealed class UserCredentials
+    public class UserCredentials
     {
 
         public readonly string UserName;
