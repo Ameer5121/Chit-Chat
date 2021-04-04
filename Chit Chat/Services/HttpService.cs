@@ -36,6 +36,7 @@ namespace ChitChat.Services
         {
             var response = await _httpClient.PostAsync($"{endPoint}",
                new StringContent(jsonCredentials, Encoding.UTF8, "application/json"));
+
             var userResponse = await ValidateResponseCode(response);
             return userResponse.Payload != null ? userResponse.Payload : null;
         }

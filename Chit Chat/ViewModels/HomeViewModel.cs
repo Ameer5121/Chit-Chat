@@ -25,7 +25,7 @@ using ChitChat.Services;
 
 namespace ChitChat.ViewModels
 {
-   public class HomeViewModel : ViewModelBase
+    public class HomeViewModel : ViewModelBase
     {
         private bool _isConnecting = false;
         private bool _isRegistering = false;
@@ -59,14 +59,14 @@ namespace ChitChat.ViewModels
         public string UserName
         {
             get => _currentUserName;
-            set => SetPropertyValue(ref _currentUserName, value);
+            set => SetPropertyValue(ref _currentUserName, value.Trim());
         }
         public SecureString Password { get; set; }
 
         public string Email
         {
             get => _email;
-            set => SetPropertyValue(ref _email, value);
+            set => SetPropertyValue(ref _email, value.Trim());
         }
         public string DisplayName
         {
@@ -75,7 +75,7 @@ namespace ChitChat.ViewModels
             {
                 if (value.Length > 20)
                     return;
-                SetPropertyValue(ref _displayName, value);
+                SetPropertyValue(ref _displayName, value.Trim());
             }
         }
 
@@ -84,8 +84,8 @@ namespace ChitChat.ViewModels
 
 
         private bool CanLogin()
-        {       
-            return string.IsNullOrEmpty(_currentUserName) || Password.Length == 0 ||  _isConnecting ? false : true; 
+        {
+            return string.IsNullOrEmpty(_currentUserName) || Password.Length == 0 || _isConnecting ? false : true;
         }
 
         private async Task LoginToServer()
@@ -93,10 +93,10 @@ namespace ChitChat.ViewModels
             IsConnecting = true;
             _ = HomeLogger.LogMessage("Connecting...");
             try
-            {           
+            {
                 await Task.Run(async () =>
                 {
-                    var user = await _httpService.PostUserData("/api/chat/Login", 
+                    var user = await _httpService.PostUserData("/api/chat/Login",
                         JsonConvert.SerializeObject(new UserCredentials(_currentUserName, Password.DecryptPassword())));
 
                     _currentUser = new UserModel { DisplayName = user.DisplayName };
@@ -105,7 +105,7 @@ namespace ChitChat.ViewModels
                     await connection.StartAsync();
                 });
             }
-            catch(HttpRequestException)
+            catch (HttpRequestException)
             {
                 _ = HomeLogger.LogMessage($"Could not connect to the server.");
                 IsConnecting = false;
@@ -115,11 +115,12 @@ namespace ChitChat.ViewModels
                 _ = HomeLogger.LogMessage($"Could not connect to the server.");
                 IsConnecting = false;
             }
-            catch(LoginException e)
+            catch (LoginException e)
             {
                 _ = HomeLogger.LogMessage(e.Message);
                 IsConnecting = false;
             }
+         
         }
 
         private void BuildConnection()
@@ -127,6 +128,7 @@ namespace ChitChat.ViewModels
             connection = new HubConnectionBuilder()
                       .WithUrl("http://localhost:5001/chathub")
                       .Build();
+            
         }
 
         private bool CanRegisterAccount()
@@ -147,8 +149,9 @@ namespace ChitChat.ViewModels
                     IsRegistering = true;
                     Email.Validate();
 
-                    await _httpService.PostUserData("/api/chat/PostUser", 
+                    await _httpService.PostUserData("/api/chat/PostUser",
                         JsonConvert.SerializeObject(new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName)));
+
 
                     _ = HomeLogger.LogMessage("Successfully Registered!");
                     ClearCredentials();
@@ -185,6 +188,7 @@ namespace ChitChat.ViewModels
             UserName = "";
             Email = "";
             DisplayName = "";
+            Password.Clear();
             IsRegistering = false;
         }
         private void CreateHandlers()
@@ -197,7 +201,7 @@ namespace ChitChat.ViewModels
                     _currentUser.ConnectionID = connection.ConnectionId;
                     OnSuccessfulConnect?.Invoke(this, new ConnectionEventArgs
                     {
-                       ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)
+                        ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)
                     });
                 });
                 connection.Remove("Connected");

@@ -23,7 +23,6 @@ namespace ChitChat.Helper
             {
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
             }
-            password.Clear();
             return decryptedpassword;
         }
     }

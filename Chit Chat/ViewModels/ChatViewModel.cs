@@ -166,6 +166,7 @@ namespace ChitChat.ViewModels
             MessageModel currentMessage = item as MessageModel;
             return currentMessage.DestinationUser == null;
         }
+
         private void DisableControls()
         {
             ControlsEnabled = false;
@@ -208,11 +209,6 @@ namespace ChitChat.ViewModels
             }
         }
 
-        private void CreateHandlers()
-        {
-            _connection.On<DataModel>("ReceiveData", ReceiveData);
-        }
-
         private void ReceiveData(DataModel data)
         {
             if (data.Users.Count != _users.Count)
@@ -226,6 +222,10 @@ namespace ChitChat.ViewModels
                    _messages.Add(data.Messages.LastOrDefault());
                });
             }               
+        }
+        private void CreateHandlers()
+        {
+            _connection.On<DataModel>("ReceiveData", ReceiveData);
         }
 
         private async Task DisconnectFromServer()
