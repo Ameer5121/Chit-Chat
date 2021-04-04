@@ -75,7 +75,7 @@ namespace ChitChat.ViewModels
             {
                 if (value.Length > 20)
                     return;
-                SetPropertyValue(ref _displayName, value.Trim());
+                SetPropertyValue(ref _displayName, value);
             }
         }
 
