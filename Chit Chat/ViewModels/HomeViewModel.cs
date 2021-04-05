@@ -198,14 +198,25 @@ namespace ChitChat.ViewModels
                 // Invoke the handler from the UI thread.
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    _currentUser.ConnectionID = connection.ConnectionId;
+                    SetConnectionID(_currentUser);
                     OnSuccessfulConnect?.Invoke(this, new ConnectionEventArgs
                     {
                         ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)
                     });
                 });
-                connection.Remove("Connected");
+                RemoveHandlers();
             });
         }
+
+        private void SetConnectionID(UserModel user)
+        {
+            user.ConnectionID = connection.ConnectionId;
+        }
+
+        private void RemoveHandlers()
+        {
+            connection.Remove("Connected");
+        }
+
     }
 }
