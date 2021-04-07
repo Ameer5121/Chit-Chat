@@ -120,7 +120,7 @@ namespace ChitChat.ViewModels
                 _ = HomeLogger.LogMessage(e.Message);
                 IsConnecting = false;
             }
-         
+
         }
 
         private void BuildConnection()
@@ -128,7 +128,7 @@ namespace ChitChat.ViewModels
             connection = new HubConnectionBuilder()
                       .WithUrl("http://localhost:5001/chathub")
                       .Build();
-            
+
         }
 
         private bool CanRegisterAccount()

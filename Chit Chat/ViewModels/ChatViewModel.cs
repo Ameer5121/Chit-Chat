@@ -71,6 +71,11 @@ namespace ChitChat.ViewModels
             set => SetPropertyValue(ref _selectedUser, value);
         }
 
+        public UserModel CurrentUser
+        {
+            get => _currentUser;
+        }
+
         public ICollectionView PublicMessages { get; }
         public ICollectionView PrivateMessages { get; }
         public ObservableCollection<UserModel> Users

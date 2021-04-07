@@ -29,8 +29,8 @@
             <ColumnDefinition Width="86*"/>
             <ColumnDefinition Width="341*"/>
         </Grid.ColumnDefinitions>
-
         
+
         <!--Black Border & Exit Button-->
         <Border Background="#FF2C2B2B" Grid.Row="0" Grid.ColumnSpan="2">
             <Button Margin="1227,0,0,0" BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Cursor="Hand">
@@ -144,7 +144,6 @@
                             </DockPanel>
                         </Expander>
                     </Grid>
-
                 </StackPanel>
             </Expander>
         </Grid>
@@ -183,6 +182,7 @@
             </ListView>
         </materialDesign:Card>
 
+        <!--Public chat textbox-->
         <materialDesign:Card 
             UniformCornerRadius="5"
             Grid.Row="1" 
@@ -198,7 +198,7 @@
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
                 <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding Send}" Key="Enter"/>
+                    <KeyBinding Command="{Binding Send}" Key="Enter"></KeyBinding>
                 </TextBox.InputBindings>
             </TextBox>
         </materialDesign:Card>

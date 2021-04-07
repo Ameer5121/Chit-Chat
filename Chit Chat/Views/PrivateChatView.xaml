@@ -15,6 +15,9 @@
              Width="678" 
              Height="525"
              >
+    <UserControl.Resources>
+        <Helper:TextAlignmentConverter x:Key="FlowDirectionConverter"></Helper:TextAlignmentConverter>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -42,12 +45,13 @@
 
         <!--Message Window-->
         <materialDesign:Card Grid.Row="1" Background="#FF2E2E2E" UniformCornerRadius="5" Margin="0,0,0,41" Grid.RowSpan="2">
-            <ListView Grid.Column="1" 
+            <ListView x:Name="PrivateMessagesListView" Grid.Column="1" 
                   Background="Transparent" 
                   Grid.Row="1"                   
                   Grid.RowSpan="2"
                   ItemsSource="{Binding PrivateMessages}"
                   RenderTransformOrigin="0.5,0.5"
+                  HorizontalContentAlignment="Stretch"
                   Helper:ScrollBehavior.ScrollOnNewItem="True">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -59,15 +63,23 @@
                         <TextBlock LineHeight="18">
                             <Run Text="{Binding User.DisplayName}"></Run>
                             <Run Text=""></Run>
-                            <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
+                            <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10" ></Run>
                             <LineBreak></LineBreak>
                             <Run Text="{Binding Message}"></Run>
+                            <TextBlock.TextAlignment>
+                                <MultiBinding Converter="{StaticResource FlowDirectionConverter}">
+                                    <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
+                                    <Binding Path="User.DisplayName"></Binding>
+                                </MultiBinding>
+                            </TextBlock.TextAlignment>
                         </TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </materialDesign:Card>
 
+        
+        
         <!--Chat typing-->
         <materialDesign:Card 
             UniformCornerRadius="5"
