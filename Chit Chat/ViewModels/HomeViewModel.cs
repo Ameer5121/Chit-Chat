@@ -79,8 +79,8 @@ namespace ChitChat.ViewModels
             }
         }
 
-        public ICommand Register => new RelayCommand(RegisterAccount, CanRegisterAccount);
-        public ICommand Login => new RelayCommand(LoginToServer, CanLogin);
+        public ICommand Register => new RelayCommand(RegisterAccountAsync, CanRegisterAccount);
+        public ICommand Login => new RelayCommand(LoginToServerAsync, CanLogin);
 
 
         private bool CanLogin()
@@ -88,18 +88,18 @@ namespace ChitChat.ViewModels
             return string.IsNullOrEmpty(_currentUserName) || Password.Length == 0 || _isConnecting ? false : true;
         }
 
-        private async Task LoginToServer()
+        private async Task LoginToServerAsync()
         {
             IsConnecting = true;
             _ = HomeLogger.LogMessage("Connecting...");
             try
             {
-                await Task.Run(async () =>
-                {
-                    var user = await _httpService.PostUserData("/api/chat/Login",
+                var user = await _httpService.PostUserDataAsync("/api/chat/Login",
                         JsonConvert.SerializeObject(new UserCredentials(_currentUserName, Password.DecryptPassword())));
 
-                    _currentUser = new UserModel { DisplayName = user.DisplayName };
+                _currentUser = new UserModel { DisplayName = user.DisplayName };
+                await Task.Run(async () =>
+                {
                     BuildConnection();
                     CreateHandlers();
                     await connection.StartAsync();
@@ -140,26 +140,21 @@ namespace ChitChat.ViewModels
                 _isRegistering ? false : true;
         }
 
-        private async Task RegisterAccount()
+        private async Task RegisterAccountAsync()
         {
             try
             {
-                await Task.Run(async () =>
-                {
-                    IsRegistering = true;
-                    Email.Validate();
+                IsRegistering = true;
+                Email.Validate();
 
-                    await _httpService.PostUserData("/api/chat/PostUser",
-                        JsonConvert.SerializeObject(new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName)));
+                await _httpService.PostUserDataAsync("/api/chat/PostUser",
+                    JsonConvert.SerializeObject(new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName)));
 
 
-                    _ = HomeLogger.LogMessage("Successfully Registered!");
-                    ClearCredentials();
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        OnRegister?.Invoke(this, EventArgs.Empty);
-                    });
-                });
+                _ = HomeLogger.LogMessage("Successfully Registered!");
+                ClearCredentials();
+
+                OnRegister?.Invoke(this, EventArgs.Empty);
             }
             catch (FormatException)
             {

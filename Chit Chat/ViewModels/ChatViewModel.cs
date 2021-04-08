@@ -137,7 +137,7 @@ namespace ChitChat.ViewModels
             }
              try
              {
-                await _httpService.PostMessageData(JsonConvert.SerializeObject(messagetoSend));
+                await _httpService.PostMessageDataAsync(JsonConvert.SerializeObject(messagetoSend));
              }
              catch (HttpRequestException)
              {
@@ -199,7 +199,7 @@ namespace ChitChat.ViewModels
                 await Task.Delay(2000);
                 try
                 {
-                    var response = await _httpService.GetData("api/chat/GetHeartBeat");
+                    var response = await _httpService.GetDataAsync("api/chat/GetHeartBeat");
                 }
                 catch (HttpRequestException)
                 {

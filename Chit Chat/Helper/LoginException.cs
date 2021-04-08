@@ -8,10 +8,9 @@ namespace ChitChat.Helper
 {
     class LoginException : Exception
     {
-        public string Message { get; set; }
-        public LoginException(string message)
+
+        public LoginException(string message) : base (message)
         {
-            Message = message;
         }
     }
 }

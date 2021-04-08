@@ -27,26 +27,26 @@ namespace ChitChat.Services
         }
 
 
-        public async Task PostMessageData(string jsonContent)
+        public async Task PostMessageDataAsync(string jsonContent)
         {
             var response = await _httpClient.PostAsync($"/api/chat/PostMessage",
                new StringContent(jsonContent, Encoding.UTF8, "application/json"));
         }
-        public async Task<UserModel> PostUserData(string endPoint, string jsonCredentials)
+        public async Task<UserModel> PostUserDataAsync(string endPoint, string jsonCredentials)
         {
             var response = await _httpClient.PostAsync($"{endPoint}",
                new StringContent(jsonCredentials, Encoding.UTF8, "application/json"));
 
-            var userResponse = await ValidateResponseCode(response);
+            var userResponse = await ValidateResponseCodeAsync(response);
             return userResponse.Payload != null ? userResponse.Payload : null;
         }
-        public async Task<HttpResponseMessage> GetData(string endpoint)
+        public async Task<HttpResponseMessage> GetDataAsync(string endpoint)
         {
             var response = await _httpClient.GetAsync(endpoint);
             return response;
         }
 
-        private async Task<UserResponseModel> ValidateResponseCode(HttpResponseMessage httpResponseMessage)
+        private async Task<UserResponseModel> ValidateResponseCodeAsync(HttpResponseMessage httpResponseMessage)
         {
             var userResponse = await httpResponseMessage.GetDeserializedData();
             if (userResponse.ResponseCode == HttpStatusCode.NotFound)

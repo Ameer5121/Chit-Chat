@@ -8,10 +8,8 @@ namespace ChitChat.Helper
 {
     class RegistrationException : Exception
     {
-        public string Message { get; set; }
-        public RegistrationException(string message)
+        public RegistrationException(string message) : base(message)
         {
-            Message = message;
         }
     }
 }
