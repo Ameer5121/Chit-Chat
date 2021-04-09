@@ -234,6 +234,7 @@
     </ApplicationDefinition>
     <Compile Include="Helper\DecryptingExtension.cs" />
     <Compile Include="Helper\EmailExtension.cs" />
+    <Compile Include="Helper\IsEnabledConverter.cs" />
     <Compile Include="Helper\TextAlignmentConverter.cs" />
     <Compile Include="Helper\HTTPResponseExtension.cs" />
     <Compile Include="Helper\Logger.cs" />

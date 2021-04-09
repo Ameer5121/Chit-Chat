@@ -20,6 +20,11 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         ResizeMode="NoResize">
 
+
+    <Window.Resources>
+        <Helper:IsEnabledConverter x:Key="IsEnabledConverter"></Helper:IsEnabledConverter>
+    </Window.Resources>
+
     <Grid Margin="0,0,0,2">
         <Grid.RowDefinitions>
             <RowDefinition Height="41"/>
@@ -79,7 +84,14 @@
                                             <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
 
                                                 <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" 
-                                                        Command="{Binding DataContext.OnPrivateChatEnter, ElementName=Users}" CommandParameter="{Binding}"></Button>
+                                                        Command="{Binding DataContext.OnPrivateChatEnter, ElementName=Users}" CommandParameter="{Binding}" >
+                                                    <Button.IsEnabled>
+                                                        <MultiBinding Converter="{StaticResource IsEnabledConverter}">
+                                                            <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
+                                                            <Binding Path="DisplayName"></Binding>
+                                                        </MultiBinding>
+                                                    </Button.IsEnabled>
+                                                </Button>
                                                                   
                                             </materialDesign:PopupBox>
                                             
