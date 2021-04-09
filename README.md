@@ -17,7 +17,7 @@ Public Chat
 * MultiThreading through **System.Threading**
 * Socket Programming through **Microsoft.AspNetCore.SignalR.Client**
 * JSON serialization through **Newtonsoft.Json**
-* **Web API** project to handle HTTP & DataBase requests. https://github.com/Sound932/WebAPI-ChatHub.git
+* **Web API** project to handle HTTP & database requests. https://github.com/Sound932/WebAPI-ChatHub.git
 
 # Core functionality:
 * Login / Register options
@@ -31,7 +31,7 @@ Public Chat
      * MVVM Design Pattern
  
  # Third-Party Libraries:
- * SignlaR
+ * SignalR
  * Newtonsoft JSON
  * MaterialDesignThemes
  * Dapper
