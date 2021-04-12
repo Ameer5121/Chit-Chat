@@ -1,8 +1,7 @@
-﻿using ChitChat.Models;
-using ChitChat.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,19 +17,13 @@ using System.Windows.Shapes;
 namespace ChitChat.Views
 {
     /// <summary>
-    /// Interaction logic for PrivateChatView.xaml
+    /// Interaction logic for EmojiView.xaml
     /// </summary>
-    public partial class PrivateChatView : UserControl
+    public partial class EmojiView : UserControl
     {
-        public PrivateChatView()
+        public EmojiView()
         {
             InitializeComponent();
-        }
-
-        private void OnExitClick(object sender, RoutedEventArgs e)
-        {
-            var parentWindow = Window.GetWindow(this) as ChatView;
-            parentWindow.PrivateChatTransitioner.SelectedIndex = 1;
         }
     }
 }

@@ -93,13 +93,12 @@ namespace ChitChat.ViewModels
             IsConnecting = true;
             _ = HomeLogger.LogMessage("Connecting...");
             try
-            {
-                var user = await _httpService.PostUserDataAsync("/api/chat/Login",
-                        JsonConvert.SerializeObject(new UserCredentials(_currentUserName, Password.DecryptPassword())));
-
-                _currentUser = new UserModel { DisplayName = user.DisplayName };
+            {        
                 await Task.Run(async () =>
                 {
+                    var user = await _httpService.PostUserDataAsync("/api/chat/Login",
+                         JsonConvert.SerializeObject(new UserCredentials(_currentUserName, Password.DecryptPassword())));
+                    _currentUser = new UserModel { DisplayName = user.DisplayName };
                     BuildConnection();
                     CreateHandlers();
                     await connection.StartAsync();

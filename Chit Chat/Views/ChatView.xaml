@@ -34,12 +34,12 @@
             <ColumnDefinition Width="86*"/>
             <ColumnDefinition Width="341*"/>
         </Grid.ColumnDefinitions>
-        
+
 
         <!--Black Border & Exit Button-->
         <Border Background="#FF2C2B2B" Grid.Row="0" Grid.ColumnSpan="2">
             <Button Margin="1227,0,0,0" BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Cursor="Hand">
-                <Image Source="/Resources/Exit.png" Height="44" Width="49"></Image>
+                <Image Source="/Resources/Exit.png" Height="41" Width="49"></Image>
             </Button>
         </Border>
 
@@ -92,13 +92,13 @@
                                                         </MultiBinding>
                                                     </Button.IsEnabled>
                                                 </Button>
-                                                                  
+
                                             </materialDesign:PopupBox>
-                                            
+
                                         </DockPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
-                          
+
                             </ListView>
 
                         </Expander>
@@ -200,25 +200,48 @@
             Grid.Row="1" 
             Grid.Column="1"
             Margin="24,728,18,223">
-            <TextBox VerticalAlignment="Center"
+            <DockPanel LastChildFill="False">
+                <RichTextBox DockPanel.Dock="Left" x:Name="ChatTextBox" VerticalAlignment="Center"
                      FontSize="15" 
-                     Text="{Binding CurrentPublicMessage, UpdateSourceTrigger=PropertyChanged}"
-                     materialDesign:HintAssist.Hint="Message"
+                     Width="947"
+                     materialDesign:HintAssist.Hint=" Message"
                      Height="37"
                      IsEnabled="{Binding ControlsEnabled}"
                      VerticalContentAlignment="Center"
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
-                <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding Send}" Key="Enter"></KeyBinding>
-                </TextBox.InputBindings>
-            </TextBox>
-        </materialDesign:Card>
 
+                    <RichTextBox.InputBindings>
+                        <KeyBinding Command="{Binding Send}" Key="Enter"></KeyBinding>
+                    </RichTextBox.InputBindings>
+                    <FlowDocument>
+                        <Paragraph>
+                            <Run Text="{Binding CurrentPublicMessage, UpdateSourceTrigger=PropertyChanged}"></Run>
+                        </Paragraph>
+                    </FlowDocument>
+
+                </RichTextBox>
+                <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="30" Click="Emoji_Click" Margin="-32,0,0,0" Height="Auto" Padding="0">
+                    <Image Source="/Resources/Emojis/Grin.png" Height="33" Width="31"/>
+                </Button>
+            </DockPanel>
+
+        </materialDesign:Card>
         <!--Private Chat Window-->
-        <materialDesign:Transitioner x:Name="Transitioner" Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" Margin="171,127,174,336">
+        <materialDesign:Transitioner x:Name="PrivateChatTransitioner" Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" Margin="171,127,174,336">
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                 <local:PrivateChatView Margin="0,0,0,-1"></local:PrivateChatView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
+
+            </materialDesign:TransitionerSlide>
+        </materialDesign:Transitioner>
+
+
+        <!--Emoji Window-->
+        <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Margin="615,390,0,265">
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
+                <local:EmojiView Margin="0,0,0,-1"></local:EmojiView>
             </materialDesign:TransitionerSlide>
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
 

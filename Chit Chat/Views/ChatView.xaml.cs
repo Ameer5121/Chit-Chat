@@ -2,7 +2,7 @@
 using System.Windows;
 using ChitChat.ViewModels;
 using ChitChat.Models;
-
+using System.Windows.Media;
 
 namespace ChitChat.Views
 {
@@ -36,7 +36,12 @@ namespace ChitChat.Views
 
         private void PrivateChat_Click(object sender, RoutedEventArgs e)
         {
-            Transitioner.SelectedIndex = 0;
+            PrivateChatTransitioner.SelectedIndex = 0;
+        }
+
+        private void Emoji_Click(object sender, RoutedEventArgs e)
+        { 
+            EmojiTransitioner.SelectedIndex = 0;
         }
     }
 }

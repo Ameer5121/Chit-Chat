@@ -5,12 +5,20 @@
                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="/Views/HomeRelated/HomeView.xaml">
     <Application.Resources>
+
         <ResourceDictionary>
+
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/ButtonStyles.xaml"/>
                 <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Image">
+                <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"></Setter>
+            </Style>
+            <Image x:Key="Grin" Source="/Resources/Emojis/Grin.png"></Image>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="ChitChat.Views.EmojiView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ChitChat.Views"
+             mc:Ignorable="d" 
+             Width="408" 
+             Height="333"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignDarkBackground}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34*"/>
+            <RowDefinition Height="299*"/>
+        </Grid.RowDefinitions>
+        <!--Black Border & Exit Button-->
+        <Border Background="#FF2C2B2B" Grid.Row="0" Margin="0,0,0,1.333">
+            <Button Background="Transparent" BorderBrush="Transparent" Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" Height="Auto" Margin="350,0,0,0" Padding="0">
+                <Image Source="/Resources/Exit.png" Height="35" Width="54"/>
+            </Button>
+        </Border>
+
+        <ScrollViewer Grid.Row="1">
+            <WrapPanel Grid.Row="1">
+                <Button Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" Click="SetEmoji">
+                    <Image Source="/Resources/Emojis/Grin.png" Width="29" Height="27"/>
+                </Button>
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
