@@ -13,6 +13,7 @@ using ChitChat.Models;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using ChitChat.Commands;
+using ChitChat.Helper.Extensions;
 using ChitChat.Helper;
 using System.Windows;
 using System.Net.Mail;
@@ -189,10 +190,12 @@ namespace ChitChat.ViewModels
         {
             connection.On<DataModel>("Connected", (data) =>
             {
+
                 // Invoke the handler from the UI thread.
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     SetConnectionID(_currentUser);
+                    ConvertRTFDataToMessages(data.Messages);
                     OnSuccessfulConnect?.Invoke(this, new ConnectionEventArgs
                     {
                         ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)
@@ -200,6 +203,11 @@ namespace ChitChat.ViewModels
                 });
                 RemoveHandlers();
             });
+        }
+
+        private void ConvertRTFDataToMessages(IEnumerable<MessageModel> data)
+        {
+            data.ConvertRTFToFlowDocument();
         }
 
         private void SetConnectionID(UserModel user)

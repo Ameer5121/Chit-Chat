@@ -60,45 +60,62 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock LineHeight="18">
-                            <Run Text="{Binding User.DisplayName}"></Run>
+                        <StackPanel>
+                            <TextBlock>
+                            <Run Text="{Binding User.DisplayName}" Foreground="Silver"></Run>
                             <Run Text=""></Run>
-                            <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10" ></Run>
-                            <LineBreak></LineBreak>
-                            <Run Text="{Binding Message}"></Run>
-                            <TextBlock.TextAlignment>
-                                <MultiBinding Converter="{StaticResource FlowDirectionConverter}">
-                                    <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
-                                    <Binding Path="User.DisplayName"></Binding>
-                                </MultiBinding>
-                            </TextBlock.TextAlignment>
-                        </TextBlock>
+                            <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
+                                <TextBlock.TextAlignment>
+                                    <MultiBinding Converter="{StaticResource FlowDirectionConverter}">
+                                        <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
+                                        <Binding Path="User.DisplayName"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.TextAlignment>
+                            </TextBlock>
+                            <FlowDocumentScrollViewer Document="{Binding Message}" 
+                                                      HorizontalAlignment="Stretch" Height="35"  
+                                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                      HorizontalContentAlignment="Left" Margin="-10,0,0,0"
+                                                      Padding="-11" VerticalContentAlignment="Top"></FlowDocumentScrollViewer>
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </materialDesign:Card>
 
-        
-        
+
         <!--Chat typing-->
         <materialDesign:Card 
             UniformCornerRadius="5"
-            Grid.Row="2" Background="#FF303030">
-            <TextBox VerticalAlignment="Center"
-                     FontSize="15" 
-                     Text="{Binding CurrentPrivateMessage, UpdateSourceTrigger=PropertyChanged}"
+            Grid.Row="2" Background="#FF303030" Margin="0,0,37,0">
+            <RichTextBox VerticalAlignment="Center"
+                     x:Name="PrivateChatTextBox"
+                     FontSize="15"
                      materialDesign:HintAssist.Hint="Message"
                      Height="37"
                      VerticalContentAlignment="Center"
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
-                <TextBox.InputBindings>
+                <RichTextBox.InputBindings>
                     <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding Send}" Key="Enter" />
-                </TextBox.InputBindings>
+                </RichTextBox.InputBindings>
 
-            </TextBox>
+            </RichTextBox>
         </materialDesign:Card>
 
+        <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="30"  Margin="646,0,2,0" Height="Auto" Padding="0" Grid.Row="2">
+            <Image Source="/Resources/Emojis/Grin.png" Height="33" Width="31"/>
+        </Button>
+
+        <!--Emoji Window-->
+        <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="1" Panel.ZIndex="1" SelectedIndex="1" Margin="309,173,0,10">
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
+                <local:EmojiView Margin="0,0,0,-1"></local:EmojiView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
+
+            </materialDesign:TransitionerSlide>
+        </materialDesign:Transitioner>
 
     </Grid>
 </UserControl>

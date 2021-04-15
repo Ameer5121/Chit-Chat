@@ -182,18 +182,23 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock LineHeight="18">
+                        <StackPanel HorizontalAlignment="Left">
+                            <TextBlock TextAlignment="Left">
                             <Run Text="{Binding User.DisplayName}" Foreground="Silver"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
-                            <LineBreak></LineBreak>
-                            <Run Text="{Binding Message}"></Run>
-                        </TextBlock>
+                            </TextBlock>
+                            <FlowDocumentScrollViewer Document="{Binding Message}" 
+                                                      HorizontalAlignment="Stretch" Height="35"  
+                                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                      HorizontalContentAlignment="Left" Margin="-10,0,0,0"
+                                                      Padding="-11" VerticalContentAlignment="Top"></FlowDocumentScrollViewer>
+                        </StackPanel>
+                       
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </materialDesign:Card>
-
         <!--Public chat textbox-->
         <materialDesign:Card 
             UniformCornerRadius="5"
@@ -201,7 +206,8 @@
             Grid.Column="1"
             Margin="24,728,18,223">
             <DockPanel LastChildFill="False">
-                <RichTextBox DockPanel.Dock="Left" x:Name="ChatTextBox" VerticalAlignment="Center"
+                <RichTextBox DockPanel.Dock="Left" x:Name="PublicChatTextBox" VerticalAlignment="Center"
+                     AcceptsReturn="True"
                      FontSize="15" 
                      Width="947"
                      materialDesign:HintAssist.Hint=" Message"
@@ -210,23 +216,17 @@
                      VerticalContentAlignment="Center"
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
-
                     <RichTextBox.InputBindings>
                         <KeyBinding Command="{Binding Send}" Key="Enter"></KeyBinding>
                     </RichTextBox.InputBindings>
-                    <FlowDocument>
-                        <Paragraph>
-                            <Run Text="{Binding CurrentPublicMessage, UpdateSourceTrigger=PropertyChanged}"></Run>
-                        </Paragraph>
-                    </FlowDocument>
 
                 </RichTextBox>
                 <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="30" Click="Emoji_Click" Margin="-32,0,0,0" Height="Auto" Padding="0">
                     <Image Source="/Resources/Emojis/Grin.png" Height="33" Width="31"/>
                 </Button>
             </DockPanel>
-
         </materialDesign:Card>
+
         <!--Private Chat Window-->
         <materialDesign:Transitioner x:Name="PrivateChatTransitioner" Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" Margin="171,127,174,336">
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">

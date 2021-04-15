@@ -5,7 +5,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChitChat.Helper
+namespace ChitChat.Helper.Extensions
 {
     public static class EmailExtension
     {

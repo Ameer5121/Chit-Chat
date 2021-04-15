@@ -15,9 +15,10 @@ using System.Windows;
 using System.Collections.Specialized;
 using System.Threading;
 using ChitChat.Services;
-using ChitChat.Helper;
+using ChitChat.Helper.Extensions;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.Windows.Documents;
 
 namespace ChitChat.ViewModels
 {
@@ -32,10 +33,13 @@ namespace ChitChat.ViewModels
         private IHttpService _httpService;
         private bool _isDisconnecting;
         private bool _controlsEnabled = true;
-        private string _currentPublicMessage;
-        private string _currentPrivateMessage;
+        private FlowDocument _currentPublicMessage;
+        private FlowDocument _currentPrivateMessage;
         private HubConnection _connection;
         public event EventHandler OnDisconnect;
+        public event EventHandler OnPublicEnter;
+        public event EventHandler OnPrivateEnter;
+        public event EventHandler OnMessageSent;
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
             _currentUser = currentuser;
@@ -60,12 +64,12 @@ namespace ChitChat.ViewModels
             SendHeartBeat(_heartbeatToken.Token);
         }
 
-        public ICommand Send => new RelayCommand(SendMessage, CanSendMessage);
+        public ICommand Send => new RelayCommand(SendMessage);
         public ICommand Disconnect => new RelayCommand(DisconnectFromServer);
         public ICommand OnPrivateChatEnter => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
         public ICommand OnPrivateChatExit => new RelayCommand(EnableControls);
 
-        public UserModel SelectedUser 
+        public UserModel SelectedUser
         {
             get => _selectedUser;
             set => SetPropertyValue(ref _selectedUser, value);
@@ -84,12 +88,12 @@ namespace ChitChat.ViewModels
             set => SetPropertyValue(ref _users, value);
         }
 
-        public string CurrentPublicMessage
+        public FlowDocument CurrentPublicMessage
         {
             get => _currentPublicMessage;
             set => SetPropertyValue(ref _currentPublicMessage, value);
         }
-        public string CurrentPrivateMessage
+        public FlowDocument CurrentPrivateMessage
         {
             get => _currentPrivateMessage;
             set => SetPropertyValue(ref _currentPrivateMessage, value);
@@ -109,47 +113,56 @@ namespace ChitChat.ViewModels
 
         private bool CanSendMessage()
         {
-            return string.IsNullOrEmpty(CurrentPublicMessage) && string.IsNullOrEmpty(CurrentPrivateMessage) ? false : true;
+            return string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString()) ? false : true;
         }
-        private async Task SendMessage(object destinationUser)
+        public async Task SendMessage(object destinationUser)
         {
+            if (destinationUser == null)
+            {
+                // Gets the FlowDocument value from the view's textbox.
+                OnPublicEnter?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                OnPrivateEnter?.Invoke(this, EventArgs.Empty);
+            }
+            if (!CanSendMessage())
+            {
+                return;
+            }
             MessageModel messagetoSend = null;
             if (destinationUser == null)
             {
-                messagetoSend = new MessageModel 
-                { 
-                    Message = CurrentPublicMessage,
-                    User = _currentUser, 
-                    MessageDate = DateTime.Now                
+                messagetoSend = new MessageModel
+                {
+                    RTFData = CurrentPublicMessage.GetRTFData(),
+                    User = _currentUser,
+                    MessageDate = DateTime.Now
                 };
-                CurrentPublicMessage = default;
             }
             else
             {
                 messagetoSend = new MessageModel
                 {
-                    Message = CurrentPrivateMessage,
+                    RTFData = CurrentPrivateMessage.GetRTFData(),
                     User = _currentUser,
                     DestinationUser = destinationUser as UserModel,
                     MessageDate = DateTime.Now
                 };
-                CurrentPrivateMessage = default;
             }
-             try
-             {
+            try
+            {
                 await _httpService.PostMessageDataAsync(JsonConvert.SerializeObject(messagetoSend));
-             }
-             catch (HttpRequestException)
-             {
-                _messages.Add(new MessageModel
-                {
-                    Message = "Could not send message!",
-                    User = new UserModel
-                    {
-                        DisplayName = "System"
-                    }
-                });            
-             }
+            }
+            catch (HttpRequestException)
+            {
+                
+            }
+            finally
+            {
+                //Clear the view's textbox value.
+                OnMessageSent?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private bool FilterPrivateMessages(object item)
@@ -204,7 +217,7 @@ namespace ChitChat.ViewModels
                 catch (HttpRequestException)
                 {
                     //Server is down.
-                   await DisconnectFromServer();
+                    await DisconnectFromServer();
                 }
                 catch (TaskCanceledException)
                 {
@@ -220,14 +233,16 @@ namespace ChitChat.ViewModels
             {
                 Users = data.Users;
             }
-            else if(data.Messages.Count != _messages.Count)
+            else if (data.Messages.Count != _messages.Count)
             {
-               Application.Current.Dispatcher.Invoke(() =>
-               {
-                   _messages.Add(data.Messages.LastOrDefault());
-               });
-            }               
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    data.Messages.LastOrDefault().ConvertRTFToFlowDocument();
+                    _messages.Add(data.Messages.LastOrDefault());
+                });
+            }
         }
+
         private void CreateHandlers()
         {
             _connection.On<DataModel>("ReceiveData", ReceiveData);

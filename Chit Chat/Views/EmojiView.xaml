@@ -27,7 +27,7 @@
 
         <ScrollViewer Grid.Row="1">
             <WrapPanel Grid.Row="1">
-                <Button Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" Click="SetEmoji">
+                <Button x:Name="Grin" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" Click="SetEmoji">
                     <Image Source="/Resources/Emojis/Grin.png" Width="29" Height="27"/>
                 </Button>
             </WrapPanel>
