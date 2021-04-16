@@ -24,6 +24,7 @@ Public Chat
 * List of connected users, automatically updating when one joins/leaves
 * Returning to home view automatically when server is down
 * Private chatting
+* Colored Emojis
 * Logging out manually.
 
 # Framework:
