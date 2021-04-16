@@ -84,7 +84,7 @@
                                             <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
 
                                                 <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" 
-                                                        Command="{Binding DataContext.OnPrivateChatEnter, ElementName=Users}" CommandParameter="{Binding}" >
+                                                        Command="{Binding DataContext.OnPrivateChatEnter, ElementName=Users}" CommandParameter="{Binding}">
                                                     <Button.IsEnabled>
                                                         <MultiBinding Converter="{StaticResource IsEnabledConverter}">
                                                             <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
@@ -189,7 +189,7 @@
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
                             </TextBlock>
                             <FlowDocumentScrollViewer Document="{Binding Message}" 
-                                                      HorizontalAlignment="Stretch" Height="35"  
+                                                      HorizontalAlignment="Stretch" Height="Auto"  
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                       HorizontalContentAlignment="Left" Margin="-10,0,0,0"
                                                       Padding="-11" VerticalContentAlignment="Top"></FlowDocumentScrollViewer>
@@ -221,7 +221,7 @@
                     </RichTextBox.InputBindings>
 
                 </RichTextBox>
-                <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="30" Click="Emoji_Click" Margin="-32,0,0,0" Height="Auto" Padding="0">
+                <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="30" Click="Emoji_Click" Margin="-32,0,0,0" Height="Auto" Padding="0" IsEnabled="{Binding ControlsEnabled}">
                     <Image Source="/Resources/Emojis/Grin.png" Height="33" Width="31"/>
                 </Button>
             </DockPanel>

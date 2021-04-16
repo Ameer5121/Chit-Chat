@@ -19,15 +19,16 @@
             <RowDefinition Height="299*"/>
         </Grid.RowDefinitions>
         <!--Black Border & Exit Button-->
-        <Border Background="#FF2C2B2B" Grid.Row="0" Margin="0,0,0,1.333">
-            <Button Background="Transparent" BorderBrush="Transparent" Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" Height="Auto" Margin="350,0,0,0" Padding="0">
-                <Image Source="/Resources/Exit.png" Height="35" Width="54"/>
+        <WrapPanel Orientation="Horizontal" FlowDirection="RightToLeft" Background="#FF2C2B2B">
+            <Button Background="Transparent" BorderBrush="Transparent" Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" Padding="0" >
+                <Image Source="/Resources/Exit.png" Height="35" Width="36"/>
             </Button>
-        </Border>
+        </WrapPanel>
 
         <ScrollViewer Grid.Row="1">
             <WrapPanel Grid.Row="1">
-                <Button x:Name="Grin" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" Click="SetEmoji">
+                <Button x:Name="Grin" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
                     <Image Source="/Resources/Emojis/Grin.png" Width="29" Height="27"/>
                 </Button>
             </WrapPanel>

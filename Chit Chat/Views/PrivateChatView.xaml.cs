@@ -1,4 +1,6 @@
-﻿using ChitChat.Models;
+﻿using ChitChat.Events;
+using ChitChat.Helper.Extensions;
+using ChitChat.Models;
 using ChitChat.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,42 +28,23 @@ namespace ChitChat.Views
         {
             InitializeComponent();
             Loaded += OnLoaded;
-            
+            Unloaded += OnUnLoaded;
+        }
+
+        private void OnUnLoaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ChatViewModel).OnMessageSent -= ClearPrivateTextBox;
+            (DataContext as ChatViewModel).OnEmojiClick -= SetEmoji;
+            (DataContext as ChatViewModel).OnPrivateEnterKey -= SendDocumentValue;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             (DataContext as ChatViewModel).OnMessageSent += ClearPrivateTextBox;
+            (DataContext as ChatViewModel).OnEmojiClick += SetEmoji;
+            (DataContext as ChatViewModel).OnPrivateEnterKey += SendDocumentValue;
         }
-
-        private void SetEmoji(object sender, RoutedEventArgs e)
-        {
-            var parentWindow = GetWindow();
-            var emojiName = GetSender(sender);
-            var PublicChatTextBox = parentWindow.PublicChatTextBox;
-            Image image = new Image();
-            image.Width = 20;
-            image.Height = 20;
-            image.Source = new BitmapImage(new Uri($"pack://application:,,,/Resources/Emojis/{emojiName}.png", UriKind.Absolute));
-            InlineUIContainer container = new InlineUIContainer(image);
-            foreach (Paragraph paragraph in PublicChatTextBox.Document.Blocks.ToList())
-            {
-                paragraph.Inlines.Add(container);
-            }
-        }
-
-        private ChatView GetWindow()
-        {
-            return Window.GetWindow(this) as ChatView;
-        }
-
-        private string GetSender(object sender)
-        {
-            var emojiName = (sender as Button).Name;
-            return emojiName;
-        }
-
-        private void OnPrivateSend(object sender, EventArgs e)
+        private void SendDocumentValue(object sender, EventArgs e)
         {
             (DataContext as ChatViewModel).CurrentPrivateMessage = PrivateChatTextBox.Document;
         }
@@ -75,6 +58,17 @@ namespace ChitChat.Views
         private void ClearPrivateTextBox(object sender, EventArgs e)
         {
             PrivateChatTextBox.Document.Blocks.Clear();
+        }
+        private void SetEmoji(object sender, EmojiEventArgs e)
+        {
+            if (e.ForPrivateChat == true)
+            {
+                PrivateChatTextBox.SetEmoji(e.EmojiName);
+            }
+        }
+        private void Emoji_Click(object sender, RoutedEventArgs e)
+        {
+            EmojiTransitioner.SelectedIndex = 0;
         }
     }
 }

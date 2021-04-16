@@ -25,32 +25,5 @@ namespace ChitChat.Views
         {
             InitializeComponent();
         }
-
-        private void SetEmoji(object sender, RoutedEventArgs e)
-        {
-            var parentWindow = GetWindow();
-            var emojiName = GetSender(sender);
-            var PublicChatTextBox = parentWindow.PublicChatTextBox;
-            Image image = new Image();
-            image.Width = 20;
-            image.Height = 20;
-            image.Source = new BitmapImage(new Uri($"pack://application:,,,/Resources/Emojis/{emojiName}.png", UriKind.Absolute));
-            InlineUIContainer container = new InlineUIContainer(image);
-            foreach(Paragraph paragraph in PublicChatTextBox.Document.Blocks.ToList())
-            {
-                paragraph.Inlines.Add(container);
-            }
-        }
-
-        private ChatView GetWindow()
-        {
-            return Window.GetWindow(this) as ChatView;
-        }
-
-        private string GetSender(object sender)
-        {
-            var emojiName = (sender as Button).Name;
-            return emojiName;
-        }
     }
 }

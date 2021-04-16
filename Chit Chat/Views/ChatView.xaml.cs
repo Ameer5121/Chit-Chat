@@ -1,10 +1,9 @@
-﻿using System;
-using System.Windows;
+﻿using ChitChat.Events;
+using ChitChat.Helper.Extensions;
 using ChitChat.ViewModels;
-using ChitChat.Models;
+using System;
+using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Threading;
 
 namespace ChitChat.Views
 {
@@ -17,9 +16,24 @@ namespace ChitChat.Views
         {
             InitializeComponent();
             DataContext = context;
+            Loaded += OnLoaded;
+            Unloaded += OnUnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
             (DataContext as ChatViewModel).OnDisconnect += ChangeToHomeWindow;
-            (DataContext as ChatViewModel).OnPublicEnter += OnPublicSend;
+            (DataContext as ChatViewModel).OnPublicEnterKey += SendFlowDocumentValue;
             (DataContext as ChatViewModel).OnMessageSent += ClearPublicTextBox;
+            (DataContext as ChatViewModel).OnEmojiClick += SetEmoji;
+        }
+
+        private void OnUnLoaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ChatViewModel).OnDisconnect -= ChangeToHomeWindow;
+            (DataContext as ChatViewModel).OnPublicEnterKey -= SendFlowDocumentValue;
+            (DataContext as ChatViewModel).OnMessageSent -= ClearPublicTextBox;
+            (DataContext as ChatViewModel).OnEmojiClick -= SetEmoji;
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
@@ -34,7 +48,6 @@ namespace ChitChat.Views
         {
             HomeView home = new HomeView();
             home.Show();
-            (DataContext as ChatViewModel).OnDisconnect -= ChangeToHomeWindow;
             this.Close();
         }
 
@@ -44,11 +57,11 @@ namespace ChitChat.Views
         }
 
         private void Emoji_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             EmojiTransitioner.SelectedIndex = 0;
         }
 
-        private void OnPublicSend(object sender, EventArgs e)
+        private void SendFlowDocumentValue(object sender, EventArgs e)
         {
             (DataContext as ChatViewModel).CurrentPublicMessage = PublicChatTextBox.Document;
         }
@@ -56,6 +69,14 @@ namespace ChitChat.Views
         private void ClearPublicTextBox(object sender, EventArgs e)
         {
             PublicChatTextBox.Document.Blocks.Clear();
+        }
+
+        private void SetEmoji(object sender, EmojiEventArgs e)
+        {
+            if (e.ForPrivateChat == false)
+            {
+                PublicChatTextBox.SetEmoji(e.EmojiName);
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ using ChitChat.Helper.Extensions;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Documents;
+using ChitChat.Events;
 
 namespace ChitChat.ViewModels
 {
@@ -33,13 +34,15 @@ namespace ChitChat.ViewModels
         private IHttpService _httpService;
         private bool _isDisconnecting;
         private bool _controlsEnabled = true;
+        private bool _isPrivateChatting = false;
         private FlowDocument _currentPublicMessage;
         private FlowDocument _currentPrivateMessage;
         private HubConnection _connection;
         public event EventHandler OnDisconnect;
-        public event EventHandler OnPublicEnter;
-        public event EventHandler OnPrivateEnter;
+        public event EventHandler OnPublicEnterKey;
+        public event EventHandler OnPrivateEnterKey;
         public event EventHandler OnMessageSent;
+        public event EventHandler<EmojiEventArgs> OnEmojiClick;
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
             _currentUser = currentuser;
@@ -55,7 +58,7 @@ namespace ChitChat.ViewModels
             _privateMessagesCollectionView = new CollectionViewSource();
             _privateMessagesCollectionView.Source = _messages;
             PrivateMessages = _privateMessagesCollectionView.View;
-            PrivateMessages.Filter = FilterPrivateMessages;
+           PrivateMessages.Filter = FilterPrivateMessages;
 
             _connection = connection;
             _httpService = httpService;
@@ -65,6 +68,7 @@ namespace ChitChat.ViewModels
         }
 
         public ICommand Send => new RelayCommand(SendMessage);
+        public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
         public ICommand Disconnect => new RelayCommand(DisconnectFromServer);
         public ICommand OnPrivateChatEnter => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
         public ICommand OnPrivateChatExit => new RelayCommand(EnableControls);
@@ -120,11 +124,11 @@ namespace ChitChat.ViewModels
             if (destinationUser == null)
             {
                 // Gets the FlowDocument value from the view's textbox.
-                OnPublicEnter?.Invoke(this, EventArgs.Empty);
+                OnPublicEnterKey?.Invoke(this, EventArgs.Empty);
             }
             else
             {
-                OnPrivateEnter?.Invoke(this, EventArgs.Empty);
+                OnPrivateEnterKey?.Invoke(this, EventArgs.Empty);
             }
             if (!CanSendMessage())
             {
@@ -165,6 +169,18 @@ namespace ChitChat.ViewModels
             }
         }
 
+        private void SetEmoji(string emojiName)
+        {
+            if (_isPrivateChatting)
+            {
+                OnEmojiClick?.Invoke(this, new EmojiEventArgs { EmojiName = emojiName, ForPrivateChat = true });
+            }
+            else
+            {
+                OnEmojiClick?.Invoke(this, new EmojiEventArgs { EmojiName = emojiName, ForPrivateChat = false });
+            }
+        }
+
         private bool FilterPrivateMessages(object item)
         {
             MessageModel currentMessage = item as MessageModel;
@@ -188,10 +204,12 @@ namespace ChitChat.ViewModels
         private void DisableControls()
         {
             ControlsEnabled = false;
+            _isPrivateChatting = true;
         }
         private void EnableControls()
         {
             ControlsEnabled = true;
+            _isPrivateChatting = false;
         }
         private void SetSelectedUser(UserModel selectedUser)
         {
@@ -199,7 +217,7 @@ namespace ChitChat.ViewModels
         }
         private void RefreshPrivateCollectionView()
         {
-            PrivateMessages.Refresh();
+           PrivateMessages.Refresh();
         }
 
         private async Task SendHeartBeat(CancellationToken token)
