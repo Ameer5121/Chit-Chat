@@ -61,6 +61,5 @@ namespace ChitChat.Services
             }
             return userResponse;
         }
-   
     }
 }

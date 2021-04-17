@@ -73,7 +73,7 @@ namespace ChitChat.Helper
             }
             else
             {
-                (document as FlowDocumentScrollViewer).HorizontalContentAlignment = (HorizontalAlignment)(object)alingment;
+                (document as FlowDocumentScrollViewer).HorizontalAlignment = (HorizontalAlignment)(object)alingment;
                 return null;
             }
             return flowDocument;

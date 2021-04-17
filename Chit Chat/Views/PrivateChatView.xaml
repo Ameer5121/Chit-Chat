@@ -72,11 +72,10 @@
                                         <Binding Path="User.DisplayName"></Binding>
                                     </MultiBinding>
                                 </TextBlock.TextAlignment>
-                                
+
                             </TextBlock>
                             <FlowDocumentScrollViewer x:Name="PrivateDocumentViwer"
-                                                      Height="35"         
-                                                      HorizontalContentAlignment="Stretch"
+                                                      Height="Auto"
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                       Padding="-11" VerticalContentAlignment="Center"
                                                       >
@@ -107,7 +106,7 @@
                      Height="37"
                      VerticalContentAlignment="Center"
                      CaretBrush="White"
-                     materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue" Margin="0,4,34,4">
+                     materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue" Margin="0,4,36,4">
                 <RichTextBox.InputBindings>
                     <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding Send}" Key="Enter" />
                 </RichTextBox.InputBindings>
@@ -115,8 +114,8 @@
             </RichTextBox>
         </materialDesign:Card>
 
-        <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="30"  Click="Emoji_Click" Margin="646,0,2,0" Height="Auto" Padding="0" Grid.Row="2">
-            <Image Source="/Resources/Emojis/Grin.png" Height="33" Width="31"/>
+        <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right"  Click="Emoji_Click" Margin="640,0,2,0" Height="Auto" Padding="0" Grid.Row="2">
+            <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
         </Button>
 
         <!--Emoji Window-->

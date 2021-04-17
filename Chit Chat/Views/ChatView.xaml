@@ -209,7 +209,7 @@
                 <RichTextBox DockPanel.Dock="Left" x:Name="PublicChatTextBox" VerticalAlignment="Center"
                      AcceptsReturn="True"
                      FontSize="15" 
-                     Width="947"
+                     Width="944"
                      materialDesign:HintAssist.Hint=" Message"
                      Height="37"
                      IsEnabled="{Binding ControlsEnabled}"
@@ -221,8 +221,8 @@
                     </RichTextBox.InputBindings>
 
                 </RichTextBox>
-                <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="30" Click="Emoji_Click" Margin="-32,0,0,0" Height="Auto" Padding="0" IsEnabled="{Binding ControlsEnabled}">
-                    <Image Source="/Resources/Emojis/Grin.png" Height="33" Width="31"/>
+                <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="36" Click="Emoji_Click" Margin="-32,0,0,0" Height="Auto" Padding="0" IsEnabled="{Binding ControlsEnabled}">
+                    <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
                 </Button>
             </DockPanel>
         </materialDesign:Card>
