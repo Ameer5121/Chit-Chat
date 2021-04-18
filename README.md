@@ -46,4 +46,4 @@ By using a RichTextBox, you can insert images & rich content which internally us
 * FlowDocumentReader
 
 For a more detailed overview, refer to this link: 
-https://github.com/Sound932/Chit-Chat/blob/20acdcab6aed877df622ed2bfdb88f5107190021/Chit%20Chat/Helper/Extensions/DocumentExtensions.cs#L20
+https://github.com/Sound932/Chit-Chat/blob/f57c50605586eed9eb14ca51218cbac9ffc8830f/Chit%20Chat/Helper/Extensions/DocumentExtensions.cs#L20
