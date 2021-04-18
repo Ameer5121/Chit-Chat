@@ -20,9 +20,8 @@ namespace ChitChat.Helper.Extensions
         public static byte[] GetRTFData(this FlowDocument document)
         {
             TextRange textRange = new TextRange(document.ContentStart, document.ContentEnd);
-            MemoryStream stream;
             byte[] RTFdata;
-            using (stream = new MemoryStream())
+            using (var stream = new MemoryStream())
             {
                 textRange.Save(stream, DataFormats.Rtf);
                 stream.Position = 0;

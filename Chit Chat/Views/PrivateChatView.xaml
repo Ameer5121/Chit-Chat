@@ -74,11 +74,13 @@
                                 </TextBlock.TextAlignment>
 
                             </TextBlock>
+                            
                             <FlowDocumentScrollViewer x:Name="PrivateDocumentViwer"
                                                       Height="Auto"
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                       Padding="-11" VerticalContentAlignment="Center"
                                                       >
+                                
                                 <FlowDocumentScrollViewer.Document>
                                     <MultiBinding Converter="{StaticResource FlowDirectionConverter}" ConverterParameter="FlowDocument">
                                         <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
