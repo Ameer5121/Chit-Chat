@@ -40,7 +40,10 @@ Public Chat
  # How were Colored Emojis achieved in WPF
 WPF does not support unicode colored emojis. It only supports them in black and white. Question is, how do you go around this? and the answer would be Images.
 
-By using a RichTextBox, you can insert images & rich content which internally uses FlowDocuments and Paragraphs. You can then take the FlowDocument, write it into a MemoryStream formatted as RTF, read the bytes out and send it to every socket that needs the data. Users who get the RTF data can now procced to use MemoryStream to Load back the data into a FlowDocument, which can then be inserted into a few controls:
+By using a RichTextBox, you can insert images & rich content which internally uses FlowDocuments and Paragraphs. You can then take the FlowDocument, write it into a MemoryStream formatted as RTF, read the bytes out and send it to an API which then sends it to every socket that needs the data. Users who get the RTF data can now procced to use MemoryStream to Load back the data into a FlowDocument, which can then be inserted into a few controls:
 * FlowDocumentPageViewer
 * FlowDocumentScrollViewer
 * FlowDocumentReader
+
+For a more detailed overview, refer to this link: 
+https://github.com/Sound932/Chit-Chat/blob/20acdcab6aed877df622ed2bfdb88f5107190021/Chit%20Chat/Helper/Extensions/DocumentExtensions.cs#L20
