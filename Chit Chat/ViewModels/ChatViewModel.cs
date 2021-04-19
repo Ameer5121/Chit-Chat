@@ -35,6 +35,7 @@ namespace ChitChat.ViewModels
         private bool _isDisconnecting;
         private bool _controlsEnabled = true;
         private bool _isPrivateChatting = false;
+        private string _errorMessage;
         private FlowDocument _currentPublicMessage;
         private FlowDocument _currentPrivateMessage;
         private HubConnection _connection;
@@ -115,6 +116,12 @@ namespace ChitChat.ViewModels
             set => SetPropertyValue(ref _controlsEnabled, value);
         }
 
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set => SetPropertyValue(ref _errorMessage, value);
+        }
+
         private bool CanSendMessage()
         {
             return string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString()) ? false : true;
@@ -160,7 +167,7 @@ namespace ChitChat.ViewModels
             }
             catch (HttpRequestException)
             {
-                
+                ErrorMessage = "Could not send message!";
             }
             finally
             {
