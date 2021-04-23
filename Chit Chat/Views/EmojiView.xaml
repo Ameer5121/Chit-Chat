@@ -135,6 +135,338 @@
                         Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
                     <Image Source="/Resources/Emojis/unamused.png" Width="29" Height="27"/>
                 </Button>
+                <Button x:Name="disappointed" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/disappointed.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="pensive" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/pensive.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="worried" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/worried.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="confused" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/confused.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="slightfrown" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/slightfrown.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="persevere" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/persevere.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="confounded" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/confounded.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="tiredface" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/tiredface.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="weary" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/weary.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="pleadingface" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/pleadingface.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="cry" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/cry.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="sob" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/sob.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="triumph" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/triumph.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="angry" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/angry.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="rage" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/rage.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="rage2" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/rage2.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="explodinghead" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/explodinghead.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="flushed" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/flushed.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="hotface" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/hotface.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="coldface" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/coldface.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="scream" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/scream.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="fearful" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/fearful.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="coldsweat" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/coldsweat.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="sweat" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/sweat.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="hugging" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/hugging.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="thinking" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/thinking.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="facewithhand" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/facewithhand.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="yawning" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/yawning.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="shush" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/shush.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="lying" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/lying.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="nomouth" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/nomouth.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="neturalface" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/neturalface.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="expressionless" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/expressionless.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="grimacing" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/grimacing.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="rollingeyes" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/rollingeyes.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="hushed" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/hushed.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="openmouth" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/openmouth.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="astonished" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/astonished.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="sleeping" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/sleeping.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="drooling" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/drooling.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="sleepy" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/sleepy.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="dizzy" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/dizzy.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="zippermouth" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/zippermouth.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="woozy" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/woozy.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="sick" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/sick.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="vomit" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/vomit.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="sneeze" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/sneeze.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="mask" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/mask.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="thermometer" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/thermometer.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="bandage" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/bandage.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="moneymouth" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/moneymouth.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="cowboy" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/cowboy.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="disguised" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/disguised.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="smilingimp" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/smilingimp.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="imp" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/imp.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="japaneseogre" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/japaneseogre.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="japanesegoblin" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/japanesegoblin.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="clown" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/clown.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="poop" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/poop.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="ghost" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/ghost.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="skull" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/skull.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="skullcrossbones" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/skullcrossbones.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="alien" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/alien.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="spaceinvader" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/spaceinvader.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="robot" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/robot.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="jacko" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/jacko.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="smilingcat" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/smilingcat.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="smilingcat2" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/smilingcat2.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="joycat" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/joycat.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="hearteyescat" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/hearteyescat.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="smirkcat" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/smirkcat.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="kissingcat" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/kissingcat.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="screamcat" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/screamcat.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="cryingcat" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/cryingcat.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="poutingface" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/poutingface.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="palmsuptogether" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/palmsuptogether.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="openhands" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/openhands.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="raisedhands" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/raisedhands.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="clap" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/clap.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="handshake" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/handshake.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="thumbsup" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/thumbsup.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="thumbsdown" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/thumbsdown.png" Width="29" Height="27"/>
+                </Button>
+                <Button x:Name="punch" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
+                        Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
+                    <Image Source="/Resources/Emojis/punch.png" Width="29" Height="27"/>
+                </Button>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

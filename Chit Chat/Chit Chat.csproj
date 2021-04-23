@@ -394,6 +394,109 @@
     <Resource Include="Resources\Emojis\yum.png" />
     <Resource Include="Resources\Emojis\zanyface.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emojis\angry.png" />
+    <Resource Include="Resources\Emojis\coldface.png" />
+    <Resource Include="Resources\Emojis\confounded.png" />
+    <Resource Include="Resources\Emojis\confused.png" />
+    <Resource Include="Resources\Emojis\cry.png" />
+    <Resource Include="Resources\Emojis\disappointed.png" />
+    <Resource Include="Resources\Emojis\explodinghead.png" />
+    <Resource Include="Resources\Emojis\flushed.png" />
+    <Resource Include="Resources\Emojis\hotface.png" />
+    <Resource Include="Resources\Emojis\pensive.png" />
+    <Resource Include="Resources\Emojis\persevere.png" />
+    <Resource Include="Resources\Emojis\pleadingface.png" />
+    <Resource Include="Resources\Emojis\rage.png" />
+    <Resource Include="Resources\Emojis\rage2.png" />
+    <Resource Include="Resources\Emojis\slightfrown.png" />
+    <Resource Include="Resources\Emojis\sob.png" />
+    <Resource Include="Resources\Emojis\tiredface.png" />
+    <Resource Include="Resources\Emojis\triumph.png" />
+    <Resource Include="Resources\Emojis\weary.png" />
+    <Resource Include="Resources\Emojis\worried.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emojis\astonished.png" />
+    <Resource Include="Resources\Emojis\bandage.png" />
+    <Resource Include="Resources\Emojis\coldsweat.png" />
+    <Resource Include="Resources\Emojis\dizzy.png" />
+    <Resource Include="Resources\Emojis\drooling.png" />
+    <Resource Include="Resources\Emojis\expressionless.png" />
+    <Resource Include="Resources\Emojis\facewithhand.png" />
+    <Resource Include="Resources\Emojis\fearful.png" />
+    <Resource Include="Resources\Emojis\grimacing.png" />
+    <Resource Include="Resources\Emojis\hugging.png" />
+    <Resource Include="Resources\Emojis\hushed.png" />
+    <Resource Include="Resources\Emojis\lying.png" />
+    <Resource Include="Resources\Emojis\mask.png" />
+    <Resource Include="Resources\Emojis\moneymouth.png" />
+    <Resource Include="Resources\Emojis\neturalface.png" />
+    <Resource Include="Resources\Emojis\nomouth.png" />
+    <Resource Include="Resources\Emojis\openmouth.png" />
+    <Resource Include="Resources\Emojis\rollingeyes.png" />
+    <Resource Include="Resources\Emojis\scream.png" />
+    <Resource Include="Resources\Emojis\shush.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emojis\sleeping.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emojis\sleepy.png" />
+    <Resource Include="Resources\Emojis\sweat.png" />
+    <Resource Include="Resources\Emojis\thinking.png" />
+    <Resource Include="Resources\Emojis\woozy.png" />
+    <Resource Include="Resources\Emojis\yawning.png" />
+    <Resource Include="Resources\Emojis\zippermouth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emojis\sick.png" />
+    <Resource Include="Resources\Emojis\sneeze.png" />
+    <Resource Include="Resources\Emojis\thermometer.png" />
+    <Resource Include="Resources\Emojis\vomit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emojis\cowboy.png" />
+    <Resource Include="Resources\Emojis\disguised.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emojis\alien.png" />
+    <Resource Include="Resources\Emojis\clown.png" />
+    <Resource Include="Resources\Emojis\ghost.png" />
+    <Resource Include="Resources\Emojis\imp.png" />
+    <Resource Include="Resources\Emojis\japanesegoblin.png" />
+    <Resource Include="Resources\Emojis\japaneseogre.png" />
+    <Resource Include="Resources\Emojis\poop.png" />
+    <Resource Include="Resources\Emojis\skull.png" />
+    <Resource Include="Resources\Emojis\skullcrossbones.png" />
+    <Resource Include="Resources\Emojis\smilingimp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emojis\hearteyescat.png" />
+    <Resource Include="Resources\Emojis\jacko.png" />
+    <Resource Include="Resources\Emojis\joycat.png" />
+    <Resource Include="Resources\Emojis\kissingcat.png" />
+    <Resource Include="Resources\Emojis\robot.png" />
+    <Resource Include="Resources\Emojis\screamcat.png" />
+    <Resource Include="Resources\Emojis\smilingcat.png" />
+    <Resource Include="Resources\Emojis\smilingcat2.png" />
+    <Resource Include="Resources\Emojis\smirkcat.png" />
+    <Resource Include="Resources\Emojis\spaceinvader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emojis\clap.png" />
+    <Resource Include="Resources\Emojis\cryingcat.png" />
+    <Resource Include="Resources\Emojis\handshake.png" />
+    <Resource Include="Resources\Emojis\openhands.png" />
+    <Resource Include="Resources\Emojis\palmsuptogether.png" />
+    <Resource Include="Resources\Emojis\poutingface.png" />
+    <Resource Include="Resources\Emojis\punch.png" />
+    <Resource Include="Resources\Emojis\thumbsdown.png" />
+    <Resource Include="Resources\Emojis\thumbsup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emojis\raisedhands.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
