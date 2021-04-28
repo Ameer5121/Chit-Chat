@@ -8,7 +8,7 @@ Private Chat
 ![1](https://user-images.githubusercontent.com/71935713/115125572-bba3fd80-9fd1-11eb-9f73-d6f24e9c2e5e.png)
 
 Public Chat
-![2](https://user-images.githubusercontent.com/71935713/115125578-ca8ab000-9fd1-11eb-862c-4aaf45dee46f.png)
+![2](https://user-images.githubusercontent.com/71935713/115862891-5fabff80-a43d-11eb-8f21-5913c904ccaf.png)
 
 
 
