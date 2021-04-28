@@ -57,7 +57,9 @@ namespace ChitChat.Services
             }
             else if (userResponse.ResponseCode == HttpStatusCode.BadRequest)
             {
+
                 throw new RegistrationException(userResponse.Message);
+
             }
             return userResponse;
         }

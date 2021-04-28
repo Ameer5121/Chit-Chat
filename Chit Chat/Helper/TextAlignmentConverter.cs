@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
+using ChitChat.Helper.Extensions;
 
 namespace ChitChat.Helper
 {
@@ -44,9 +45,8 @@ namespace ChitChat.Helper
             }
             if (IsFlowDocument(parameter as string))
             {
-                var flowDocument = SetFlowDocumentAlignment
-                    ((values[2] as FlowDocument),
-                    TextAlignment.Right);
+                var document = (values[2] as FlowDocument);
+                var flowDocument = SetFlowDocumentAlignment(document, TextAlignment.Right);
 
                 SetFlowDocumentAlignment((values[3] as FlowDocumentScrollViewer), 
                     HorizontalAlignment.Right);
@@ -99,7 +99,6 @@ namespace ChitChat.Helper
                 paragraph.TextAlignment = alignment;
             }
         }
-
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {

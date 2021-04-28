@@ -16,7 +16,7 @@
              Height="525"
              >
     <UserControl.Resources>
-        <Helper:TextAlignmentConverter x:Key="FlowDirectionConverter"></Helper:TextAlignmentConverter>
+        <Helper:TextAlignmentConverter x:Key="TextAlignmentConverter"></Helper:TextAlignmentConverter>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -65,24 +65,21 @@
                             <Run Text="{Binding User.DisplayName}" Foreground="Silver"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
-
                                 <TextBlock.TextAlignment>
-                                    <MultiBinding Converter="{StaticResource FlowDirectionConverter}">
+                                    <MultiBinding Converter="{StaticResource TextAlignmentConverter}">
                                         <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
                                         <Binding Path="User.DisplayName"></Binding>
                                     </MultiBinding>
                                 </TextBlock.TextAlignment>
-
                             </TextBlock>
-                            
+
                             <FlowDocumentScrollViewer x:Name="PrivateDocumentViwer"
                                                       Height="Auto"
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                       Padding="-11" VerticalContentAlignment="Center"
                                                       >
-                                
                                 <FlowDocumentScrollViewer.Document>
-                                    <MultiBinding Converter="{StaticResource FlowDirectionConverter}" ConverterParameter="FlowDocument">
+                                    <MultiBinding Converter="{StaticResource TextAlignmentConverter}" ConverterParameter="FlowDocument">
                                         <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
                                         <Binding Path="User.DisplayName"></Binding>
                                         <Binding Path="Message"></Binding>
