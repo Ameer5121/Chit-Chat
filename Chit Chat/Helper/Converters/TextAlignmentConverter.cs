@@ -13,7 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using ChitChat.Helper.Extensions;
 
-namespace ChitChat.Helper
+namespace ChitChat.Helper.Converters
 {
     class TextAlignmentConverter : IMultiValueConverter
     {

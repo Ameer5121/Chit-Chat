@@ -1,5 +1,5 @@
 ﻿using ChitChat.Helper.Extensions;
-using ChitChat.Helper;
+using ChitChat.Helper.Exceptions;
 using ChitChat.Models;
 using Newtonsoft.Json;
 using System;

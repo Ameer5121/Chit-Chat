@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using ChitChat.Commands;
 using ChitChat.Helper.Extensions;
+using ChitChat.Helper.Exceptions;
 using ChitChat.Helper;
 using System.Windows;
 using System.Net.Mail;

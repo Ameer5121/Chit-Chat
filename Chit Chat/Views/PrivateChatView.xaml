@@ -4,7 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Helper="clr-namespace:ChitChat.Helper"
+             xmlns:Converters="clr-namespace:ChitChat.Helper.Converters"
+             xmlns:AttachedProperties="clr-namespace:ChitChat.Helper.AttachedProperties"
              xmlns:local="clr-namespace:ChitChat.Views"
              mc:Ignorable="d" 
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -16,7 +17,7 @@
              Height="525"
              >
     <UserControl.Resources>
-        <Helper:TextAlignmentConverter x:Key="TextAlignmentConverter"></Helper:TextAlignmentConverter>
+        <Converters:TextAlignmentConverter x:Key="TextAlignmentConverter"></Converters:TextAlignmentConverter>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -52,7 +53,7 @@
                   ItemsSource="{Binding PrivateMessages}"
                   RenderTransformOrigin="0.5,0.5"
                   HorizontalContentAlignment="Stretch"
-                  Helper:ScrollBehavior.ScrollOnNewItem="True">
+                  AttachedProperties:ScrollBehavior.ScrollOnNewItem="True">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel VerticalAlignment="Bottom"/>

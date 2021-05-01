@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ChitChat.Helper
+namespace ChitChat.Helper.AttachedProperties
 {
     class ScrollBehavior
     {

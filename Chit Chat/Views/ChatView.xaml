@@ -5,7 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChitChat.Views"
-        xmlns:Helper="clr-namespace:ChitChat.Helper"
+        xmlns:Converters="clr-namespace:ChitChat.Helper.Converters"
+        xmlns:AttachedProperties="clr-namespace:ChitChat.Helper.AttachedProperties"
         mc:Ignorable="d"
         Title="ChatView" 
         Height="821.5" 
@@ -22,7 +23,7 @@
 
 
     <Window.Resources>
-        <Helper:IsEnabledConverter x:Key="IsEnabledConverter"></Helper:IsEnabledConverter>
+        <Converters:IsEnabledConverter x:Key="IsEnabledConverter"></Converters:IsEnabledConverter>
     </Window.Resources>
 
     <Grid Margin="0,0,0,2">
@@ -177,7 +178,7 @@
                   Grid.RowSpan="2"
                   ItemsSource="{Binding PublicMessages}"                  
                   Margin="0,0,0,54"
-                 RenderTransformOrigin="0.5,0.5" IsSynchronizedWithCurrentItem="True" Helper:ScrollBehavior.ScrollOnNewItem="True">
+                 RenderTransformOrigin="0.5,0.5" IsSynchronizedWithCurrentItem="True" AttachedProperties:ScrollBehavior.ScrollOnNewItem="True">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel VerticalAlignment="Bottom"/>
