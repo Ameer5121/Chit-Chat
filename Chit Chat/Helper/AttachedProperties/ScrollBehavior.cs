@@ -45,8 +45,11 @@ namespace ChitChat.Helper.AttachedProperties
         {
             _publicMessagesCollection.CollectionChanged -= OnCollectionChanged;
             _privateMessagesCollection.CollectionChanged -= OnCollectionChanged;
-            _listViews[0].Unloaded -= OnUnLoaded;
-            _listViews[0].Loaded -= OnLoaded;
+             _listViews[0].Unloaded -= OnUnLoaded;
+             _listViews[0].Loaded -= OnLoaded;
+            _listViews.Clear();
+            _privateMessagesCollection = null;
+           _publicMessagesCollection = null;
         }
 
         private static void OnLoaded(object sender, RoutedEventArgs e)

@@ -16,7 +16,7 @@ namespace ChitChat.Views
         {
             InitializeComponent();
             DataContext = context;
-            Loaded += OnLoaded;
+            Loaded += OnLoaded;          
             Unloaded += OnUnLoaded;
         }
 
@@ -34,6 +34,8 @@ namespace ChitChat.Views
             (DataContext as ChatViewModel).OnPublicEnterKey -= SendFlowDocumentValue;
             (DataContext as ChatViewModel).OnMessageSent -= ClearPublicTextBox;
             (DataContext as ChatViewModel).OnEmojiClick -= SetEmoji;
+            Loaded -= OnLoaded;
+            Unloaded -= OnUnLoaded;
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();

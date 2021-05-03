@@ -219,8 +219,7 @@ namespace ChitChat.ViewModels
 
         private void RemoveHandlers()
         {
-            connection.Remove("Connected");
+           connection.Remove("Connected");
         }
-
     }
 }

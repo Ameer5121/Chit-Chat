@@ -27,6 +27,7 @@ namespace ChitChat.Views
         public PrivateChatView()
         {
             InitializeComponent();
+            
             Loaded += OnLoaded;
             Unloaded += OnUnLoaded;
         }
@@ -36,6 +37,8 @@ namespace ChitChat.Views
             (DataContext as ChatViewModel).OnMessageSent -= ClearPrivateTextBox;
             (DataContext as ChatViewModel).OnEmojiClick -= SetEmoji;
             (DataContext as ChatViewModel).OnPrivateEnterKey -= SendDocumentValue;
+            Loaded -= OnLoaded;
+            Unloaded -= OnUnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

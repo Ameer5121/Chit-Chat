@@ -22,7 +22,7 @@ namespace ChitChat.Views
         public HomeView()
         {
             InitializeComponent();
-            DataContext = new HomeViewModel(HttpService.HttpServiceInstance, new Logger()); ;
+            DataContext = new HomeViewModel(HttpService.HttpServiceInstance, new Logger());
             (DataContext as HomeViewModel).OnSuccessfulConnect += ChangeWindow;
         }
 
@@ -41,7 +41,7 @@ namespace ChitChat.Views
         {
             ChatView chatView = new ChatView(e.ChatViewModelContext);
             chatView.Show();
-            (DataContext as HomeViewModel).OnSuccessfulConnect -= ChangeWindow;
+           (DataContext as HomeViewModel).OnSuccessfulConnect -= ChangeWindow;
             this.Close();
         }
 

@@ -25,10 +25,18 @@ namespace ChitChat.Views
         public RegisterView()
         {
             InitializeComponent();
-            this.Loaded += OnControlLoaded;       
+            this.Loaded += OnLoaded;
+            this.Unloaded += OnUnLoaded;
         }
 
-        private void OnControlLoaded(object sender, RoutedEventArgs e)
+        private void OnUnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= OnLoaded;
+            this.Unloaded -= OnUnLoaded;
+            (DataContext as HomeViewModel).OnRegister -= ClearPassword;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
             (DataContext as HomeViewModel).OnRegister += ClearPassword;
         }
