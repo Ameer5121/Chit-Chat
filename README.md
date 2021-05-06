@@ -48,3 +48,6 @@ By using a RichTextBox, you can insert images & rich content which internally us
 For a more detailed overview, refer to these links:
 * Converting FlowDocument to RTF bytes https://github.com/Sound932/Chit-Chat/blob/f57c50605586eed9eb14ca51218cbac9ffc8830f/Chit%20Chat/Helper/Extensions/DocumentExtensions.cs#L20
 * Converting RTF bytes to FlowDocument https://github.com/Sound932/Chit-Chat/blob/46916d8ee7d1ac94174136b4b8e843dc99fd407f/Chit%20Chat/Helper/Extensions/MessageModelExtension.cs#L15
+
+# Application State
+This application is still a Work-In-Progress. There are a lot of things that are planned to be added.
