@@ -12,7 +12,7 @@ namespace ChitChat.Helper.AttachedProperties
 {
     class ScrollBehavior
     {
-        private static List<ListView> _listViews = new List<ListView>();
+        private static List<ListBox> _listBoxes = new List<ListBox>();
         private static INotifyCollectionChanged _publicMessagesCollection;
         private static INotifyCollectionChanged _privateMessagesCollection;
         public static bool GetScrollOnNewItem(DependencyObject obj)
@@ -34,28 +34,28 @@ namespace ChitChat.Helper.AttachedProperties
 
         private static void OnDifferentValue(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            _listViews.Add(d as ListView);
-            if (_listViews.Count > 1)
+            _listBoxes.Add(d as ListBox);
+            if (_listBoxes.Count > 1)
                 return;
-            _listViews[0].Loaded += OnLoaded;
-            _listViews[0].Unloaded += OnUnLoaded;
+            _listBoxes[0].Loaded += OnLoaded;
+            _listBoxes[0].Unloaded += OnUnLoaded;
         }
 
         private static void OnUnLoaded(object sender, RoutedEventArgs e)
         {
             _publicMessagesCollection.CollectionChanged -= OnCollectionChanged;
             _privateMessagesCollection.CollectionChanged -= OnCollectionChanged;
-             _listViews[0].Unloaded -= OnUnLoaded;
-             _listViews[0].Loaded -= OnLoaded;
-            _listViews.Clear();
+             _listBoxes[0].Unloaded -= OnUnLoaded;
+             _listBoxes[0].Loaded -= OnLoaded;
+            _listBoxes.Clear();
             _privateMessagesCollection = null;
            _publicMessagesCollection = null;
         }
 
         private static void OnLoaded(object sender, RoutedEventArgs e)
         {
-            _publicMessagesCollection = _listViews[0].ItemsSource as INotifyCollectionChanged;
-            _privateMessagesCollection = _listViews[1].ItemsSource as INotifyCollectionChanged;
+            _publicMessagesCollection = _listBoxes[0].ItemsSource as INotifyCollectionChanged;
+            _privateMessagesCollection = _listBoxes[1].ItemsSource as INotifyCollectionChanged;
             _publicMessagesCollection.CollectionChanged += OnCollectionChanged;
             _privateMessagesCollection.CollectionChanged += OnCollectionChanged;
 
@@ -68,13 +68,13 @@ namespace ChitChat.Helper.AttachedProperties
                 var messageModel = e.NewItems[0] as MessageModel;
                 if (messageModel.DestinationUser == null)
                 {
-                    _listViews[0].ScrollIntoView(messageModel);
-                    _listViews[0].SelectedItem = messageModel;
+                    _listBoxes[0].ScrollIntoView(messageModel);
+                    _listBoxes[0].SelectedItem = messageModel;
                 }
                 else
                 {
-                    _listViews[1].ScrollIntoView(messageModel);
-                    _listViews[1].SelectedItem = messageModel;
+                    _listBoxes[1].ScrollIntoView(messageModel);
+                    _listBoxes[1].SelectedItem = messageModel;
                 }              
             }
         }

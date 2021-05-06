@@ -59,7 +59,7 @@ namespace ChitChat.ViewModels
             _privateMessagesCollectionView = new CollectionViewSource();
             _privateMessagesCollectionView.Source = _messages;
             PrivateMessages = _privateMessagesCollectionView.View;
-           PrivateMessages.Filter = FilterPrivateMessages;
+            PrivateMessages.Filter = FilterPrivateMessages;
 
             _connection = connection;
             _httpService = httpService;
@@ -224,7 +224,7 @@ namespace ChitChat.ViewModels
         }
         private void RefreshPrivateCollectionView()
         {
-           PrivateMessages.Refresh();
+            PrivateMessages.Refresh();
         }
 
         private async Task SendHeartBeat(CancellationToken token)
@@ -263,6 +263,7 @@ namespace ChitChat.ViewModels
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     data.Messages.LastOrDefault().ConvertRTFToFlowDocument();
+
                     _messages.Add(data.Messages.LastOrDefault());
                 });
             }

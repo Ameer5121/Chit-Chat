@@ -28,12 +28,14 @@
 
     <Grid Margin="0,0,0,2">
         <Grid.RowDefinitions>
-            <RowDefinition Height="41"/>
-            <RowDefinition Height="988"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="86*"/>
-            <ColumnDefinition Width="341*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
 
@@ -48,7 +50,7 @@
         </Border>
 
 
-        <Grid Background="Transparent" Grid.Row="1" Margin="0,0,0,276">
+        <Grid Background="Transparent" Grid.Row="1" Margin="0,0,0,113" Grid.RowSpan="2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -78,9 +80,9 @@
                                 </DockPanel>
                             </Expander.Header>
 
-                            <ListView x:Name="Users" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" 
+                            <ListBox x:Name="Users" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" 
                                       IsEnabled="{Binding ControlsEnabled}">
-                                <ListView.ItemTemplate>
+                                <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <DockPanel LastChildFill="False" FlowDirection="LeftToRight">
                                             <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,3,0,0"></TextBlock>
@@ -91,7 +93,7 @@
                                                         Command="{Binding DataContext.OnPrivateChatEnter, ElementName=Users}" CommandParameter="{Binding}">
                                                     <Button.IsEnabled>
                                                         <MultiBinding Converter="{StaticResource IsEnabledConverter}">
-                                                            <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
+                                                            <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListBox}"/>
                                                             <Binding Path="DisplayName"></Binding>
                                                         </MultiBinding>
                                                     </Button.IsEnabled>
@@ -101,9 +103,9 @@
 
                                         </DockPanel>
                                     </DataTemplate>
-                                </ListView.ItemTemplate>
+                                </ListBox.ItemTemplate>
 
-                            </ListView>
+                            </ListBox>
 
                         </Expander>
                     </Grid>
@@ -165,26 +167,28 @@
         </Grid>
 
 
-        <materialDesign:Card UniformCornerRadius="5" Margin="10,1,0,939" Grid.Column="1" Grid.Row="1">
+        <materialDesign:Card UniformCornerRadius="5" Margin="10,1,0,3" Grid.Column="1" Grid.Row="1">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
                 <TextBlock Width="116" Text="Message History" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
         </materialDesign:Card>
-        <materialDesign:Card Margin="10,54,0,209" Grid.Column="1" Grid.Row="1" Background="#FF3A3838" UniformCornerRadius="5">
-            <ListView Grid.Column="1" 
+        <materialDesign:Card  Grid.Column="1" Grid.Row="2" Background="#FF3A3838" UniformCornerRadius="5" Grid.RowSpan="2" Margin="10,0,0,0">
+            <ListBox Grid.Column="1" 
                   Background="#FF3A3838" 
                   Grid.Row="1"                   
                   Grid.RowSpan="2"
                   ItemsSource="{Binding PublicMessages}"                  
-                  Margin="0,0,0,54"
+                  Margin="0,10,0,57"
+                  VirtualizingStackPanel.IsVirtualizing="False"
                  RenderTransformOrigin="0.5,0.5" IsSynchronizedWithCurrentItem="True" AttachedProperties:ScrollBehavior.ScrollOnNewItem="True">
-                <ListView.ItemsPanel>
+
+                <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel VerticalAlignment="Bottom"/>
                     </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel HorizontalAlignment="Left">
                             <TextBlock TextAlignment="Left">
@@ -200,22 +204,25 @@
                         </StackPanel>
 
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </materialDesign:Card>
+        
+        
         <!--Public chat textbox-->
         <materialDesign:Card 
             UniformCornerRadius="5"
-            Grid.Row="1" 
+            Grid.Row="3" 
             Grid.Column="1"
-            Margin="24,728,18,223">
+            Margin="20,15,10,15">
             <DockPanel LastChildFill="False">
-                <RichTextBox DockPanel.Dock="Left" x:Name="PublicChatTextBox" VerticalAlignment="Center"
+                <RichTextBox DockPanel.Dock="Left" x:Name="PublicChatTextBox" 
                      AcceptsReturn="True"
                      FontSize="15" 
-                     Width="944"
+                     Width="929"
                      materialDesign:HintAssist.Hint=" Message"
-                     Height="37"
+                     Height="Auto"
+                     MaxHeight="200"
                      IsEnabled="{Binding ControlsEnabled}"
                      VerticalContentAlignment="Center"
                      CaretBrush="White"
@@ -225,17 +232,25 @@
                     </RichTextBox.InputBindings>
 
                 </RichTextBox>
-                <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="36" Click="Emoji_Click" Margin="-32,0,0,0" Height="Auto" Padding="0" IsEnabled="{Binding ControlsEnabled}">
+                <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" VerticalAlignment="Top" Width="36" Click="Emoji_Click" Height="33" Padding="0" IsEnabled="{Binding ControlsEnabled}">
                     <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
                 </Button>
             </DockPanel>
         </materialDesign:Card>
 
-       
-        
-        
+
+        <!--Emoji Window-->
+        <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="2" Grid.Column="1"  SelectedIndex="1" Margin="600,331,0,50" Width="408" Height="333" Grid.RowSpan="2">
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
+                <local:EmojiView Margin="0,0,0,-1"></local:EmojiView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
+
+            </materialDesign:TransitionerSlide>
+        </materialDesign:Transitioner>
+
         <!--Private Chat Window-->
-        <materialDesign:Transitioner x:Name="PrivateChatTransitioner" Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" Margin="171,127,174,336">
+        <materialDesign:Transitioner x:Name="PrivateChatTransitioner" Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" Margin="171,71,159,70">
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                 <local:PrivateChatView Margin="0,0,0,-1"></local:PrivateChatView>
             </materialDesign:TransitionerSlide>
@@ -244,16 +259,6 @@
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
 
-
-        <!--Emoji Window-->
-        <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Margin="615,390,0,265">
-            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
-                <local:EmojiView Margin="0,0,0,-1"></local:EmojiView>
-            </materialDesign:TransitionerSlide>
-            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
-
-            </materialDesign:TransitionerSlide>
-        </materialDesign:Transitioner>
 
     </Grid>
 </Window>

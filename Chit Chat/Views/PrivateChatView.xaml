@@ -21,9 +21,9 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="29*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!--Black Border & Exit Button-->
@@ -45,21 +45,22 @@
         </Border>
 
         <!--Message Window-->
-        <materialDesign:Card Grid.Row="1" Background="#FF2E2E2E" UniformCornerRadius="5" Margin="0,0,0,41" Grid.RowSpan="2">
-            <ListView x:Name="PrivateMessagesListView" Grid.Column="1" 
+        <materialDesign:Card Grid.Row="1" Background="#FF2E2E2E" UniformCornerRadius="5" Grid.RowSpan="2">
+            <ListBox x:Name="PrivateMessagesListView" Grid.Column="1" 
                   Background="Transparent" 
                   Grid.Row="1"                   
                   Grid.RowSpan="2"
                   ItemsSource="{Binding PrivateMessages}"
                   RenderTransformOrigin="0.5,0.5"
                   HorizontalContentAlignment="Stretch"
-                  AttachedProperties:ScrollBehavior.ScrollOnNewItem="True">
-                <ListView.ItemsPanel>
+                  VirtualizingStackPanel.IsVirtualizing="False"
+                  AttachedProperties:ScrollBehavior.ScrollOnNewItem="True" Margin="0,0,0,32">
+                <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel VerticalAlignment="Bottom"/>
                     </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock>                              
@@ -68,7 +69,7 @@
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
                                 <TextBlock.TextAlignment>
                                     <MultiBinding Converter="{StaticResource TextAlignmentConverter}">
-                                        <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
+                                        <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListBox}"/>
                                         <Binding Path="User.DisplayName"></Binding>
                                     </MultiBinding>
                                 </TextBlock.TextAlignment>
@@ -81,7 +82,7 @@
                                                       >
                                 <FlowDocumentScrollViewer.Document>
                                     <MultiBinding Converter="{StaticResource TextAlignmentConverter}" ConverterParameter="FlowDocument">
-                                        <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
+                                        <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListBox}"/>
                                         <Binding Path="User.DisplayName"></Binding>
                                         <Binding Path="Message"></Binding>
                                         <Binding ElementName="PrivateDocumentViwer"></Binding>
@@ -90,23 +91,23 @@
                             </FlowDocumentScrollViewer>
                         </StackPanel>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </materialDesign:Card>
 
 
         <!--Chat typing-->
         <materialDesign:Card 
             UniformCornerRadius="5"
-            Grid.Row="2" Background="#FF303030" Margin="0,0,2,0">
-            <RichTextBox VerticalAlignment="Center"
+            Grid.Row="2" Background="#FF303030">
+            <RichTextBox 
                      x:Name="PrivateChatTextBox"
                      FontSize="15"
                      materialDesign:HintAssist.Hint="Message"
-                     Height="37"
-                     VerticalContentAlignment="Center"
+                     Height="Auto" 
+                     MaxHeight="200"
                      CaretBrush="White"
-                     materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue" Margin="0,4,36,4">
+                     materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue" Margin="0,0,43,0"  >
                 <RichTextBox.InputBindings>
                     <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding Send}" Key="Enter" />
                 </RichTextBox.InputBindings>
@@ -114,12 +115,12 @@
             </RichTextBox>
         </materialDesign:Card>
 
-        <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right"  Click="Emoji_Click" Margin="640,0,2,0" Height="Auto" Padding="0" Grid.Row="2">
+        <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right"  VerticalAlignment="Top" Click="Emoji_Click" Margin="640,0,2,0" Height="Auto" Padding="0" Grid.Row="2">
             <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
         </Button>
 
         <!--Emoji Window-->
-        <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="1" Panel.ZIndex="1" SelectedIndex="1" Margin="260,92,10,10" Height="333" Width="408">
+        <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="1" SelectedIndex="1" Margin="260,110,-10,30" Height="333" Width="408" Grid.RowSpan="2">
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                 <local:EmojiView Margin="0,0,0,-1"></local:EmojiView>
             </materialDesign:TransitionerSlide>
