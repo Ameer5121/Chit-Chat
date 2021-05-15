@@ -27,14 +27,14 @@
         </Grid.RowDefinitions>
 
         <!--Black Border & Exit Button-->
-        <Border Background="#FF2C2B2B" Grid.Row="0">
+        <Border Background="{DynamicResource WindowBorder}" Grid.Row="0">
             <DockPanel LastChildFill="False">
                 <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" Command="{Binding OnPrivateChatExit}"
                         Click="OnExitClick"
                         Width="53" DockPanel.Dock="Right">
                     <Image Source="/Resources/Exit.png" Height="44" Width="53"></Image>
                 </Button>
-                <TextBlock Width="336" VerticalAlignment="Center" Margin="0,14">
+                <TextBlock Width="336" VerticalAlignment="Center" Margin="0,14" Foreground="{DynamicResource Text}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}Privately chatting to {0}">
                             <Binding Path="SelectedUser.DisplayName" />
@@ -45,7 +45,7 @@
         </Border>
 
         <!--Message Window-->
-        <materialDesign:Card Grid.Row="1" Background="#FF2E2E2E" UniformCornerRadius="5" Grid.RowSpan="2">
+        <materialDesign:Card Grid.Row="1" Background="{DynamicResource PrivateChat}" UniformCornerRadius="5" Grid.RowSpan="2">
             <ListBox x:Name="PrivateMessagesListView" Grid.Column="1" 
                   Background="Transparent" 
                   Grid.Row="1"                   
@@ -99,11 +99,10 @@
         <!--Chat typing-->
         <materialDesign:Card 
             UniformCornerRadius="5"
-            Grid.Row="2" Background="#FF303030">
+            Grid.Row="2" Background="{DynamicResource DefaultTextBoxTheme}">
             <RichTextBox 
                      x:Name="PrivateChatTextBox"
                      FontSize="15"
-                     materialDesign:HintAssist.Hint="Message"
                      Height="Auto" 
                      MaxHeight="200"
                      CaretBrush="White"
@@ -111,7 +110,9 @@
                 <RichTextBox.InputBindings>
                     <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding Send}" Key="Enter" />
                 </RichTextBox.InputBindings>
-
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
+                </materialDesign:HintAssist.Hint>
             </RichTextBox>
         </materialDesign:Card>
 

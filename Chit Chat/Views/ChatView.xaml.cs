@@ -1,9 +1,11 @@
 ﻿using ChitChat.Events;
+using ChitChat.Helper;
 using ChitChat.Helper.Extensions;
 using ChitChat.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ChitChat.Views
 {
@@ -16,7 +18,7 @@ namespace ChitChat.Views
         {
             InitializeComponent();
             DataContext = context;
-            Loaded += OnLoaded;          
+            Loaded += OnLoaded;
             Unloaded += OnUnLoaded;
         }
 
@@ -26,6 +28,7 @@ namespace ChitChat.Views
             (DataContext as ChatViewModel).OnPublicEnterKey += SendFlowDocumentValue;
             (DataContext as ChatViewModel).OnMessageSent += ClearPublicTextBox;
             (DataContext as ChatViewModel).OnEmojiClick += SetEmoji;
+            (DataContext as ChatViewModel).OnThemeChange += ChangeTheme;
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
@@ -79,6 +82,13 @@ namespace ChitChat.Views
             {
                 PublicChatTextBox.SetEmoji(e.EmojiName);
             }
+        }
+        private void ChangeTheme(object sender, ThemeEventArgs e)
+        {
+            var app = (App)Application.Current;
+            app.ChangeTheme(e.CurrentTheme);
+            UpdateLayout();
+            UpdateDefaultStyle();
         }
     }
 }

@@ -15,7 +15,7 @@
         WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignDarkBackground}"
+        Background="{DynamicResource DefaultWindowTheme}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
@@ -40,7 +40,7 @@
 
 
         <!--Black Border & Exit Button-->
-        <Border Background="#FF2C2B2B" Grid.Row="0" Grid.ColumnSpan="2">
+        <Border Background="{DynamicResource WindowBorder}" Grid.Row="0" Grid.ColumnSpan="2">
             <DockPanel LastChildFill="False">
                 <TextBlock DockPanel.Dock="Bottom" Height="28" Margin="390,0,287,0" TextAlignment="Center" Text="{Binding ErrorMessage}" Foreground="Red"/>
                 <Button Margin="1227,0,0,-28" BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Cursor="Hand">
@@ -56,12 +56,12 @@
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
             <!--Main Expander-->
-            <Expander FlowDirection="RightToLeft" Grid.Column="0" Grid.Row="1" Background="#FF3A3838" IsExpanded="True" Margin="0,0,0,658">
+            <Expander FlowDirection="RightToLeft" Grid.Column="0" Grid.Row="1" Background="{DynamicResource Menu}" Foreground="{DynamicResource ExpanderButton}" IsExpanded="True" Margin="0,0,0,658">
                 <Expander.Header>
                     <DockPanel FlowDirection="LeftToRight" Height="30">
                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Menu" Height="34" Width="29"></materialDesign:PackIcon>
-                            <TextBlock Text="Menu" Style="{StaticResource MaterialDesignBody1TextBlock}" Width="74" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,1"></TextBlock>
+                            <materialDesign:PackIcon Kind="Menu" Height="34" Width="29" Foreground="{DynamicResource Icons}"></materialDesign:PackIcon>
+                            <TextBlock Text="Menu" Style="{StaticResource MaterialDesignBody1TextBlock}" Width="74" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,1" Foreground="{DynamicResource Text}"></TextBlock>
                         </StackPanel>
                     </DockPanel>
                 </Expander.Header>
@@ -72,11 +72,11 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <!--User Expander-->
-                        <Expander Margin="0,20" Background="#FF4F4C4C" IsExpanded="True" >
+                        <Expander Margin="0,20" Background="{DynamicResource MenuOptions}" IsExpanded="True" >
                             <Expander.Header>
                                 <DockPanel FlowDirection="LeftToRight">
-                                    <materialDesign:PackIcon Kind="People" Height="30" Width="33"></materialDesign:PackIcon>
-                                    <TextBlock Text="Users" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="AliceBlue" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="59"></TextBlock>
+                                    <materialDesign:PackIcon Kind="People" Height="30" Width="33" Foreground="{DynamicResource Icons}"></materialDesign:PackIcon>
+                                    <TextBlock Text="Users" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="{DynamicResource Text}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="59"></TextBlock>
                                 </DockPanel>
                             </Expander.Header>
 
@@ -85,11 +85,14 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <DockPanel LastChildFill="False" FlowDirection="LeftToRight">
-                                            <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,3,0,0"></TextBlock>
+                                            <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,3,0,0" Foreground="{DynamicResource Text}"></TextBlock>
 
-                                            <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
+                                            <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center"
+                                                                     Foreground="{DynamicResource ExpanderButton}"
+                                                                     >
 
-                                                <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" 
+                                                <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" Background="{DynamicResource Buttons}"
+                                                        Foreground="{DynamicResource Text}"
                                                         Command="{Binding DataContext.OnPrivateChatEnter, ElementName=Users}" CommandParameter="{Binding}">
                                                     <Button.IsEnabled>
                                                         <MultiBinding Converter="{StaticResource IsEnabledConverter}">
@@ -98,7 +101,6 @@
                                                         </MultiBinding>
                                                     </Button.IsEnabled>
                                                 </Button>
-
                                             </materialDesign:PopupBox>
 
                                         </DockPanel>
@@ -115,19 +117,46 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <!--Options Expander-->
-                        <Expander Margin="0,20" Background="#FF4F4C4C" IsExpanded="True">
+                        <Expander Margin="0,20" Background="{DynamicResource MenuOptions}" IsExpanded="True">
                             <Expander.Header>
                                 <DockPanel FlowDirection="LeftToRight">
-                                    <materialDesign:PackIcon Kind="Settings" Height="30" Width="33"></materialDesign:PackIcon>
-                                    <TextBlock Text="Options" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="AliceBlue" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="80"></TextBlock>
+                                    <materialDesign:PackIcon Kind="Settings" Height="30" Width="33" Foreground="{DynamicResource Icons}"></materialDesign:PackIcon>
+                                    <TextBlock Text="Options" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="{DynamicResource Text}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="80"></TextBlock>
                                 </DockPanel>
                             </Expander.Header>
 
                             <DockPanel FlowDirection="LeftToRight">
-                                <Button Foreground="Red"
+                                <!--Color-->
+                                <materialDesign:Card DockPanel.Dock="Top"
+                                          HorizontalAlignment="Left"
+                                          Background="{DynamicResource Buttons}"
+                                          Width="153"
+                                          Height="32">
+                                    <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
+                                          ItemsSource="{Binding Themes}"
+                                          SelectedItem="{Binding CurrentTheme, Mode=OneWayToSource, FallbackValue=Dark}"
+                                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource DefaultUnderLineBrush}"
+                                          Foreground="{DynamicResource Text}"
+                                          BorderBrush="{DynamicResource ButtonsBorderBrush}">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="{DynamicResource Text}">Theme</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                        <ComboBox.ItemContainerStyle>
+                                            <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}" >
+                                                <Setter Property="Background" Value="{DynamicResource DefaultSubWindowTheme}"></Setter>
+                                                <Setter Property="Width" Value="140"></Setter>
+                                            </Style>
+                                        </ComboBox.ItemContainerStyle>
+                                    </ComboBox>
+                                </materialDesign:Card>
+
+
+
+                                <Button Foreground="Red"                                
                                  DockPanel.Dock="Left"
-                               Background="#FF433F3F"
-                               BorderBrush="#FF2C2B2B"
+                                 
+                               Background="{DynamicResource Buttons}"
+                               BorderBrush="{DynamicResource ButtonsBorderBrush}"
                                Margin="0,10,120,10"
                                Command="{Binding Disconnect}">
                                     <StackPanel Orientation="Horizontal" Width="121" Height="28">
@@ -159,6 +188,11 @@
                                         </Style>
                                     </ProgressBar.Style>
                                 </ProgressBar>
+
+
+
+
+
                             </DockPanel>
                         </Expander>
                     </Grid>
@@ -167,15 +201,15 @@
         </Grid>
 
 
-        <materialDesign:Card UniformCornerRadius="5" Margin="10,1,0,3" Grid.Column="1" Grid.Row="1">
+        <materialDesign:Card UniformCornerRadius="5" Margin="10,1,0,3" Grid.Column="1" Grid.Row="1" Background="{DynamicResource MessageHistoryBorder}">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
-                <TextBlock Width="116" Text="Message History" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Width="116" Text="Message History" VerticalAlignment="Center" Foreground="{DynamicResource Text}"></TextBlock>
             </StackPanel>
         </materialDesign:Card>
-        <materialDesign:Card  Grid.Column="1" Grid.Row="2" Background="#FF3A3838" UniformCornerRadius="5" Grid.RowSpan="2" Margin="10,0,0,0">
+        <materialDesign:Card  Grid.Column="1" Grid.Row="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="2" Margin="10,0,0,0">
             <ListBox Grid.Column="1" 
-                  Background="#FF3A3838" 
+                  Background="Transparent" 
                   Grid.Row="1"                   
                   Grid.RowSpan="2"
                   ItemsSource="{Binding PublicMessages}"                  
@@ -192,12 +226,12 @@
                     <DataTemplate>
                         <StackPanel HorizontalAlignment="Left">
                             <TextBlock TextAlignment="Left">
-                            <Run Text="{Binding User.DisplayName}" Foreground="Silver"></Run>
+                            <Run Text="{Binding User.DisplayName}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
                             </TextBlock>
                             <FlowDocumentScrollViewer Document="{Binding Message}" 
-                                                      HorizontalAlignment="Stretch" Height="Auto"  
+                                                      HorizontalAlignment="Stretch" Height="Auto" 
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                       HorizontalContentAlignment="Left" Margin="-10,0,0,0"
                                                       Padding="-11" VerticalContentAlignment="Top"></FlowDocumentScrollViewer>
@@ -207,21 +241,23 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </materialDesign:Card>
-        
-        
+
+
         <!--Public chat textbox-->
         <materialDesign:Card 
             UniformCornerRadius="5"
             Grid.Row="3" 
             Grid.Column="1"
+            Background="{DynamicResource DefaultTextBoxTheme}"
             Margin="20,15,10,15">
             <DockPanel LastChildFill="False">
                 <RichTextBox DockPanel.Dock="Left" x:Name="PublicChatTextBox" 
                      AcceptsReturn="True"
                      FontSize="15" 
                      Width="929"
-                     materialDesign:HintAssist.Hint=" Message"
                      Height="Auto"
+                     BorderBrush="{DynamicResource TextBoxBorderBrush}"
+                     Background="Transparent"
                      MaxHeight="200"
                      IsEnabled="{Binding ControlsEnabled}"
                      VerticalContentAlignment="Center"
@@ -230,7 +266,9 @@
                     <RichTextBox.InputBindings>
                         <KeyBinding Command="{Binding Send}" Key="Enter"></KeyBinding>
                     </RichTextBox.InputBindings>
-
+                    <materialDesign:HintAssist.Hint>
+                        <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
+                    </materialDesign:HintAssist.Hint>
                 </RichTextBox>
                 <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" VerticalAlignment="Top" Width="36" Click="Emoji_Click" Height="33" Padding="0" IsEnabled="{Binding ControlsEnabled}">
                     <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>

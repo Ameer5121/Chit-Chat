@@ -234,6 +234,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Events\EmojiEventArgs.cs" />
+    <Compile Include="Events\ThemeEventArgs.cs" />
     <Compile Include="Helper\Extensions\DecryptingExtension.cs" />
     <Compile Include="Helper\Extensions\DocumentExtensions.cs" />
     <Compile Include="Helper\Extensions\EmailExtension.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Helper\Exceptions\RegistrationException.cs" />
     <Compile Include="Helper\AttachedProperties\ScrollBehavior.cs" />
+    <Compile Include="Helper\Themes.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Helper\Exceptions\LoginException.cs" />
     <Compile Include="Models\DataModel.cs" />

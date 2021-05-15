@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Documents;
 using ChitChat.Events;
+using ChitChat.Helper;
 
 namespace ChitChat.ViewModels
 {
@@ -36,6 +37,7 @@ namespace ChitChat.ViewModels
         private bool _controlsEnabled = true;
         private bool _isPrivateChatting = false;
         private string _errorMessage;
+        private Themes _currentTheme;
         private FlowDocument _currentPublicMessage;
         private FlowDocument _currentPrivateMessage;
         private HubConnection _connection;
@@ -44,6 +46,7 @@ namespace ChitChat.ViewModels
         public event EventHandler OnPrivateEnterKey;
         public event EventHandler OnMessageSent;
         public event EventHandler<EmojiEventArgs> OnEmojiClick;
+        public event EventHandler<ThemeEventArgs> OnThemeChange;
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
             _currentUser = currentuser;
@@ -122,6 +125,12 @@ namespace ChitChat.ViewModels
             set => SetPropertyValue(ref _errorMessage, value);
         }
 
+        public Array Themes { get; } = Enum.GetValues(typeof(Themes));
+        public Themes CurrentTheme
+        {
+            get => _currentTheme;
+            set => OnThemeChange?.Invoke(this, new ThemeEventArgs { CurrentTheme = value });
+        }
         private bool CanSendMessage()
         {
             return string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString()) ? false : true;

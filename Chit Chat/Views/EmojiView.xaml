@@ -9,7 +9,7 @@
              Width="408" 
              Height="333"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignDarkBackground}"
+        Background="{DynamicResource DefaultWindowTheme}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}">
@@ -19,7 +19,7 @@
             <RowDefinition Height="299*"/>
         </Grid.RowDefinitions>
         <!--Black Border & Exit Button-->
-        <WrapPanel Orientation="Horizontal" FlowDirection="RightToLeft" Background="#FF2C2B2B">
+        <WrapPanel Orientation="Horizontal" FlowDirection="RightToLeft" Background="{DynamicResource WindowBorder}">
             <Button Background="Transparent" BorderBrush="Transparent" Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" Padding="0" >
                 <Image Source="/Resources/Exit.png" Height="35" Width="36"/>
             </Button>

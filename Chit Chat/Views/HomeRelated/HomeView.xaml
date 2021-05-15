@@ -141,6 +141,6 @@
                 </Style>
             </ProgressBar.Style>
         </ProgressBar>
-       
+
     </Grid>
 </Window>
