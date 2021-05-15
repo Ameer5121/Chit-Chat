@@ -10,7 +10,8 @@ Private Chat
 Public Chat
 ![2](https://user-images.githubusercontent.com/71935713/115862891-5fabff80-a43d-11eb-8f21-5913c904ccaf.png)
 
-
+Light Theme
+![3](https://user-images.githubusercontent.com/71935713/118379537-d1faa480-b5e3-11eb-83f0-df42bb56528b.png)
 
 
 # Contains usages of:
@@ -25,6 +26,7 @@ Public Chat
 * Returning to home view automatically when server is down
 * Private chatting
 * Colored Emojis
+* Light and Dark themes
 * Logging out manually.
 
 # Framework:
