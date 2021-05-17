@@ -8,7 +8,7 @@
              xmlns:AttachedProperties="clr-namespace:ChitChat.Helper.AttachedProperties"
              xmlns:local="clr-namespace:ChitChat.Views"
              mc:Ignorable="d" 
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.Foreground="{DynamicResource DefaultTextElementTheme}"
              Background="{DynamicResource MaterialDesignDarkBackground}"
              TextElement.FontWeight="Medium"
              TextElement.FontSize="14"

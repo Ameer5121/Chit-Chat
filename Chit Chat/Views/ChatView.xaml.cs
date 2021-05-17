@@ -1,9 +1,13 @@
 ﻿using ChitChat.Events;
 using ChitChat.Helper;
 using ChitChat.Helper.Extensions;
+using ChitChat.Models;
 using ChitChat.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -87,8 +91,24 @@ namespace ChitChat.Views
         {
             var app = (App)Application.Current;
             app.ChangeTheme(e.CurrentTheme);
-            UpdateLayout();
-            UpdateDefaultStyle();
+            ChangeMessagesColor(e.CurrentTheme, (DataContext as ChatViewModel).AllMessages);
+        }
+
+        private void ChangeMessagesColor(Themes theme, ObservableCollection<MessageModel> messages)
+        {
+            var app = (App)Application.Current;
+            foreach (MessageModel messageModel in messages)
+            {
+                Inline inline = (messageModel.Message.Blocks.FirstBlock as Paragraph).Inlines.FirstInline;
+                if (theme == Themes.Light)
+                {
+                    inline.Foreground = (SolidColorBrush)app.Resources["TextLightTheme"];
+                }
+                else
+                {
+                    inline.Foreground = (SolidColorBrush)app.Resources["TextDarkTheme"];
+                }
+            }
         }
     }
 }

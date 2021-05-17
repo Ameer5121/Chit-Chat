@@ -14,7 +14,7 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="{DynamicResource DefaultTextElementTheme}"
         Background="{DynamicResource DefaultWindowTheme}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
@@ -41,11 +41,11 @@
 
         <!--Black Border & Exit Button-->
         <Border Background="{DynamicResource WindowBorder}" Grid.Row="0" Grid.ColumnSpan="2">
-            <DockPanel LastChildFill="False">
-                <TextBlock DockPanel.Dock="Bottom" Height="28" Margin="390,0,287,0" TextAlignment="Center" Text="{Binding ErrorMessage}" Foreground="Red"/>
-                <Button Margin="1227,0,0,-28" BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Cursor="Hand">
+            <DockPanel LastChildFill="True">
+                <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" DockPanel.Dock="Right" Click="Exit_Click" Cursor="Hand" Width="54">
                     <Image Source="/Resources/Exit.png" Height="41" Width="49"></Image>
                 </Button>
+                <TextBlock TextAlignment="Center" Text="{Binding ErrorMessage}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red"/>
             </DockPanel>
         </Border>
 
@@ -215,7 +215,7 @@
                   ItemsSource="{Binding PublicMessages}"                  
                   Margin="0,10,0,57"
                   VirtualizingStackPanel.IsVirtualizing="False"
-                 RenderTransformOrigin="0.5,0.5" IsSynchronizedWithCurrentItem="True" AttachedProperties:ScrollBehavior.ScrollOnNewItem="True">
+                 RenderTransformOrigin="0.5,0.5" AttachedProperties:ScrollBehavior.ScrollOnNewItem="True">
 
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -241,7 +241,6 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </materialDesign:Card>
-
 
         <!--Public chat textbox-->
         <materialDesign:Card 

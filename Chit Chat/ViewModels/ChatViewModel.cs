@@ -90,6 +90,10 @@ namespace ChitChat.ViewModels
 
         public ICollectionView PublicMessages { get; }
         public ICollectionView PrivateMessages { get; }
+        public ObservableCollection<MessageModel> AllMessages
+        {
+            get => _messages;
+        }
         public ObservableCollection<UserModel> Users
         {
             get => _users;
@@ -231,11 +235,11 @@ namespace ChitChat.ViewModels
         {
             SelectedUser = selectedUser;
         }
-        private void RefreshPrivateCollectionView()
+        public void RefreshPrivateCollectionView()
         {
             PrivateMessages.Refresh();
         }
-
+        
         private async Task SendHeartBeat(CancellationToken token)
         {
             while (true)

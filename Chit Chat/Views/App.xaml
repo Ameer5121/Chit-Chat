@@ -38,6 +38,7 @@
             <SolidColorBrush x:Key="DefaultSubWindowTheme">#FF303030</SolidColorBrush>
             <SolidColorBrush x:Key="DefaultChatDisplayName" Color="Silver"></SolidColorBrush>
             <SolidColorBrush x:Key="DefaultUnderLineBrush" Color="#FF2C2B2B"></SolidColorBrush>
+            <SolidColorBrush x:Key="DefaultTextElementTheme" Color="#FFFAFAFA"></SolidColorBrush>
 
 
 
@@ -72,8 +73,8 @@
             <SolidColorBrush x:Key="ButtonsLightTheme" Color="#FFC9C9C9"></SolidColorBrush>
             <SolidColorBrush x:Key="ButtonsBorderBrushLightTheme" Color="#FFACAAAA"></SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxBorderBrushLightTheme" Color="AliceBlue"></SolidColorBrush>
-            <SolidColorBrush x:Key="TextLightTheme" Color="#FF3A3838"></SolidColorBrush> <!--Done-->
-            <SolidColorBrush x:Key="IconsLightTheme" Color="#FF3A3838"></SolidColorBrush> <!--Done-->
+            <SolidColorBrush x:Key="TextLightTheme" Color="#FF3A3838"></SolidColorBrush>
+            <SolidColorBrush x:Key="IconsLightTheme" Color="#FF3A3838"></SolidColorBrush> 
             <SolidColorBrush x:Key="ExpanderButtonLightTheme" Color="#FF433F3F"></SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxLightTheme" Color="#FFC7C5C5"></SolidColorBrush>
             <SolidColorBrush x:Key="WindowLightTheme" Color="#FFAEAEAE"></SolidColorBrush>
