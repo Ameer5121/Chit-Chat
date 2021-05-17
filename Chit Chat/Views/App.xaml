@@ -79,7 +79,7 @@
             <SolidColorBrush x:Key="TextBoxLightTheme" Color="#FFC7C5C5"></SolidColorBrush>
             <SolidColorBrush x:Key="WindowLightTheme" Color="#FFAEAEAE"></SolidColorBrush>
             <SolidColorBrush x:Key="SubWindowLightTheme">#FFAEAEAE</SolidColorBrush>
-            <SolidColorBrush x:Key="ChatDisplayNameLightTheme" Color="#FF2C2B2B"></SolidColorBrush>
+            <SolidColorBrush x:Key="ChatDisplayNameLightTheme" Color="#FF4F4C4C"></SolidColorBrush>
             <SolidColorBrush x:Key="UnderLineBrushLightTheme" Color="Gray"></SolidColorBrush>
 
 

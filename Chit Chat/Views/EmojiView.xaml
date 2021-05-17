@@ -81,7 +81,7 @@
                 </Button>
                 <Button x:Name="kissingheart" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
                         Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
-                    <Image Source="/Resources/Emojis/blush.png" Width="29" Height="27"/>
+                    <Image Source="/Resources/Emojis/kissingheart.png" Width="29" Height="27"/>
                 </Button>
                 <Button x:Name="kissing" Background="Transparent" BorderBrush="Transparent" Margin="5,0,0,0" Width="31" Padding="0" Height="30" 
                         Command="{Binding SetEmojiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Name}">
