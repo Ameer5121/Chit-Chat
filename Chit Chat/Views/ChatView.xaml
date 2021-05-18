@@ -225,16 +225,16 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel HorizontalAlignment="Left">
-                            <TextBlock TextAlignment="Left">
+                            <TextBlock>
                             <Run Text="{Binding User.DisplayName}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
                             </TextBlock>
                             <FlowDocumentScrollViewer Document="{Binding Message}" 
-                                                      HorizontalAlignment="Stretch" Height="Auto" 
+                                                      HorizontalAlignment="Left" Height="Auto" 
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                                      HorizontalContentAlignment="Left" Margin="-10,0,0,0"
-                                                      Padding="-11" VerticalContentAlignment="Top"></FlowDocumentScrollViewer>
+                                                      HorizontalContentAlignment="Left" Margin="-8,0,0,0"
+                                                      Padding="-10" VerticalContentAlignment="Top"></FlowDocumentScrollViewer>
                         </StackPanel>
 
                     </DataTemplate>

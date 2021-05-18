@@ -78,7 +78,7 @@
                             <FlowDocumentScrollViewer x:Name="PrivateDocumentViwer"
                                                       Height="Auto"
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                                      Padding="-11" VerticalContentAlignment="Center"
+                                                      Padding="-11" Margin="-8,0,0,0" VerticalContentAlignment="Center"
                                                       >
                                 <FlowDocumentScrollViewer.Document>
                                     <MultiBinding Converter="{StaticResource TextAlignmentConverter}" ConverterParameter="FlowDocument">
