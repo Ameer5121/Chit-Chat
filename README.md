@@ -5,13 +5,13 @@ Login             |  Register
 ![1](https://user-images.githubusercontent.com/71935713/110955002-ca075580-8351-11eb-97ce-832d15ac0ad1.png)  |  ![2](https://user-images.githubusercontent.com/71935713/110955050-d68bae00-8351-11eb-9e12-406220e313a7.png)
 
 Private Chat
-![1](https://user-images.githubusercontent.com/71935713/115125572-bba3fd80-9fd1-11eb-9f73-d6f24e9c2e5e.png)
+![1](https://user-images.githubusercontent.com/71935713/118698128-b7f5d780-b818-11eb-9542-6ee6325ca044.png)
 
 Public Chat
-![2](https://user-images.githubusercontent.com/71935713/115862891-5fabff80-a43d-11eb-8f21-5913c904ccaf.png)
+![2](https://user-images.githubusercontent.com/71935713/118698245-d6f46980-b818-11eb-85ce-4816bedc260b.png)
 
 Light Theme
-![3](https://user-images.githubusercontent.com/71935713/118379537-d1faa480-b5e3-11eb-83f0-df42bb56528b.png)
+![3](https://user-images.githubusercontent.com/71935713/118697948-854bdf00-b818-11eb-80cf-6dfd4b67383a.png)
 
 
 # Contains usages of:
