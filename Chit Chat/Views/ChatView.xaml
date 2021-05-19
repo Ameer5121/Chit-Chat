@@ -189,10 +189,6 @@
                                     </ProgressBar.Style>
                                 </ProgressBar>
 
-
-
-
-
                             </DockPanel>
                         </Expander>
                     </Grid>

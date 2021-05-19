@@ -60,7 +60,7 @@ namespace ChitChat.Helper.Converters
 
         private bool IsFlowDocument(string parameter)
         {
-            return (parameter as string) == "FlowDocument";
+            return parameter == "FlowDocument";
         }
 
         private FlowDocument SetFlowDocumentAlignment<TDocument, TAlignment>(TDocument document, TAlignment alingment)

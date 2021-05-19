@@ -64,7 +64,7 @@
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock>                              
-                            <Run Text="{Binding User.DisplayName}" Foreground="Silver"></Run>
+                            <Run Text="{Binding User.DisplayName}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
                                 <TextBlock.TextAlignment>
