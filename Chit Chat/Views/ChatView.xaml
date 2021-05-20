@@ -14,7 +14,7 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown"
-        TextElement.Foreground="{DynamicResource DefaultTextElementTheme}"
+        TextElement.Foreground="{DynamicResource Text}"
         Background="{DynamicResource DefaultWindowTheme}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"

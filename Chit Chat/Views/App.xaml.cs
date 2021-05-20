@@ -36,7 +36,6 @@ namespace ChitChat
                 this.Resources["DefaultTextBoxTheme"] = this.Resources["TextBoxLightTheme"];
                 this.Resources["DefaultChatDisplayName"] = this.Resources["ChatDisplayNameLightTheme"];
                 this.Resources["DefaultUnderLineBrush"] = this.Resources["UnderLineBrushLightTheme"];
-                this.Resources["DefaultTextElementTheme"] = this.Resources["MaterialDesignDarkBackground"];
             }
             else
             {
@@ -57,7 +56,6 @@ namespace ChitChat
                 this.Resources["DefaultTextBoxTheme"] = this.Resources["TextBoxDarkTheme"];
                 this.Resources["DefaultChatDisplayName"] = this.Resources["ChatDisplayNameDarkTheme"];
                 this.Resources["DefaultUnderLineBrush"] = this.Resources["UnderLineBrushDarkTheme"];
-                this.Resources["DefaultTextElementTheme"] = this.Resources["MaterialDesignLightBackground"];
             }
         }
     }

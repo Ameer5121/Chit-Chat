@@ -38,7 +38,7 @@
             <SolidColorBrush x:Key="DefaultSubWindowTheme">#FF303030</SolidColorBrush>
             <SolidColorBrush x:Key="DefaultChatDisplayName" Color="Silver"></SolidColorBrush>
             <SolidColorBrush x:Key="DefaultUnderLineBrush" Color="#FF2C2B2B"></SolidColorBrush>
-            <SolidColorBrush x:Key="DefaultTextElementTheme" Color="#FFFAFAFA"></SolidColorBrush>
+           
 
 
 
