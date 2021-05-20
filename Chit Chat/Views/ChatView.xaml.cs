@@ -44,6 +44,7 @@ namespace ChitChat.Views
             _chatVM.OnPublicEnterKey -= SendFlowDocumentValue;
             _chatVM.OnMessageSent -= ClearPublicTextBox;
             _chatVM.OnEmojiClick -= SetEmoji;
+            _chatVM.OnThemeChange -= ChangeTheme;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
@@ -97,13 +98,13 @@ namespace ChitChat.Views
             ChangeMessagesColor(e.CurrentTheme, _chatVM.AllMessages);
         }
 
-        private void ChangeMessagesColor(Themes theme, ObservableCollection<MessageModel> messages)
+        private void ChangeMessagesColor(Themes currentTheme, ObservableCollection<MessageModel> messages)
         {
             var app = (App)Application.Current;
             foreach (MessageModel messageModel in messages)
             {
                 Inline inline = (messageModel.Message.Blocks.FirstBlock as Paragraph).Inlines.FirstInline;
-                if (theme == Themes.Light)
+                if (currentTheme == Themes.Light)
                 {
                     inline.Foreground = (SolidColorBrush)app.Resources["TextLightTheme"];
                 }
