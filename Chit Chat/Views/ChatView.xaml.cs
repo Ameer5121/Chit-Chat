@@ -18,6 +18,7 @@ namespace ChitChat.Views
     /// </summary>
     public partial class ChatView : Window
     {
+        private ChatViewModel _chatVM;
         public ChatView(ChatViewModel context)
         {
             InitializeComponent();
@@ -28,19 +29,21 @@ namespace ChitChat.Views
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as ChatViewModel).OnDisconnect += ChangeToHomeWindow;
-            (DataContext as ChatViewModel).OnPublicEnterKey += SendFlowDocumentValue;
-            (DataContext as ChatViewModel).OnMessageSent += ClearPublicTextBox;
-            (DataContext as ChatViewModel).OnEmojiClick += SetEmoji;
-            (DataContext as ChatViewModel).OnThemeChange += ChangeTheme;
+            _chatVM = (DataContext as ChatViewModel);            
+            _chatVM.OnDisconnect += ChangeToHomeWindow;
+            _chatVM.OnPublicEnterKey += SendFlowDocumentValue;
+            _chatVM.OnMessageSent += ClearPublicTextBox;
+            _chatVM.OnEmojiClick += SetEmoji;
+            _chatVM.OnThemeChange += ChangeTheme;
+            ChangeMessagesColor(_chatVM.CurrentTheme, _chatVM.AllMessages);
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as ChatViewModel).OnDisconnect -= ChangeToHomeWindow;
-            (DataContext as ChatViewModel).OnPublicEnterKey -= SendFlowDocumentValue;
-            (DataContext as ChatViewModel).OnMessageSent -= ClearPublicTextBox;
-            (DataContext as ChatViewModel).OnEmojiClick -= SetEmoji;
+            _chatVM.OnDisconnect -= ChangeToHomeWindow;
+            _chatVM.OnPublicEnterKey -= SendFlowDocumentValue;
+            _chatVM.OnMessageSent -= ClearPublicTextBox;
+            _chatVM.OnEmojiClick -= SetEmoji;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
@@ -72,7 +75,7 @@ namespace ChitChat.Views
 
         private void SendFlowDocumentValue(object sender, EventArgs e)
         {
-            (DataContext as ChatViewModel).CurrentPublicMessage = PublicChatTextBox.Document;
+            _chatVM.CurrentPublicMessage = PublicChatTextBox.Document;
         }
 
         private void ClearPublicTextBox(object sender, EventArgs e)
@@ -91,7 +94,7 @@ namespace ChitChat.Views
         {
             var app = (App)Application.Current;
             app.ChangeTheme(e.CurrentTheme);
-            ChangeMessagesColor(e.CurrentTheme, (DataContext as ChatViewModel).AllMessages);
+            ChangeMessagesColor(e.CurrentTheme, _chatVM.AllMessages);
         }
 
         private void ChangeMessagesColor(Themes theme, ObservableCollection<MessageModel> messages)
