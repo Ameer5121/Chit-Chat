@@ -35,6 +35,7 @@ namespace ChitChat.Views
             _chatVM.OnMessageSent += ClearPublicTextBox;
             _chatVM.OnEmojiClick += SetEmoji;
             _chatVM.OnThemeChange += ChangeTheme;
+            //Set the correct color for messages upon logging in
             ChangeMessagesColor(_chatVM.CurrentTheme, _chatVM.AllMessages);
         }
 
@@ -94,8 +95,11 @@ namespace ChitChat.Views
         private void ChangeTheme(object sender, ThemeEventArgs e)
         {
             var app = (App)Application.Current;
-            app.ChangeTheme(e.CurrentTheme);
-            ChangeMessagesColor(e.CurrentTheme, _chatVM.AllMessages);
+            if(_chatVM.CurrentTheme != e.NewTheme)
+            {
+                app.ChangeTheme(e.NewTheme);
+            }
+            ChangeMessagesColor(e.NewTheme, _chatVM.AllMessages);
         }
 
         private void ChangeMessagesColor(Themes currentTheme, ObservableCollection<MessageModel> messages)
@@ -114,5 +118,7 @@ namespace ChitChat.Views
                 }
             }
         }
+
+
     }
 }

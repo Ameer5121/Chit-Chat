@@ -9,6 +9,6 @@ namespace ChitChat.Events
 {
     public class ThemeEventArgs : EventArgs
     {
-        public Themes CurrentTheme { get; set; }
+        public Themes NewTheme { get; set; }
     }
 }

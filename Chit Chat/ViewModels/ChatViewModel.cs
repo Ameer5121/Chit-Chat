@@ -37,7 +37,7 @@ namespace ChitChat.ViewModels
         private bool _controlsEnabled = true;
         private bool _isPrivateChatting = false;
         private string _errorMessage;
-        private Themes _currentTheme;
+        private static Themes _currentTheme;
         private FlowDocument _currentPublicMessage;
         private FlowDocument _currentPrivateMessage;
         private HubConnection _connection;
@@ -133,7 +133,11 @@ namespace ChitChat.ViewModels
         public Themes CurrentTheme
         {
             get => _currentTheme;
-            set => OnThemeChange?.Invoke(this, new ThemeEventArgs { CurrentTheme = value });
+            set
+            {              
+                OnThemeChange?.Invoke(this, new ThemeEventArgs { NewTheme = value });
+                _currentTheme = value;
+            }
         }
         private bool CanSendMessage()
         {
@@ -235,7 +239,7 @@ namespace ChitChat.ViewModels
         {
             SelectedUser = selectedUser;
         }
-        public void RefreshPrivateCollectionView()
+        private void RefreshPrivateCollectionView()
         {
             PrivateMessages.Refresh();
         }
@@ -278,6 +282,7 @@ namespace ChitChat.ViewModels
                     data.Messages.LastOrDefault().ConvertRTFToFlowDocument();
 
                     _messages.Add(data.Messages.LastOrDefault());
+
                 });
             }
         }
