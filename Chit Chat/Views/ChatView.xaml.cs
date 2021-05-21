@@ -98,8 +98,8 @@ namespace ChitChat.Views
             if(_chatVM.CurrentTheme != e.NewTheme)
             {
                 app.ChangeTheme(e.NewTheme);
-            }
-            ChangeMessagesColor(e.NewTheme, _chatVM.AllMessages);
+                ChangeMessagesColor(e.NewTheme, _chatVM.AllMessages);
+            }          
         }
 
         private void ChangeMessagesColor(Themes currentTheme, ObservableCollection<MessageModel> messages)
