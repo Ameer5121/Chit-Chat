@@ -15,7 +15,7 @@ Light Theme
 
 
 # Contains usages of:
-* MultiThreading through **System.Threading**
+* Makes use of Task based asynchronity through **System.Threading**
 * Socket Programming through **Microsoft.AspNetCore.SignalR.Client**
 * JSON serialization through **Newtonsoft.Json**
 * **Web API** project to handle HTTP & database requests. https://github.com/Sound932/WebAPI-ChatHub.git
