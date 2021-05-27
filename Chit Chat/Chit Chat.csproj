@@ -38,7 +38,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>C:\Users\User\Desktop\Chit Chat\</OutputPath>
+    <OutputPath>C:\Users\Sound\Desktop\Chit Chat\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -234,6 +234,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Events\EmojiEventArgs.cs" />
+    <Compile Include="Events\MessageEventArgs.cs" />
     <Compile Include="Events\ThemeEventArgs.cs" />
     <Compile Include="Helper\Extensions\DecryptingExtension.cs" />
     <Compile Include="Helper\Extensions\DocumentExtensions.cs" />

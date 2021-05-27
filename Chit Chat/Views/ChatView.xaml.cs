@@ -33,6 +33,7 @@ namespace ChitChat.Views
             _chatVM.OnDisconnect += ChangeToHomeWindow;
             _chatVM.OnPublicEnterKey += SendFlowDocumentValue;
             _chatVM.OnMessageSent += ClearPublicTextBox;
+            _chatVM.OnMessageReceived += CheckMessageTheme;
             _chatVM.OnEmojiClick += SetEmoji;
             _chatVM.OnThemeChange += ChangeTheme;
             //Set the correct color for messages upon logging in
@@ -44,6 +45,7 @@ namespace ChitChat.Views
             _chatVM.OnDisconnect -= ChangeToHomeWindow;
             _chatVM.OnPublicEnterKey -= SendFlowDocumentValue;
             _chatVM.OnMessageSent -= ClearPublicTextBox;
+            _chatVM.OnMessageReceived -= CheckMessageTheme;
             _chatVM.OnEmojiClick -= SetEmoji;
             _chatVM.OnThemeChange -= ChangeTheme;
             Loaded -= OnLoaded;
@@ -119,6 +121,33 @@ namespace ChitChat.Views
             }
         }
 
+        private void ChangeMessagesColor(Themes theme, Inline message, App app)
+        {
+            if (theme == Themes.Light)
+            {
+                message.Foreground = (SolidColorBrush)app.Resources["TextLightTheme"];
+            }
+            else
+            {
+                message.Foreground = (SolidColorBrush)app.Resources["TextDarkTheme"];
+            }
+        }
+        private void CheckMessageTheme(object sender, MessageEventArgs e)
+        {
+            var app = (App)Application.Current;
+            Inline inline = (e.MessageModel.Message.Blocks.FirstBlock as Paragraph).Inlines.FirstInline;
+            if (e.CurrentTheme == Themes.Light)
+            {              
+                if (inline.Background == app.Resources["TextLightTheme"]) return;
+
+                ChangeMessagesColor(e.CurrentTheme, inline, app);
+            }
+            else
+            {
+                if (inline.Background == app.Resources["TextDarkTheme"]) return;
+                ChangeMessagesColor(e.CurrentTheme, inline, app);
+            }
+        }
 
     }
 }

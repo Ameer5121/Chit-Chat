@@ -45,6 +45,7 @@ namespace ChitChat.ViewModels
         public event EventHandler OnPublicEnterKey;
         public event EventHandler OnPrivateEnterKey;
         public event EventHandler OnMessageSent;
+        public event EventHandler<MessageEventArgs> OnMessageReceived;
         public event EventHandler<EmojiEventArgs> OnEmojiClick;
         public event EventHandler<ThemeEventArgs> OnThemeChange;
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
@@ -282,7 +283,11 @@ namespace ChitChat.ViewModels
                     data.Messages.LastOrDefault().ConvertRTFToFlowDocument();
 
                     _messages.Add(data.Messages.LastOrDefault());
+                    OnMessageReceived?.Invoke(this, new MessageEventArgs {
 
+                        MessageModel = data.Messages.LastOrDefault(),
+                        CurrentTheme = this.CurrentTheme
+                    });
                 });
             }
         }

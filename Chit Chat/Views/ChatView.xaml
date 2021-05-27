@@ -88,8 +88,7 @@
                                             <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,3,0,0" Foreground="{DynamicResource Text}"></TextBlock>
 
                                             <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center"
-                                                                     Foreground="{DynamicResource ExpanderButton}"
-                                                                     >
+                                                                     Foreground="{DynamicResource ExpanderButton}">
 
                                                 <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" Background="{DynamicResource Buttons}"
                                                         Foreground="{DynamicResource Text}"
