@@ -51,4 +51,4 @@ For a more detailed overview, refer to these links:
 * Converting RTF bytes to FlowDocument https://github.com/Sound932/Chit-Chat/blob/46916d8ee7d1ac94174136b4b8e843dc99fd407f/Chit%20Chat/Helper/Extensions/MessageModelExtension.cs#L15
 
 # Application State
-This application is still a Work-In-Progress. There are a lot of things that are planned to be added.
+This application is considered to be finished for now. I might add more new features in the future.
