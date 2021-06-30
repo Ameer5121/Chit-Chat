@@ -126,6 +126,7 @@
             Height="Auto"
             Foreground="White"
             Background="#FF433F3F"
-            BorderBrush="#FF2C2B2B"/>
+            BorderBrush="#FF2C2B2B"
+            Click="Exit"/>
     </Grid>
 </UserControl>

@@ -154,6 +154,7 @@ namespace ChitChat.ViewModels
 
 
                 _ = HomeLogger.LogMessage("Successfully Registered!");
+                IsRegistering = false;
                 ClearCredentials();
 
                 OnRegister?.Invoke(this, EventArgs.Empty);
@@ -180,13 +181,12 @@ namespace ChitChat.ViewModels
             }
         }
 
-        private void ClearCredentials()
+        public void ClearCredentials()
         {
             UserName = "";
             Email = "";
             DisplayName = "";
-            Password.Clear();
-            IsRegistering = false;
+            Password.Clear();         
         }
         private void CreateHandlers()
         {

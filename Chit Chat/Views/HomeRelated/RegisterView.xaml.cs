@@ -51,5 +51,11 @@ namespace ChitChat.Views
         {
             passBox.Clear();
         }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            ClearPassword(this, EventArgs.Empty);
+            (DataContext as HomeViewModel).ClearCredentials();
+        }
     }
 }
