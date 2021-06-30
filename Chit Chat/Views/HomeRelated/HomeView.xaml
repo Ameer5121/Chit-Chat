@@ -20,6 +20,10 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         ResizeMode="NoResize" 
         MouseDown="Window_MouseDown">
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Login}" Key="Enter"></KeyBinding>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="13*"/>

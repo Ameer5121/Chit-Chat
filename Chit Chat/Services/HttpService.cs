@@ -44,6 +44,7 @@ namespace ChitChat.Services
         }
         public async Task<UserModel> PostUserDataAsync(string endPoint, string jsonCredentials)
         {
+            
             var response = await _httpClient.PostAsync($"{endPoint}",
                new StringContent(jsonCredentials, Encoding.UTF8, "application/json"));
 
