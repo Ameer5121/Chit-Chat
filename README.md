@@ -13,6 +13,9 @@ Public Chat
 Light Theme
 ![3](https://user-images.githubusercontent.com/71935713/118697948-854bdf00-b818-11eb-80cf-6dfd4b67383a.png)
 
+Image Sending
+![image](https://user-images.githubusercontent.com/71935713/125191140-882be480-e249-11eb-9a52-20522faa695a.png)
+
 
 # Contains usages of:
 * Makes use of Task based asynchronity through **System.Threading**
@@ -26,6 +29,7 @@ Light Theme
 * Returning to home view automatically when server is down
 * Private chatting
 * Colored Emojis
+* Image Sending
 * Light and Dark themes
 * Logging out manually.
 
