@@ -34,18 +34,18 @@ namespace ChitChat.Views
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as ChatViewModel).OnMessageSent -= ClearPrivateTextBox;
-            (DataContext as ChatViewModel).OnEmojiClick -= SetEmoji;
-            (DataContext as ChatViewModel).OnPrivateEnterKey -= SendDocumentValue;
+            (DataContext as ChatViewModel).MessageSent -= ClearPrivateTextBox;
+            (DataContext as ChatViewModel).EmojiClick -= SetEmoji;
+            (DataContext as ChatViewModel).PrivateEnterKey -= SendDocumentValue;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as ChatViewModel).OnMessageSent += ClearPrivateTextBox;
-            (DataContext as ChatViewModel).OnEmojiClick += SetEmoji;
-            (DataContext as ChatViewModel).OnPrivateEnterKey += SendDocumentValue;
+            (DataContext as ChatViewModel).MessageSent += ClearPrivateTextBox;
+            (DataContext as ChatViewModel).EmojiClick += SetEmoji;
+            (DataContext as ChatViewModel).PrivateEnterKey += SendDocumentValue;
         }
         private void SendDocumentValue(object sender, EventArgs e)
         {

@@ -30,24 +30,24 @@ namespace ChitChat.Views
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             _chatVM = (DataContext as ChatViewModel);            
-            _chatVM.OnDisconnect += ChangeToHomeWindow;
-            _chatVM.OnPublicEnterKey += SendFlowDocumentValue;
-            _chatVM.OnMessageSent += ClearPublicTextBox;
-            _chatVM.OnMessageReceived += CheckMessageTheme;
-            _chatVM.OnEmojiClick += SetEmoji;
-            _chatVM.OnThemeChange += ChangeTheme;
+            _chatVM.Disconnect += ChangeToHomeWindow;
+            _chatVM.PublicEnterKey += SendFlowDocumentValue;
+            _chatVM.MessageSent += ClearPublicTextBox;
+            _chatVM.MessageReceived += CheckMessageTheme;
+            _chatVM.EmojiClick += SetEmoji;
+            _chatVM.ThemeChange += ChangeTheme;
             //Set the correct color for messages upon logging in
             ChangeMessagesColor(_chatVM.CurrentTheme, _chatVM.AllMessages);
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            _chatVM.OnDisconnect -= ChangeToHomeWindow;
-            _chatVM.OnPublicEnterKey -= SendFlowDocumentValue;
-            _chatVM.OnMessageSent -= ClearPublicTextBox;
-            _chatVM.OnMessageReceived -= CheckMessageTheme;
-            _chatVM.OnEmojiClick -= SetEmoji;
-            _chatVM.OnThemeChange -= ChangeTheme;
+            _chatVM.Disconnect -= ChangeToHomeWindow;
+            _chatVM.PublicEnterKey -= SendFlowDocumentValue;
+            _chatVM.MessageSent -= ClearPublicTextBox;
+            _chatVM.MessageReceived -= CheckMessageTheme;
+            _chatVM.EmojiClick -= SetEmoji;
+            _chatVM.ThemeChange -= ChangeTheme;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }

@@ -41,13 +41,13 @@ namespace ChitChat.ViewModels
         private FlowDocument _currentPublicMessage;
         private FlowDocument _currentPrivateMessage;
         private HubConnection _connection;
-        public event EventHandler OnDisconnect;
-        public event EventHandler OnPublicEnterKey;
-        public event EventHandler OnPrivateEnterKey;
-        public event EventHandler OnMessageSent;
-        public event EventHandler<MessageEventArgs> OnMessageReceived;
-        public event EventHandler<EmojiEventArgs> OnEmojiClick;
-        public event EventHandler<ThemeEventArgs> OnThemeChange;
+        public event EventHandler Disconnect;
+        public event EventHandler PublicEnterKey;
+        public event EventHandler PrivateEnterKey;
+        public event EventHandler MessageSent;
+        public event EventHandler<MessageEventArgs> MessageReceived;
+        public event EventHandler<EmojiEventArgs> EmojiClick;
+        public event EventHandler<ThemeEventArgs> ThemeChange;
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
             _currentUser = currentuser;
@@ -74,7 +74,7 @@ namespace ChitChat.ViewModels
 
         public ICommand Send => new RelayCommand(SendMessage);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
-        public ICommand Disconnect => new RelayCommand(DisconnectFromServer);
+        public ICommand DisconnectCommand => new RelayCommand(DisconnectFromServer);
         public ICommand OnPrivateChatEnter => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
         public ICommand OnPrivateChatExit => new RelayCommand(EnableControls);
 
@@ -136,7 +136,7 @@ namespace ChitChat.ViewModels
             get => _currentTheme;
             set
             {              
-                OnThemeChange?.Invoke(this, new ThemeEventArgs { NewTheme = value });
+                ThemeChange?.Invoke(this, new ThemeEventArgs { NewTheme = value });
                 _currentTheme = value;
             }
         }
@@ -149,11 +149,11 @@ namespace ChitChat.ViewModels
             if (destinationUser == null)
             {
                 // Gets the FlowDocument value from the view's textbox.
-                OnPublicEnterKey?.Invoke(this, EventArgs.Empty);
+                PublicEnterKey?.Invoke(this, EventArgs.Empty);
             }
             else
             {
-                OnPrivateEnterKey?.Invoke(this, EventArgs.Empty);
+                PrivateEnterKey?.Invoke(this, EventArgs.Empty);
             }
             if (!CanSendMessage())
             {
@@ -190,7 +190,7 @@ namespace ChitChat.ViewModels
             finally
             {
                 //Clear the view's textbox value.
-                OnMessageSent?.Invoke(this, EventArgs.Empty);
+                MessageSent?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -198,11 +198,11 @@ namespace ChitChat.ViewModels
         {
             if (_isPrivateChatting)
             {
-                OnEmojiClick?.Invoke(this, new EmojiEventArgs { EmojiName = emojiName, ForPrivateChat = true });
+                EmojiClick?.Invoke(this, new EmojiEventArgs { EmojiName = emojiName, ForPrivateChat = true });
             }
             else
             {
-                OnEmojiClick?.Invoke(this, new EmojiEventArgs { EmojiName = emojiName, ForPrivateChat = false });
+                EmojiClick?.Invoke(this, new EmojiEventArgs { EmojiName = emojiName, ForPrivateChat = false });
             }
         }
 
@@ -283,7 +283,7 @@ namespace ChitChat.ViewModels
                     data.Messages.LastOrDefault().ConvertRTFToFlowDocument();
 
                     _messages.Add(data.Messages.LastOrDefault());
-                    OnMessageReceived?.Invoke(this, new MessageEventArgs {
+                    MessageReceived?.Invoke(this, new MessageEventArgs {
 
                         MessageModel = data.Messages.LastOrDefault(),
                         CurrentTheme = this.CurrentTheme
@@ -304,7 +304,7 @@ namespace ChitChat.ViewModels
             _connection.Remove("ReceiveData");
             _heartbeatToken.Cancel();
             await _connection.DisposeAsync();
-            OnDisconnect?.Invoke(this, EventArgs.Empty);
+            Disconnect?.Invoke(this, EventArgs.Empty);
         }
     }
 }
