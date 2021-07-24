@@ -85,10 +85,7 @@ namespace ChitChat.ViewModels
         public ICommand Login => new RelayCommand(LoginToServerAsync, CanLogin);
 
 
-        private bool CanLogin()
-        {
-            return string.IsNullOrEmpty(_currentUserName) || Password.Length == 0 || _isConnecting ? false : true;
-        }
+        private bool CanLogin() => !string.IsNullOrEmpty(_currentUserName) && Password.Length > 0 && !_isConnecting;
 
         private async Task LoginToServerAsync()
         {
@@ -133,14 +130,11 @@ namespace ChitChat.ViewModels
 
         }
 
-        private bool CanRegisterAccount()
-        {
-            return String.IsNullOrEmpty(UserName) ||
-                Password.Length <= 0 ||
-                String.IsNullOrEmpty(Email) ||
-                String.IsNullOrEmpty(DisplayName) ||
-                _isRegistering ? false : true;
-        }
+        private bool CanRegisterAccount() => !string.IsNullOrEmpty(UserName) &&
+                Password.Length > 0 &&
+                !string.IsNullOrEmpty(Email) &&
+                !string.IsNullOrEmpty(DisplayName) &&
+                !_isRegistering;
 
         private async Task RegisterAccountAsync()
         {

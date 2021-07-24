@@ -140,8 +140,10 @@ namespace ChitChat.ViewModels
                 _currentTheme = value;
             }
         }
-        private bool CanSendMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString());
-
+        private bool CanSendMessage()
+        {
+            return string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString()) ? false : true;
+        }
         public async Task SendMessage(object destinationUser)
         {
             if (destinationUser == null)
