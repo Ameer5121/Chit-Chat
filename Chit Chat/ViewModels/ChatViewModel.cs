@@ -272,11 +272,11 @@ namespace ChitChat.ViewModels
 
         private void ReceiveData(DataModel data)
         {
-            if (data.Users.Count != _users.Count)
+            if (data.Users.Count > _users.Count)
             {
                 Users = data.Users;
             }
-            else if (data.Messages.Count != _messages.Count)
+            else if (data.Messages.Count > _messages.Count)
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
