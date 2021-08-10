@@ -236,6 +236,8 @@
     <Compile Include="Events\EmojiEventArgs.cs" />
     <Compile Include="Events\MessageEventArgs.cs" />
     <Compile Include="Events\ThemeEventArgs.cs" />
+    <Compile Include="Helper\Converters\CharacterCountConverter.cs" />
+    <Compile Include="Helper\Converters\LessThanZeroConverter.cs" />
     <Compile Include="Helper\Extensions\DecryptingExtension.cs" />
     <Compile Include="Helper\Extensions\DocumentExtensions.cs" />
     <Compile Include="Helper\Extensions\EmailExtension.cs" />

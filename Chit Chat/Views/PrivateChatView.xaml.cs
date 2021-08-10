@@ -24,34 +24,29 @@ namespace ChitChat.Views
     /// </summary>
     public partial class PrivateChatView : UserControl
     {
+        private ChatViewModel _chatVM;
         public PrivateChatView()
         {
             InitializeComponent();
-            
             Loaded += OnLoaded;
             Unloaded += OnUnLoaded;
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
-        {
-            (DataContext as ChatViewModel).MessageSent -= ClearPrivateTextBox;
-            (DataContext as ChatViewModel).EmojiClick -= SetEmoji;
-            (DataContext as ChatViewModel).PrivateEnterKey -= SendDocumentValue;
+        {          
+            _chatVM.MessageSent -= ClearPrivateTextBox;
+            _chatVM.EmojiClick -= SetEmoji;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as ChatViewModel).MessageSent += ClearPrivateTextBox;
-            (DataContext as ChatViewModel).EmojiClick += SetEmoji;
-            (DataContext as ChatViewModel).PrivateEnterKey += SendDocumentValue;
+            _chatVM = DataContext as ChatViewModel;
+            _chatVM.CurrentPrivateMessage = PrivateChatTextBox.Document;
+            _chatVM.MessageSent += ClearPrivateTextBox;
+            _chatVM.EmojiClick += SetEmoji;
         }
-        private void SendDocumentValue(object sender, EventArgs e)
-        {
-            (DataContext as ChatViewModel).CurrentPrivateMessage = PrivateChatTextBox.Document;
-        }
-
         private void OnExitClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = Window.GetWindow(this) as ChatView;
@@ -73,5 +68,6 @@ namespace ChitChat.Views
         {
             EmojiTransitioner.SelectedIndex = 0;
         }
+
     }
 }

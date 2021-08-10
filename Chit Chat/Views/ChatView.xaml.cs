@@ -29,9 +29,9 @@ namespace ChitChat.Views
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            _chatVM = (DataContext as ChatViewModel);            
+            _chatVM = (DataContext as ChatViewModel);
+            _chatVM.CurrentPublicMessage = PublicChatTextBox.Document;
             _chatVM.Disconnect += ChangeToHomeWindow;
-            _chatVM.PublicEnterKey += SendFlowDocumentValue;
             _chatVM.MessageSent += ClearPublicTextBox;
             _chatVM.MessageReceived += CheckMessageTheme;
             _chatVM.EmojiClick += SetEmoji;
@@ -43,7 +43,6 @@ namespace ChitChat.Views
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
             _chatVM.Disconnect -= ChangeToHomeWindow;
-            _chatVM.PublicEnterKey -= SendFlowDocumentValue;
             _chatVM.MessageSent -= ClearPublicTextBox;
             _chatVM.MessageReceived -= CheckMessageTheme;
             _chatVM.EmojiClick -= SetEmoji;
@@ -75,11 +74,6 @@ namespace ChitChat.Views
         private void Emoji_Click(object sender, RoutedEventArgs e)
         {
             EmojiTransitioner.SelectedIndex = 0;
-        }
-
-        private void SendFlowDocumentValue(object sender, EventArgs e)
-        {
-            _chatVM.CurrentPublicMessage = PublicChatTextBox.Document;
         }
 
         private void ClearPublicTextBox(object sender, EventArgs e)
@@ -149,5 +143,9 @@ namespace ChitChat.Views
             }
         }
 
+        private void PublicChatTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            _chatVM.PublicMessageLength = _chatVM.CurrentPublicMessage.GetDocumentString().Length;
+        }
     }
 }

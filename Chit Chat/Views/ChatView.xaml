@@ -24,6 +24,8 @@
 
     <Window.Resources>
         <Converters:IsEnabledConverter x:Key="IsEnabledConverter"></Converters:IsEnabledConverter>
+        <Converters:LessThanZeroConverter x:Key="LessThanZeroConverter"></Converters:LessThanZeroConverter>
+        <Converters:CharacterCountConverter x:Key="CharacterCountConverter"></Converters:CharacterCountConverter>
     </Window.Resources>
 
     <Grid Margin="0,0,0,2">
@@ -250,6 +252,7 @@
                      FontSize="15" 
                      Width="929"
                      Height="Auto"
+                     TextChanged="PublicChatTextBox_TextChanged"
                      BorderBrush="{DynamicResource TextBoxBorderBrush}"
                      Background="Transparent"
                      MaxHeight="200"
@@ -264,6 +267,50 @@
                         <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
                     </materialDesign:HintAssist.Hint>
                 </RichTextBox>
+                <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Right" Foreground="Red">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource CharacterCountConverter}">
+                            <Binding Path="CharacterLimit"></Binding>
+                            <Binding Path="PublicMessageLength"></Binding>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Value="True">
+                                            <Condition.Binding>
+                                                <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
+                                                    <Binding Path="CharacterLimit" />
+                                                    <Binding Path="PublicMessageLength" />
+                                                </MultiBinding>
+                                            </Condition.Binding>
+                                        </Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Value="False">
+                                            <Condition.Binding>
+                                                <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
+                                                    <Binding Path="CharacterLimit" />
+                                                    <Binding Path="PublicMessageLength" />
+                                                </MultiBinding>
+                                            </Condition.Binding>
+                                        </Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" VerticalAlignment="Top" Width="36" Click="Emoji_Click" Height="33" Padding="0" IsEnabled="{Binding ControlsEnabled}">
                     <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
                 </Button>

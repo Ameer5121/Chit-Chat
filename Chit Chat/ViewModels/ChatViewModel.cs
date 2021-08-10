@@ -37,19 +37,22 @@ namespace ChitChat.ViewModels
         private bool _controlsEnabled = true;
         private bool _isPrivateChatting = false;
         private string _errorMessage;
+        private const int _characterLimit = 600;
+        private int _publicMessageLength;
+        private int _privateMessageLength;
         private static Themes _currentTheme;
         private FlowDocument _currentPublicMessage;
         private FlowDocument _currentPrivateMessage;
         private HubConnection _connection;
         public event EventHandler Disconnect;
-        public event EventHandler PublicEnterKey;
-        public event EventHandler PrivateEnterKey;
         public event EventHandler MessageSent;
         public event EventHandler<MessageEventArgs> MessageReceived;
         public event EventHandler<EmojiEventArgs> EmojiClick;
         public event EventHandler<ThemeEventArgs> ThemeChange;
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
+            _currentPublicMessage = new FlowDocument();
+            _currentPrivateMessage = new FlowDocument();
             _currentUser = currentuser;
             _users = data.Users;
             _messages = data.Messages;
@@ -129,7 +132,17 @@ namespace ChitChat.ViewModels
             get => _errorMessage;
             set => SetPropertyValue(ref _errorMessage, value);
         }
-
+        public int CharacterLimit => _characterLimit;
+        public int PublicMessageLength
+        {
+            get => _publicMessageLength;
+            set => SetPropertyValue(ref _publicMessageLength, value);
+        }
+        public int PrivateMessageLength
+        {
+            get => _privateMessageLength;
+            set => SetPropertyValue(ref _privateMessageLength, value);
+        }
         public Array Themes { get; } = Enum.GetValues(typeof(Themes));
         public Themes CurrentTheme
         {
@@ -140,21 +153,13 @@ namespace ChitChat.ViewModels
                 _currentTheme = value;
             }
         }
-        private bool CanSendMessage()
-        {
-            return string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString()) ? false : true;
-        }
+        private bool CanSendMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) 
+            || !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString())
+             ;
+
+
         public async Task SendMessage(object destinationUser)
         {
-            if (destinationUser == null)
-            {
-                // Gets the FlowDocument value from the view's textbox.
-                PublicEnterKey?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                PrivateEnterKey?.Invoke(this, EventArgs.Empty);
-            }
             if (!CanSendMessage())
             {
                 return;
