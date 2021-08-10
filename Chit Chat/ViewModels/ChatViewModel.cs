@@ -75,7 +75,8 @@ namespace ChitChat.ViewModels
             SendHeartBeat(_heartbeatToken.Token);
         }
 
-        public ICommand Send => new RelayCommand(SendMessage);
+        public ICommand SendPrivateMessageCommand => new RelayCommand(SendPrivateMessage, CanSendPrivateMessage);
+        public ICommand SendPublicMessageCommand => new RelayCommand(SendPublicMessage, CanSendPublicMessage);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
         public ICommand DisconnectCommand => new RelayCommand(DisconnectFromServer);
         public ICommand OnPrivateChatEnter => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
@@ -148,42 +149,23 @@ namespace ChitChat.ViewModels
         {
             get => _currentTheme;
             set
-            {              
+            {
                 ThemeChange?.Invoke(this, new ThemeEventArgs { NewTheme = value });
                 _currentTheme = value;
             }
         }
-        private bool CanSendMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) 
-            || !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString())
-             ;
+        private bool CanSendPublicMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && _characterLimit - PublicMessageLength >= 0;
+        private bool CanSendPrivateMessage() => !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString()) && _characterLimit - PrivateMessageLength >= 0;
 
-
-        public async Task SendMessage(object destinationUser)
+        public async Task SendPublicMessage()
         {
-            if (!CanSendMessage())
-            {
-                return;
-            }
             MessageModel messagetoSend = null;
-            if (destinationUser == null)
+            messagetoSend = new MessageModel
             {
-                messagetoSend = new MessageModel
-                {
-                    RTFData = CurrentPublicMessage.GetRTFData(),
-                    User = _currentUser,
-                    MessageDate = DateTime.Now
-                };
-            }
-            else
-            {
-                messagetoSend = new MessageModel
-                {
-                    RTFData = CurrentPrivateMessage.GetRTFData(),
-                    User = _currentUser,
-                    DestinationUser = destinationUser as UserModel,
-                    MessageDate = DateTime.Now
-                };
-            }
+                RTFData = CurrentPublicMessage.GetRTFData(),
+                User = _currentUser,
+                MessageDate = DateTime.Now
+            };
             try
             {
                 await _httpService.PostMessageDataAsync(JsonConvert.SerializeObject(messagetoSend));
@@ -194,7 +176,30 @@ namespace ChitChat.ViewModels
             }
             finally
             {
-                //Clear the view's textbox value.
+                MessageSent?.Invoke(this, EventArgs.Empty);
+            }
+
+        }
+        public async Task SendPrivateMessage(object destinationUser)
+        {
+            MessageModel messagetoSend = null;
+            messagetoSend = new MessageModel
+            {
+                RTFData = CurrentPrivateMessage.GetRTFData(),
+                User = _currentUser,
+                DestinationUser = destinationUser as UserModel,
+                MessageDate = DateTime.Now
+            };
+            try
+            {
+                await _httpService.PostMessageDataAsync(JsonConvert.SerializeObject(messagetoSend));
+            }
+            catch (HttpRequestException)
+            {
+                ErrorMessage = "Could not send message!";
+            }
+            finally
+            {
                 MessageSent?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -249,7 +254,7 @@ namespace ChitChat.ViewModels
         {
             PrivateMessages.Refresh();
         }
-        
+
         private async Task SendHeartBeat(CancellationToken token)
         {
             while (true)
@@ -288,7 +293,8 @@ namespace ChitChat.ViewModels
                     data.Messages.LastOrDefault().ConvertRTFToFlowDocument();
 
                     _messages.Add(data.Messages.LastOrDefault());
-                    MessageReceived?.Invoke(this, new MessageEventArgs {
+                    MessageReceived?.Invoke(this, new MessageEventArgs
+                    {
 
                         MessageModel = data.Messages.LastOrDefault(),
                         CurrentTheme = this.CurrentTheme

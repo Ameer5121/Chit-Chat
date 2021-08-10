@@ -108,7 +108,7 @@
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue" Margin="0,0,43,0"  >
                 <RichTextBox.InputBindings>
-                    <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding Send}" Key="Enter" />
+                    <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding SendPrivateMessageCommand}" Key="Enter" />
                 </RichTextBox.InputBindings>
                 <materialDesign:HintAssist.Hint>
                     <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>

@@ -261,7 +261,7 @@
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
                     <RichTextBox.InputBindings>
-                        <KeyBinding Command="{Binding Send}" Key="Enter"></KeyBinding>
+                        <KeyBinding Command="{Binding SendPublicMessageCommand}" Key="Enter"></KeyBinding>
                     </RichTextBox.InputBindings>
                     <materialDesign:HintAssist.Hint>
                         <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
