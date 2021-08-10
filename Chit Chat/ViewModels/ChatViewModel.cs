@@ -75,8 +75,9 @@ namespace ChitChat.ViewModels
             SendHeartBeat(_heartbeatToken.Token);
         }
 
-        public ICommand SendPrivateMessageCommand => new RelayCommand(SendPrivateMessage, CanSendPrivateMessage);
-        public ICommand SendPublicMessageCommand => new RelayCommand(SendPublicMessage, CanSendPublicMessage);
+
+        public ICommand ConstructPublicMessageCommand => new RelayCommand(ConstructPublicMessage, CanConstructPublicMessage);
+        public ICommand ConstructPrivateMessageCommand => new RelayCommand(ConstructPrivateMessage, CanConstructPrivateMessage);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
         public ICommand DisconnectCommand => new RelayCommand(DisconnectFromServer);
         public ICommand OnPrivateChatEnter => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
@@ -154,10 +155,10 @@ namespace ChitChat.ViewModels
                 _currentTheme = value;
             }
         }
-        private bool CanSendPublicMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && _characterLimit - PublicMessageLength >= 0;
-        private bool CanSendPrivateMessage() => !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString()) && _characterLimit - PrivateMessageLength >= 0;
+        private bool CanConstructPublicMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && _characterLimit - PublicMessageLength >= 0;
+        private bool CanConstructPrivateMessage() => !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString()) && _characterLimit - PrivateMessageLength >= 0;
 
-        public async Task SendPublicMessage()
+        private async Task ConstructPublicMessage()
         {
             MessageModel messagetoSend = null;
             messagetoSend = new MessageModel
@@ -168,19 +169,14 @@ namespace ChitChat.ViewModels
             };
             try
             {
-                await _httpService.PostMessageDataAsync(JsonConvert.SerializeObject(messagetoSend));
+                await SendMessage(messagetoSend);
             }
             catch (HttpRequestException)
             {
                 ErrorMessage = "Could not send message!";
             }
-            finally
-            {
-                MessageSent?.Invoke(this, EventArgs.Empty);
-            }
-
         }
-        public async Task SendPrivateMessage(object destinationUser)
+        private async Task ConstructPrivateMessage(object destinationUser)
         {
             MessageModel messagetoSend = null;
             messagetoSend = new MessageModel
@@ -192,16 +188,18 @@ namespace ChitChat.ViewModels
             };
             try
             {
-                await _httpService.PostMessageDataAsync(JsonConvert.SerializeObject(messagetoSend));
+                await SendMessage(messagetoSend);
             }
             catch (HttpRequestException)
             {
                 ErrorMessage = "Could not send message!";
             }
-            finally
-            {
-                MessageSent?.Invoke(this, EventArgs.Empty);
-            }
+        }
+
+        private async Task SendMessage(MessageModel message)
+        {
+            await _httpService.PostMessageDataAsync(JsonConvert.SerializeObject(message));
+            MessageSent?.Invoke(this, EventArgs.Empty);
         }
 
         private void SetEmoji(string emojiName)
