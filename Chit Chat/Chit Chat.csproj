@@ -250,6 +250,7 @@
     <Compile Include="Helper\Exceptions\RegistrationException.cs" />
     <Compile Include="Helper\AttachedProperties\ScrollBehavior.cs" />
     <Compile Include="Helper\Themes.cs" />
+    <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Helper\Exceptions\LoginException.cs" />
     <Compile Include="Models\DataModel.cs" />

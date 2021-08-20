@@ -36,7 +36,7 @@ namespace ChitChat.ViewModels
         private bool _isDisconnecting;
         private bool _controlsEnabled = true;
         private bool _isPrivateChatting = false;
-        private string _errorMessage;
+        private ErrorModel _error;
         private const int _characterLimit = 600;
         private int _publicMessageLength;
         private int _privateMessageLength;
@@ -128,12 +128,7 @@ namespace ChitChat.ViewModels
             get => _controlsEnabled;
             set => SetPropertyValue(ref _controlsEnabled, value);
         }
-
-        public string ErrorMessage
-        {
-            get => _errorMessage;
-            set => SetPropertyValue(ref _errorMessage, value);
-        }
+        public ErrorModel Error => _error;
         public int CharacterLimit => _characterLimit;
         public int PublicMessageLength
         {
@@ -173,7 +168,7 @@ namespace ChitChat.ViewModels
             }
             catch (HttpRequestException)
             {
-                ErrorMessage = "Could not send message!";
+                //ErrorMessage = "Could not send message!";
             }
         }
         private async Task ConstructPrivateMessage(object destinationUser)
@@ -192,7 +187,7 @@ namespace ChitChat.ViewModels
             }
             catch (HttpRequestException)
             {
-                ErrorMessage = "Could not send message!";
+               // ErrorMessage = "Could not send message!";
             }
         }
 
@@ -305,6 +300,8 @@ namespace ChitChat.ViewModels
         {
             _connection.On<DataModel>("ReceiveData", ReceiveData);
         }
+
+      
 
         private async Task DisconnectFromServer()
         {
