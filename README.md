@@ -57,3 +57,9 @@ For a more detailed overview, refer to these links:
 
 # Application State
 This application is considered to be finished for now. I might add more new features in the future.
+
+
+# More Images:
+
+Character Limit
+![feature1n](https://user-images.githubusercontent.com/71935713/130355306-0094803c-5667-4a2c-a552-c044cc1b8d8b.png)
