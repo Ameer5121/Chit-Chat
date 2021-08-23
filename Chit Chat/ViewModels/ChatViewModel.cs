@@ -23,6 +23,8 @@ using ChitChat.Events;
 using ChitChat.Helper;
 using MaterialDesignThemes.Wpf;
 using ChitChat.Helper.Exceptions;
+using System.Windows.Forms;
+using Application = System.Windows.Application;
 
 namespace ChitChat.ViewModels
 {
@@ -76,7 +78,7 @@ namespace ChitChat.ViewModels
             SendHeartBeat(_heartbeatToken.Token);
         }
 
-
+        public ICommand ChooseProfilePictureCommand => new RelayCommand(ChooseProfilePicture);
         public ICommand ConstructPublicMessageCommand => new RelayCommand(ConstructPublicMessage, CanConstructPublicMessage);
         public ICommand ConstructPrivateMessageCommand => new RelayCommand(ConstructPrivateMessage, CanConstructPrivateMessage);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
@@ -216,7 +218,7 @@ namespace ChitChat.ViewModels
             {
                 throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");
             }
-            await _httpService.PostMessageDataAsync(JsonConvert.SerializeObject(messageModel));
+            await _httpService.PostDataAsync("PostMessage", JsonConvert.SerializeObject(messageModel));
             MessageSent?.Invoke(this, EventArgs.Empty);
         }
 
@@ -319,6 +321,31 @@ namespace ChitChat.ViewModels
                     });
                 });
             }
+        }
+
+        private async Task ChooseProfilePicture()
+        {
+            var openfiledialog = new OpenFileDialog();
+            openfiledialog.Filter = "Image files (*.png) | *.png";
+            if (openfiledialog.ShowDialog() == DialogResult.OK)
+            {
+                await ConvertImageToBase64(openfiledialog);
+            }
+        }
+        private async Task ConvertImageToBase64(OpenFileDialog fileDialog)
+        {
+            using (var stream = fileDialog.OpenFile())
+            {
+                byte[] imageBytes = new byte[stream.Length];
+                stream.Read(imageBytes, 0, imageBytes.Length);
+                var base64String = Convert.ToBase64String(imageBytes);
+                await UploadImage(new ProfileImageDataModel(base64String, CurrentUser));
+            }
+        }
+        private async Task UploadImage(ProfileImageDataModel profileImageDataModel)
+        {
+            var response = await _httpService.PostDataAsync("PostImage", JsonConvert.SerializeObject(profileImageDataModel));
+
         }
 
         private void CreateHandlers()

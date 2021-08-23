@@ -103,7 +103,13 @@
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <DockPanel LastChildFill="False" FlowDirection="LeftToRight">
-                                                <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,3,0,0" Foreground="{DynamicResource Text}"></TextBlock>
+
+                                                <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
+                                                    <Ellipse.Fill>
+                                                        <ImageBrush ImageSource="{Binding ProfilePicture}"></ImageBrush>
+                                                    </Ellipse.Fill>
+                                                </Ellipse>
+                                                <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Text}"></TextBlock>
 
                                                 <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center"
                                                                      Foreground="{DynamicResource ExpanderButton}">
@@ -145,6 +151,7 @@
                                 <DockPanel FlowDirection="LeftToRight">
                                     <!--Color-->
                                     <materialDesign:Card DockPanel.Dock="Top"
+                                                         Margin="0,10,120,10"
                                           HorizontalAlignment="Left"
                                           Background="{DynamicResource Buttons}"
                                           Width="153"
@@ -167,7 +174,19 @@
                                         </ComboBox>
                                     </materialDesign:Card>
 
-
+                                <Button Foreground="Silver"                              
+                                 DockPanel.Dock="Top"
+                               Background="{DynamicResource Buttons}"
+                               BorderBrush="{DynamicResource ButtonsBorderBrush}"
+                               Margin="0,10,120,10"
+                               Command="{Binding ChooseProfilePictureCommand}">
+                                        <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
+                                            <materialDesign:PackIcon Kind="FaceProfile" Width="22" Height="18" Margin="0,5,0,0"/>
+                                            <TextBlock Text="Change Profile Picture" 
+                                               Foreground="Silver"
+                                               TextAlignment="Center" Height="18" Width="Auto"/>
+                                        </StackPanel>
+                                    </Button>
 
                                     <Button Foreground="Red"                                
                                  DockPanel.Dock="Left"

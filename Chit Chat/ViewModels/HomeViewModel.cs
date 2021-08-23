@@ -98,7 +98,7 @@ namespace ChitChat.ViewModels
                     var user = await _httpService.PostUserDataAsync("/api/chat/Login",
                          JsonConvert.SerializeObject(new UserCredentials(_currentUserName, Password.DecryptPassword())));
 
-                    _currentUser = new UserModel { DisplayName = user.DisplayName };
+                    _currentUser = new UserModel { DisplayName = user.DisplayName, ProfilePicture = user.ProfilePicture };
                     BuildConnection();
                     CreateHandlers();
                     await connection.StartAsync();

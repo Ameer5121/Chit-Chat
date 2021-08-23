@@ -36,11 +36,12 @@ namespace ChitChat.Services
             _httpClient.BaseAddress = url;
         }
 
-        public async Task PostMessageDataAsync(string jsonContent)
+        public async Task<HttpResponseMessage> PostDataAsync(string endPoint, string jsonContent)
         {
-            var response = await _httpClient.PostAsync($"/api/chat/PostMessage",
+            return await _httpClient.PostAsync($"/api/chat/{endPoint}",
                new StringContent(jsonContent, Encoding.UTF8, "application/json"));
         }
+        
         public async Task<UserModel> PostUserDataAsync(string endPoint, string jsonCredentials)
         {
             
@@ -65,9 +66,7 @@ namespace ChitChat.Services
             }
             else if (userResponse.ResponseCode == HttpStatusCode.BadRequest)
             {
-
                 throw new RegistrationException(userResponse.Message);
-
             }
             return userResponse;
         }
