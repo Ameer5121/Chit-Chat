@@ -29,7 +29,7 @@
     </Window.Resources>
     <materialDesign:DialogHost CloseOnClickAway="True">
         <materialDesign:DialogHost.DialogContent>
-            <Grid Background="{StaticResource Menu}" Width="400" Height="150">
+            <Grid Background="{DynamicResource Menu}" Width="400" Height="150">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
@@ -38,9 +38,9 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding Error.ErrorSubject}" Grid.ColumnSpan="2" Foreground="White" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
-                <TextBlock Grid.Row="1" Text="{Binding Error.ErrorMessage}" TextWrapping="Wrap" Grid.ColumnSpan="2" Foreground="Silver" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
-                <Button Background="{StaticResource Buttons}" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Grid.Row="2" BorderBrush="Transparent" Height="50" VerticalAlignment="Bottom" Content="Okay" Foreground="Silver" FontSize="15"></Button>
+                <TextBlock Grid.Row="0" Text="{Binding Error.ErrorSubject}" Grid.ColumnSpan="2" Foreground="{DynamicResource Text}" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="1" Text="{Binding Error.ErrorMessage}" TextWrapping="Wrap" Grid.ColumnSpan="2" Foreground="{DynamicResource Text2}" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
+                <Button Focusable="False" Background="{DynamicResource Buttons}" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Grid.Row="2" BorderBrush="Transparent" Height="50" VerticalAlignment="Bottom" Content="Okay" Foreground="{DynamicResource Text}" FontSize="15"></Button>
             </Grid>
         </materialDesign:DialogHost.DialogContent>
 

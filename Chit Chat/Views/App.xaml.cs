@@ -31,6 +31,7 @@ namespace ChitChat
                 this.Resources["ButtonsBorderBrush"] = this.Resources["ButtonsBorderBrushLightTheme"];
                 this.Resources["TextBoxBorderBrush"] = this.Resources["TextBoxBorderBrushLightTheme"];
                 this.Resources["Text"] = this.Resources["TextLightTheme"];
+                this.Resources["Text2"] = this.Resources["Text2LightTheme"];
                 this.Resources["Icons"] = this.Resources["IconsLightTheme"];
                 this.Resources["ExpanderButton"] = this.Resources["ExpanderButtonLightTheme"];
                 this.Resources["DefaultTextBoxTheme"] = this.Resources["TextBoxLightTheme"];
@@ -51,6 +52,7 @@ namespace ChitChat
                 this.Resources["ButtonsBorderBrush"] = this.Resources["ButtonsBorderBrushDarkTheme"];
                 this.Resources["TextBoxBorderBrush"] = this.Resources["TextBoxBorderBrushDarkTheme"];
                 this.Resources["Text"] = this.Resources["TextDarkTheme"];
+                this.Resources["Text2"] = this.Resources["Text2DarkTheme"];
                 this.Resources["Icons"] = this.Resources["IconsDarkTheme"];
                 this.Resources["ExpanderButton"] = this.Resources["ExpanderButtonDarkTheme"];
                 this.Resources["DefaultTextBoxTheme"] = this.Resources["TextBoxDarkTheme"];

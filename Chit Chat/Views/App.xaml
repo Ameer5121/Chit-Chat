@@ -31,6 +31,7 @@
             <SolidColorBrush x:Key="ButtonsBorderBrush" Color="#FF2C2B2B"></SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxBorderBrush" Color="AliceBlue"></SolidColorBrush>
             <SolidColorBrush x:Key="Text" Color="AliceBlue"></SolidColorBrush>
+            <SolidColorBrush x:Key="Text2" Color="Silver"></SolidColorBrush>
             <SolidColorBrush x:Key="Icons" Color="White"></SolidColorBrush>
             <SolidColorBrush x:Key="ExpanderButton" Color="#DDFFFFFF"></SolidColorBrush>
             <SolidColorBrush x:Key="DefaultTextBoxTheme" Color="#FF424242"></SolidColorBrush>
@@ -55,6 +56,7 @@
             <SolidColorBrush x:Key="ButtonsBorderBrushDarkTheme" Color="#FF2C2B2B"></SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxBorderBrushDarkTheme" Color="AliceBlue"></SolidColorBrush>
             <SolidColorBrush x:Key="TextDarkTheme" Color="AliceBlue"></SolidColorBrush>
+            <SolidColorBrush x:Key="Text2DarkTheme" Color="Silver"></SolidColorBrush>
             <SolidColorBrush x:Key="IconsDarkTheme" Color="White"></SolidColorBrush>
             <SolidColorBrush x:Key="ExpanderButtonDarkTheme" Color="#DDFFFFFF"></SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxDarkTheme" Color="#FF424242"></SolidColorBrush>
@@ -74,6 +76,7 @@
             <SolidColorBrush x:Key="ButtonsBorderBrushLightTheme" Color="#FFACAAAA"></SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxBorderBrushLightTheme" Color="AliceBlue"></SolidColorBrush>
             <SolidColorBrush x:Key="TextLightTheme" Color="#FF3A3838"></SolidColorBrush>
+            <SolidColorBrush x:Key="Text2LightTheme" Color="#FF4F4C4C"></SolidColorBrush>
             <SolidColorBrush x:Key="IconsLightTheme" Color="#FF3A3838"></SolidColorBrush> 
             <SolidColorBrush x:Key="ExpanderButtonLightTheme" Color="#FF433F3F"></SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxLightTheme" Color="#FFC7C5C5"></SolidColorBrush>
