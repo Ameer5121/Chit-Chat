@@ -38,8 +38,8 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding ErrorSubject}" Grid.ColumnSpan="2" Foreground="White" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
-                <TextBlock Grid.Row="1" Text="{Binding ErrorMessage}" TextWrapping="Wrap" Grid.ColumnSpan="2" Foreground="Silver" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="0" Text="{Binding Error.ErrorSubject}" Grid.ColumnSpan="2" Foreground="White" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="1" Text="{Binding Error.ErrorMessage}" TextWrapping="Wrap" Grid.ColumnSpan="2" Foreground="Silver" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
                 <Button Background="{StaticResource Buttons}" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Grid.Row="2" BorderBrush="Transparent" Height="50" VerticalAlignment="Bottom" Content="Okay" Foreground="Silver" FontSize="15"></Button>
             </Grid>
         </materialDesign:DialogHost.DialogContent>

@@ -21,6 +21,8 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using ChitChat.Events;
 using ChitChat.Helper;
+using MaterialDesignThemes.Wpf;
+using ChitChat.Helper.Exceptions;
 
 namespace ChitChat.ViewModels
 {
@@ -56,7 +58,6 @@ namespace ChitChat.ViewModels
             _currentUser = currentuser;
             _users = data.Users;
             _messages = data.Messages;
-
             // Set a default value so the binding doesn't fail.
             SelectedUser = new UserModel();
 
@@ -128,7 +129,11 @@ namespace ChitChat.ViewModels
             get => _controlsEnabled;
             set => SetPropertyValue(ref _controlsEnabled, value);
         }
-        public ErrorModel Error => _error;
+        public ErrorModel Error
+        {
+            get => _error;
+            set => SetPropertyValue(ref _error, value);
+        }
         public int CharacterLimit => _characterLimit;
         public int PublicMessageLength
         {
@@ -150,8 +155,8 @@ namespace ChitChat.ViewModels
                 _currentTheme = value;
             }
         }
-        private bool CanConstructPublicMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && _characterLimit - PublicMessageLength >= 0;
-        private bool CanConstructPrivateMessage() => !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString()) && _characterLimit - PrivateMessageLength >= 0;
+        private bool CanConstructPublicMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString());
+        private bool CanConstructPrivateMessage() => !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString());
 
         private async Task ConstructPublicMessage()
         {
@@ -159,6 +164,7 @@ namespace ChitChat.ViewModels
             messagetoSend = new MessageModel
             {
                 RTFData = CurrentPublicMessage.GetRTFData(),
+                Message = _currentPublicMessage,
                 User = _currentUser,
                 MessageDate = DateTime.Now
             };
@@ -168,7 +174,13 @@ namespace ChitChat.ViewModels
             }
             catch (HttpRequestException)
             {
-                //ErrorMessage = "Could not send message!";
+                ConstructError("Connection Error", "Could not send message");
+                DisplayError();
+            }
+            catch (SendException e)
+            {
+                ConstructError(e.Subject, e.Message);
+                DisplayError();
             }
         }
         private async Task ConstructPrivateMessage(object destinationUser)
@@ -178,6 +190,7 @@ namespace ChitChat.ViewModels
             {
                 RTFData = CurrentPrivateMessage.GetRTFData(),
                 User = _currentUser,
+                Message = _currentPrivateMessage,
                 DestinationUser = destinationUser as UserModel,
                 MessageDate = DateTime.Now
             };
@@ -187,15 +200,27 @@ namespace ChitChat.ViewModels
             }
             catch (HttpRequestException)
             {
-               // ErrorMessage = "Could not send message!";
+                ConstructError("Connection Error", "Could not send message");
+                DisplayError();
+            }
+            catch (SendException e)
+            {
+                ConstructError(e.Subject, e.Message);
+                DisplayError();
             }
         }
 
-        private async Task SendMessage(MessageModel message)
+        private async Task SendMessage(MessageModel messageModel)
         {
-            await _httpService.PostMessageDataAsync(JsonConvert.SerializeObject(message));
+            if (_characterLimit - messageModel.Message.GetDocumentString().Length < 0)
+            {
+                throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");
+            }
+            await _httpService.PostMessageDataAsync(JsonConvert.SerializeObject(messageModel));
             MessageSent?.Invoke(this, EventArgs.Empty);
         }
+
+
 
         private void SetEmoji(string emojiName)
         {
@@ -301,8 +326,14 @@ namespace ChitChat.ViewModels
             _connection.On<DataModel>("ReceiveData", ReceiveData);
         }
 
-      
-
+        private void ConstructError(string errorSubject, string errorMessage)
+        {
+            Error = new ErrorModel(errorSubject, errorMessage);
+        }
+        private void DisplayError()
+        {
+            DialogHost.OpenDialogCommand.Execute(null, null);
+        }
         private async Task DisconnectFromServer()
         {
             IsDisconnecting = true;
