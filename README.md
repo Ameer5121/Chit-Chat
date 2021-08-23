@@ -31,6 +31,7 @@ Image Sending
 * Colored Emojis
 * Image Sending
 * Light and Dark themes
+* Character Limit
 * Logging out manually.
 
 # Framework:
