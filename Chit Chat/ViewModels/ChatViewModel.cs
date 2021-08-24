@@ -300,27 +300,27 @@ namespace ChitChat.ViewModels
             }
         }
 
-        private void ReceiveData(DataModel data)
+        private void ReceiveMessages(ObservableCollection<MessageModel> messages)
         {
-            if (data.Users.Count > _users.Count)
-            {
-                Users = data.Users;
-            }
-            else if (data.Messages.Count > _messages.Count)
+            if (messages.Count > _messages.Count)
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    data.Messages.LastOrDefault().ConvertRTFToFlowDocument();
+                    messages.LastOrDefault().ConvertRTFToFlowDocument();
 
-                    _messages.Add(data.Messages.LastOrDefault());
+                    _messages.Add(messages.LastOrDefault());
                     MessageReceived?.Invoke(this, new MessageEventArgs
                     {
-
-                        MessageModel = data.Messages.LastOrDefault(),
+                        MessageModel = messages.LastOrDefault(),
                         CurrentTheme = this.CurrentTheme
                     });
                 });
             }
+        }
+
+        private void ReceiveUsers(ObservableCollection<UserModel> users)
+        {
+            Users = users;
         }
 
         private async Task ChooseProfilePicture()
@@ -345,12 +345,19 @@ namespace ChitChat.ViewModels
         private async Task UploadImage(ProfileImageDataModel profileImageDataModel)
         {
             var response = await _httpService.PostDataAsync("PostImage", JsonConvert.SerializeObject(profileImageDataModel));
+            var imageLink = await response.Content.ReadAsStringAsync();
+            ChangeProfilePicture(imageLink);
+        }
 
+        private void ChangeProfilePicture(string profilePictureSource)
+        {
+            _currentUser.ProfilePicture = profilePictureSource;
         }
 
         private void CreateHandlers()
         {
-            _connection.On<DataModel>("ReceiveData", ReceiveData);
+            _connection.On<ObservableCollection<UserModel>>("ReceiveUsers", ReceiveUsers);
+            _connection.On<ObservableCollection<MessageModel>>("ReceiveMessages", ReceiveMessages);
         }
 
         private void ConstructError(string errorSubject, string errorMessage)
@@ -365,7 +372,8 @@ namespace ChitChat.ViewModels
         {
             IsDisconnecting = true;
             //UnSubscribe and dispose.
-            _connection.Remove("ReceiveData");
+            _connection.Remove("ReceiveUsers");
+            _connection.Remove("ReceiveMessages");
             _heartbeatToken.Cancel();
             await _connection.DisposeAsync();
             Disconnect?.Invoke(this, EventArgs.Empty);

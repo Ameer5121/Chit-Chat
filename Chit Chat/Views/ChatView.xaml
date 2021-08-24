@@ -53,7 +53,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="270"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -151,10 +151,10 @@
                                 <DockPanel FlowDirection="LeftToRight">
                                     <!--Color-->
                                     <materialDesign:Card DockPanel.Dock="Top"
-                                                         Margin="0,10,120,10"
+                                                         Margin="0,10,0,10"
                                           HorizontalAlignment="Left"
                                           Background="{DynamicResource Buttons}"
-                                          Width="153"
+                                          Width="150"
                                           Height="32">
                                         <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
                                           ItemsSource="{Binding Themes}"
@@ -176,9 +176,10 @@
 
                                 <Button Foreground="Silver"                              
                                  DockPanel.Dock="Top"
+                                 Width="Auto"
+                                HorizontalAlignment="Left"
                                Background="{DynamicResource Buttons}"
-                               BorderBrush="{DynamicResource ButtonsBorderBrush}"
-                               Margin="0,10,120,10"
+                               BorderBrush="{DynamicResource ButtonsBorderBrush}"                              
                                Command="{Binding ChooseProfilePictureCommand}">
                                         <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
                                             <materialDesign:PackIcon Kind="FaceProfile" Width="22" Height="18" Margin="0,5,0,0"/>
@@ -356,7 +357,7 @@
             <!--Emoji Window-->
             <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="2" Grid.Column="1"  SelectedIndex="1" Margin="600,331,0,50" Width="408" Height="333" Grid.RowSpan="2">
                 <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
-                    <local:EmojiView Margin="0,0,0,-1"></local:EmojiView>
+                    <local:EmojiView Margin="0,0,0,0"></local:EmojiView>
                 </materialDesign:TransitionerSlide>
                 <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
 
