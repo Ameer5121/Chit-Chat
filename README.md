@@ -5,16 +5,16 @@ Login             |  Register
 ![1](https://user-images.githubusercontent.com/71935713/110955002-ca075580-8351-11eb-97ce-832d15ac0ad1.png)  |  ![2](https://user-images.githubusercontent.com/71935713/110955050-d68bae00-8351-11eb-9e12-406220e313a7.png)
 
 Private Chat
-![1](https://user-images.githubusercontent.com/71935713/118698128-b7f5d780-b818-11eb-9542-6ee6325ca044.png)
+![private chat](https://user-images.githubusercontent.com/71935713/130813934-48f1e417-ea15-4afd-a1f2-8f85c3bb12e2.png)
 
 Public Chat
-![2](https://user-images.githubusercontent.com/71935713/118698245-d6f46980-b818-11eb-85ce-4816bedc260b.png)
+![publichat](https://user-images.githubusercontent.com/71935713/130807833-144d3ea8-fb8c-4b05-b6ce-df612f1219eb.png)
 
 Light Theme
-![3](https://user-images.githubusercontent.com/71935713/118697948-854bdf00-b818-11eb-80cf-6dfd4b67383a.png)
+![lightmode](https://user-images.githubusercontent.com/71935713/130816718-9c4eb442-5d8c-4c8e-81b6-d5e0c7928235.png)
 
 Image Sending
-![image](https://user-images.githubusercontent.com/71935713/125191140-882be480-e249-11eb-9a52-20522faa695a.png)
+![imagesending](https://user-images.githubusercontent.com/71935713/130817184-83d9cec1-db45-4707-a180-eada765ffc65.png)
 
 
 # Contains usages of:
@@ -29,6 +29,7 @@ Image Sending
 * Returning to home view automatically when server is down
 * Private chatting
 * Colored Emojis
+* Profile Pictures
 * Image Sending
 * Light and Dark themes
 * Character Limit
@@ -62,4 +63,4 @@ This application is not finished, and there are a lot of things planned.
 # More Images:
 
 Character Limit
-![feature1n](https://user-images.githubusercontent.com/71935713/130355306-0094803c-5667-4a2c-a552-c044cc1b8d8b.png)
+![messagetoolong](https://user-images.githubusercontent.com/71935713/130817450-e3d8d093-f245-455b-9e18-4cea70eb71ad.png)
