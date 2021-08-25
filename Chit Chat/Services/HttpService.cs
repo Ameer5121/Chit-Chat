@@ -18,7 +18,7 @@ namespace ChitChat.Services
         private static readonly HttpClient _httpClient = new HttpClient();
         static HttpService()
         {
-            _httpClient.Timeout = TimeSpan.FromSeconds(10);
+            _httpClient.Timeout = TimeSpan.FromSeconds(30);
             _httpClient.BaseAddress = new Uri("http://localhost:5001");
         }
         private HttpService() { }

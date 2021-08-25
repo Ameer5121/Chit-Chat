@@ -37,7 +37,7 @@ namespace ChitChat.ViewModels
         private ObservableCollection<MessageModel> _messages;
         private CancellationTokenSource _heartbeatToken;
         private IHttpService _httpService;
-        private bool _isDisconnecting;
+        private bool _isUploading;
         private bool _controlsEnabled = true;
         private bool _isPrivateChatting = false;
         private ErrorModel _error;
@@ -120,10 +120,10 @@ namespace ChitChat.ViewModels
             set => SetPropertyValue(ref _currentPrivateMessage, value);
         }
 
-        public bool IsDisconnecting
+        public bool IsUploading
         {
-            get => _isDisconnecting;
-            set => SetPropertyValue(ref _isDisconnecting, value);
+            get => _isUploading;
+            set => SetPropertyValue(ref _isUploading, value);
         }
 
         public bool ControlsEnabled
@@ -326,7 +326,7 @@ namespace ChitChat.ViewModels
         private async Task ChooseProfilePicture()
         {
             var openfiledialog = new OpenFileDialog();
-            openfiledialog.Filter = "Image files (*.png) | *.png";
+            openfiledialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             if (openfiledialog.ShowDialog() == DialogResult.OK)
             {
                 await ConvertImageToBase64(openfiledialog);
@@ -340,6 +340,7 @@ namespace ChitChat.ViewModels
                 stream.Read(imageBytes, 0, imageBytes.Length);
                 var base64String = Convert.ToBase64String(imageBytes);
                 await UploadImage(new ProfileImageDataModel(base64String, CurrentUser));
+                
             }
         }
         private async Task UploadImage(ProfileImageDataModel profileImageDataModel)
@@ -363,6 +364,7 @@ namespace ChitChat.ViewModels
         private void ConstructError(string errorSubject, string errorMessage)
         {
             Error = new ErrorModel(errorSubject, errorMessage);
+            
         }
         private void DisplayError()
         {
@@ -370,7 +372,6 @@ namespace ChitChat.ViewModels
         }
         private async Task DisconnectFromServer()
         {
-            IsDisconnecting = true;
             //UnSubscribe and dispose.
             _connection.Remove("ReceiveUsers");
             _connection.Remove("ReceiveMessages");

@@ -103,10 +103,9 @@
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <DockPanel LastChildFill="False" FlowDirection="LeftToRight">
-
                                                 <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
                                                     <Ellipse.Fill>
-                                                        <ImageBrush ImageSource="{Binding ProfilePicture}"></ImageBrush>
+                                                        <ImageBrush ImageSource="{Binding ProfilePicture}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
                                                     </Ellipse.Fill>
                                                 </Ellipse>
                                                 <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Text}"></TextBlock>
@@ -149,7 +148,24 @@
                                 </Expander.Header>
 
                                 <DockPanel FlowDirection="LeftToRight">
-                                    <!--Color-->
+
+                                    <Button Foreground="Silver"    
+                                   Margin="0,10,0,10"
+                                 DockPanel.Dock="Top"
+                                 Width="Auto"
+                                HorizontalAlignment="Left"
+                               Background="{DynamicResource Buttons}"
+                               BorderBrush="{DynamicResource ButtonsBorderBrush}"                              
+                               Command="{Binding ChooseProfilePictureCommand}">
+                                        <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
+                                            <materialDesign:PackIcon Kind="FaceProfile" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
+                                            <TextBlock Text="Change Profile Picture" 
+                                               Foreground="{DynamicResource Text2}"
+                                               TextAlignment="Center" Height="18" Width="Auto"/>
+                                        </StackPanel>
+                                    </Button>
+                                    
+                                    
                                     <materialDesign:Card DockPanel.Dock="Top"
                                                          Margin="0,10,0,10"
                                           HorizontalAlignment="Left"
@@ -173,21 +189,7 @@
                                             </ComboBox.ItemContainerStyle>
                                         </ComboBox>
                                     </materialDesign:Card>
-
-                                <Button Foreground="Silver"                              
-                                 DockPanel.Dock="Top"
-                                 Width="Auto"
-                                HorizontalAlignment="Left"
-                               Background="{DynamicResource Buttons}"
-                               BorderBrush="{DynamicResource ButtonsBorderBrush}"                              
-                               Command="{Binding ChooseProfilePictureCommand}">
-                                        <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
-                                            <materialDesign:PackIcon Kind="FaceProfile" Width="22" Height="18" Margin="0,5,0,0"/>
-                                            <TextBlock Text="Change Profile Picture" 
-                                               Foreground="Silver"
-                                               TextAlignment="Center" Height="18" Width="Auto"/>
-                                        </StackPanel>
-                                    </Button>
+                              
 
                                     <Button Foreground="Red"                                
                                  DockPanel.Dock="Left"
@@ -215,10 +217,10 @@
                                             <Style TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
                                                 <Setter Property="Visibility" Value="Visible"></Setter>
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsDisconnecting}" Value="True">
+                                                    <DataTrigger Binding="{Binding IsUploading}" Value="True">
                                                         <Setter Property="Visibility" Value="Visible"></Setter>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsDisconnecting}" Value="False">
+                                                    <DataTrigger Binding="{Binding IsUploading}" Value="False">
                                                         <Setter Property="Visibility" Value="Collapsed"></Setter>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -249,7 +251,7 @@
                   Margin="0,10,0,57"
                   VirtualizingStackPanel.IsVirtualizing="False"
                  RenderTransformOrigin="0.5,0.5" AttachedProperties:ScrollBehavior.ScrollOnNewItem="True">
-
+                   
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel VerticalAlignment="Bottom"/>
@@ -257,18 +259,23 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel HorizontalAlignment="Left">
-                                <TextBlock>
+                            <DockPanel LastChildFill="False">
+                                <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding User.ProfilePicture}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">
                             <Run Text="{Binding User.DisplayName}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
                                 </TextBlock>
-                                <FlowDocumentScrollViewer Document="{Binding Message}" 
+                                <FlowDocumentScrollViewer DockPanel.Dock="Left" Document="{Binding Message}" 
                                                       HorizontalAlignment="Left" Height="Auto" 
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                                      HorizontalContentAlignment="Left" Margin="-8,0,0,0"
-                                                      Padding="-10" VerticalContentAlignment="Top"></FlowDocumentScrollViewer>
-                            </StackPanel>
+                                                      HorizontalContentAlignment="Left" Margin="2,0,0,0"
+                                                      Padding="-10"></FlowDocumentScrollViewer>
+                            </DockPanel>
 
                         </DataTemplate>
                     </ListBox.ItemTemplate>
