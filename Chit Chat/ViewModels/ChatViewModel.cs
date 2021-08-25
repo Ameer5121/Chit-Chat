@@ -345,9 +345,11 @@ namespace ChitChat.ViewModels
         }
         private async Task UploadImage(ProfileImageDataModel profileImageDataModel)
         {
+            IsUploading = true;
             var response = await _httpService.PostDataAsync("PostImage", JsonConvert.SerializeObject(profileImageDataModel));
             var imageLink = await response.Content.ReadAsStringAsync();
             ChangeProfilePicture(imageLink);
+            IsUploading = false;
         }
 
         private void ChangeProfilePicture(string profilePictureSource)
