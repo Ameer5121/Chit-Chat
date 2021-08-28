@@ -4,11 +4,11 @@ Login             |  Register
 :-------------------------:|:-------------------------:
 ![1](https://user-images.githubusercontent.com/71935713/110955002-ca075580-8351-11eb-97ce-832d15ac0ad1.png)  |  ![2](https://user-images.githubusercontent.com/71935713/110955050-d68bae00-8351-11eb-9e12-406220e313a7.png)
 
-Private Chat
-![private chat](https://user-images.githubusercontent.com/71935713/130813934-48f1e417-ea15-4afd-a1f2-8f85c3bb12e2.png)
-
 Public Chat
 ![publichat](https://user-images.githubusercontent.com/71935713/130807833-144d3ea8-fb8c-4b05-b6ce-df612f1219eb.png)
+
+Private Chat
+![private chat](https://user-images.githubusercontent.com/71935713/130813934-48f1e417-ea15-4afd-a1f2-8f85c3bb12e2.png)
 
 Light Theme
 ![lightmode](https://user-images.githubusercontent.com/71935713/130816718-9c4eb442-5d8c-4c8e-81b6-d5e0c7928235.png)
