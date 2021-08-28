@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using ChitChat.Models.Markers;
 
 namespace ChitChat.Services
 {
@@ -36,17 +37,17 @@ namespace ChitChat.Services
             _httpClient.BaseAddress = url;
         }
 
-        public async Task<HttpResponseMessage> PostDataAsync(string endPoint, string jsonContent)
+        public async Task<HttpResponseMessage> PostDataAsync(string endPoint, DataTransferObject dataTransferObject)
         {
             return await _httpClient.PostAsync($"/api/chat/{endPoint}",
-               new StringContent(jsonContent, Encoding.UTF8, "application/json"));
+               new StringContent(SerializeModel(dataTransferObject), Encoding.UTF8, "application/json"));
         }
         
-        public async Task<UserModel> PostUserDataAsync(string endPoint, string jsonCredentials)
+        public async Task<UserModel> PostUserDataAsync(string endPoint, UserCredentials userCredentials)
         {
             
             var response = await _httpClient.PostAsync($"{endPoint}",
-               new StringContent(jsonCredentials, Encoding.UTF8, "application/json"));
+               new StringContent(SerializeModel(userCredentials), Encoding.UTF8, "application/json"));
 
             var userResponse = await ValidateResponseCodeAsync(response);
             return userResponse.Payload != null ? userResponse.Payload : null;
@@ -69,6 +70,15 @@ namespace ChitChat.Services
                 throw new RegistrationException(userResponse.Message);
             }
             return userResponse;
+        }
+
+        private string SerializeModel(DataTransferObject dataTransferObject)
+        {
+            return JsonConvert.SerializeObject(dataTransferObject);
+        }
+        private string SerializeModel(UserCredentials userCredentials)
+        {
+            return JsonConvert.SerializeObject(userCredentials);
         }
     }
 }

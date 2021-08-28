@@ -14,15 +14,15 @@ namespace ChitChat.Models
         public readonly string DisplayName;
         public readonly string Email;
         public readonly string DecryptedPassword;
-        public UserCredentials(string userName, string password)
+        public UserCredentials(string userName, string decryptedPassword)
         {
             UserName = userName;
-            DecryptedPassword = password;
+            DecryptedPassword = decryptedPassword;
         }
-        public UserCredentials(string userName, string password, string email, string displayName)
+        public UserCredentials(string userName, string decryptedPassword, string email, string displayName)
         {
             UserName = userName;
-            DecryptedPassword = password;
+            DecryptedPassword = decryptedPassword;
             Email = email;
             DisplayName = displayName;
         }

@@ -218,7 +218,7 @@ namespace ChitChat.ViewModels
             {
                 throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");
             }
-            await _httpService.PostDataAsync("PostMessage", JsonConvert.SerializeObject(messageModel));
+            await _httpService.PostDataAsync("PostMessage", messageModel);
             MessageSent?.Invoke(this, EventArgs.Empty);
         }
 
@@ -346,7 +346,7 @@ namespace ChitChat.ViewModels
         private async Task UploadImage(ProfileImageDataModel profileImageDataModel)
         {
             IsUploading = true;
-            var response = await _httpService.PostDataAsync("PostImage", JsonConvert.SerializeObject(profileImageDataModel));
+            var response = await _httpService.PostDataAsync("PostImage", profileImageDataModel);
             var imageLink = await response.Content.ReadAsStringAsync();
             ChangeProfilePicture(imageLink);
             IsUploading = false;

@@ -95,9 +95,7 @@ namespace ChitChat.ViewModels
             {        
                 await Task.Run(async () =>
                 {
-                    var user = await _httpService.PostUserDataAsync("/api/chat/Login",
-                         JsonConvert.SerializeObject(new UserCredentials(_currentUserName, Password.DecryptPassword())));
-
+                    var user = await _httpService.PostUserDataAsync("/api/chat/Login", new UserCredentials(_currentUserName, Password.DecryptPassword()));                       
                     _currentUser = new UserModel { DisplayName = user.DisplayName, ProfilePicture = user.ProfilePicture };
                     BuildConnection();
                     CreateHandlers();
@@ -138,20 +136,11 @@ namespace ChitChat.ViewModels
 
         private async Task RegisterAccountAsync()
         {
+            IsRegistering = true;
+            Email.Validate();
             try
             {
-                IsRegistering = true;
-                Email.Validate();
-
-                await _httpService.PostUserDataAsync("/api/chat/PostUser",
-                    JsonConvert.SerializeObject(new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName)));
-
-
-                _ = HomeLogger.LogMessage("Successfully Registered!");
-                IsRegistering = false;
-                ClearCredentials();
-
-                OnRegister?.Invoke(this, EventArgs.Empty);
+                await _httpService.PostUserDataAsync("/api/chat/PostUser", new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName));             
             }
             catch (FormatException)
             {
@@ -173,6 +162,10 @@ namespace ChitChat.ViewModels
                 _ = HomeLogger.LogMessage(e.Message);
                 IsRegistering = false;
             }
+            _ = HomeLogger.LogMessage("Successfully Registered!");
+            IsRegistering = false;
+            ClearCredentials();
+            OnRegister?.Invoke(this, EventArgs.Empty);
         }
 
         public void ClearCredentials()

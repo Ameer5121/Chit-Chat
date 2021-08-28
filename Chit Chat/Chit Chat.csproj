@@ -253,6 +253,7 @@
     <Compile Include="Helper\Themes.cs" />
     <Compile Include="Models\DataModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
+    <Compile Include="Models\Markers\DataTransferObject.cs" />
     <Compile Include="Models\ProfileImageDataModel.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Helper\Exceptions\LoginException.cs" />
