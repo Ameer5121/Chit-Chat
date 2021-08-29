@@ -242,6 +242,7 @@
     <Compile Include="Helper\Extensions\DecryptingExtension.cs" />
     <Compile Include="Helper\Extensions\DocumentExtensions.cs" />
     <Compile Include="Helper\Extensions\EmailExtension.cs" />
+    <Compile Include="Helper\Extensions\FileDialogExtensions.cs" />
     <Compile Include="Helper\Extensions\MessageModelExtension.cs" />
     <Compile Include="Helper\Extensions\TextBoxExtensions.cs" />
     <Compile Include="Helper\Converters\IsEnabledConverter.cs" />

@@ -329,18 +329,7 @@ namespace ChitChat.ViewModels
             openfiledialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             if (openfiledialog.ShowDialog() == DialogResult.OK)
             {
-                await ConvertImageToBase64(openfiledialog);
-            }
-        }
-        private async Task ConvertImageToBase64(OpenFileDialog fileDialog)
-        {
-            using (var stream = fileDialog.OpenFile())
-            {
-                byte[] imageBytes = new byte[stream.Length];
-                stream.Read(imageBytes, 0, imageBytes.Length);
-                var base64String = Convert.ToBase64String(imageBytes);
-                await UploadImage(new ProfileImageDataModel(base64String, CurrentUser));
-                
+                await UploadImage(new ProfileImageDataModel(openfiledialog.ConvertFileToBase64(), _currentUser));
             }
         }
         private async Task UploadImage(ProfileImageDataModel profileImageDataModel)
@@ -365,8 +354,7 @@ namespace ChitChat.ViewModels
 
         private void ConstructError(string errorSubject, string errorMessage)
         {
-            Error = new ErrorModel(errorSubject, errorMessage);
-            
+            Error = new ErrorModel(errorSubject, errorMessage);            
         }
         private void DisplayError()
         {
