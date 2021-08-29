@@ -90,34 +90,37 @@ namespace ChitChat.ViewModels
         private async Task LoginToServerAsync()
         {
             IsConnecting = true;
+            UserModel currentUser = null;
             _ = HomeLogger.LogMessage("Connecting...");
             try
             {        
                 await Task.Run(async () =>
                 {
-                    var user = await _httpService.PostUserDataAsync("/api/chat/Login", new UserCredentials(_currentUserName, Password.DecryptPassword()));                       
-                    _currentUser = new UserModel { DisplayName = user.DisplayName, ProfilePicture = user.ProfilePicture };
-                    BuildConnection();
-                    CreateHandlers();
-                    await connection.StartAsync();
+                    currentUser = await _httpService.PostUserDataAsync("/api/chat/Login", new UserCredentials(_currentUserName, Password.DecryptPassword()));                       
                 });
             }
             catch (HttpRequestException)
             {
                 _ = HomeLogger.LogMessage($"Could not connect to the server.");
                 IsConnecting = false;
+                return;
             }
             catch (TaskCanceledException)
             {
                 _ = HomeLogger.LogMessage($"Could not connect to the server.");
                 IsConnecting = false;
+                return;
             }
             catch (LoginException e)
             {
                 _ = HomeLogger.LogMessage(e.Message);
                 IsConnecting = false;
+                return;
             }
-
+            _currentUser = new UserModel { DisplayName = currentUser.DisplayName, ProfilePicture = currentUser.ProfilePicture };
+            BuildConnection();
+            CreateHandlers();
+            await connection.StartAsync();
         }
 
         private void BuildConnection()
@@ -146,21 +149,25 @@ namespace ChitChat.ViewModels
             {
                 _ = HomeLogger.LogMessage("Email Address is Invalid");
                 IsRegistering = false;
+                return;
             }
             catch (TaskCanceledException)
             {
                 _ = HomeLogger.LogMessage("Could not connect to the server.");
                 IsRegistering = false;
+                return;
             }
             catch (HttpRequestException)
             {
                 _ = HomeLogger.LogMessage("Could not connect to the server.");
                 IsRegistering = false;
+                return;
             }
             catch (RegistrationException e)
             {
                 _ = HomeLogger.LogMessage(e.Message);
                 IsRegistering = false;
+                return;
             }
             _ = HomeLogger.LogMessage("Successfully Registered!");
             IsRegistering = false;
