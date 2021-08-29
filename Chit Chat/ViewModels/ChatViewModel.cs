@@ -329,7 +329,7 @@ namespace ChitChat.ViewModels
             openfiledialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             if (openfiledialog.ShowDialog() == DialogResult.OK)
             {
-                await UploadImage(new ProfileImageDataModel(openfiledialog.ConvertFileToBase64(), _currentUser));
+                await UploadImage(new ProfileImageDataModel(openfiledialog.ConvertImageToBase64(), _currentUser));
             }
         }
         private async Task UploadImage(ProfileImageDataModel profileImageDataModel)

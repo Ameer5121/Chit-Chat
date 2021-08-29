@@ -9,7 +9,7 @@ namespace ChitChat.Helper.Extensions
 {
     static class FileDialogExtensions
     {
-        public static string ConvertFileToBase64(this OpenFileDialog openFileDialog)
+        public static string ConvertImageToBase64(this OpenFileDialog openFileDialog)
         {
             using (var stream = openFileDialog.OpenFile())
             {
