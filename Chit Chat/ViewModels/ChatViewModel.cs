@@ -329,11 +329,23 @@ namespace ChitChat.ViewModels
             openfiledialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             if (openfiledialog.ShowDialog() == DialogResult.OK)
             {
-                await UploadImage(new ProfileImageDataModel(openfiledialog.ConvertImageToBase64(), _currentUser));
+                try
+                {
+                    await UploadImage(openfiledialog);
+                }catch(UploadException e)
+                {
+                    ConstructError(e.Subject, e.Message);
+                    DisplayError();
+                }              
             }
         }
-        private async Task UploadImage(ProfileImageDataModel profileImageDataModel)
+        private async Task UploadImage(OpenFileDialog openfiledialog)
         {
+            if (openfiledialog.IsBiggerThan5MB())
+            {
+                throw new UploadException("Picture too large!", "Picture cannot be bigger than 5 MB!");
+            }
+            ProfileImageDataModel profileImageDataModel = new ProfileImageDataModel(openfiledialog.ConvertImageToBase64(), _currentUser);
             IsUploading = true;
             var response = await _httpService.PostDataAsync("PostImage", profileImageDataModel);
             var imageLink = await response.Content.ReadAsStringAsync();

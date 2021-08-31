@@ -239,6 +239,7 @@
     <Compile Include="Helper\Converters\CharacterCountConverter.cs" />
     <Compile Include="Helper\Converters\LessThanZeroConverter.cs" />
     <Compile Include="Helper\Exceptions\SendException.cs" />
+    <Compile Include="Helper\Exceptions\UploadException.cs" />
     <Compile Include="Helper\Extensions\DecryptingExtension.cs" />
     <Compile Include="Helper\Extensions\DocumentExtensions.cs" />
     <Compile Include="Helper\Extensions\EmailExtension.cs" />
