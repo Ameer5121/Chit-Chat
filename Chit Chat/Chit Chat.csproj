@@ -247,7 +247,6 @@
     <Compile Include="Helper\Extensions\MessageModelExtension.cs" />
     <Compile Include="Helper\Extensions\TextBoxExtensions.cs" />
     <Compile Include="Helper\Converters\IsEnabledConverter.cs" />
-    <Compile Include="Helper\Converters\TextAlignmentConverter.cs" />
     <Compile Include="Helper\Extensions\HTTPResponseExtension.cs" />
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Helper\Exceptions\RegistrationException.cs" />
