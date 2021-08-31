@@ -170,6 +170,18 @@
                                                Foreground="{DynamicResource Text2}"
                                                TextAlignment="Center" Height="18" Width="Auto"/>
                                             </StackPanel>
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsUploading}" Value="True">
+                                                            <Setter Property="IsEnabled" Value="False"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsUploading}" Value="False">
+                                                            <Setter Property="IsEnabled" Value="True"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
                                         </Button>
                                         <ProgressBar 
                                          Margin="10,0,0,0"
