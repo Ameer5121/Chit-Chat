@@ -28,15 +28,6 @@ namespace ChitChat.Services
             get => _httpService;            
         }
 
-        /// <summary>
-        /// By default, it uses localhost domain
-        /// </summary>
-        /// <param name="url"></param>
-        public void SetBaseAddress(Uri url)
-        {
-            _httpClient.BaseAddress = url;
-        }
-
         public async Task<HttpResponseMessage> PostDataAsync(string endPoint, DataTransferObject dataTransferObject)
         {
             return await _httpClient.PostAsync($"/api/chat/{endPoint}",

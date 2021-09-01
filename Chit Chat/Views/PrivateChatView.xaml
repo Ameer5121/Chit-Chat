@@ -16,9 +16,6 @@
              Width="678" 
              Height="525"
              >
-    <UserControl.Resources>
-        <Converters:TextAlignmentConverter x:Key="TextAlignmentConverter"></Converters:TextAlignmentConverter>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
