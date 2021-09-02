@@ -27,7 +27,7 @@
         <Converters:LessThanZeroConverter x:Key="LessThanZeroConverter"></Converters:LessThanZeroConverter>
         <Converters:CharacterCountConverter x:Key="CharacterCountConverter"></Converters:CharacterCountConverter>
     </Window.Resources>
-    <materialDesign:DialogHost CloseOnClickAway="True">
+    <materialDesign:DialogHost CloseOnClickAway="False">
         <materialDesign:DialogHost.DialogContent>
             <Grid Background="{DynamicResource Menu}" Width="400" Height="150">
                 <Grid.ColumnDefinitions>
@@ -310,7 +310,7 @@
             Margin="20,15,10,15">
                 <DockPanel LastChildFill="False">
                     <RichTextBox DockPanel.Dock="Left" x:Name="PublicChatTextBox" 
-                     AcceptsReturn="True"
+                     AcceptsReturn="True"                   
                      FontSize="15" 
                      Width="929"
                      Height="Auto"
