@@ -75,12 +75,12 @@ namespace ChitChat.ViewModels
             _httpService = httpService;
             _heartbeatToken = new CancellationTokenSource();
             CreateHandlers();
-            SendHeartBeat(_heartbeatToken.Token);
+            SendHeartBeatAsync(_heartbeatToken.Token);
         }
 
-        public ICommand ChooseProfilePictureCommand => new RelayCommand(ChooseProfilePicture);
-        public ICommand ConstructPublicMessageCommand => new RelayCommand(ConstructPublicMessage, CanConstructPublicMessage);
-        public ICommand ConstructPrivateMessageCommand => new RelayCommand(ConstructPrivateMessage, CanConstructPrivateMessage);
+        public ICommand ChooseProfilePictureCommand => new RelayCommand(ChooseProfilePictureAsync);
+        public ICommand ConstructPublicMessageCommand => new RelayCommand(ConstructPublicMessageAsync, CanConstructPublicMessage);
+        public ICommand ConstructPrivateMessageCommand => new RelayCommand(ConstructPrivateMessageAsync, CanConstructPrivateMessage);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
         public ICommand DisconnectCommand => new RelayCommand(DisconnectFromServer);
         public ICommand OnPrivateChatEnter => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
@@ -160,7 +160,7 @@ namespace ChitChat.ViewModels
         private bool CanConstructPublicMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString());
         private bool CanConstructPrivateMessage() => !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString());
 
-        private async Task ConstructPublicMessage()
+        private async Task ConstructPublicMessageAsync()
         {
             MessageModel messagetoSend = null;
             messagetoSend = new MessageModel
@@ -172,7 +172,7 @@ namespace ChitChat.ViewModels
             };
             try
             {
-                await SendMessage(messagetoSend);
+                await SendMessageAsync(messagetoSend);
             }
             catch (HttpRequestException)
             {
@@ -185,7 +185,7 @@ namespace ChitChat.ViewModels
                 DisplayError();
             }
         }
-        private async Task ConstructPrivateMessage(object destinationUser)
+        private async Task ConstructPrivateMessageAsync(object destinationUser)
         {
             MessageModel messagetoSend = null;
             messagetoSend = new MessageModel
@@ -198,7 +198,7 @@ namespace ChitChat.ViewModels
             };
             try
             {
-                await SendMessage(messagetoSend);
+                await SendMessageAsync(messagetoSend);
             }
             catch (HttpRequestException)
             {
@@ -212,7 +212,7 @@ namespace ChitChat.ViewModels
             }
         }
 
-        private async Task SendMessage(MessageModel messageModel)
+        private async Task SendMessageAsync(MessageModel messageModel)
         {
             if (_characterLimit - messageModel.Message.GetDocumentString().Length < 0)
             {
@@ -275,7 +275,7 @@ namespace ChitChat.ViewModels
             PrivateMessages.Refresh();
         }
 
-        private async Task SendHeartBeat(CancellationToken token)
+        private async Task SendHeartBeatAsync(CancellationToken token)
         {
             while (true)
             {
@@ -323,7 +323,7 @@ namespace ChitChat.ViewModels
             Users = users;
         }
 
-        private async Task ChooseProfilePicture()
+        private async Task ChooseProfilePictureAsync()
         {
             var openfiledialog = new OpenFileDialog();
             openfiledialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
@@ -331,7 +331,7 @@ namespace ChitChat.ViewModels
             {
                 try
                 {
-                    await UploadImage(openfiledialog);
+                    await UploadImageAsync(openfiledialog);
                 }catch(UploadException e)
                 {
                     ConstructError(e.Subject, e.Message);
@@ -339,7 +339,7 @@ namespace ChitChat.ViewModels
                 }              
             }
         }
-        private async Task UploadImage(OpenFileDialog openfiledialog)
+        private async Task UploadImageAsync(OpenFileDialog openfiledialog)
         {
             if (openfiledialog.IsBiggerThan5MB())
             {
