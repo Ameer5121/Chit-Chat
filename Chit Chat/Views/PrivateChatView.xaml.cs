@@ -81,5 +81,9 @@ namespace ChitChat.Views
             }
         }
 
+        private void PrivateChatTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _chatVM.PrivateMessageLength = _chatVM.CurrentPrivateMessage.GetDocumentString().Length;
+        }
     }
 }

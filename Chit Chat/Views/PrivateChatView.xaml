@@ -16,6 +16,10 @@
              Width="678" 
              Height="525"
              >
+    <UserControl.Resources>
+        <Converters:CharacterCountConverter x:Key="CharacterCountConverter"></Converters:CharacterCountConverter>
+        <Converters:LessThanZeroConverter x:Key="LessThanZeroConverter"></Converters:LessThanZeroConverter>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -87,25 +91,78 @@
         <materialDesign:Card 
             UniformCornerRadius="5"
             Grid.Row="2" Background="{DynamicResource DefaultTextBoxTheme}">
-            <RichTextBox 
+            <DockPanel LastChildFill="False">
+                <RichTextBox 
                      x:Name="PrivateChatTextBox"
+                     TextChanged="PrivateChatTextBox_TextChanged"
+                     DockPanel.Dock="Left"
                      FontSize="15"
                      Height="Auto" 
+                     Width="630"
                      MaxHeight="200"
                      CaretBrush="White"
-                     materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue" Margin="0,0,43,0"  >
-                <RichTextBox.InputBindings>
-                    <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding ConstructPrivateMessageCommand}" Key="Enter" />
-                </RichTextBox.InputBindings>
-                <materialDesign:HintAssist.Hint>
-                    <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
-                </materialDesign:HintAssist.Hint>
-            </RichTextBox>
+                     VerticalContentAlignment="Center"
+                     materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
+                    <RichTextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding ConstructPrivateMessageCommand}" Key="Enter" />
+                    </RichTextBox.InputBindings>
+                    <materialDesign:HintAssist.Hint>
+                        <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
+                    </materialDesign:HintAssist.Hint>
+                </RichTextBox>
+                <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Right" Foreground="Red">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource CharacterCountConverter}">
+                            <Binding Path="CharacterLimit"></Binding>
+                            <Binding Path="PrivateMessageLength"></Binding>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Value="True">
+                                            <Condition.Binding>
+                                                <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
+                                                    <Binding Path="CharacterLimit" />
+                                                    <Binding Path="PrivateMessageLength" />
+                                                </MultiBinding>
+                                            </Condition.Binding>
+                                        </Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Value="False">
+                                            <Condition.Binding>
+                                                <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
+                                                    <Binding Path="CharacterLimit" />
+                                                    <Binding Path="PrivateMessageLength" />
+                                                </MultiBinding>
+                                            </Condition.Binding>
+                                        </Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                
+                <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="36" VerticalAlignment="Top" Click="Emoji_Click" Height="Auto" Padding="0" Grid.Row="2">
+                    <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
+                </Button>
+                
+            </DockPanel>
         </materialDesign:Card>
 
-        <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right"  VerticalAlignment="Top" Click="Emoji_Click" Margin="640,0,2,0" Height="Auto" Padding="0" Grid.Row="2">
-            <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
-        </Button>
+        
 
         <!--Emoji Window-->
         <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="1" SelectedIndex="1" Margin="260,110,-10,30" Height="333" Width="408" Grid.RowSpan="2">
