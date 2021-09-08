@@ -50,6 +50,7 @@ namespace ChitChat.ViewModels
         private HubConnection _connection;
         public event EventHandler Disconnect;
         public event EventHandler MessageSent;
+        public event EventHandler Refresh;
         public event EventHandler<MessageEventArgs> MessageReceived;
         public event EventHandler<EmojiEventArgs> EmojiClick;
         public event EventHandler<ThemeEventArgs> ThemeChange;
@@ -272,6 +273,7 @@ namespace ChitChat.ViewModels
         }
         private void RefreshPrivateCollectionView()
         {
+            Refresh?.Invoke(this, EventArgs.Empty);
             PrivateMessages.Refresh();
         }
 
@@ -332,11 +334,12 @@ namespace ChitChat.ViewModels
                 try
                 {
                     await UploadImageAsync(openfiledialog);
-                }catch(UploadException e)
+                }
+                catch (UploadException e)
                 {
                     ConstructError(e.Subject, e.Message);
                     DisplayError();
-                }              
+                }
             }
         }
         private async Task UploadImageAsync(OpenFileDialog openfiledialog)
@@ -366,7 +369,7 @@ namespace ChitChat.ViewModels
 
         private void ConstructError(string errorSubject, string errorMessage)
         {
-            Error = new ErrorModel(errorSubject, errorMessage);            
+            Error = new ErrorModel(errorSubject, errorMessage);
         }
         private void DisplayError()
         {

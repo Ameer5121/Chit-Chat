@@ -36,6 +36,7 @@ namespace ChitChat.Views
         {          
             _chatVM.MessageSent -= ClearPrivateTextBox;
             _chatVM.EmojiClick -= SetEmoji;
+            _chatVM.Refresh -= OnRefresh;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
@@ -44,9 +45,11 @@ namespace ChitChat.Views
         {
             _chatVM = DataContext as ChatViewModel;
             _chatVM.CurrentPrivateMessage = PrivateChatTextBox.Document;
+            _chatVM.Refresh += OnRefresh;
             _chatVM.MessageSent += ClearPrivateTextBox;
             _chatVM.EmojiClick += SetEmoji;
         }
+
         private void OnExitClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = Window.GetWindow(this) as ChatView;
@@ -67,6 +70,15 @@ namespace ChitChat.Views
         private void Emoji_Click(object sender, RoutedEventArgs e)
         {
             EmojiTransitioner.SelectedIndex = 0;
+        }
+
+        private void OnRefresh(object sender, EventArgs e)
+        {
+            foreach(MessageModel messageModel in PrivateMessagesListView.Items)
+            {
+                var flowDocumentScrollViewer = messageModel.Message.Parent as FlowDocumentScrollViewer; ;
+                if (flowDocumentScrollViewer.Document != null) flowDocumentScrollViewer.Document = null;
+            }
         }
 
     }
