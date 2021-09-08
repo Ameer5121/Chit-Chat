@@ -1,5 +1,6 @@
 # Chit-Chat
 Social chatting application with MySQL database features for windows.
+
 Login             |  Register
 :-------------------------:|:-------------------------:
 ![1](https://user-images.githubusercontent.com/71935713/110955002-ca075580-8351-11eb-97ce-832d15ac0ad1.png)  |  ![2](https://user-images.githubusercontent.com/71935713/110955050-d68bae00-8351-11eb-9e12-406220e313a7.png)
