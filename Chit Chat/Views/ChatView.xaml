@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChitChat.Views"
         xmlns:Converters="clr-namespace:ChitChat.Helper.Converters"
+        xmlns:model="clr-namespace:ChitChat.Models"
         xmlns:AttachedProperties="clr-namespace:ChitChat.Helper.AttachedProperties"
         mc:Ignorable="d"
         Title="ChatView" 
@@ -26,9 +27,8 @@
         <Converters:IsEnabledConverter x:Key="IsEnabledConverter"></Converters:IsEnabledConverter>
         <Converters:LessThanZeroConverter x:Key="LessThanZeroConverter"></Converters:LessThanZeroConverter>
         <Converters:CharacterCountConverter x:Key="CharacterCountConverter"></Converters:CharacterCountConverter>
-    </Window.Resources>
-    <materialDesign:DialogHost CloseOnClickAway="False">
-        <materialDesign:DialogHost.DialogContent>
+
+        <DataTemplate DataType="{x:Type model:ErrorModel}">
             <Grid Background="{DynamicResource Menu}" Width="400" Height="150">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -38,13 +38,14 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding Error.ErrorSubject}" Grid.ColumnSpan="2" Foreground="{DynamicResource Text}" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
-                <TextBlock Grid.Row="1" Text="{Binding Error.ErrorMessage}" TextWrapping="Wrap" Grid.ColumnSpan="2" Foreground="{DynamicResource Text2}" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="0" Text="{Binding ErrorSubject}" Grid.ColumnSpan="2" Foreground="{DynamicResource Text}" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="1" Text="{Binding ErrorMessage}" TextWrapping="Wrap" Grid.ColumnSpan="2" Foreground="{DynamicResource Text2}" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" Width="Auto" HorizontalAlignment="Center" />
                 <Button Focusable="False" Background="{DynamicResource Buttons}" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Grid.Row="2" BorderBrush="Transparent" Height="50" VerticalAlignment="Bottom" Content="Okay" Foreground="{DynamicResource Text}" FontSize="15"></Button>
             </Grid>
-        </materialDesign:DialogHost.DialogContent>
+        </DataTemplate>
+    </Window.Resources>
 
-
+    <materialDesign:DialogHost CloseOnClickAway="False" Identifier="ChatDialog">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

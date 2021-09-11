@@ -178,12 +178,12 @@ namespace ChitChat.ViewModels
             catch (HttpRequestException)
             {
                 ConstructError("Connection Error", "Could not send message");
-                DisplayError();
+                await DisplayError();
             }
             catch (SendException e)
             {
                 ConstructError(e.Subject, e.Message);
-                DisplayError();
+                await DisplayError();
             }
         }
         private async Task ConstructPrivateMessageAsync(object destinationUser)
@@ -204,12 +204,12 @@ namespace ChitChat.ViewModels
             catch (HttpRequestException)
             {
                 ConstructError("Connection Error", "Could not send message");
-                DisplayError();
+                await DisplayError();
             }
             catch (SendException e)
             {
                 ConstructError(e.Subject, e.Message);
-                DisplayError();
+                await DisplayError ();
             }
         }
 
@@ -338,7 +338,7 @@ namespace ChitChat.ViewModels
                 catch (UploadException e)
                 {
                     ConstructError(e.Subject, e.Message);
-                    DisplayError();
+                    await DisplayError();
                 }
             }
         }
@@ -371,9 +371,9 @@ namespace ChitChat.ViewModels
         {
             Error = new ErrorModel(errorSubject, errorMessage);
         }
-        private void DisplayError()
+        private async Task DisplayError()
         {
-            DialogHost.OpenDialogCommand.Execute(null, null);
+            await DialogHost.Show(Error, "ChatDialog");
         }
         private async Task DisconnectFromServer()
         {

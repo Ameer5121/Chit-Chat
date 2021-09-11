@@ -128,7 +128,6 @@ namespace ChitChat.ViewModels
             connection = new HubConnectionBuilder()
                       .WithUrl("http://localhost:5001/chathub")
                       .Build();
-
         }
 
         private bool CanRegisterAccount() => !string.IsNullOrEmpty(UserName) &&
