@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ChitChat.Models
 {
-    class ProfileImageDataModel : DataTransferObject
+    class ImageUploadDataModel : DataTransferObject
     {
         public string Base64ImageData { get; set; }
         public UserModel Uploader { get; set; }
 
-        public ProfileImageDataModel(string base64ImageData, UserModel uploader)
+        public ImageUploadDataModel(string base64ImageData, UserModel uploader)
         {
             Base64ImageData = base64ImageData;
             Uploader = uploader;

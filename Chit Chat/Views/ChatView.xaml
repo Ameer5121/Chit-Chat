@@ -43,6 +43,61 @@
                 <Button Focusable="False" Background="{DynamicResource Buttons}" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Grid.Row="2" BorderBrush="Transparent" Height="50" VerticalAlignment="Bottom" Content="Okay" Foreground="{DynamicResource Text}" FontSize="15"></Button>
             </Grid>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type model:NameChangeModel}">
+            <Grid Background="{DynamicResource Menu}" Width="400" Height="200">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock HorizontalAlignment="Center"
+                           Grid.ColumnSpan="2"
+                           Foreground="{DynamicResource Text}"
+                           FontSize="20"
+                           Text="Change Display Name"></TextBlock>
+                
+                <TextBox Grid.Row="1"
+                         VerticalAlignment="Center"
+                         FontSize="20"
+                         Width="200"
+                         HorizontalAlignment="Right"
+                         materialDesign:HintAssist.Hint="New Name"
+                         Foreground="{DynamicResource Text}"
+                         materialDesign:HintAssist.Foreground="{DynamicResource Text}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource DefaultUnderLineBrush}" Text="{Binding NewName}"></TextBox>
+                <Button Grid.Row="1" 
+                        Grid.Column="1" 
+                        HorizontalAlignment="Left"
+                        Width="150"
+                        Height="35"
+                        Content="Apply"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.ChangeDisplayNameCommand}"
+                        CommandParameter="{Binding}"
+                        Background="{DynamicResource Buttons}"
+                        Foreground="{DynamicResource Text}"
+                        BorderBrush="Transparent"
+                        Margin="10,20,0,0"></Button>
+               
+                <Button Grid.Row="2" 
+                        Grid.ColumnSpan="2" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Width="200"
+                        Height="35"
+                        Content="Close" 
+                        Background="{DynamicResource Buttons}"
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        Foreground="Red"
+                        BorderBrush="Transparent"
+                        Margin="10,20,0,0"></Button>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
 
     <materialDesign:DialogHost CloseOnClickAway="False" Identifier="ChatDialog">
@@ -144,22 +199,51 @@
                                 <Expander.Header>
                                     <DockPanel FlowDirection="LeftToRight">
                                         <materialDesign:PackIcon Kind="Settings" Height="30" Width="33" Foreground="{DynamicResource Icons}"></materialDesign:PackIcon>
-                                        <TextBlock Text="Options" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="{DynamicResource Text}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="80"></TextBlock>
+                                        <TextBlock Text="User Settings" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="{DynamicResource Text}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="Auto"></TextBlock>
                                     </DockPanel>
                                 </Expander.Header>
 
                                 <Grid FlowDirection="LeftToRight">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
+                                    <DockPanel LastChildFill="False" Grid.Column="1" HorizontalAlignment="Center">
+                                        <materialDesign:PackIcon Kind="AccountSettings" Width="20" Height="20" Grid.Row="0" VerticalAlignment="Center" DockPanel.Dock="Left"></materialDesign:PackIcon>
+                                        <TextBlock Text="Account" VerticalAlignment="Center"  TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                                    </DockPanel>
 
-                                    <StackPanel Orientation="Horizontal">
+                                    <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"></Border>
+                                    <Border Background="Gray" Width="60" Height="1" Margin="0,0,10,0" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"></Border>
+
+                                    <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center">
+                                        <materialDesign:PackIcon Kind="ThemeOutline" Width="20" Height="20" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
+                                        <TextBlock Text="Appearance" VerticalAlignment="Center" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                                    </DockPanel>
+
+                                    <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left"></Border>
+                                    <Border Background="Gray" Width="60" Height="1" Margin="0,0,10,0" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"></Border>
+
+                                    <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center">
+                                        <materialDesign:PackIcon Kind="Application" Width="20" Height="20" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
+                                        <TextBlock Text="Application" VerticalAlignment="Center" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                                    </DockPanel>
+
+                                    <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left"></Border>
+                                    <Border Background="Gray" Width="60" Height="1" Margin="0,0,10,0" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"></Border>
+
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
                                         <Button Foreground="Silver"    
                                    Margin="0,10,0,10"
-                                 Grid.Row="0"
                                  Width="Auto"
                                 HorizontalAlignment="Left"
                                Background="{DynamicResource Buttons}"
@@ -206,9 +290,60 @@
                                             </ProgressBar.Style>
                                         </ProgressBar>
                                     </StackPanel>
+
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                        <Button Foreground="Silver"    
+                                   Margin="0,10,0,10"
+                                 Grid.Row="2"
+                                 Width="Auto"
+                                HorizontalAlignment="Left"
+                               Background="{DynamicResource Buttons}"
+                               BorderBrush="{DynamicResource ButtonsBorderBrush}"                              
+                               Command="{Binding ShowNameChangerDialogCommand}">
+                                            <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
+                                                <materialDesign:PackIcon Kind="User" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
+                                                <TextBlock Text="Change Display Name" 
+                                               Foreground="{DynamicResource Text2}"
+                                               TextAlignment="Center" Height="18" Width="Auto"/>
+                                            </StackPanel>
+                                            <Button.Style>
+                                                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding UpdatingName}" Value="True">
+                                                            <Setter Property="IsEnabled" Value="False"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding UpdatingName}" Value="False">
+                                                            <Setter Property="IsEnabled" Value="True"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                        <ProgressBar 
+                                         Margin="10,0,0,0"
+                                     Value="0"
+                                     IsIndeterminate="True" 
+                                     Foreground="Silver" 
+                                    Height="24"
+                                    Width="26">
+                                            <ProgressBar.Style>
+                                                <Style TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding UpdatingName}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding UpdatingName}" Value="False">
+                                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ProgressBar.Style>
+                                        </ProgressBar>
+                                    </StackPanel>
                                     
-                                    
-                                    <materialDesign:Card Grid.Row="1"
+
+                                    <materialDesign:Card Grid.Row="4" Grid.ColumnSpan="2"
                                                          Margin="0,10,0,10"
                                           HorizontalAlignment="Left"
                                           Background="{DynamicResource Buttons}"
@@ -233,7 +368,7 @@
                                     </materialDesign:Card>
 
 
-                                    <Button Foreground="Red" Grid.Row="2"                               
+                                    <Button Foreground="Red" Grid.Row="6" Grid.ColumnSpan="2"                               
                                  DockPanel.Dock="Left"
                                  
                                Background="{DynamicResource Buttons}"

@@ -38,6 +38,7 @@ namespace ChitChat.ViewModels
         private CancellationTokenSource _heartbeatToken;
         private IHttpService _httpService;
         private bool _isUploading;
+        private bool _updatingName;
         private bool _controlsEnabled = true;
         private bool _isPrivateChatting = false;
         private ErrorModel _error;
@@ -80,6 +81,8 @@ namespace ChitChat.ViewModels
         }
 
         public ICommand ChooseProfilePictureCommand => new RelayCommand(ChooseProfilePictureAsync);
+        public ICommand ShowNameChangerDialogCommand => new RelayCommand(ShowNameChangerDialog);
+        public ICommand ChangeDisplayNameCommand => new RelayCommand(ChangeDisplayName);
         public ICommand ConstructPublicMessageCommand => new RelayCommand(ConstructPublicMessageAsync, CanConstructPublicMessage);
         public ICommand ConstructPrivateMessageCommand => new RelayCommand(ConstructPrivateMessageAsync, CanConstructPrivateMessage);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
@@ -125,6 +128,11 @@ namespace ChitChat.ViewModels
         {
             get => _isUploading;
             set => SetPropertyValue(ref _isUploading, value);
+        }
+        public bool UpdatingName
+        {
+            get => _updatingName;
+            set => SetPropertyValue(ref _updatingName, value);
         }
 
         public bool ControlsEnabled
@@ -209,7 +217,7 @@ namespace ChitChat.ViewModels
             catch (SendException e)
             {
                 ConstructError(e.Subject, e.Message);
-                await DisplayError ();
+                await DisplayError();
             }
         }
 
@@ -287,7 +295,7 @@ namespace ChitChat.ViewModels
                 await Task.Delay(2000);
                 try
                 {
-                    var response = await _httpService.GetDataAsync("api/chat/GetHeartBeat");
+                    var response = await _httpService.GetDataAsync("GetHeartBeat");
                 }
                 catch (HttpRequestException)
                 {
@@ -342,13 +350,40 @@ namespace ChitChat.ViewModels
                 }
             }
         }
+
+        private void ShowNameChangerDialog()
+        {
+            var nameChangeModel = new NameChangeModel(_currentUser);
+            DialogHost.Show(nameChangeModel, "ChatDialog");
+        }
+        private void CloseDialog()
+        {
+            DialogHost.CloseDialogCommand.Execute(null, null);
+        }
+
+        private async Task ChangeDisplayName(NameChangeModel nameChangeModel)
+        {
+            CloseDialog();
+            UpdatingName = true;
+            try
+            {
+                await _httpService.PostDataAsync("PostName", nameChangeModel);
+            }
+            catch (HttpRequestException e)
+            {
+                ConstructError("Connection Error", "Could not change name");
+                await DisplayError();
+            }
+            UpdatingName = false;
+        }
+
         private async Task UploadImageAsync(OpenFileDialog openfiledialog)
         {
             if (openfiledialog.IsBiggerThan5MB())
             {
                 throw new UploadException("Picture too large!", "Picture cannot be bigger than 5 MB!");
             }
-            ProfileImageDataModel profileImageDataModel = new ProfileImageDataModel(openfiledialog.ConvertImageToBase64(), _currentUser);
+            ImageUploadDataModel profileImageDataModel = new ImageUploadDataModel(openfiledialog.ConvertImageToBase64(), _currentUser);
             IsUploading = true;
             var response = await _httpService.PostDataAsync("PostImage", profileImageDataModel);
             var imageLink = await response.Content.ReadAsStringAsync();
@@ -374,6 +409,7 @@ namespace ChitChat.ViewModels
         private async Task DisplayError()
         {
             await DialogHost.Show(Error, "ChatDialog");
+            Error = null;
         }
         private async Task DisconnectFromServer()
         {

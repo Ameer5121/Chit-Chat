@@ -16,6 +16,7 @@ namespace ChitChat.Commands
         private readonly Action execute4;
         private readonly Action execute5;
         private readonly Action<string> execute6;
+        private readonly Func<NameChangeModel, Task> execute7;
         private readonly Func<bool> canExecute;
         public RelayCommand(Func<Task> execute1) : this(execute1, canExecute: null)
         {
@@ -33,6 +34,9 @@ namespace ChitChat.Commands
         }
 
         public RelayCommand(Action<string> execute6) : this(execute6, canExecute: null)
+        {
+        }
+        public RelayCommand(Func<NameChangeModel, Task> execute7) : this(execute7, canExecute: null)
         {
         }
 
@@ -79,7 +83,14 @@ namespace ChitChat.Commands
             this.execute6 = execute6;
             this.canExecute = canExecute;
         }
+        public RelayCommand(Func<NameChangeModel, Task> execute7, Func<bool> canExecute)
+        {
+            if (execute7 == null)
+                throw new ArgumentNullException("execute7 is null");
 
+            this.execute7 = execute7;
+            this.canExecute = canExecute;
+        }
 
         public event EventHandler CanExecuteChanged
         {
@@ -119,6 +130,10 @@ namespace ChitChat.Commands
             }else if (execute6 != null)
             {
                 execute6(parameter as string);
+            }
+            else if (execute7 != null)
+            {
+                await execute7(parameter as NameChangeModel);
             }
         }
     }
