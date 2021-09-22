@@ -374,6 +374,7 @@ namespace ChitChat.ViewModels
                 ConstructError("Connection Error", "Could not change name");
                 await DisplayError();
             }
+            _currentUser.DisplayName = nameChangeModel.NewName;
             UpdatingName = false;
         }
 
