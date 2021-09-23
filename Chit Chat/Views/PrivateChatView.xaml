@@ -26,9 +26,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
         <!--Black Border & Exit Button-->
-        <Border Background="{DynamicResource WindowBorder}" Grid.Row="0">
+        <Border Background="{DynamicResource WindowBorder}" Grid.Row="0" Grid.ColumnSpan="2">
             <DockPanel LastChildFill="False">
                 <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" Command="{Binding OnPrivateChatExit}"
                         Click="OnExitClick"
@@ -45,127 +49,130 @@
             </DockPanel>
         </Border>
 
+        <materialDesign:Card Grid.Row="1" Grid.ColumnSpan="2" Background="{DynamicResource PrivateChat}" UniformCornerRadius="5" Grid.RowSpan="2">
+        </materialDesign:Card>
+
         <!--Message Window-->
-        <materialDesign:Card Grid.Row="1" Background="{DynamicResource PrivateChat}" UniformCornerRadius="5" Grid.RowSpan="2">
-            <ListBox x:Name="PrivateMessagesListView" Grid.Column="1" 
+        <ListBox x:Name="PrivateMessagesListView"
                   Background="Transparent" 
+                  Grid.ColumnSpan="2"
                   Grid.Row="1"                   
-                  Grid.RowSpan="2"
                   ItemsSource="{Binding PrivateMessages}" 
                   RenderTransformOrigin="0.5,0.5"
                   HorizontalContentAlignment="Stretch"
                   VirtualizingStackPanel.IsVirtualizing="False"
-                  AttachedProperties:ScrollBehavior.ScrollOnNewItem="True" Margin="0,0,0,32">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel VerticalAlignment="Bottom"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel>
-                            <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding User.ProfilePicture}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">                              
+                  AttachedProperties:ScrollBehavior.ScrollOnNewItem="True" Margin="0,0,0,20">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel VerticalAlignment="Bottom"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding User.ProfilePicture}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">                              
                             <Run Text="{Binding User.DisplayName}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
-                            </TextBlock>
+                        </TextBlock>
 
-                           <FlowDocumentScrollViewer  DockPanel.Dock="Left" Document="{Binding Message}" 
+                        <FlowDocumentScrollViewer  DockPanel.Dock="Left" Document="{Binding Message}" 
                                                       HorizontalAlignment="Left" Height="Auto" 
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                       HorizontalContentAlignment="Left" Margin="2,0,0,0"
                                                       Padding="-10"></FlowDocumentScrollViewer>
-                        </DockPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <materialDesign:Card 
+            UniformCornerRadius="5"
+            Grid.ColumnSpan="2"
+            Grid.Row="2" Background="{DynamicResource DefaultTextBoxTheme}">
         </materialDesign:Card>
-
-
+        
         <!--Chat typing-->
         <materialDesign:Card 
             UniformCornerRadius="5"
-            Grid.Row="2" Background="{DynamicResource DefaultTextBoxTheme}">
-            <DockPanel LastChildFill="False">
-                <RichTextBox 
+            Grid.Row="2" Background="Transparent">
+            <RichTextBox 
                      x:Name="PrivateChatTextBox"
                      TextChanged="PrivateChatTextBox_TextChanged"
                      DockPanel.Dock="Left"
                      FontSize="15"
                      Height="Auto" 
-                     Width="630"
+                     Width="Auto"
                      MaxHeight="200"
                      CaretBrush="White"
                      VerticalContentAlignment="Center"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
-                    <RichTextBox.InputBindings>
-                        <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding ConstructPrivateMessageCommand}" Key="Enter" />
-                    </RichTextBox.InputBindings>
-                    <materialDesign:HintAssist.Hint>
-                        <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
-                    </materialDesign:HintAssist.Hint>
-                </RichTextBox>
-                <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Right" Foreground="Red">
-                    <TextBlock.Text>
-                        <MultiBinding Converter="{StaticResource CharacterCountConverter}">
-                            <Binding Path="CharacterLimit"></Binding>
-                            <Binding Path="PrivateMessageLength"></Binding>
-                        </MultiBinding>
-                    </TextBlock.Text>
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Value="True">
-                                            <Condition.Binding>
-                                                <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
-                                                    <Binding Path="CharacterLimit" />
-                                                    <Binding Path="PrivateMessageLength" />
-                                                </MultiBinding>
-                                            </Condition.Binding>
-                                        </Condition>
-                                    </MultiDataTrigger.Conditions>
-                                    <MultiDataTrigger.Setters>
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </MultiDataTrigger.Setters>
-                                </MultiDataTrigger>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Value="False">
-                                            <Condition.Binding>
-                                                <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
-                                                    <Binding Path="CharacterLimit" />
-                                                    <Binding Path="PrivateMessageLength" />
-                                                </MultiBinding>
-                                            </Condition.Binding>
-                                        </Condition>
-                                    </MultiDataTrigger.Conditions>
-                                    <MultiDataTrigger.Setters>
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </MultiDataTrigger.Setters>
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-                
-                <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" Width="36" VerticalAlignment="Top" Click="Emoji_Click" Height="Auto" Padding="0" Grid.Row="2">
-                    <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
-                </Button>
-                
-            </DockPanel>
+                <RichTextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding ConstructPrivateMessageCommand}" Key="Enter" />
+                </RichTextBox.InputBindings>
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
+                </materialDesign:HintAssist.Hint>
+            </RichTextBox>
         </materialDesign:Card>
 
-        
+        <Button Background="Transparent" BorderBrush="Transparent" Width="36" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Emoji_Click" Height="Auto" Padding="0" Grid.Row="2" Grid.Column="1">
+            <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
+        </Button>
+
+        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="2" Foreground="Red">
+            <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource CharacterCountConverter}">
+                    <Binding Path="CharacterLimit"></Binding>
+                    <Binding Path="PrivateMessageLength"></Binding>
+                </MultiBinding>
+            </TextBlock.Text>
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Value="True">
+                                    <Condition.Binding>
+                                        <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
+                                            <Binding Path="CharacterLimit" />
+                                            <Binding Path="PrivateMessageLength" />
+                                        </MultiBinding>
+                                    </Condition.Binding>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Value="False">
+                                    <Condition.Binding>
+                                        <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
+                                            <Binding Path="CharacterLimit" />
+                                            <Binding Path="PrivateMessageLength" />
+                                        </MultiBinding>
+                                    </Condition.Binding>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
         <!--Emoji Window-->
-        <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="1" SelectedIndex="1" Margin="260,110,-10,30" Height="333" Width="408" Grid.RowSpan="2">
+        <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="1" Grid.ColumnSpan="2" SelectedIndex="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="333" Width="408" Margin="0,0,0,10">
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                 <local:EmojiView Margin="0,0,0,-1"></local:EmojiView>
             </materialDesign:TransitionerSlide>

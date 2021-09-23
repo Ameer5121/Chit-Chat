@@ -60,7 +60,7 @@
                            Foreground="{DynamicResource Text}"
                            FontSize="20"
                            Text="Change Display Name"></TextBlock>
-                
+
                 <TextBox Grid.Row="1"
                          VerticalAlignment="Center"
                          FontSize="20"
@@ -83,7 +83,7 @@
                         Foreground="{DynamicResource Text}"
                         BorderBrush="Transparent"
                         Margin="10,20,0,0"></Button>
-               
+
                 <Button Grid.Row="2" 
                         Grid.ColumnSpan="2" 
                         HorizontalAlignment="Center"
@@ -104,18 +104,21 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="270"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
 
 
             <!--Black Border & Exit Button-->
-            <Border Background="{DynamicResource WindowBorder}" Grid.Row="0" Grid.ColumnSpan="2">
+            <Border Background="{DynamicResource WindowBorder}" Grid.Row="0" Grid.ColumnSpan="4">
                 <DockPanel LastChildFill="False">
                     <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" DockPanel.Dock="Right" Click="Exit_Click" Cursor="Hand" Width="54">
                         <Image Source="/Resources/Exit.png" Height="41" Width="49"></Image>
@@ -124,7 +127,7 @@
             </Border>
 
 
-            <Grid Background="Transparent" Grid.Row="1" Margin="0,0,0,113" Grid.RowSpan="2">
+            <Grid Background="Transparent" Grid.Row="1" Margin="0,0,0,0" Grid.RowSpan="2">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -341,7 +344,7 @@
                                             </ProgressBar.Style>
                                         </ProgressBar>
                                     </StackPanel>
-                                    
+
 
                                     <materialDesign:Card Grid.Row="4" Grid.ColumnSpan="2"
                                                          Margin="0,10,0,10"
@@ -391,64 +394,76 @@
             </Grid>
 
 
-            <materialDesign:Card UniformCornerRadius="5" Margin="10,1,0,3" Grid.Column="1" Grid.Row="1" Background="{DynamicResource MessageHistoryBorder}">
+            <materialDesign:Card UniformCornerRadius="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Margin="10,0,0,0" Background="{DynamicResource MessageHistoryBorder}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
                     <TextBlock Width="116" Text="Message History" VerticalAlignment="Center" Foreground="{DynamicResource Text}"></TextBlock>
                 </StackPanel>
             </materialDesign:Card>
-            <materialDesign:Card  Grid.Column="1" Grid.Row="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="2" Margin="10,0,0,0">
-                <ListBox Grid.Column="1" 
+            <materialDesign:Card Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="3" Margin="10,5,0,0"></materialDesign:Card>
+
+            <ListBox Grid.Column="1"
+                  Grid.ColumnSpan="3"  
+                  Margin="10,5,0,20"
                   Background="Transparent" 
-                  Grid.Row="1"                   
-                  Grid.RowSpan="2"
+                  Grid.Row="2"                   
                   ItemsSource="{Binding PublicMessages}"                  
-                  Margin="0,10,0,57"
                   VirtualizingStackPanel.IsVirtualizing="False"
                  RenderTransformOrigin="0.5,0.5" AttachedProperties:ScrollBehavior.ScrollOnNewItem="True">
-                   
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel VerticalAlignment="Bottom"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel LastChildFill="False">
-                                <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="{Binding User.ProfilePicture}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                                <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel VerticalAlignment="Bottom"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel LastChildFill="False">
+                            <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding User.ProfilePicture}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">
                             <Run Text="{Binding User.DisplayName}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
-                                </TextBlock>
-                                <FlowDocumentScrollViewer DockPanel.Dock="Left" Document="{Binding Message}" 
+                            </TextBlock>
+                            <FlowDocumentScrollViewer DockPanel.Dock="Left" Document="{Binding Message}" 
                                                       HorizontalAlignment="Left" Height="Auto" 
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                       HorizontalContentAlignment="Left" Margin="2,0,0,0"
                                                       Padding="-10"></FlowDocumentScrollViewer>
-                            </DockPanel>
+                        </DockPanel>
 
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
+            <materialDesign:Card 
+            UniformCornerRadius="5"
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Margin="20,0,0,0"
+            Grid.Column="1"
+            Background="{DynamicResource DefaultTextBoxTheme}">
             </materialDesign:Card>
 
             <!--Public chat textbox-->
             <materialDesign:Card 
             UniformCornerRadius="5"
-            Grid.Row="3" 
+            Grid.Row="3"
+            Grid.ColumnSpan="1"
+            Margin="20,0,0,0"
             Grid.Column="1"
-            Background="{DynamicResource DefaultTextBoxTheme}"
-            Margin="20,15,10,15">
-                <DockPanel LastChildFill="False">
-                    <RichTextBox DockPanel.Dock="Left" x:Name="PublicChatTextBox" 
+            Background="Transparent">
+                <RichTextBox x:Name="PublicChatTextBox"
+                     Margin="0,0,0,0"    
+                     Grid.Row="3"
+                     Grid.Column="1"
                      AcceptsReturn="True"                   
                      FontSize="15" 
-                     Width="929"
+                     Width="Auto"
                      Height="Auto"
                      TextChanged="PublicChatTextBox_TextChanged"
                      BorderBrush="{DynamicResource TextBoxBorderBrush}"
@@ -458,66 +473,68 @@
                      VerticalContentAlignment="Center"
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
-                        <RichTextBox.InputBindings>
-                            <KeyBinding Command="{Binding ConstructPublicMessageCommand}" Key="Enter"></KeyBinding>
-                        </RichTextBox.InputBindings>
-                        <materialDesign:HintAssist.Hint>
-                            <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
-                        </materialDesign:HintAssist.Hint>
-                    </RichTextBox>
-                    <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Right" Foreground="Red">
-                        <TextBlock.Text>
-                            <MultiBinding Converter="{StaticResource CharacterCountConverter}">
-                                <Binding Path="CharacterLimit"></Binding>
-                                <Binding Path="PublicMessageLength"></Binding>
-                            </MultiBinding>
-                        </TextBlock.Text>
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Value="True">
-                                                <Condition.Binding>
-                                                    <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
-                                                        <Binding Path="CharacterLimit" />
-                                                        <Binding Path="PublicMessageLength" />
-                                                    </MultiBinding>
-                                                </Condition.Binding>
-                                            </Condition>
-                                        </MultiDataTrigger.Conditions>
-                                        <MultiDataTrigger.Setters>
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </MultiDataTrigger.Setters>
-                                    </MultiDataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Value="False">
-                                                <Condition.Binding>
-                                                    <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
-                                                        <Binding Path="CharacterLimit" />
-                                                        <Binding Path="PublicMessageLength" />
-                                                    </MultiBinding>
-                                                </Condition.Binding>
-                                            </Condition>
-                                        </MultiDataTrigger.Conditions>
-                                        <MultiDataTrigger.Setters>
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </MultiDataTrigger.Setters>
-                                    </MultiDataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <Button Background="Transparent" BorderBrush="Transparent" DockPanel.Dock="Right" VerticalAlignment="Top" Width="36" Click="Emoji_Click" Height="33" Padding="0" IsEnabled="{Binding ControlsEnabled}">
-                        <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
-                    </Button>
-                </DockPanel>
+                    <RichTextBox.InputBindings>
+                        <KeyBinding Command="{Binding ConstructPublicMessageCommand}" Key="Enter"></KeyBinding>
+                    </RichTextBox.InputBindings>
+                    <materialDesign:HintAssist.Hint>
+                        <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
+                    </materialDesign:HintAssist.Hint>
+                </RichTextBox>
             </materialDesign:Card>
+
+            
+                <Button Background="Transparent" BorderBrush="Transparent" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" Click="Emoji_Click" Height="33" HorizontalAlignment="Right" Padding="0" IsEnabled="{Binding ControlsEnabled}">
+                    <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
+                </Button>
+
+                <TextBlock VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" Foreground="Red">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource CharacterCountConverter}">
+                            <Binding Path="CharacterLimit"></Binding>
+                            <Binding Path="PublicMessageLength"></Binding>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Value="True">
+                                            <Condition.Binding>
+                                                <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
+                                                    <Binding Path="CharacterLimit" />
+                                                    <Binding Path="PublicMessageLength" />
+                                                </MultiBinding>
+                                            </Condition.Binding>
+                                        </Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Value="False">
+                                            <Condition.Binding>
+                                                <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
+                                                    <Binding Path="CharacterLimit" />
+                                                    <Binding Path="PublicMessageLength" />
+                                                </MultiBinding>
+                                            </Condition.Binding>
+                                        </Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
 
             <!--Emoji Window-->
-            <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="2" Grid.Column="1"  SelectedIndex="1" Margin="600,331,0,50" Width="408" Height="333" Grid.RowSpan="2">
+            <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,10"  SelectedIndex="1" Width="408" Height="333" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                     <local:EmojiView Margin="0,0,0,0"></local:EmojiView>
                 </materialDesign:TransitionerSlide>
@@ -527,7 +544,7 @@
             </materialDesign:Transitioner>
 
             <!--Private Chat Window-->
-            <materialDesign:Transitioner x:Name="PrivateChatTransitioner" Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" Margin="171,71,159,70">
+            <materialDesign:Transitioner x:Name="PrivateChatTransitioner" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                     <local:PrivateChatView Margin="0,0,0,-1"></local:PrivateChatView>
                 </materialDesign:TransitionerSlide>
@@ -539,5 +556,5 @@
 
         </Grid>
     </materialDesign:DialogHost>
-   
+
 </Window>
