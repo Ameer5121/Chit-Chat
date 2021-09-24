@@ -217,7 +217,7 @@ namespace ChitChat.ViewModels
 
         private async Task SendMessageAsync(MessageModel messageModel)
         {
-            if (_characterLimit - messageModel.Message.GetDocumentString().Length < 0)
+            if (MessageTooLong(messageModel))
             {
                 throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");
             }
@@ -225,7 +225,7 @@ namespace ChitChat.ViewModels
             MessageSent?.Invoke(this, EventArgs.Empty);
         }
 
-
+        private bool MessageTooLong(MessageModel messageModel) => _characterLimit - messageModel.Message.GetDocumentString().Length < 0;
 
         private void SetEmoji(string emojiName)
         {
