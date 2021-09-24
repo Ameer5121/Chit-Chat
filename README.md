@@ -6,7 +6,7 @@ Login             |  Register
 ![1](https://user-images.githubusercontent.com/71935713/110955002-ca075580-8351-11eb-97ce-832d15ac0ad1.png)  |  ![2](https://user-images.githubusercontent.com/71935713/110955050-d68bae00-8351-11eb-9e12-406220e313a7.png)
 
 Public Chat
-![publicchat](https://user-images.githubusercontent.com/71935713/133803058-cb22b7a9-7e31-4176-ac3f-8ecf139fd3fd.png)
+![publicchat](https://user-images.githubusercontent.com/71935713/134619185-4dace97f-dde5-4581-b329-fca4ebeeec69.png)
 
 Private Chat
 ![privatechat](https://user-images.githubusercontent.com/71935713/133803099-8c3ee5b4-3464-4491-982f-7d3faaadaa49.png)
