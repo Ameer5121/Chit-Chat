@@ -38,7 +38,6 @@ namespace ChitChat.ViewModels
         private CancellationTokenSource _heartbeatToken;
         private IHttpService _httpService;
         private bool _isUploading;
-        private bool _updatingName;
         private bool _controlsEnabled = true;
         private bool _isPrivateChatting = false;
         private ErrorModel _error;
@@ -128,11 +127,6 @@ namespace ChitChat.ViewModels
         {
             get => _isUploading;
             set => SetPropertyValue(ref _isUploading, value);
-        }
-        public bool UpdatingName
-        {
-            get => _updatingName;
-            set => SetPropertyValue(ref _updatingName, value);
         }
 
         public bool ControlsEnabled
@@ -364,7 +358,6 @@ namespace ChitChat.ViewModels
         private async Task ChangeDisplayName(NameChangeModel nameChangeModel)
         {
             CloseDialog();
-            UpdatingName = true;
             try
             {
                 await _httpService.PostDataAsync("PostName", nameChangeModel);
@@ -375,7 +368,6 @@ namespace ChitChat.ViewModels
                 await DisplayError();
             }
             _currentUser.DisplayName = nameChangeModel.NewName;
-            UpdatingName = false;
         }
 
         private async Task UploadImageAsync(OpenFileDialog openfiledialog)
