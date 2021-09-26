@@ -233,6 +233,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Events\DocumentEventArgs.cs" />
     <Compile Include="Events\EmojiEventArgs.cs" />
     <Compile Include="Events\MessageEventArgs.cs" />
     <Compile Include="Events\ThemeEventArgs.cs" />
@@ -251,7 +252,7 @@
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Helper\Exceptions\RegistrationException.cs" />
     <Compile Include="Helper\AttachedProperties\ScrollBehavior.cs" />
-    <Compile Include="Helper\Themes.cs" />
+    <Compile Include="Helper\Theme.cs" />
     <Compile Include="Models\DataModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\Markers\DataTransferObject.cs" />

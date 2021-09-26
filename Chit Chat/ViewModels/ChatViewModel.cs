@@ -44,7 +44,7 @@ namespace ChitChat.ViewModels
         private const int _characterLimit = 600;
         private int _publicMessageLength;
         private int _privateMessageLength;
-        private static Themes _currentTheme;
+        private static Helper.Theme _currentTheme;
         private FlowDocument _currentPublicMessage;
         private FlowDocument _currentPrivateMessage;
         private HubConnection _connection;
@@ -54,6 +54,8 @@ namespace ChitChat.ViewModels
         public event EventHandler<MessageEventArgs> MessageReceived;
         public event EventHandler<EmojiEventArgs> EmojiClick;
         public event EventHandler<ThemeEventArgs> ThemeChange;
+        public event EventHandler<DocumentEventArgs> MessageConstructed;
+
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
             _currentPublicMessage = new FlowDocument();
@@ -102,10 +104,8 @@ namespace ChitChat.ViewModels
 
         public ICollectionView PublicMessages { get; }
         public ICollectionView PrivateMessages { get; }
-        public ObservableCollection<MessageModel> AllMessages
-        {
-            get => _messages;
-        }
+        public ObservableCollection<MessageModel> AllMessages => _messages;
+
         public ObservableCollection<UserModel> Users
         {
             get => _users;
@@ -129,6 +129,8 @@ namespace ChitChat.ViewModels
             set => SetPropertyValue(ref _isUploading, value);
         }
 
+        public bool MessageContainsImage { get; set; }
+
         public bool ControlsEnabled
         {
             get => _controlsEnabled;
@@ -150,8 +152,8 @@ namespace ChitChat.ViewModels
             get => _privateMessageLength;
             set => SetPropertyValue(ref _privateMessageLength, value);
         }
-        public Array Themes { get; } = Enum.GetValues(typeof(Themes));
-        public Themes CurrentTheme
+        public Array Themes { get; } = Enum.GetValues(typeof(Helper.Theme));
+        public Helper.Theme CurrentTheme
         {
             get => _currentTheme;
             set
@@ -217,26 +219,24 @@ namespace ChitChat.ViewModels
 
         private async Task SendMessageAsync(MessageModel messageModel)
         {
-            if (MessageTooLong(messageModel))
-            {
-                throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");
-            }
+            if (MessageTooLong(messageModel)) throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");
+            else if (MessageHasImage(messageModel)) throw new SendException("Message contains an Image!", "Please remove the image from your meessage before sending it out!");
             await _httpService.PostDataAsync("PostMessage", messageModel);
             MessageSent?.Invoke(this, EventArgs.Empty);
         }
 
         private bool MessageTooLong(MessageModel messageModel) => _characterLimit - messageModel.Message.GetDocumentString().Length < 0;
 
+        private bool MessageHasImage(MessageModel messageModel)
+        {
+            MessageConstructed(this, new DocumentEventArgs(messageModel.Message));
+            return MessageContainsImage;
+        }
+
         private void SetEmoji(string emojiName)
         {
-            if (_isPrivateChatting)
-            {
-                EmojiClick?.Invoke(this, new EmojiEventArgs { EmojiName = emojiName, ForPrivateChat = true });
-            }
-            else
-            {
-                EmojiClick?.Invoke(this, new EmojiEventArgs { EmojiName = emojiName, ForPrivateChat = false });
-            }
+            if (_isPrivateChatting) EmojiClick?.Invoke(this, new EmojiEventArgs { EmojiName = emojiName, ForPrivateChat = true });
+            else EmojiClick?.Invoke(this, new EmojiEventArgs { EmojiName = emojiName, ForPrivateChat = false });
         }
 
         private bool FilterPrivateMessages(object item)

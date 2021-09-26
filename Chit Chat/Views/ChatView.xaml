@@ -303,25 +303,13 @@
                                Background="{DynamicResource Buttons}"
                                BorderBrush="{DynamicResource ButtonsBorderBrush}"                              
                                Command="{Binding ShowNameChangerDialogCommand}">
-                                            <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
-                                                <materialDesign:PackIcon Kind="User" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
-                                                <TextBlock Text="Change Display Name" 
+                                        <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
+                                            <materialDesign:PackIcon Kind="User" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
+                                            <TextBlock Text="Change Display Name" 
                                                Foreground="{DynamicResource Text2}"
                                                TextAlignment="Center" Height="18" Width="Auto"/>
-                                            </StackPanel>
-                                            <Button.Style>
-                                                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding UpdatingName}" Value="True">
-                                                            <Setter Property="IsEnabled" Value="False"></Setter>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding UpdatingName}" Value="False">
-                                                            <Setter Property="IsEnabled" Value="True"></Setter>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
+                                        </StackPanel>
+                                    </Button>
 
 
                                         <materialDesign:Card Grid.Row="4" Grid.ColumnSpan="2"

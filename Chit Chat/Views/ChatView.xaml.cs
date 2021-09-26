@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -36,6 +37,7 @@ namespace ChitChat.Views
             _chatVM.MessageReceived += CheckMessageTheme;
             _chatVM.EmojiClick += SetEmoji;
             _chatVM.ThemeChange += ChangeTheme;
+            _chatVM.MessageConstructed += MessageContainsImage;
             //Set the correct color for messages upon logging in
             ChangeMessagesColor(_chatVM.CurrentTheme, _chatVM.AllMessages);
         }
@@ -91,20 +93,20 @@ namespace ChitChat.Views
         private void ChangeTheme(object sender, ThemeEventArgs e)
         {
             var app = (App)Application.Current;
-            if(_chatVM.CurrentTheme != e.NewTheme)
+            if (_chatVM.CurrentTheme != e.NewTheme)
             {
                 app.ChangeTheme(e.NewTheme);
                 ChangeMessagesColor(e.NewTheme, _chatVM.AllMessages);
-            }          
+            }
         }
 
-        private void ChangeMessagesColor(Themes currentTheme, ObservableCollection<MessageModel> messages)
+        private void ChangeMessagesColor(Theme currentTheme, ObservableCollection<MessageModel> messages)
         {
             var app = (App)Application.Current;
             foreach (MessageModel messageModel in messages)
             {
                 Inline inline = (messageModel.Message.Blocks.FirstBlock as Paragraph).Inlines.FirstInline;
-                if (currentTheme == Themes.Light)
+                if (currentTheme == Theme.Light)
                 {
                     inline.Foreground = (SolidColorBrush)app.Resources["TextLightTheme"];
                 }
@@ -115,9 +117,9 @@ namespace ChitChat.Views
             }
         }
 
-        private void ChangeMessagesColor(Themes theme, Inline message, App app)
+        private void ChangeMessagesColor(Theme theme, Inline message, App app)
         {
-            if (theme == Themes.Light)
+            if (theme == Theme.Light)
             {
                 message.Foreground = (SolidColorBrush)app.Resources["TextLightTheme"];
             }
@@ -130,8 +132,8 @@ namespace ChitChat.Views
         {
             var app = (App)Application.Current;
             Inline inline = (e.MessageModel.Message.Blocks.FirstBlock as Paragraph).Inlines.FirstInline;
-            if (e.CurrentTheme == Themes.Light)
-            {              
+            if (e.CurrentTheme == Theme.Light)
+            {
                 if (inline.Background == app.Resources["TextLightTheme"]) return;
 
                 ChangeMessagesColor(e.CurrentTheme, inline, app);
@@ -146,6 +148,40 @@ namespace ChitChat.Views
         private void PublicChatTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             _chatVM.PublicMessageLength = _chatVM.CurrentPublicMessage.GetDocumentString().Length;
+        }
+
+        private void MessageContainsImage(object sender, DocumentEventArgs e)
+        {
+            FlowDocument document = e.FlowDocument;
+            foreach (Block block in document.Blocks)
+            {
+                if (block is BlockUIContainer)
+                {
+                    var container = block as BlockUIContainer;
+                    if (container.Child is Image)
+                    {
+                        _chatVM.MessageContainsImage = true;
+                        return;
+                    }
+                }
+                if (block is Paragraph)
+                {
+                    var paragraph = block as Paragraph;
+                    foreach (var inline in paragraph.Inlines)
+                    {
+                        if (inline is InlineUIContainer)
+                        {
+                            var container = inline as InlineUIContainer;
+                            if (container.Child is Image)
+                            {
+                                _chatVM.MessageContainsImage = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            _chatVM.MessageContainsImage = false;
         }
     }
 }

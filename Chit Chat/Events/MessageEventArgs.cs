@@ -11,6 +11,6 @@ namespace ChitChat.Events
     public class MessageEventArgs
     {
         public MessageModel MessageModel { get; set; }
-        public Themes CurrentTheme { get; set; }
+        public Theme CurrentTheme { get; set; }
     }
 }

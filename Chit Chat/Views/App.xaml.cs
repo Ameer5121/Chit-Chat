@@ -15,9 +15,9 @@ namespace ChitChat
     /// </summary>
     public partial class App : Application
     {
-        public void ChangeTheme(Themes theme)
+        public void ChangeTheme(Theme theme)
         {
-            if (theme == Themes.Light)
+            if (theme == Theme.Light)
             {
                 this.Resources["DefaultWindowTheme"] = this.Resources["WindowLightTheme"];
                 this.Resources["DefaultSubWindowTheme"] = this.Resources["SubWindowLightTheme"];

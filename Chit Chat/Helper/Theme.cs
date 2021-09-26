@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChitChat.Helper
 {
-    public enum Themes
+    public enum Theme
     {
         Dark,
         Light
