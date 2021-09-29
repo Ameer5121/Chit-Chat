@@ -312,7 +312,7 @@ namespace ChitChat.ViewModels
                 {
                     messages.LastOrDefault().ConvertRTFToFlowDocument();
 
-                    _messages.Add(messages.LastOrDefault());
+                    _messages.Add(messages.LastOrDefault());                    
                     MessageReceived?.Invoke(this, new MessageEventArgs
                     {
                         MessageModel = messages.LastOrDefault(),

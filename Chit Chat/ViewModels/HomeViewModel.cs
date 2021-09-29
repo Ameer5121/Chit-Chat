@@ -126,7 +126,7 @@ namespace ChitChat.ViewModels
         private void BuildConnection()
         {
             connection = new HubConnectionBuilder()
-                      .WithUrl("http://localhost:5001/chathub")
+                      .WithUrl("https://localhost:44358/chathub")
                       .Build();
         }
 
