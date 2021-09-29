@@ -220,7 +220,7 @@ namespace ChitChat.ViewModels
         private async Task SendMessageAsync(MessageModel messageModel)
         {
             if (MessageTooLong(messageModel)) throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");
-            else if (MessageHasImage(messageModel)) throw new SendException("Message contains an Image!", "Please remove the image from your meessage before sending it out!");
+            else if (MessageHasImage(messageModel)) throw new SendException("Message contains an Image!", "Image sending has been disabled until we fix a critical bug");
             await _httpService.PostDataAsync("PostMessage", messageModel);
             MessageSent?.Invoke(this, EventArgs.Empty);
         }
