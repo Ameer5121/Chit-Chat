@@ -2,6 +2,7 @@
 using ChitChat.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace ChitChat.Views
         public RegisterView()
         {
             InitializeComponent();
+            if (DesignerProperties.GetIsInDesignMode(this))
+                return;
             this.Loaded += OnLoaded;
             this.Unloaded += OnUnLoaded;
         }

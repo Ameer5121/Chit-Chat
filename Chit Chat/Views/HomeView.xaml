@@ -6,7 +6,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChitChat.Views"
         xmlns:Helper="clr-namespace:ChitChat.Helper"
-        xmlns:viewmodels="clr-namespace:ChitChat.ViewModels"
         mc:Ignorable="d"
         Title="HomeView" 
         Height="549" 
@@ -35,7 +34,6 @@
                 <local:RegisterView Margin="0,0,0,-1"></local:RegisterView>
             </materialDesign:TransitionerSlide>
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
-
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
 

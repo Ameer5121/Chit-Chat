@@ -37,7 +37,6 @@ namespace ChitChat.Views
             _chatVM.MessageReceived += CheckMessageTheme;
             _chatVM.EmojiClick += SetEmoji;
             _chatVM.ThemeChange += ChangeTheme;
-            _chatVM.MessageConstructed += MessageContainsImage;
             //Set the correct color for messages upon logging in
             ChangeMessagesColor(_chatVM.CurrentTheme, _chatVM.AllMessages);
         }
@@ -150,38 +149,5 @@ namespace ChitChat.Views
             _chatVM.PublicMessageLength = _chatVM.CurrentPublicMessage.GetDocumentString().Length;
         }
 
-        private void MessageContainsImage(object sender, DocumentEventArgs e)
-        {
-            FlowDocument document = e.FlowDocument;
-            foreach (Block block in document.Blocks)
-            {
-                if (block is BlockUIContainer)
-                {
-                    var container = block as BlockUIContainer;
-                    if (container.Child is Image)
-                    {
-                        _chatVM.MessageContainsImage = true;
-                        return;
-                    }
-                }
-                if (block is Paragraph)
-                {
-                    var paragraph = block as Paragraph;
-                    foreach (var inline in paragraph.Inlines)
-                    {
-                        if (inline is InlineUIContainer)
-                        {
-                            var container = inline as InlineUIContainer;
-                            if (container.Child is Image)
-                            {
-                                _chatVM.MessageContainsImage = true;
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-            _chatVM.MessageContainsImage = false;
-        }
     }
 }

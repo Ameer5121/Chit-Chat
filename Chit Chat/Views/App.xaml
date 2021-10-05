@@ -1,7 +1,7 @@
-﻿<Application x:Class="ChitChat.App"
+﻿<Application x:Class="ChitChat.Views.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ChitChat"
+             xmlns:local="clr-namespace:ChitChat.Views"
                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="/Views/HomeRelated/HomeView.xaml">
     <Application.Resources>

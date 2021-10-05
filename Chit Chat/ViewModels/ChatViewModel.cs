@@ -54,7 +54,6 @@ namespace ChitChat.ViewModels
         public event EventHandler<MessageEventArgs> MessageReceived;
         public event EventHandler<EmojiEventArgs> EmojiClick;
         public event EventHandler<ThemeEventArgs> ThemeChange;
-        public event EventHandler<DocumentEventArgs> MessageConstructed;
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
@@ -219,19 +218,12 @@ namespace ChitChat.ViewModels
 
         private async Task SendMessageAsync(MessageModel messageModel)
         {
-            if (MessageTooLong(messageModel)) throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");
-            else if (MessageHasImage(messageModel)) throw new SendException("Message contains an Image!", "Image sending has been disabled until we fix a critical bug");
+            if (MessageTooLong(messageModel)) throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");         
             await _httpService.PostDataAsync("PostMessage", messageModel);
             MessageSent?.Invoke(this, EventArgs.Empty);
         }
 
         private bool MessageTooLong(MessageModel messageModel) => _characterLimit - messageModel.Message.GetDocumentString().Length < 0;
-
-        private bool MessageHasImage(MessageModel messageModel)
-        {
-            MessageConstructed(this, new DocumentEventArgs(messageModel.Message));
-            return MessageContainsImage;
-        }
 
         private void SetEmoji(string emojiName)
         {

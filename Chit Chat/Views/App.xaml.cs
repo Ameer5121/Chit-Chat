@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ChitChat
+namespace ChitChat.Views
 {
     /// <summary>
     /// Interaction logic for this.xaml
