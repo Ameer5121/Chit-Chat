@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ChitChat.Views"
                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             StartupUri="/Views/HomeRelated/HomeView.xaml">
+             StartupUri="/Views/HomeView.xaml">
     <Application.Resources>
 
         <ResourceDictionary>
