@@ -363,12 +363,6 @@
     <Resource Include="Resources\Exit.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{96ff86bc-25d1-4ce0-9adc-b4652ff068ba}</Project>
-      <Name>Models</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Expand.png" />
   </ItemGroup>
   <ItemGroup>

@@ -354,7 +354,7 @@ namespace ChitChat.ViewModels
             {
                 await _httpService.PostDataAsync("PostName", nameChangeModel);
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException)
             {
                 ConstructError("Connection Error", "Could not change name");
                 await DisplayError();
