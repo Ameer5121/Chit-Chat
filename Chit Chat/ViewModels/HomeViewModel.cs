@@ -139,9 +139,9 @@ namespace ChitChat.ViewModels
         private async Task RegisterAccountAsync()
         {
             IsRegistering = true;
-            Email.Validate();
             try
             {
+                Email.Validate();
                 await _httpService.PostUserDataAsync("/api/chat/PostUser", new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName));             
             }
             catch (FormatException)

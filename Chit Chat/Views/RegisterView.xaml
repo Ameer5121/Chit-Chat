@@ -11,17 +11,32 @@
              Height="497.667" Width="654.5">
     <Grid>
         <Grid.RowDefinitions>
-
-            <RowDefinition Height="135*"/>
-
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
 
-        <materialDesign:PackIcon Kind="Account" Margin="195,24,0,0" Height="25" Width="22"/>
-        <!--User Name-->
-        <TextBox HorizontalAlignment="Right" 
-                 Width="184" 
-                 Margin="0,2,250,440"
+        <DockPanel Grid.Row="1" Grid.Column="1" LastChildFill="False" VerticalAlignment="Bottom">
+            <materialDesign:PackIcon DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,20,0,0" Kind="Account" Grid.Row="1" Height="25" Width="22">
+            </materialDesign:PackIcon>
+            <!--User Name-->
+            <TextBox HorizontalAlignment="Left"
+                 Margin="5,0,0,0"
+                 DockPanel.Dock="Left"
+                 Height="50"
+                 Width="180"
+                 Grid.Row="1"
+                 Grid.Column="1"
                  FontSize="20"
                  BorderBrush="White"
                  Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" 
@@ -30,28 +45,39 @@
                  CaretBrush="White"
                  Foreground="AliceBlue"   
                  materialDesign:HintAssist.Hint="User Name"
-                 materialDesign:HintAssist.Foreground="AntiqueWhite"/>
+                 materialDesign:HintAssist.Foreground="AntiqueWhite">
+            </TextBox>
+        </DockPanel>
 
-        <materialDesign:PackIcon Kind="Key" Margin="193,112,0,0" Height="25" Width="22"/>
         <!--Password-->
-        <PasswordBox Name="passBox" HorizontalAlignment="Right" 
-                 Width="184" 
-                 Margin="0,95,250,356"
+        <DockPanel Grid.Row="2" Grid.Column="1" LastChildFill="False" VerticalAlignment="Bottom">
+            <materialDesign:PackIcon DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,20,0,0" Kind="Key" Grid.Row="1" Height="25" Width="22"></materialDesign:PackIcon>
+            <PasswordBox x:Name="passBox" HorizontalAlignment="Right" 
+                 Margin="5,0,0,0"
+                 DockPanel.Dock="Left"
+                 Width="180"
+                 Height="50"
+                 Grid.Row="1"
                  FontSize="20"
                  BorderBrush="White"
-                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
-                 PasswordChanged="OnPasswordChanged"
-                 materialDesign:TextFieldAssist.UnderlineBrush="DimGray"
-                 CaretBrush="White"
-                 Foreground="AliceBlue"   
+                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
                  materialDesign:HintAssist.Hint="Password"
-                 materialDesign:HintAssist.Foreground="AntiqueWhite"/>
+                 materialDesign:HintAssist.Foreground="AntiqueWhite"
+                 HorizontalContentAlignment="Stretch"
+                 VerticalContentAlignment="Bottom"
+                 CaretBrush="White"
+                 materialDesign:TextFieldAssist.UnderlineBrush="DimGray"
+                 Foreground="AliceBlue"
+                 PasswordChanged="OnPasswordChanged"></PasswordBox>
+        </DockPanel>
 
-        <materialDesign:PackIcon Kind="Email" Margin="193,201,0,0" Height="25" Width="22"/>
-        <!--Email-->
-        <TextBox HorizontalAlignment="Right" 
-                 Width="184" 
-                 Margin="0,174,250,271"
+        <DockPanel Grid.Row="3" Grid.Column="1" LastChildFill="False" VerticalAlignment="Bottom">
+            <materialDesign:PackIcon Kind="Email" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,20,0,0" Height="25" Width="22"/>
+            <!--Email-->
+            <TextBox HorizontalAlignment="Right" 
+                 Margin="5,0,0,0"
+                 Width="180"
+                 Height="50"
                  FontSize="20"
                  BorderBrush="White"
                  Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
@@ -61,12 +87,15 @@
                  Foreground="AliceBlue"   
                  materialDesign:HintAssist.Hint="Email Address"
                  materialDesign:HintAssist.Foreground="AntiqueWhite"/>
+        </DockPanel>
 
-        <materialDesign:PackIcon Kind="Text" Margin="193,293,0,0" Height="25" Width="22"/>
-        <!--Display Name-->
-        <TextBox HorizontalAlignment="Right" 
-                 Width="184" 
-                 Margin="0,266,250,176"
+        <DockPanel Grid.Row="4" Grid.Column="1" LastChildFill="False" VerticalAlignment="Bottom">
+            <materialDesign:PackIcon Kind="Text" Height="25" Width="22" VerticalAlignment="Center" Margin="0,20,0,0" DockPanel.Dock="Left"/>
+            <!--Display Name-->
+            <TextBox HorizontalAlignment="Right" 
+                 Margin="5,0,0,0"
+                 Width="180"
+                 Height="50"
                  FontSize="20"
                  BorderBrush="White"
                  Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"
@@ -76,31 +105,41 @@
                  Foreground="AliceBlue"   
                  materialDesign:HintAssist.Hint="Display Name"
                  materialDesign:HintAssist.Foreground="AntiqueWhite"/>
+        </DockPanel>
+       
 
         <!--Register-->
-        <Button Margin="230,340,268,92"
+        <Button
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Register" 
             FontSize="25"
-            Command="{Binding Register, UpdateSourceTrigger=PropertyChanged}"
-            Height="Auto"
+            Height="70"
+            Width="160"
+            Command="{Binding Register, UpdateSourceTrigger=PropertyChanged}"            
+            Grid.Row="5"
+            Grid.Column="1"
+            VerticalAlignment="Bottom"
             Foreground="White"
             Background="#FF433F3F"
             BorderBrush="#FF2C2B2B"/>
 
-        <TextBlock Text="{Binding Status}" 
+        <TextBlock Text="{Binding Status}"
+                   Margin="0,5,0,0"
+                   Grid.Column="1"
+                   Grid.Row="6"
+                   VerticalAlignment="Top"
                    DataContext="{Binding HomeLogger}"
-                   Margin="98,422,126,48"
                    FontSize="15"
                    TextAlignment="Center"
                    Foreground="White"/>
         <ProgressBar
          Value="0"
          IsIndeterminate="True" 
-            Margin="288,454,335,22" 
-            Grid.Row="1"
-            Height="Auto"
-            Width="Auto"
+            Margin="0,5,0,0"
+            Grid.Row="6"
+            Grid.Column="1"
+            Height="25"
+            Width="30"
             Foreground="Silver">
             <ProgressBar.Style>
                 <Style TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
@@ -118,12 +157,16 @@
         </ProgressBar>
 
         <!--Back-->
-        <Button Margin="0,450,498,-1"
+        <Button
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Grid.Row="6"
             Content="Back" 
             FontSize="25"
+            Height="50"
+            Width="155"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
             Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
-            Height="Auto"
             Foreground="White"
             Background="#FF433F3F"
             BorderBrush="#FF2C2B2B"

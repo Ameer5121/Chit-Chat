@@ -45,11 +45,11 @@ namespace ChitChat.Helper.AttachedProperties
         {
             _publicMessagesCollection.CollectionChanged -= OnCollectionChanged;
             _privateMessagesCollection.CollectionChanged -= OnCollectionChanged;
-             _listBoxes[0].Unloaded -= OnUnLoaded;
-             _listBoxes[0].Loaded -= OnLoaded;
+            _listBoxes[0].Unloaded -= OnUnLoaded;
+            _listBoxes[0].Loaded -= OnLoaded;
             _listBoxes.Clear();
             _privateMessagesCollection = null;
-           _publicMessagesCollection = null;
+            _publicMessagesCollection = null;
         }
 
         private static void OnLoaded(object sender, RoutedEventArgs e)
@@ -75,7 +75,7 @@ namespace ChitChat.Helper.AttachedProperties
                 {
                     _listBoxes[1].ScrollIntoView(messageModel);
                     _listBoxes[1].SelectedItem = messageModel;
-                }              
+                }
             }
         }
     }
