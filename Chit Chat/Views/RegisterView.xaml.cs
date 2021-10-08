@@ -36,12 +36,12 @@ namespace ChitChat.Views
         {
             this.Loaded -= OnLoaded;
             this.Unloaded -= OnUnLoaded;
-            (DataContext as HomeViewModel).OnRegister -= ClearPassword;
+            (DataContext as HomeViewModel).Register -= ClearPassword;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as HomeViewModel).OnRegister += ClearPassword;
+            (DataContext as HomeViewModel).Register += ClearPassword;
         }
 
         private void OnPasswordChanged(object sender, RoutedEventArgs e)

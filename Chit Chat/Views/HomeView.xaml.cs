@@ -23,7 +23,7 @@ namespace ChitChat.Views
         {
             InitializeComponent();
             DataContext = new HomeViewModel(HttpService.HttpServiceInstance, new Logger());
-            (DataContext as HomeViewModel).OnSuccessfulConnect += ChangeWindow;
+            (DataContext as HomeViewModel).SuccessfulConnect += ChangeWindow;
         }
 
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -41,7 +41,7 @@ namespace ChitChat.Views
         {
             ChatView chatView = new ChatView(e.ChatViewModelContext);
             chatView.Show();
-           (DataContext as HomeViewModel).OnSuccessfulConnect -= ChangeWindow;
+           (DataContext as HomeViewModel).SuccessfulConnect -= ChangeWindow;
             this.Close();
         }
 

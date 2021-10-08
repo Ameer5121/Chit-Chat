@@ -21,7 +21,7 @@
         MouseDown="Window_MouseDown">
 
     <Window.InputBindings>
-        <KeyBinding Command="{Binding Login}" Key="Enter"></KeyBinding>
+        <KeyBinding Command="{Binding LoginCommand}" Key="Enter"></KeyBinding>
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -118,7 +118,7 @@
                 Background="#FF433F3F"
                 Foreground="White"
                 BorderBrush="#FF2C2B2B"
-                Command="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Height="70" Width="160"></Button>
+                Command="{Binding LoginCommand, UpdateSourceTrigger=PropertyChanged}" Height="70" Width="160"></Button>
 
 
         <!--Register-->

@@ -37,8 +37,8 @@ namespace ChitChat.ViewModels
         private HubConnection connection;
         private UserModel _currentUser;
         private IHttpService _httpService;
-        public EventHandler<ConnectionEventArgs> OnSuccessfulConnect;
-        public EventHandler OnRegister;
+        public EventHandler<ConnectionEventArgs> SuccessfulConnect;
+        public EventHandler Register;
 
         public HomeViewModel(IHttpService httpService, Logger logger)
         {
@@ -81,8 +81,8 @@ namespace ChitChat.ViewModels
             }
         }
 
-        public ICommand Register => new RelayCommand(RegisterAccountAsync, CanRegisterAccount);
-        public ICommand Login => new RelayCommand(LoginToServerAsync, CanLogin);
+        public ICommand RegisterCommand => new RelayCommand(RegisterAccountAsync, CanRegisterAccount);
+        public ICommand LoginCommand => new RelayCommand(LoginToServerAsync, CanLogin);
 
 
         private bool CanLogin() => !string.IsNullOrEmpty(_currentUserName) && Password.Length > 0 && !_isConnecting;
@@ -171,7 +171,7 @@ namespace ChitChat.ViewModels
             _ = HomeLogger.LogMessage("Successfully Registered!");
             IsRegistering = false;
             ClearCredentials();
-            OnRegister?.Invoke(this, EventArgs.Empty);
+            Register?.Invoke(this, EventArgs.Empty);
         }
 
         public void ClearCredentials()
@@ -191,7 +191,7 @@ namespace ChitChat.ViewModels
                 {
                     SetConnectionID(_currentUser);
                     ConvertRTFDataToMessages(data.Messages);
-                    OnSuccessfulConnect?.Invoke(this, new ConnectionEventArgs
+                    SuccessfulConnect?.Invoke(this, new ConnectionEventArgs
                     {
                         ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)
                     });

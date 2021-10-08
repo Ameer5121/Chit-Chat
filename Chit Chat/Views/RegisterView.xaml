@@ -115,7 +115,7 @@
             FontSize="25"
             Height="70"
             Width="160"
-            Command="{Binding Register, UpdateSourceTrigger=PropertyChanged}"            
+            Command="{Binding RegisterCommand, UpdateSourceTrigger=PropertyChanged}"            
             Grid.Row="5"
             Grid.Column="1"
             VerticalAlignment="Bottom"
