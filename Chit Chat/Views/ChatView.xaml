@@ -157,7 +157,9 @@
                                     </DockPanel>
                                 </Expander.Header>
 
-                                <ListBox x:Name="Users" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" 
+                                <ListBox FlowDirection="LeftToRight" x:Name="Users" MaxHeight="205" Background="Transparent" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Visible"  
+                                      Height="Auto"
                                       IsEnabled="{Binding ControlsEnabled}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
