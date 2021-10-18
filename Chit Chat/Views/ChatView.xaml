@@ -174,9 +174,9 @@
                                                 <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center"
                                                                      Foreground="{DynamicResource ExpanderButton}">
 
-                                                    <Button Width="120" Content="Private Chat" Click="PrivateChat_Click" Background="{DynamicResource Buttons}"
+                                                    <Button Width="120" Content="Private Chat" Background="{DynamicResource Buttons}"
                                                         Foreground="{DynamicResource Text}"
-                                                        Command="{Binding DataContext.OnPrivateChatEnter, ElementName=Users}" CommandParameter="{Binding}">
+                                                        Command="{Binding DataContext.PrivateChatEnterCommand, ElementName=Users}" CommandParameter="{Binding}">
                                                         <Button.IsEnabled>
                                                             <MultiBinding Converter="{StaticResource IsEnabledConverter}">
                                                                 <Binding Path="DataContext.CurrentUser" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListBox}"/>
@@ -297,7 +297,7 @@
                                     </StackPanel>
 
 
-                                        <Button Foreground="Silver"    
+                                    <Button Foreground="Silver"    
                                    Margin="0,10,0,10"
                                  Grid.Row="2"
                                  Width="Auto"
@@ -314,7 +314,7 @@
                                     </Button>
 
 
-                                        <materialDesign:Card Grid.Row="4" Grid.ColumnSpan="2"
+                                    <materialDesign:Card Grid.Row="4" Grid.ColumnSpan="2"
                                                          Margin="0,10,0,10"
                                           HorizontalAlignment="Left"
                                           Background="{DynamicResource Buttons}"
@@ -407,7 +407,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            
+
             <materialDesign:Card 
             UniformCornerRadius="5"
             Grid.Row="3"
@@ -450,55 +450,55 @@
                 </RichTextBox>
             </materialDesign:Card>
 
-            
-                <Button Background="Transparent" BorderBrush="Transparent" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" Click="Emoji_Click" Height="33" HorizontalAlignment="Right" Padding="0" IsEnabled="{Binding ControlsEnabled}">
-                    <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
-                </Button>
 
-                <TextBlock VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" Foreground="Red">
-                    <TextBlock.Text>
-                        <MultiBinding Converter="{StaticResource CharacterCountConverter}">
-                            <Binding Path="CharacterLimit"></Binding>
-                            <Binding Path="PublicMessageLength"></Binding>
-                        </MultiBinding>
-                    </TextBlock.Text>
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Value="True">
-                                            <Condition.Binding>
-                                                <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
-                                                    <Binding Path="CharacterLimit" />
-                                                    <Binding Path="PublicMessageLength" />
-                                                </MultiBinding>
-                                            </Condition.Binding>
-                                        </Condition>
-                                    </MultiDataTrigger.Conditions>
-                                    <MultiDataTrigger.Setters>
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </MultiDataTrigger.Setters>
-                                </MultiDataTrigger>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Value="False">
-                                            <Condition.Binding>
-                                                <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
-                                                    <Binding Path="CharacterLimit" />
-                                                    <Binding Path="PublicMessageLength" />
-                                                </MultiBinding>
-                                            </Condition.Binding>
-                                        </Condition>
-                                    </MultiDataTrigger.Conditions>
-                                    <MultiDataTrigger.Setters>
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </MultiDataTrigger.Setters>
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+            <Button Background="Transparent" BorderBrush="Transparent" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" Click="Emoji_Click" Height="33" HorizontalAlignment="Right" Padding="0" IsEnabled="{Binding ControlsEnabled}">
+                <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
+            </Button>
+
+            <TextBlock VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" Foreground="Red">
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource CharacterCountConverter}">
+                        <Binding Path="CharacterLimit"></Binding>
+                        <Binding Path="PublicMessageLength"></Binding>
+                    </MultiBinding>
+                </TextBlock.Text>
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Value="True">
+                                        <Condition.Binding>
+                                            <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
+                                                <Binding Path="CharacterLimit" />
+                                                <Binding Path="PublicMessageLength" />
+                                            </MultiBinding>
+                                        </Condition.Binding>
+                                    </Condition>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Value="False">
+                                        <Condition.Binding>
+                                            <MultiBinding Converter="{StaticResource LessThanZeroConverter}">
+                                                <Binding Path="CharacterLimit" />
+                                                <Binding Path="PublicMessageLength" />
+                                            </MultiBinding>
+                                        </Condition.Binding>
+                                    </Condition>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
 
 
             <!--Emoji Window-->
@@ -510,17 +510,6 @@
 
                 </materialDesign:TransitionerSlide>
             </materialDesign:Transitioner>
-
-            <!--Private Chat Window-->
-            <materialDesign:Transitioner x:Name="PrivateChatTransitioner" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Panel.ZIndex="1" SelectedIndex="1" Width="678" Height="525" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
-                    <local:PrivateChatView Margin="0,0,0,-1"></local:PrivateChatView>
-                </materialDesign:TransitionerSlide>
-                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
-
-                </materialDesign:TransitionerSlide>
-            </materialDesign:Transitioner>
-
 
         </Grid>
     </materialDesign:DialogHost>

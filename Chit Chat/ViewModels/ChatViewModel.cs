@@ -54,6 +54,7 @@ namespace ChitChat.ViewModels
         public event EventHandler<MessageEventArgs> MessageReceived;
         public event EventHandler<EmojiEventArgs> EmojiClick;
         public event EventHandler<ThemeEventArgs> ThemeChange;
+        public event EventHandler PrivateChatEnter;
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
@@ -87,8 +88,8 @@ namespace ChitChat.ViewModels
         public ICommand ConstructPrivateMessageCommand => new RelayCommand(ConstructPrivateMessageAsync, CanConstructPrivateMessage);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
         public ICommand DisconnectCommand => new RelayCommand(DisconnectFromServer);
-        public ICommand OnPrivateChatEnter => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
-        public ICommand OnPrivateChatExit => new RelayCommand(EnableControls);
+        public ICommand PrivateChatEnterCommand => new RelayCommand(ConstructPrivateChat, SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
+        public ICommand PrivateChatExitCommand => new RelayCommand(EnableControls);
 
         public UserModel SelectedUser
         {
@@ -218,7 +219,7 @@ namespace ChitChat.ViewModels
 
         private async Task SendMessageAsync(MessageModel messageModel)
         {
-            if (MessageTooLong(messageModel)) throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");         
+            if (MessageTooLong(messageModel)) throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");
             await _httpService.PostDataAsync("PostMessage", messageModel);
             MessageSent?.Invoke(this, EventArgs.Empty);
         }
@@ -265,6 +266,12 @@ namespace ChitChat.ViewModels
         {
             SelectedUser = selectedUser;
         }
+
+        private void ConstructPrivateChat()
+        {
+            PrivateChatEnter?.Invoke(this, EventArgs.Empty);
+        }
+
         private void RefreshPrivateCollectionView()
         {
             Refresh?.Invoke(this, EventArgs.Empty);
@@ -304,7 +311,7 @@ namespace ChitChat.ViewModels
                 {
                     messages.LastOrDefault().ConvertRTFToFlowDocument();
 
-                    _messages.Add(messages.LastOrDefault());                    
+                    _messages.Add(messages.LastOrDefault());
                     MessageReceived?.Invoke(this, new MessageEventArgs
                     {
                         MessageModel = messages.LastOrDefault(),
@@ -366,7 +373,7 @@ namespace ChitChat.ViewModels
         {
             if (openfiledialog.IsBiggerThan5MB())
             {
-                throw new UploadException("Picture too large!", "Picture cannot be bigger than 5 MB!");
+                throw new UploadException("Picture is too large!", "Picture cannot be bigger than 5 MB!");
             }
             ImageUploadDataModel profileImageDataModel = new ImageUploadDataModel(openfiledialog.ConvertImageToBase64(), _currentUser);
             IsUploading = true;

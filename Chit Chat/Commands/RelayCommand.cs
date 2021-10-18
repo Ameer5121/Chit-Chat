@@ -10,22 +10,23 @@ namespace ChitChat.Commands
 {
     public class RelayCommand : ICommand
     {
-        private readonly Func<Task> execute1;
-        private readonly Func<object, Task> execute2;
+        private readonly Func<Task> execute;
+        private readonly Func<object, Task> execute1;
+        private readonly Action execute2;
         private readonly Action<UserModel> execute3;
         private readonly Action execute4;
         private readonly Action execute5;
         private readonly Action<string> execute6;
         private readonly Func<NameChangeModel, Task> execute7;
         private readonly Func<bool> canExecute;
-        public RelayCommand(Func<Task> execute1) : this(execute1, canExecute: null)
+        public RelayCommand(Func<Task> execute) : this(execute, canExecute: null)
         {
         }
-        public RelayCommand(Func<object, Task> execute2) : this(execute2, canExecute: null)
+        public RelayCommand(Func<object, Task> execute1) : this(execute1, canExecute: null)
         {
         }
 
-        public RelayCommand(Action<UserModel> execute3, Action execute4, Action execute5) : this(execute3, execute4, execute5, canExecute: null)
+        public RelayCommand(Action execute2, Action<UserModel> execute3, Action execute4, Action execute5) : this(execute2, execute3, execute4, execute5, canExecute: null)
         {
         }
 
@@ -40,7 +41,16 @@ namespace ChitChat.Commands
         {
         }
 
-        public RelayCommand(Func<Task> execute1, Func<bool> canExecute)
+        public RelayCommand(Func<Task> execute, Func<bool> canExecute)
+        {
+            if (execute == null)
+                throw new ArgumentNullException("execute is null");
+
+            this.execute = execute;
+            this.canExecute = canExecute;
+        }
+
+        public RelayCommand(Func<object, Task> execute1, Func<bool> canExecute)
         {
             if (execute1 == null)
                 throw new ArgumentNullException("execute1 is null");
@@ -48,20 +58,12 @@ namespace ChitChat.Commands
             this.execute1 = execute1;
             this.canExecute = canExecute;
         }
-
-        public RelayCommand(Func<object, Task> execute2, Func<bool> canExecute)
+        public RelayCommand(Action execute2, Action<UserModel> execute3, Action execute4, Action execute5, Func<bool> canExecute)
         {
-            if (execute2 == null)
-                throw new ArgumentNullException("execute2 is null");
+            if (execute2 == null || execute3 == null || execute4 == null || execute5 == null)
+                throw new ArgumentNullException("execute2, 3,4 or 5 are null");
 
             this.execute2 = execute2;
-            this.canExecute = canExecute;
-        }
-        public RelayCommand(Action<UserModel> execute3, Action execute4, Action execute5, Func<bool> canExecute)
-        {
-            if (execute3 == null || execute4 == null || execute5 == null)
-                throw new ArgumentNullException("execute3, 4 or 5 are null");
-
             this.execute3 = execute3;
             this.execute4 = execute4;
             this.execute5 = execute5;
@@ -112,14 +114,17 @@ namespace ChitChat.Commands
 
         public async void Execute(object parameter)
         {
-            if (execute1 != null)
+            if (execute != null)
             {
-                await execute1();
-            }else if(execute2 != null)
+                await execute();
+            }
+            else if (execute1 != null)
             {
-                await execute2(parameter as UserModel);
-            }else if(execute3 != null && execute4 != null && execute5 != null)
+                await execute1(parameter as UserModel);
+            }
+            else if (execute2 != null && execute3 != null && execute4 != null && execute5 != null)
             {
+                execute2();
                 execute3(parameter as UserModel);
                 execute4();
                 execute5();
@@ -127,7 +132,8 @@ namespace ChitChat.Commands
             else if (execute4 != null)
             {
                 execute4();
-            }else if (execute6 != null)
+            }
+            else if (execute6 != null)
             {
                 execute6(parameter as string);
             }

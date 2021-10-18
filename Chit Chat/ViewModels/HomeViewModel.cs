@@ -193,6 +193,7 @@ namespace ChitChat.ViewModels
                     ConvertRTFDataToMessages(data.Messages);
                     SuccessfulConnect?.Invoke(this, new ConnectionEventArgs
                     {
+                        
                         ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)
                     });
                 });

@@ -34,31 +34,28 @@ namespace ChitChat.Helper.AttachedProperties
 
         private static void OnDifferentValue(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            _listBoxes.Add(d as ListBox);
-            if (_listBoxes.Count > 1)
-                return;
-            _listBoxes[0].Loaded += OnLoaded;
-            _listBoxes[0].Unloaded += OnUnLoaded;
+            var listBox = d as ListBox;
+            _listBoxes.Add(listBox);
+            InitializeEvents(listBox);
         }
 
         private static void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            _publicMessagesCollection.CollectionChanged -= OnCollectionChanged;
-            _privateMessagesCollection.CollectionChanged -= OnCollectionChanged;
-            _listBoxes[0].Unloaded -= OnUnLoaded;
-            _listBoxes[0].Loaded -= OnLoaded;
             _listBoxes.Clear();
             _privateMessagesCollection = null;
             _publicMessagesCollection = null;
         }
-
         private static void OnLoaded(object sender, RoutedEventArgs e)
         {
-            _publicMessagesCollection = _listBoxes[0].ItemsSource as INotifyCollectionChanged;
-            _privateMessagesCollection = _listBoxes[1].ItemsSource as INotifyCollectionChanged;
+            var listBox = sender as ListBox;
+            _publicMessagesCollection = listBox.ItemsSource as INotifyCollectionChanged;
             _publicMessagesCollection.CollectionChanged += OnCollectionChanged;
-            _privateMessagesCollection.CollectionChanged += OnCollectionChanged;
+        }
 
+        private static void InitializeEvents(ListBox listBox)
+        {
+            listBox.Loaded += OnLoaded;
+            if (_listBoxes.Count == 1) listBox.Unloaded += OnUnLoaded;
         }
 
         private static void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -77,6 +74,11 @@ namespace ChitChat.Helper.AttachedProperties
                     _listBoxes[1].SelectedItem = messageModel;
                 }
             }
+        }
+
+        ~ScrollBehavior()
+        {
+
         }
     }
 }

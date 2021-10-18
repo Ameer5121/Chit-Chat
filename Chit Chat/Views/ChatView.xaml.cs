@@ -37,6 +37,7 @@ namespace ChitChat.Views
             _chatVM.MessageReceived += CheckMessageTheme;
             _chatVM.EmojiClick += SetEmoji;
             _chatVM.ThemeChange += ChangeTheme;
+            _chatVM.PrivateChatEnter += OnPrivateChatEnter;
             //Set the correct color for messages upon logging in
             ChangeMessagesColor(_chatVM.CurrentTheme, _chatVM.AllMessages);
         }
@@ -67,11 +68,6 @@ namespace ChitChat.Views
             this.Close();
         }
 
-        private void PrivateChat_Click(object sender, RoutedEventArgs e)
-        {
-            PrivateChatTransitioner.SelectedIndex = 0;
-        }
-
         private void Emoji_Click(object sender, RoutedEventArgs e)
         {
             EmojiTransitioner.SelectedIndex = 0;
@@ -89,6 +85,13 @@ namespace ChitChat.Views
                 PublicChatTextBox.SetEmoji(e.EmojiName);
             }
         }
+
+        private void OnPrivateChatEnter(object sender, EventArgs e)
+        {
+            PrivateChatView privateChatView = new PrivateChatView(_chatVM);
+            privateChatView.Show();
+        }
+
         private void ChangeTheme(object sender, ThemeEventArgs e)
         {
             var app = (App)Application.Current;

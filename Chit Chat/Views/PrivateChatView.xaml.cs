@@ -23,12 +23,14 @@ namespace ChitChat.Views
     /// <summary>
     /// Interaction logic for PrivateChatView.xaml
     /// </summary>
-    public partial class PrivateChatView : UserControl
+    public partial class PrivateChatView : Window
     {
         private ChatViewModel _chatVM;
-        public PrivateChatView()
+        public PrivateChatView(ChatViewModel chatViewModel)
         {
             InitializeComponent();
+            _chatVM = chatViewModel;
+            DataContext = _chatVM;
             if (DesignerProperties.GetIsInDesignMode(this))
                 return;
             Loaded += OnLoaded;
@@ -36,7 +38,7 @@ namespace ChitChat.Views
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
-        {          
+        {
             _chatVM.MessageSent -= ClearPrivateTextBox;
             _chatVM.EmojiClick -= SetEmoji;
             _chatVM.Refresh -= OnRefresh;
@@ -46,7 +48,6 @@ namespace ChitChat.Views
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            _chatVM = DataContext as ChatViewModel;
             _chatVM.CurrentPrivateMessage = PrivateChatTextBox.Document;
             _chatVM.Refresh += OnRefresh;
             _chatVM.MessageSent += ClearPrivateTextBox;
@@ -55,8 +56,7 @@ namespace ChitChat.Views
 
         private void OnExitClick(object sender, RoutedEventArgs e)
         {
-            var parentWindow = Window.GetWindow(this) as ChatView;
-            parentWindow.PrivateChatTransitioner.SelectedIndex = 1;
+            Close();
         }
 
         private void ClearPrivateTextBox(object sender, EventArgs e)
@@ -77,7 +77,7 @@ namespace ChitChat.Views
 
         private void OnRefresh(object sender, EventArgs e)
         {
-            foreach(MessageModel messageModel in PrivateMessagesListView.Items)
+            foreach (MessageModel messageModel in PrivateMessagesListView.Items)
             {
                 var flowDocumentScrollViewer = messageModel.Message.Parent as FlowDocumentScrollViewer; ;
                 if (flowDocumentScrollViewer.Document != null) flowDocumentScrollViewer.Document = null;
@@ -87,6 +87,11 @@ namespace ChitChat.Views
         private void PrivateChatTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             _chatVM.PrivateMessageLength = _chatVM.CurrentPrivateMessage.GetDocumentString().Length;
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }
