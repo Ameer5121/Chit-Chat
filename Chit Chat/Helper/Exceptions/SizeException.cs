@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ChitChat.Helper.Exceptions
 {
-    class UploadException : Exception
+    class SizeException : Exception
     {
         private string _subject;
         public string Subject => _subject;
-        public UploadException(string subject, string message) : base(message) 
+        public SizeException(string subject, string message) : base(message) 
         {
             _subject = subject;
         }

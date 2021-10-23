@@ -425,7 +425,14 @@
             Margin="20,0,0,0"
             Grid.Column="1"
             Background="Transparent">
-                <RichTextBox x:Name="PublicChatTextBox"
+                <DockPanel LastChildFill="False">
+                    <materialDesign:PopupBox DockPanel.Dock="Left" VerticalAlignment="Top" IsPopupOpen="True" PlacementMode="TopAndAlignCentres" HorizontalAlignment="Right">
+                        <DockPanel LastChildFill="False">
+                            <materialDesign:PackIcon Kind="Upload" DockPanel.Dock="Left" VerticalAlignment="Center" Width="25" Height="25"></materialDesign:PackIcon>
+                            <Button Margin="10,0,0,0" Content="Upload a Picture" Padding="0" Width="150" VerticalContentAlignment="Center" Background="{DynamicResource Buttons}" Foreground="{DynamicResource Text}" HorizontalContentAlignment="Left" HorizontalAlignment="Left"></Button>
+                        </DockPanel>
+                    </materialDesign:PopupBox>
+                    <RichTextBox x:Name="PublicChatTextBox"
                      Margin="0,0,0,0"    
                      Grid.Row="3"
                      Grid.Column="1"
@@ -441,13 +448,14 @@
                      VerticalContentAlignment="Center"
                      CaretBrush="White"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
-                    <RichTextBox.InputBindings>
-                        <KeyBinding Command="{Binding ConstructPublicMessageCommand}" Key="Enter"></KeyBinding>
-                    </RichTextBox.InputBindings>
-                    <materialDesign:HintAssist.Hint>
-                        <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
-                    </materialDesign:HintAssist.Hint>
-                </RichTextBox>
+                        <RichTextBox.InputBindings>
+                            <KeyBinding Command="{Binding ConstructPublicMessageCommand}" Key="Enter"></KeyBinding>
+                        </RichTextBox.InputBindings>
+                        <materialDesign:HintAssist.Hint>
+                            <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
+                        </materialDesign:HintAssist.Hint>
+                    </RichTextBox>
+                </DockPanel>
             </materialDesign:Card>
 
 

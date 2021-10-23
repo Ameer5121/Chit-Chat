@@ -25,6 +25,7 @@ using MaterialDesignThemes.Wpf;
 using ChitChat.Helper.Exceptions;
 using System.Windows.Forms;
 using Application = System.Windows.Application;
+using System.Windows.Media.Imaging;
 
 namespace ChitChat.ViewModels
 {
@@ -81,7 +82,7 @@ namespace ChitChat.ViewModels
             SendHeartBeatAsync(_heartbeatToken.Token);
         }
 
-        public ICommand ChooseProfilePictureCommand => new RelayCommand(ChooseProfilePictureAsync);
+        public ICommand ChooseProfilePictureCommand => new RelayCommand(UploadProfileImageAsync);
         public ICommand ShowNameChangerDialogCommand => new RelayCommand(ShowNameChangerDialog);
         public ICommand ChangeDisplayNameCommand => new RelayCommand(ChangeDisplayName);
         public ICommand ConstructPublicMessageCommand => new RelayCommand(ConstructPublicMessageAsync, CanConstructPublicMessage);
@@ -326,22 +327,22 @@ namespace ChitChat.ViewModels
             Users = users;
         }
 
-        private async Task ChooseProfilePictureAsync()
+        private BitmapImage ChoosePicture()
         {
             var openfiledialog = new OpenFileDialog();
+            BitmapImage image = new BitmapImage();
             openfiledialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             if (openfiledialog.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    await UploadImageAsync(openfiledialog);
-                }
-                catch (UploadException e)
-                {
-                    ConstructError(e.Subject, e.Message);
-                    await DisplayError();
-                }
+
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = new Uri(openfiledialog.FileName);
+                image.EndInit();
+                if (image.IsBiggerThan5MB()) throw new SizeException("Picture is too large!", "Picture cannot be bigger than 5 MB!");
+                return image;
             }
+            return null;
         }
 
         private void ShowNameChangerDialog()
@@ -369,18 +370,27 @@ namespace ChitChat.ViewModels
             _currentUser.DisplayName = nameChangeModel.NewName;
         }
 
-        private async Task UploadImageAsync(OpenFileDialog openfiledialog)
+        private async Task UploadProfileImageAsync()
         {
-            if (openfiledialog.IsBiggerThan5MB())
+            BitmapImage image = null;
+            try
             {
-                throw new UploadException("Picture is too large!", "Picture cannot be bigger than 5 MB!");
+               image = ChoosePicture();
+            }catch(SizeException e)
+            {
+                ConstructError(e.Subject, e.Message);
+                await DisplayError();
+                return;
             }
-            ImageUploadDataModel profileImageDataModel = new ImageUploadDataModel(openfiledialog.ConvertImageToBase64(), _currentUser);
-            IsUploading = true;
-            var response = await _httpService.PostDataAsync("PostImage", profileImageDataModel);
-            var imageLink = await response.Content.ReadAsStringAsync();
-            ChangeProfilePicture(imageLink);
-            IsUploading = false;
+            if(image != null)
+            {               
+                ImageUploadDataModel profileImageDataModel = new ImageUploadDataModel(image.ConvertImageToBase64(), _currentUser);
+                IsUploading = true;
+                var response = await _httpService.PostDataAsync("PostImage", profileImageDataModel);
+                var imageLink = await response.Content.ReadAsStringAsync();
+                ChangeProfilePicture(imageLink);
+                IsUploading = false;
+            }       
         }
 
         private void ChangeProfilePicture(string profilePictureSource)
