@@ -239,6 +239,7 @@
     <Compile Include="Events\DocumentEventArgs.cs" />
     <Compile Include="Events\EmojiEventArgs.cs" />
     <Compile Include="Events\MessageEventArgs.cs" />
+    <Compile Include="Events\UploadEventArgs.cs" />
     <Compile Include="Events\ThemeEventArgs.cs" />
     <Compile Include="Helper\Converters\CharacterCountConverter.cs" />
     <Compile Include="Helper\Converters\LessThanZeroConverter.cs" />

@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:ChitChat.Views"
         xmlns:Converters="clr-namespace:ChitChat.Helper.Converters"
         xmlns:model="clr-namespace:ChitChat.Models"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:AttachedProperties="clr-namespace:ChitChat.Helper.AttachedProperties"
         mc:Ignorable="d"
         Title="ChatView" 
@@ -24,6 +25,9 @@
 
 
     <Window.Resources>
+        <System:Boolean x:Key="FalseValue">False</System:Boolean>
+        <System:Boolean x:Key="TrueValue">True</System:Boolean>
+
         <Converters:IsEnabledConverter x:Key="IsEnabledConverter"></Converters:IsEnabledConverter>
         <Converters:LessThanZeroConverter x:Key="LessThanZeroConverter"></Converters:LessThanZeroConverter>
         <Converters:CharacterCountConverter x:Key="CharacterCountConverter"></Converters:CharacterCountConverter>
@@ -426,10 +430,10 @@
             Grid.Column="1"
             Background="Transparent">
                 <DockPanel LastChildFill="False">
-                    <materialDesign:PopupBox DockPanel.Dock="Left" VerticalAlignment="Top" IsPopupOpen="True" PlacementMode="TopAndAlignCentres" HorizontalAlignment="Right">
+                    <materialDesign:PopupBox Margin="0,4,0,0" DockPanel.Dock="Left" VerticalAlignment="Top" PlacementMode="TopAndAlignCentres" HorizontalAlignment="Right">
                         <DockPanel LastChildFill="False">
                             <materialDesign:PackIcon Kind="Upload" DockPanel.Dock="Left" VerticalAlignment="Center" Width="25" Height="25"></materialDesign:PackIcon>
-                            <Button Margin="10,0,0,0" Content="Upload a Picture" Padding="0" Width="150" VerticalContentAlignment="Center" Background="{DynamicResource Buttons}" Foreground="{DynamicResource Text}" HorizontalContentAlignment="Left" HorizontalAlignment="Left"></Button>
+                            <Button Margin="10,0,0,0" Command="{Binding ChooseImageCommand}" CommandParameter="{StaticResource FalseValue}" Content="Upload a Picture" Padding="0" Width="150" VerticalContentAlignment="Center" Background="{DynamicResource Buttons}" Foreground="{DynamicResource Text}" HorizontalContentAlignment="Left" HorizontalAlignment="Left"></Button>
                         </DockPanel>
                     </materialDesign:PopupBox>
                     <RichTextBox x:Name="PublicChatTextBox"

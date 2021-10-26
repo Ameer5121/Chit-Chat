@@ -48,8 +48,11 @@ namespace ChitChat.Helper.AttachedProperties
         private static void OnLoaded(object sender, RoutedEventArgs e)
         {
             var listBox = sender as ListBox;
-            _publicMessagesCollection = listBox.ItemsSource as INotifyCollectionChanged;
-            _publicMessagesCollection.CollectionChanged += OnCollectionChanged;
+            if (listBox.ItemsSource != null)
+            {
+                _publicMessagesCollection = listBox.ItemsSource as INotifyCollectionChanged;
+                _publicMessagesCollection.CollectionChanged += OnCollectionChanged;
+            }
         }
 
         private static void InitializeEvents(ListBox listBox)

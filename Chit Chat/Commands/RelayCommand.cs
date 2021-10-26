@@ -11,18 +11,19 @@ namespace ChitChat.Commands
     public class RelayCommand : ICommand
     {
         private readonly Func<Task> execute;
-        private readonly Func<object, Task> execute1;
+        private readonly Func<UserModel, Task> execute1;
         private readonly Action execute2;
         private readonly Action<UserModel> execute3;
         private readonly Action execute4;
         private readonly Action execute5;
         private readonly Action<string> execute6;
         private readonly Func<NameChangeModel, Task> execute7;
+        private readonly Func<bool, Task> execute8;
         private readonly Func<bool> canExecute;
         public RelayCommand(Func<Task> execute) : this(execute, canExecute: null)
         {
         }
-        public RelayCommand(Func<object, Task> execute1) : this(execute1, canExecute: null)
+        public RelayCommand(Func<UserModel, Task> execute1) : this(execute1, canExecute: null)
         {
         }
 
@@ -40,6 +41,9 @@ namespace ChitChat.Commands
         public RelayCommand(Func<NameChangeModel, Task> execute7) : this(execute7, canExecute: null)
         {
         }
+        public RelayCommand(Func<bool, Task> execute8) : this(execute8, canExecute: null)
+        {
+        }
 
         public RelayCommand(Func<Task> execute, Func<bool> canExecute)
         {
@@ -50,7 +54,7 @@ namespace ChitChat.Commands
             this.canExecute = canExecute;
         }
 
-        public RelayCommand(Func<object, Task> execute1, Func<bool> canExecute)
+        public RelayCommand(Func<UserModel, Task> execute1, Func<bool> canExecute)
         {
             if (execute1 == null)
                 throw new ArgumentNullException("execute1 is null");
@@ -91,6 +95,14 @@ namespace ChitChat.Commands
                 throw new ArgumentNullException("execute7 is null");
 
             this.execute7 = execute7;
+            this.canExecute = canExecute;
+        }
+        public RelayCommand(Func<bool, Task> execute8, Func<bool> canExecute)
+        {
+            if (execute8 == null)
+                throw new ArgumentNullException("execute8 is null");
+
+            this.execute8 = execute8;
             this.canExecute = canExecute;
         }
 
@@ -140,6 +152,10 @@ namespace ChitChat.Commands
             else if (execute7 != null)
             {
                 await execute7(parameter as NameChangeModel);
+            }
+            else if (execute8 != null)
+            {
+                await execute8((bool)parameter);
             }
         }
     }

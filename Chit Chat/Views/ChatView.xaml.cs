@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ChitChat.Views
 {
@@ -38,6 +39,7 @@ namespace ChitChat.Views
             _chatVM.EmojiClick += SetEmoji;
             _chatVM.ThemeChange += ChangeTheme;
             _chatVM.PrivateChatEnter += OnPrivateChatEnter;
+            _chatVM.PictureSelected += SetPictureMessage;
             //Set the correct color for messages upon logging in
             ChangeMessagesColor(_chatVM.CurrentTheme, _chatVM.AllMessages);
         }
@@ -49,6 +51,8 @@ namespace ChitChat.Views
             _chatVM.MessageReceived -= CheckMessageTheme;
             _chatVM.EmojiClick -= SetEmoji;
             _chatVM.ThemeChange -= ChangeTheme;
+            _chatVM.PrivateChatEnter -= OnPrivateChatEnter;
+            _chatVM.PictureSelected -= SetPictureMessage;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
@@ -150,6 +154,16 @@ namespace ChitChat.Views
         private void PublicChatTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             _chatVM.PublicMessageLength = _chatVM.CurrentPublicMessage.GetDocumentString().Length;
+        }
+
+        private void SetPictureMessage(object sender, UploadEventArgs e)
+        {
+            FlowDocument flowDocument = new FlowDocument();
+            Image image = new Image();
+            image.Source = e.Image;
+            flowDocument.Blocks.Add(new Paragraph(new InlineUIContainer(image)));
+            if (e.IsPrivate) _chatVM.CurrentPrivateMessage = flowDocument;
+            _chatVM.CurrentPublicMessage = flowDocument;
         }
 
     }

@@ -22,7 +22,7 @@ namespace ChitChat.Helper.Extensions
 
         public static bool IsBiggerThan5MB(this BitmapImage image)
         {
-            var size = new FileInfo(image.UriSource.AbsoluteUri).Length;
+            var size = new FileInfo(image.UriSource.AbsolutePath).Length;
             return size > 5 * Math.Pow(10, 6) ? true : false;
         }
     }

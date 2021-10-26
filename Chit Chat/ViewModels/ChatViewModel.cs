@@ -55,6 +55,7 @@ namespace ChitChat.ViewModels
         public event EventHandler<MessageEventArgs> MessageReceived;
         public event EventHandler<EmojiEventArgs> EmojiClick;
         public event EventHandler<ThemeEventArgs> ThemeChange;
+        public EventHandler<UploadEventArgs> PictureSelected;
         public event EventHandler PrivateChatEnter;
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
@@ -82,6 +83,7 @@ namespace ChitChat.ViewModels
             SendHeartBeatAsync(_heartbeatToken.Token);
         }
 
+        public ICommand ChooseImageCommand => new RelayCommand(UploadImageAsync);
         public ICommand ChooseProfilePictureCommand => new RelayCommand(UploadProfileImageAsync);
         public ICommand ShowNameChangerDialogCommand => new RelayCommand(ShowNameChangerDialog);
         public ICommand ChangeDisplayNameCommand => new RelayCommand(ChangeDisplayName);
@@ -191,7 +193,7 @@ namespace ChitChat.ViewModels
                 await DisplayError();
             }
         }
-        private async Task ConstructPrivateMessageAsync(object destinationUser)
+        private async Task ConstructPrivateMessageAsync(UserModel destinationUser)
         {
             MessageModel messagetoSend = null;
             messagetoSend = new MessageModel
@@ -199,7 +201,7 @@ namespace ChitChat.ViewModels
                 RTFData = CurrentPrivateMessage.GetRTFData(),
                 User = _currentUser,
                 Message = _currentPrivateMessage,
-                DestinationUser = destinationUser as UserModel,
+                DestinationUser = destinationUser,
                 MessageDate = DateTime.Now
             };
             try
@@ -370,27 +372,61 @@ namespace ChitChat.ViewModels
             _currentUser.DisplayName = nameChangeModel.NewName;
         }
 
-        private async Task UploadProfileImageAsync()
+        private async Task UploadImageAsync(bool isPrivate)
         {
             BitmapImage image = null;
+            FlowDocument currentMessageTemp = null;
             try
             {
-               image = ChoosePicture();
-            }catch(SizeException e)
+                image = ChoosePicture();
+            }
+            catch (SizeException e)
             {
                 ConstructError(e.Subject, e.Message);
                 await DisplayError();
                 return;
             }
-            if(image != null)
-            {               
+            if (image != null)
+            {
+                if (isPrivate)
+                {
+                    currentMessageTemp = _currentPrivateMessage;
+                    PictureSelected?.Invoke(this, new UploadEventArgs(image, true));
+                    await ConstructPrivateMessageAsync(_selectedUser);
+                    CurrentPrivateMessage = currentMessageTemp;
+                }
+                else
+                {
+                    currentMessageTemp = _currentPublicMessage;
+                    PictureSelected?.Invoke(this, new UploadEventArgs(image, false));
+                    await ConstructPublicMessageAsync();
+                    CurrentPublicMessage = currentMessageTemp;
+                }
+            }
+        }
+
+        private async Task UploadProfileImageAsync()
+        {
+            BitmapImage image = null;
+            try
+            {
+                image = ChoosePicture();
+            }
+            catch (SizeException e)
+            {
+                ConstructError(e.Subject, e.Message);
+                await DisplayError();
+                return;
+            }
+            if (image != null)
+            {
                 ImageUploadDataModel profileImageDataModel = new ImageUploadDataModel(image.ConvertImageToBase64(), _currentUser);
                 IsUploading = true;
                 var response = await _httpService.PostDataAsync("PostImage", profileImageDataModel);
                 var imageLink = await response.Content.ReadAsStringAsync();
                 ChangeProfilePicture(imageLink);
                 IsUploading = false;
-            }       
+            }
         }
 
         private void ChangeProfilePicture(string profilePictureSource)
