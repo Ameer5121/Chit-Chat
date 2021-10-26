@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Converters="clr-namespace:ChitChat.Helper.Converters"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:AttachedProperties="clr-namespace:ChitChat.Helper.AttachedProperties"
              xmlns:local="clr-namespace:ChitChat.Views"
              mc:Ignorable="d" 
@@ -19,6 +20,7 @@
              WindowStyle="None"
              ResizeMode="NoResize">
     <Window.Resources>
+        <System:Boolean x:Key="TrueValue">True</System:Boolean>
         <Converters:CharacterCountConverter x:Key="CharacterCountConverter"></Converters:CharacterCountConverter>
         <Converters:LessThanZeroConverter x:Key="LessThanZeroConverter"></Converters:LessThanZeroConverter>
     </Window.Resources>
@@ -104,7 +106,14 @@
         <materialDesign:Card 
             UniformCornerRadius="5"
             Grid.Row="2" Background="Transparent">
-            <RichTextBox 
+            <DockPanel>
+                <materialDesign:PopupBox Margin="0,4,0,0" DockPanel.Dock="Left" VerticalAlignment="Top" PlacementMode="TopAndAlignCentres" HorizontalAlignment="Right">
+                    <DockPanel LastChildFill="False">
+                        <materialDesign:PackIcon Kind="Upload" DockPanel.Dock="Left" VerticalAlignment="Center" Width="25" Height="25"></materialDesign:PackIcon>
+                        <Button Margin="10,0,0,0" Command="{Binding ChooseImageCommand}" CommandParameter="{StaticResource TrueValue}" Content="Upload a Picture" Padding="0" Width="150" VerticalContentAlignment="Center" Background="{DynamicResource Buttons}" Foreground="{DynamicResource Text}" HorizontalContentAlignment="Left" HorizontalAlignment="Left"></Button>
+                    </DockPanel>
+                </materialDesign:PopupBox>
+                <RichTextBox 
                      x:Name="PrivateChatTextBox"
                      TextChanged="PrivateChatTextBox_TextChanged"
                      DockPanel.Dock="Left"
@@ -115,13 +124,14 @@
                      CaretBrush="White"
                      VerticalContentAlignment="Center"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
-                <RichTextBox.InputBindings>
-                    <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding ConstructPrivateMessageCommand}" Key="Enter" />
-                </RichTextBox.InputBindings>
-                <materialDesign:HintAssist.Hint>
-                    <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
-                </materialDesign:HintAssist.Hint>
-            </RichTextBox>
+                    <RichTextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding ConstructPrivateMessageCommand}" Key="Enter" />
+                    </RichTextBox.InputBindings>
+                    <materialDesign:HintAssist.Hint>
+                        <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
+                    </materialDesign:HintAssist.Hint>
+                </RichTextBox>
+            </DockPanel>
         </materialDesign:Card>
 
         <Button Background="Transparent" BorderBrush="Transparent" Width="36" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Emoji_Click" Height="Auto" Padding="0" Grid.Row="2" Grid.Column="1">

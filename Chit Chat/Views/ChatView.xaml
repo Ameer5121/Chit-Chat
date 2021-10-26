@@ -26,7 +26,6 @@
 
     <Window.Resources>
         <System:Boolean x:Key="FalseValue">False</System:Boolean>
-        <System:Boolean x:Key="TrueValue">True</System:Boolean>
 
         <Converters:IsEnabledConverter x:Key="IsEnabledConverter"></Converters:IsEnabledConverter>
         <Converters:LessThanZeroConverter x:Key="LessThanZeroConverter"></Converters:LessThanZeroConverter>
