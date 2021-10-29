@@ -12,7 +12,7 @@ namespace ChitChat.Helper.Extensions
     {
         public static string ConvertImageToBase64(this BitmapImage image)
         {
-            using (var stream = new FileStream(image.UriSource.AbsolutePath, FileMode.Open))
+            using (var stream = new FileStream(image.UriSource.LocalPath, FileMode.Open))
             {              
                 byte[] imageBytes = new byte[stream.Length];
                 stream.Read(imageBytes, 0, imageBytes.Length);
@@ -22,7 +22,7 @@ namespace ChitChat.Helper.Extensions
 
         public static bool IsBiggerThan5MB(this BitmapImage image)
         {
-            var size = new FileInfo(image.UriSource.AbsolutePath).Length;
+            var size = new FileInfo(image.UriSource.LocalPath).Length;
             return size > 5 * Math.Pow(10, 6) ? true : false;
         }
     }

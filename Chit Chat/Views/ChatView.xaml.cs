@@ -166,5 +166,6 @@ namespace ChitChat.Views
             _chatVM.CurrentPublicMessage = flowDocument;
         }
 
+       
     }
 }
