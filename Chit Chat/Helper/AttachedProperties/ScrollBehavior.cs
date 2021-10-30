@@ -79,9 +79,5 @@ namespace ChitChat.Helper.AttachedProperties
             }
         }
 
-        ~ScrollBehavior()
-        {
-
-        }
     }
 }
