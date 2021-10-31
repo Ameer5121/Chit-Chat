@@ -165,5 +165,6 @@ namespace ChitChat.Views
             if (e.IsPrivate) _chatVM.CurrentPrivateMessage = flowDocument;
             _chatVM.CurrentPublicMessage = flowDocument;
         }
+
     }
 }

@@ -170,10 +170,10 @@
                                             <DockPanel LastChildFill="False" FlowDirection="LeftToRight">
                                                 <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
                                                     <Ellipse.Fill>
-                                                        <ImageBrush ImageSource="{Binding ProfilePicture}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
+                                                        <ImageBrush ImageSource="{Binding ProfilePicture, Mode=OneTime}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
                                                     </Ellipse.Fill>
                                                 </Ellipse>
-                                                <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Text}"></TextBlock>
+                                                <TextBlock Text="{Binding DisplayName, Mode=OneTime}" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Text}"></TextBlock>
 
                                                 <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center"
                                                                      Foreground="{DynamicResource ExpanderButton}">
@@ -393,15 +393,15 @@
                         <DockPanel LastChildFill="False">
                             <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding User.ProfilePicture}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
+                                    <ImageBrush ImageSource="{Binding User.ProfilePicture, Mode=OneTime}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
                                 </Ellipse.Fill>
                             </Ellipse>
                             <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">
-                            <Run Text="{Binding User.DisplayName}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
+                            <Run Text="{Binding User.DisplayName, Mode=OneTime}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
                             <Run Text=""></Run>
-                            <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
+                            <Run Text="{Binding MessageDate, StringFormat=t, Mode=OneTime}" Foreground="Gray" FontSize="10"></Run>
                             </TextBlock>
-                            <FlowDocumentScrollViewer DockPanel.Dock="Left" Document="{Binding Message}" 
+                            <FlowDocumentScrollViewer DockPanel.Dock="Left" Document="{Binding Message, Mode=OneTime}" 
                                                       HorizontalAlignment="Left" Height="Auto" 
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                       HorizontalContentAlignment="Left" Margin="2,0,0,0"
