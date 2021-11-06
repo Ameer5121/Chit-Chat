@@ -6,16 +6,16 @@ Login             |  Register
 ![1](https://user-images.githubusercontent.com/71935713/110955002-ca075580-8351-11eb-97ce-832d15ac0ad1.png)  |  ![2](https://user-images.githubusercontent.com/71935713/110955050-d68bae00-8351-11eb-9e12-406220e313a7.png)
 
 Public Chat
-![publicchat](https://user-images.githubusercontent.com/71935713/134619185-4dace97f-dde5-4581-b329-fca4ebeeec69.png)
+![publicchat](https://user-images.githubusercontent.com/71935713/140618050-23ee773f-a2e2-4f1e-926b-22a769b60091.png)
 
 Private Chat
-![privatechat](https://user-images.githubusercontent.com/71935713/133803099-8c3ee5b4-3464-4491-982f-7d3faaadaa49.png)
+![privatechat](https://user-images.githubusercontent.com/71935713/140618060-50b3154c-4a7e-4ab5-93cb-a0a516f433d4.png)
 
 Light Theme
-![lighttheme](https://user-images.githubusercontent.com/71935713/133803203-20900b4a-5a98-4426-b7dd-33d7b8b234e5.png)
+![lightheme](https://user-images.githubusercontent.com/71935713/140618068-80fe7c7a-4d18-40e5-886c-784a42c56237.png)
 
 Image Sending
-![imagesending](https://user-images.githubusercontent.com/71935713/133803716-5eed0ac1-b604-42e4-b2b7-310a5cbcf07d.png)
+![picturesending](https://user-images.githubusercontent.com/71935713/140618072-e512a7db-6a5e-4dbe-866f-72fc01eed72b.png)
 
 
 # Contains usages of:
