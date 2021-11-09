@@ -1,5 +1,6 @@
 ﻿using ChitChat.Events;
 using ChitChat.Helper.Extensions;
+using ChitChat.Helper.Enums;
 using ChitChat.Models;
 using ChitChat.ViewModels;
 using System;
@@ -52,6 +53,7 @@ namespace ChitChat.Views
             _chatVM.Refresh += OnRefresh;
             _chatVM.MessageSent += ClearPrivateTextBox;
             _chatVM.EmojiClick += SetEmoji;
+            _chatVM.MessageDisplayChange += ChangeMessageDisplay;
         }
 
         private void OnExitClick(object sender, RoutedEventArgs e)
@@ -77,7 +79,7 @@ namespace ChitChat.Views
 
         private void OnRefresh(object sender, EventArgs e)
         {
-            foreach (MessageModel messageModel in PrivateMessagesListView.Items)
+            foreach (MessageModel messageModel in PrivateChat.Items)
             {
                 var flowDocumentScrollViewer = messageModel.Message.Parent as FlowDocumentScrollViewer; ;
                 if (flowDocumentScrollViewer.Document != null) flowDocumentScrollViewer.Document = null;
@@ -92,6 +94,19 @@ namespace ChitChat.Views
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void ChangeMessageDisplay(object sender, MessageDisplayEventArgs e)
+        {
+            if (_chatVM.CurrentMessageDisplay != e.NewMessageDisplay)
+            {
+                foreach (MessageModel messageModel in _chatVM.PrivateMessages)
+                {
+                    var documentScrollViewer = messageModel.Message.Parent as FlowDocumentScrollViewer;
+                    documentScrollViewer.Document = null;
+                }
+                PrivateChat.ItemTemplate = (DataTemplate)Application.Current.Resources[Enum.GetName(typeof(MessageDisplay), e.NewMessageDisplay)];
+            }
         }
     }
 }

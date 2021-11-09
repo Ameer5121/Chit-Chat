@@ -3,6 +3,7 @@ using ChitChat.Helper;
 using ChitChat.Helper.Extensions;
 using ChitChat.Models;
 using ChitChat.ViewModels;
+using ChitChat.Helper.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ namespace ChitChat.Views
             DataContext = context;
             Loaded += OnLoaded;
             Unloaded += OnUnLoaded;
+
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -40,6 +42,7 @@ namespace ChitChat.Views
             _chatVM.ThemeChange += ChangeTheme;
             _chatVM.PrivateChatEnter += OnPrivateChatEnter;
             _chatVM.PictureSelected += SetPictureMessage;
+            _chatVM.MessageDisplayChange += ChangeMessageDisplay;
             //Set the correct color for messages upon logging in
             ChangeMessagesColor(_chatVM.CurrentTheme, _chatVM.AllMessages);
         }
@@ -53,6 +56,7 @@ namespace ChitChat.Views
             _chatVM.ThemeChange -= ChangeTheme;
             _chatVM.PrivateChatEnter -= OnPrivateChatEnter;
             _chatVM.PictureSelected -= SetPictureMessage;
+            _chatVM.MessageDisplayChange -= ChangeMessageDisplay;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
@@ -166,5 +170,17 @@ namespace ChitChat.Views
             _chatVM.CurrentPublicMessage = flowDocument;
         }
 
+        private void ChangeMessageDisplay(object sender, MessageDisplayEventArgs e)
+        {
+            if (_chatVM.CurrentMessageDisplay != e.NewMessageDisplay)
+            {
+                foreach(MessageModel messageModel in _chatVM.PublicMessages)
+                {
+                    var documentScrollViewer = messageModel.Message.Parent as FlowDocumentScrollViewer;
+                    documentScrollViewer.Document = null;
+                }
+                PublicChat.ItemTemplate = (DataTemplate)Application.Current.Resources[Enum.GetName(typeof(MessageDisplay), e.NewMessageDisplay)];
+            }
+        }
     }
 }

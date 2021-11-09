@@ -1,4 +1,4 @@
-﻿using ChitChat.Helper;
+﻿using ChitChat.Helper.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

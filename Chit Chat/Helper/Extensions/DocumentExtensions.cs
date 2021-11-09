@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 
 namespace ChitChat.Helper.Extensions
@@ -29,6 +30,11 @@ namespace ChitChat.Helper.Extensions
                 stream.Read(RTFdata, 0, RTFdata.Length);
             };
             return RTFdata;
+        }
+
+        public static void RemoveParent(this FlowDocumentScrollViewer document)
+        {
+            document.Document = null;
         }
     }
 }

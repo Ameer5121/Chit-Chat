@@ -57,7 +57,7 @@
         </materialDesign:Card>
 
         <!--Message Window-->
-        <ListBox x:Name="PrivateMessagesListView"
+        <ListBox x:Name="PrivateChat"
                   Background="Transparent" 
                   Grid.ColumnSpan="2"
                   Grid.Row="1"                   

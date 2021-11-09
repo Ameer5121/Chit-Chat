@@ -21,6 +21,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using ChitChat.Events;
 using ChitChat.Helper;
+using ChitChat.Helper.Enums;
 using MaterialDesignThemes.Wpf;
 using ChitChat.Helper.Exceptions;
 using System.Windows.Forms;
@@ -41,11 +42,12 @@ namespace ChitChat.ViewModels
         private bool _isUploading;
         private bool _controlsEnabled = true;
         private bool _isPrivateChatting = false;
+        private MessageDisplay _messageDisplay;
         private ErrorModel _error;
         private const int _characterLimit = 600;
         private int _publicMessageLength;
         private int _privateMessageLength;
-        private static Helper.Theme _currentTheme;
+        private static Helper.Enums.Theme _currentTheme;
         private FlowDocument _currentPublicMessage;
         private FlowDocument _currentPrivateMessage;
         private HubConnection _connection;
@@ -55,6 +57,7 @@ namespace ChitChat.ViewModels
         public event EventHandler<MessageEventArgs> MessageReceived;
         public event EventHandler<EmojiEventArgs> EmojiClick;
         public event EventHandler<ThemeEventArgs> ThemeChange;
+        public event EventHandler<MessageDisplayEventArgs> MessageDisplayChange;
         public EventHandler<UploadEventArgs> PictureSelected;
         public event EventHandler PrivateChatEnter;
 
@@ -155,14 +158,26 @@ namespace ChitChat.ViewModels
             get => _privateMessageLength;
             set => SetPropertyValue(ref _privateMessageLength, value);
         }
-        public Array Themes { get; } = Enum.GetValues(typeof(Helper.Theme));
-        public Helper.Theme CurrentTheme
+        public Array Themes { get; } = Enum.GetValues(typeof(Helper.Enums.Theme));
+
+        public Array MessageDisplayOptions { get; } = Enum.GetValues(typeof(MessageDisplay));
+        public Helper.Enums.Theme CurrentTheme
         {
             get => _currentTheme;
             set
             {
                 ThemeChange?.Invoke(this, new ThemeEventArgs { NewTheme = value });
                 _currentTheme = value;
+            }
+        }
+
+        public MessageDisplay CurrentMessageDisplay
+        {
+            get => _messageDisplay;
+            set
+            {
+                MessageDisplayChange?.Invoke(this, new MessageDisplayEventArgs { NewMessageDisplay = value });
+                _messageDisplay = value;
             }
         }
         private bool CanConstructPublicMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString());
@@ -417,6 +432,7 @@ namespace ChitChat.ViewModels
                 ConstructError(e.Subject, e.Message);
                 await DisplayError();
                 return;
+                
             }
             if (image != null)
             {

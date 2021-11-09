@@ -238,11 +238,13 @@
     </ApplicationDefinition>
     <Compile Include="Events\DocumentEventArgs.cs" />
     <Compile Include="Events\EmojiEventArgs.cs" />
+    <Compile Include="Events\MessageDisplayEventArgs.cs" />
     <Compile Include="Events\MessageEventArgs.cs" />
     <Compile Include="Events\UploadEventArgs.cs" />
     <Compile Include="Events\ThemeEventArgs.cs" />
     <Compile Include="Helper\Converters\CharacterCountConverter.cs" />
     <Compile Include="Helper\Converters\LessThanZeroConverter.cs" />
+    <Compile Include="Helper\Enums\MessageDisplay.cs" />
     <Compile Include="Helper\Exceptions\SendException.cs" />
     <Compile Include="Helper\Exceptions\SizeException.cs" />
     <Compile Include="Helper\Extensions\DecryptingExtension.cs" />
@@ -256,7 +258,7 @@
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Helper\Exceptions\RegistrationException.cs" />
     <Compile Include="Helper\AttachedProperties\ScrollBehavior.cs" />
-    <Compile Include="Helper\Theme.cs" />
+    <Compile Include="Helper\Enums\Theme.cs" />
     <Compile Include="Models\DataModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\Markers\DataTransferObject.cs" />
@@ -507,6 +509,7 @@
   <ItemGroup>
     <Resource Include="Resources\Emojis\raisedhands.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
