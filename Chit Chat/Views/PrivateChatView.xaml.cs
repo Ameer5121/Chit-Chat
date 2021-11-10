@@ -43,6 +43,7 @@ namespace ChitChat.Views
             _chatVM.MessageSent -= ClearPrivateTextBox;
             _chatVM.EmojiClick -= SetEmoji;
             _chatVM.Refresh -= OnRefresh;
+            _chatVM.MessageDisplayChange -= ChangeMessageDisplay;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }

@@ -159,8 +159,8 @@ namespace ChitChat.ViewModels
             set => SetPropertyValue(ref _privateMessageLength, value);
         }
         public Array Themes { get; } = Enum.GetValues(typeof(Helper.Enums.Theme));
-
         public Array MessageDisplayOptions { get; } = Enum.GetValues(typeof(MessageDisplay));
+
         public Helper.Enums.Theme CurrentTheme
         {
             get => _currentTheme;
