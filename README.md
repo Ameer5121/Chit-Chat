@@ -60,8 +60,3 @@ For a more detailed overview, refer to these links:
 # Application State
 This application is not finished, and there are a lot of things planned.
 
-
-# More Images:
-
-Character Limit
-![messagetoolong](https://user-images.githubusercontent.com/71935713/130817450-e3d8d093-f245-455b-9e18-4cea70eb71ad.png)
