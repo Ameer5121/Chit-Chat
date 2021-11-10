@@ -42,7 +42,7 @@ namespace ChitChat.ViewModels
         private bool _isUploading;
         private bool _controlsEnabled = true;
         private bool _isPrivateChatting = false;
-        private MessageDisplay _messageDisplay;
+        private MessageDisplay? _messageDisplay = null;
         private ErrorModel _error;
         private const int _characterLimit = 600;
         private int _publicMessageLength;
@@ -171,7 +171,7 @@ namespace ChitChat.ViewModels
             }
         }
 
-        public MessageDisplay CurrentMessageDisplay
+        public MessageDisplay? CurrentMessageDisplay
         {
             get => _messageDisplay;
             set

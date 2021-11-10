@@ -352,7 +352,7 @@
                                           Height="32">
                                         <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
                                           ItemsSource="{Binding MessageDisplayOptions}"
-                                          SelectedItem="{Binding CurrentMessageDisplay, Mode=TwoWay}"
+                                          SelectedItem="{Binding CurrentMessageDisplay, Mode=OneWayToSource}"                                         
                                           materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource DefaultUnderLineBrush}"
                                           Foreground="{DynamicResource Text}"
                                           BorderBrush="{DynamicResource ButtonsBorderBrush}">

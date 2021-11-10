@@ -9,6 +9,6 @@ namespace ChitChat.Events
 {
     public class MessageDisplayEventArgs : EventArgs
     {
-        public MessageDisplay NewMessageDisplay { get; set; }
+        public MessageDisplay? NewMessageDisplay { get; set; }
     }
 }
