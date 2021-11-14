@@ -20,13 +20,15 @@ namespace ChitChat.Views
             if (theme == Theme.Light)
             {
                 this.Resources["DefaultWindowTheme"] = this.Resources["WindowLightTheme"];
+                this.Resources["DefaultEmojiWindowTheme"] = this.Resources["EmojiWindowLightTheme"];
                 this.Resources["DefaultSubWindowTheme"] = this.Resources["SubWindowLightTheme"];
                 this.Resources["WindowBorder"] = this.Resources["WindowBorderLightTheme"];
                 this.Resources["Menu"] = this.Resources["MenuLightTheme"];
                 this.Resources["MessageHistoryBorder"] = this.Resources["MessageHistoryBorderLightTheme"];
                 this.Resources["Chat"] = this.Resources["ChatLightTheme"];
                 this.Resources["PrivateChat"] = this.Resources["PrivateChatLightTheme"];
-                this.Resources["MenuOptions"] = this.Resources["MenuOptionsLightTheme"];
+                this.Resources["UserSettings"] = this.Resources["MenuOptionsLightTheme"];
+                this.Resources["Users"] = this.Resources["UsersLightTheme"];
                 this.Resources["Buttons"] = this.Resources["ButtonsLightTheme"];
                 this.Resources["ButtonsBorderBrush"] = this.Resources["ButtonsBorderBrushLightTheme"];
                 this.Resources["TextBoxBorderBrush"] = this.Resources["TextBoxBorderBrushLightTheme"];
@@ -41,13 +43,15 @@ namespace ChitChat.Views
             else
             {
                 this.Resources["DefaultWindowTheme"] = this.Resources["WindowDarkTheme"];
+                this.Resources["DefaultEmojiWindowTheme"] = this.Resources["EmojiWindowDarkTheme"];
                 this.Resources["DefaultSubWindowTheme"] = this.Resources["SubWindowDarkTheme"];
                 this.Resources["WindowBorder"] = this.Resources["WindowBorderDarkTheme"];
                 this.Resources["Menu"] = this.Resources["MenuDarkTheme"];
                 this.Resources["MessageHistoryBorder"] = this.Resources["MessageHistoryBorderDarkTheme"];
                 this.Resources["Chat"] = this.Resources["ChatDarkTheme"];
                 this.Resources["PrivateChat"] = this.Resources["PrivateChatDarkTheme"];
-                this.Resources["MenuOptions"] = this.Resources["MenuOptionsDarkTheme"];
+                this.Resources["UserSettings"] = this.Resources["UserSettingsDarkTheme"];
+                this.Resources["Users"] = this.Resources["UsersDarkTheme"];
                 this.Resources["Buttons"] = this.Resources["ButtonsDarkTheme"];
                 this.Resources["ButtonsBorderBrush"] = this.Resources["ButtonsBorderBrushDarkTheme"];
                 this.Resources["TextBoxBorderBrush"] = this.Resources["TextBoxBorderBrushDarkTheme"];
