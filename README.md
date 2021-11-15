@@ -6,16 +6,16 @@ Login             |  Register
 ![1](https://user-images.githubusercontent.com/71935713/110955002-ca075580-8351-11eb-97ce-832d15ac0ad1.png)  |  ![2](https://user-images.githubusercontent.com/71935713/110955050-d68bae00-8351-11eb-9e12-406220e313a7.png)
 
 Public Chat
-![publicchat](https://user-images.githubusercontent.com/71935713/140618050-23ee773f-a2e2-4f1e-926b-22a769b60091.png)
+![publicchat](https://user-images.githubusercontent.com/71935713/141117923-0a7ccd65-8011-430a-a00a-2615d55e761a.png)
 
 Private Chat
-![privatechat](https://user-images.githubusercontent.com/71935713/140618060-50b3154c-4a7e-4ab5-93cb-a0a516f433d4.png)
+![privatechat](https://user-images.githubusercontent.com/71935713/141117955-18a0522d-2698-4f43-8252-a0efb1ae82e0.png)
 
 Light Theme
-![lightheme](https://user-images.githubusercontent.com/71935713/140618068-80fe7c7a-4d18-40e5-886c-784a42c56237.png)
+![light](https://user-images.githubusercontent.com/71935713/141117993-a80709a6-7555-4a12-9894-2090900d75b5.png)
 
 Image Sending
-![picturesending](https://user-images.githubusercontent.com/71935713/140618072-e512a7db-6a5e-4dbe-866f-72fc01eed72b.png)
+![imagesending](https://user-images.githubusercontent.com/71935713/141118017-1c753732-8727-4801-84bf-8d2fa878a518.png)
 
 
 # Contains usages of:
@@ -60,8 +60,3 @@ For a more detailed overview, refer to these links:
 # Application State
 This application is not finished, and there are a lot of things planned.
 
-
-# More Images:
-
-Character Limit
-![messagetoolong](https://user-images.githubusercontent.com/71935713/130817450-e3d8d093-f245-455b-9e18-4cea70eb71ad.png)
