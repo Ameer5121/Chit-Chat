@@ -143,7 +143,6 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -171,13 +170,13 @@
                 <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"></Border>
                 <Border Background="Gray" Width="60" Height="1" Margin="0,0,10,0" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"></Border>
 
-                <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center">
+                <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center">
                     <materialDesign:PackIcon Kind="Application" Width="20" Height="20" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
                     <TextBlock Text="Application" VerticalAlignment="Center" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
                 </DockPanel>
 
-                <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left"></Border>
-                <Border Background="Gray" Width="60" Height="1" Margin="0,0,10,0" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right"></Border>
+                <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left"></Border>
+                <Border Background="Gray" Width="60" Height="1" Margin="0,0,10,0" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right"></Border>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
                     <Button Foreground="Silver" 
@@ -227,8 +226,9 @@
                             </Style>
                         </ProgressBar.Style>
                     </ProgressBar>
+                    
+                    
                 </StackPanel>
-
 
                 <Button Foreground="Silver"    
                                    Margin="10,10,0,10"
@@ -247,68 +247,72 @@
                 </Button>
 
 
-                <materialDesign:Card Grid.Row="5" Grid.ColumnSpan="2"
+                <StackPanel Grid.Row="5">
+                    <materialDesign:Card Grid.Row="5" Grid.ColumnSpan="2"
                                                          Margin="10,10,0,10"
                                           HorizontalAlignment="Left"
                                           Background="Transparent"
                                           Width="150"
                                           BorderBrush="{DynamicResource ButtonsBorderBrush}"
                                           Height="32">
-                    <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
+                        <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
                                           ItemsSource="{Binding Themes}"                          
                                           SelectedItem="{Binding CurrentTheme, Mode=TwoWay}"
                                           materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource UnderLineBrush}"
                                           Foreground="{DynamicResource Text}">
-                        <materialDesign:HintAssist.Hint>
-                            <TextBlock TextAlignment="Center" Foreground="{DynamicResource Text}">Theme</TextBlock>
-                        </materialDesign:HintAssist.Hint>
-                        <ComboBox.ItemContainerStyle>
-                            <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}" >
-                                <Setter Property="Background" Value="{DynamicResource SubWindow}"></Setter>
-                                <Setter Property="Width" Value="140"></Setter>
-                            </Style>
-                        </ComboBox.ItemContainerStyle>
-                    </ComboBox>
-                </materialDesign:Card>
+                            <materialDesign:HintAssist.Hint>
+                                <TextBlock TextAlignment="Center" Foreground="{DynamicResource Text}">Theme</TextBlock>
+                            </materialDesign:HintAssist.Hint>
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}" >
+                                    <Setter Property="Background" Value="{DynamicResource SubWindow}"></Setter>
+                                    <Setter Property="Width" Value="140"></Setter>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+                    </materialDesign:Card>
 
-                <materialDesign:Card Grid.Row="6" Grid.ColumnSpan="2"
+                    <materialDesign:Card Grid.Row="6" Grid.ColumnSpan="2"
                                                          Margin="10,10,0,10"
                                           HorizontalAlignment="Left"
                                           Background="Transparent"
                                           Width="150"
                                           Height="32">
-                    <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
+                        <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
                                           ItemsSource="{Binding MessageDisplayOptions}"
                                           SelectedItem="{Binding CurrentMessageDisplay, Mode=OneWayToSource}"                                         
                                           materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource UnderLineBrush}"
                                           Foreground="{DynamicResource Text}"
 >
-                        <materialDesign:HintAssist.Hint>
-                            <TextBlock TextAlignment="Center" Foreground="{DynamicResource Text}">Message Display</TextBlock>
-                        </materialDesign:HintAssist.Hint>
-                        <ComboBox.ItemContainerStyle>
-                            <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}" >
-                                <Setter Property="Background" Value="{DynamicResource SubWindow}"></Setter>
-                                <Setter Property="Width" Value="140"></Setter>
-                            </Style>
-                        </ComboBox.ItemContainerStyle>
-                    </ComboBox>
-                </materialDesign:Card>
+                            <materialDesign:HintAssist.Hint>
+                                <TextBlock TextAlignment="Center" Foreground="{DynamicResource Text}">Message Display</TextBlock>
+                            </materialDesign:HintAssist.Hint>
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}" >
+                                    <Setter Property="Background" Value="{DynamicResource SubWindow}"></Setter>
+                                    <Setter Property="Width" Value="140"></Setter>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+                    </materialDesign:Card>
 
+                </StackPanel>
 
-                <Button Foreground="Red" Grid.Row="8" Grid.ColumnSpan="2"                               
+                <StackPanel Grid.Row="7">
+                    <Button Foreground="Red" Grid.Row="7" Grid.ColumnSpan="2"                               
                                 HorizontalAlignment="Left"
                                Background="Transparent"
                                BorderBrush="{DynamicResource ButtonsBorderBrush}"
                                Margin="10,10,0,10"
                                Command="{Binding DisconnectCommand}">
-                    <StackPanel Orientation="Horizontal" Width="121" Height="28">
-                        <materialDesign:PackIcon Kind="Logout" Width="22" Height="18" Margin="0,5,0,0"/>
-                        <TextBlock Text="Log Out" 
+                        <StackPanel Orientation="Horizontal" Width="121" Height="28">
+                            <materialDesign:PackIcon Kind="Logout" Width="22" Height="18" Margin="0,5,0,0"/>
+                            <TextBlock Text="Log Out" 
                                                Foreground="Red"
                                                TextAlignment="Center" Height="18" Width="55"/>
-                    </StackPanel>
-                </Button>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </Grid>
             <Border Grid.Column="6" Grid.Row="1" Background="{DynamicResource Users}">
                 <DockPanel HorizontalAlignment="Center" Grid.Column="6" Grid.Row="1" LastChildFill="False">

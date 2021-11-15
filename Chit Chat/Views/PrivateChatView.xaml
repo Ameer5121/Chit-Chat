@@ -36,7 +36,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Black Border & Exit Button-->
-        <Border Background="{DynamicResource WindowBorder}" Grid.Row="0" Grid.ColumnSpan="2">
+        <Border Background="{DynamicResource MessageHistoryBorder}" Grid.Row="0" Grid.ColumnSpan="2">
             <DockPanel LastChildFill="False">
                 <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" Command="{Binding PrivateChatExitCommand}"
                         Click="OnExitClick"
@@ -105,7 +105,7 @@
         <!--Chat typing-->
         <materialDesign:Card 
             UniformCornerRadius="5"
-            Grid.Row="2" Background="Transparent">
+            Grid.Row="2" Background="{DynamicResource TextBox}">
             <DockPanel>
                 <materialDesign:PopupBox Margin="0,4,0,0" DockPanel.Dock="Left" VerticalAlignment="Top" PlacementMode="TopAndAlignCentres" HorizontalAlignment="Right">
                     <DockPanel LastChildFill="False">
