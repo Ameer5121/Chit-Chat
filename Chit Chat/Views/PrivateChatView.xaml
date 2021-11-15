@@ -53,7 +53,7 @@
             </DockPanel>
         </Border>
 
-        <materialDesign:Card Grid.Row="1" Grid.ColumnSpan="2" Background="{DynamicResource PrivateChat}" UniformCornerRadius="5" Grid.RowSpan="2">
+        <materialDesign:Card Grid.Row="1" Grid.ColumnSpan="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="2">
         </materialDesign:Card>
 
         <!--Message Window-->
@@ -80,7 +80,7 @@
                             </Ellipse.Fill>
                         </Ellipse>
                         <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">                              
-                            <Run Text="{Binding User.DisplayName}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
+                            <Run Text="{Binding User.DisplayName}" Foreground="{DynamicResource ChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
                         </TextBlock>

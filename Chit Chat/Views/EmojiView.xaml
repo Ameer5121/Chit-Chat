@@ -9,7 +9,7 @@
              Width="408" 
              Height="333"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource DefaultEmojiWindowTheme}"
+        Background="{DynamicResource EmojiWindow}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}">

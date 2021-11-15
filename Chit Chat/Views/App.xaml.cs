@@ -19,9 +19,9 @@ namespace ChitChat.Views
         {
             if (theme == Theme.Light)
             {
-                this.Resources["DefaultWindowTheme"] = this.Resources["WindowLightTheme"];
-                this.Resources["DefaultEmojiWindowTheme"] = this.Resources["EmojiWindowLightTheme"];
-                this.Resources["DefaultSubWindowTheme"] = this.Resources["SubWindowLightTheme"];
+                this.Resources["ChatWindow"] = this.Resources["WindowLightTheme"];
+                this.Resources["EmojiWindow"] = this.Resources["EmojiWindowLightTheme"];
+                this.Resources["SubWindow"] = this.Resources["SubWindowLightTheme"];
                 this.Resources["WindowBorder"] = this.Resources["WindowBorderLightTheme"];
                 this.Resources["Menu"] = this.Resources["MenuLightTheme"];
                 this.Resources["MessageHistoryBorder"] = this.Resources["MessageHistoryBorderLightTheme"];
@@ -36,15 +36,15 @@ namespace ChitChat.Views
                 this.Resources["Text2"] = this.Resources["Text2LightTheme"];
                 this.Resources["Icons"] = this.Resources["IconsLightTheme"];
                 this.Resources["ExpanderButton"] = this.Resources["ExpanderButtonLightTheme"];
-                this.Resources["DefaultTextBoxTheme"] = this.Resources["TextBoxLightTheme"];
-                this.Resources["DefaultChatDisplayName"] = this.Resources["ChatDisplayNameLightTheme"];
-                this.Resources["DefaultUnderLineBrush"] = this.Resources["UnderLineBrushLightTheme"];
+                this.Resources["TextBox"] = this.Resources["TextBoxLightTheme"];
+                this.Resources["ChatDisplayName"] = this.Resources["ChatDisplayNameLightTheme"];
+                this.Resources["UnderLineBrush"] = this.Resources["UnderLineBrushLightTheme"];
             }
             else
             {
-                this.Resources["DefaultWindowTheme"] = this.Resources["WindowDarkTheme"];
-                this.Resources["DefaultEmojiWindowTheme"] = this.Resources["EmojiWindowDarkTheme"];
-                this.Resources["DefaultSubWindowTheme"] = this.Resources["SubWindowDarkTheme"];
+                this.Resources["ChatWindow"] = this.Resources["WindowDarkTheme"];
+                this.Resources["EmojiWindow"] = this.Resources["EmojiWindowDarkTheme"];
+                this.Resources["SubWindow"] = this.Resources["SubWindowDarkTheme"];
                 this.Resources["WindowBorder"] = this.Resources["WindowBorderDarkTheme"];
                 this.Resources["Menu"] = this.Resources["MenuDarkTheme"];
                 this.Resources["MessageHistoryBorder"] = this.Resources["MessageHistoryBorderDarkTheme"];
@@ -59,9 +59,9 @@ namespace ChitChat.Views
                 this.Resources["Text2"] = this.Resources["Text2DarkTheme"];
                 this.Resources["Icons"] = this.Resources["IconsDarkTheme"];
                 this.Resources["ExpanderButton"] = this.Resources["ExpanderButtonDarkTheme"];
-                this.Resources["DefaultTextBoxTheme"] = this.Resources["TextBoxDarkTheme"];
-                this.Resources["DefaultChatDisplayName"] = this.Resources["ChatDisplayNameDarkTheme"];
-                this.Resources["DefaultUnderLineBrush"] = this.Resources["UnderLineBrushDarkTheme"];
+                this.Resources["TextBox"] = this.Resources["TextBoxDarkTheme"];
+                this.Resources["ChatDisplayName"] = this.Resources["ChatDisplayNameDarkTheme"];
+                this.Resources["UnderLineBrush"] = this.Resources["UnderLineBrushDarkTheme"];
             }
         }
     }

@@ -36,12 +36,13 @@
             <SolidColorBrush x:Key="Text2" Color="Silver"></SolidColorBrush>
             <SolidColorBrush x:Key="Icons" Color="White"></SolidColorBrush>
             <SolidColorBrush x:Key="ExpanderButton" Color="#DDFFFFFF"></SolidColorBrush>
-            <SolidColorBrush x:Key="DefaultTextBoxTheme" Color="#40444B"></SolidColorBrush>
-            <SolidColorBrush x:Key="DefaultWindowTheme" Color="#202225"></SolidColorBrush>
-            <SolidColorBrush x:Key="DefaultEmojiWindowTheme" Color="#2F3136"></SolidColorBrush>
-            <SolidColorBrush x:Key="DefaultSubWindowTheme">#FF303030</SolidColorBrush>
-            <SolidColorBrush x:Key="DefaultChatDisplayName" Color="Silver"></SolidColorBrush>
-            <SolidColorBrush x:Key="DefaultUnderLineBrush" Color="#FF2C2B2B"></SolidColorBrush>
+            <SolidColorBrush x:Key="TextBox" Color="#40444B"></SolidColorBrush>
+            <SolidColorBrush x:Key="ChatWindow" Color="#202225"></SolidColorBrush>
+            <SolidColorBrush x:Key="HomeWindow" Color="#2F3136"></SolidColorBrush>
+            <SolidColorBrush x:Key="EmojiWindow" Color="#2F3136"></SolidColorBrush>
+            <SolidColorBrush x:Key="SubWindow">#FF303030</SolidColorBrush>
+            <SolidColorBrush x:Key="ChatDisplayName" Color="Silver"></SolidColorBrush>
+            <SolidColorBrush x:Key="UnderLineBrush" Color="#FF2C2B2B"></SolidColorBrush>
            
 
 
@@ -99,7 +100,7 @@
                     <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="10,0,0,0">
                             <Run Text="{Binding MessageDate, StringFormat=t, Mode=OneTime}" Foreground="Gray" FontSize="10"></Run>
                             <Run Text=""></Run>
-                            <Run Text="{Binding User.DisplayName, Mode=OneTime}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
+                            <Run Text="{Binding User.DisplayName, Mode=OneTime}" Foreground="{DynamicResource ChatDisplayName}"></Run>
                     </TextBlock>
                     <FlowDocumentScrollViewer DockPanel.Dock="Left" Document="{Binding Message, Mode=OneTime}" 
                                                       HorizontalAlignment="Left" Height="Auto"
@@ -118,7 +119,7 @@
                         </Ellipse.Fill>
                     </Ellipse>
                     <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">
-                            <Run Text="{Binding User.DisplayName, Mode=OneTime}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
+                            <Run Text="{Binding User.DisplayName, Mode=OneTime}" Foreground="{DynamicResource ChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t, Mode=OneTime}" Foreground="Gray" FontSize="10"></Run>
                     </TextBlock>

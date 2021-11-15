@@ -5,7 +5,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             Background="{DynamicResource MaterialDesignDarkBackground}"
+             Background="{StaticResource HomeWindow}"
              xmlns:local="clr-namespace:ChitChat.Views"
              mc:Ignorable="d" 
              Height="497.667" Width="654.5">
@@ -120,8 +120,8 @@
             Grid.Column="1"
             VerticalAlignment="Bottom"
             Foreground="White"
-            Background="#FF433F3F"
-            BorderBrush="#FF2C2B2B"/>
+            Background="Transparent"
+            BorderBrush="{StaticResource ButtonsBorderBrush}"/>
 
         <TextBlock Text="{Binding Status}"
                    Margin="0,5,0,0"
@@ -168,8 +168,8 @@
             VerticalAlignment="Bottom"
             Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
             Foreground="White"
-            Background="#FF433F3F"
-            BorderBrush="#FF2C2B2B"
+            Background="Transparent"
+            BorderBrush="{StaticResource ButtonsBorderBrush}"
             Click="Exit"/>
     </Grid>
 </UserControl>

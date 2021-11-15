@@ -17,7 +17,7 @@
         WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown"
         TextElement.Foreground="{DynamicResource Text}"
-        Background="{DynamicResource DefaultWindowTheme}"
+        Background="{DynamicResource ChatWindow}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
@@ -73,7 +73,7 @@
                          Foreground="{DynamicResource Text}"
                          materialDesign:HintAssist.Foreground="{DynamicResource Text}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource DefaultUnderLineBrush}" Text="{Binding NewName}"></TextBox>
+                         materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource UnderLineBrush}" Text="{Binding NewName}"></TextBox>
                 <Button Grid.Row="1" 
                         Grid.Column="1" 
                         HorizontalAlignment="Left"
@@ -119,7 +119,7 @@
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
 
 
@@ -180,12 +180,12 @@
                 <Border Background="Gray" Width="60" Height="1" Margin="0,0,10,0" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right"></Border>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
-                    <Button Foreground="Silver"    
-                                   Margin="10,10,0,10"
-                                 Width="Auto"
-                                HorizontalAlignment="Left"
+                    <Button Foreground="Silver" 
+                               Margin="10,10,0,10"
+                               Width="Auto"
+                               HorizontalAlignment="Left"
                                Background="Transparent"
-                               BorderBrush="{DynamicResource ButtonsBorderBrush}"                              
+                               BorderBrush="{StaticResource ButtonsBorderBrush}"             
                                Command="{Binding ChooseProfilePictureCommand}">
                         <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
                             <materialDesign:PackIcon Kind="FaceProfile" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
@@ -236,7 +236,7 @@
                                  Width="Auto"
                                 HorizontalAlignment="Left"
                                Background="Transparent"                               
-                               BorderBrush="{DynamicResource ButtonsBorderBrush}"                              
+                               BorderBrush="{DynamicResource ButtonsBorderBrush}" 
                                Command="{Binding ShowNameChangerDialogCommand}">
                     <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
                         <materialDesign:PackIcon Kind="User" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
@@ -254,17 +254,17 @@
                                           Width="150"
                                           BorderBrush="{DynamicResource ButtonsBorderBrush}"
                                           Height="32">
-                    <ComboBox
+                    <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
                                           ItemsSource="{Binding Themes}"                          
                                           SelectedItem="{Binding CurrentTheme, Mode=TwoWay}"
-                                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource DefaultUnderLineBrush}"
+                                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource UnderLineBrush}"
                                           Foreground="{DynamicResource Text}">
                         <materialDesign:HintAssist.Hint>
                             <TextBlock TextAlignment="Center" Foreground="{DynamicResource Text}">Theme</TextBlock>
                         </materialDesign:HintAssist.Hint>
                         <ComboBox.ItemContainerStyle>
                             <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}" >
-                                <Setter Property="Background" Value="{DynamicResource DefaultSubWindowTheme}"></Setter>
+                                <Setter Property="Background" Value="{DynamicResource SubWindow}"></Setter>
                                 <Setter Property="Width" Value="140"></Setter>
                             </Style>
                         </ComboBox.ItemContainerStyle>
@@ -277,10 +277,10 @@
                                           Background="Transparent"
                                           Width="150"
                                           Height="32">
-                    <ComboBox
+                    <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
                                           ItemsSource="{Binding MessageDisplayOptions}"
                                           SelectedItem="{Binding CurrentMessageDisplay, Mode=OneWayToSource}"                                         
-                                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource DefaultUnderLineBrush}"
+                                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource UnderLineBrush}"
                                           Foreground="{DynamicResource Text}"
 >
                         <materialDesign:HintAssist.Hint>
@@ -288,7 +288,7 @@
                         </materialDesign:HintAssist.Hint>
                         <ComboBox.ItemContainerStyle>
                             <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}" >
-                                <Setter Property="Background" Value="{DynamicResource DefaultSubWindowTheme}"></Setter>
+                                <Setter Property="Background" Value="{DynamicResource SubWindow}"></Setter>
                                 <Setter Property="Width" Value="140"></Setter>
                             </Style>
                         </ComboBox.ItemContainerStyle>
@@ -367,7 +367,8 @@
                   Grid.Row="2"                   
                   ItemsSource="{Binding PublicMessages}"                  
                   VirtualizingStackPanel.IsVirtualizing="False"
-                 RenderTransformOrigin="0.5,0.5" AttachedProperties:ScrollBehavior.ScrollOnNewItem="True">
+                 RenderTransformOrigin="0.5,0.5" AttachedProperties:ScrollBehavior.ScrollOnNewItem="True"
+                     ScrollViewer.CanContentScroll="False">
 
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -383,7 +384,7 @@
                                 </Ellipse.Fill>
                             </Ellipse>
                             <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">
-                            <Run Text="{Binding User.DisplayName, Mode=OneTime}" Foreground="{DynamicResource DefaultChatDisplayName}"></Run>
+                            <Run Text="{Binding User.DisplayName, Mode=OneTime}" Foreground="{DynamicResource ChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t, Mode=OneTime}" Foreground="Gray" FontSize="10"></Run>
                             </TextBlock>
@@ -404,7 +405,7 @@
             Grid.ColumnSpan="2"
             Margin="20,0,0,0"
             Grid.Column="2"
-            Background="{DynamicResource DefaultTextBoxTheme}">
+            Background="{DynamicResource TextBox}">
             </materialDesign:Card>
 
             <!--Public chat textbox-->

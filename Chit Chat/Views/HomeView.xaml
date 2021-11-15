@@ -13,7 +13,7 @@
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignDarkBackground}"
+        Background="{StaticResource HomeWindow}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
@@ -48,7 +48,7 @@
         </materialDesign:Transitioner>
 
         <!--Black Border & Exit Button-->
-        <Border Background="#FF2C2B2B" Grid.Row="0" Grid.ColumnSpan="3">
+        <Border Background="{StaticResource HomeWindow}" Grid.Row="0" Grid.ColumnSpan="3">
             <DockPanel LastChildFill="False">
                 <materialDesign:PackIcon Kind="ChatBubbleOutline" Height="48" Width="28"></materialDesign:PackIcon>
                 <TextBlock Text="Chit Chat" 
@@ -112,13 +112,13 @@
         <Button 
                 Grid.Row="3"
                 Grid.Column="1"
-                Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                Content="Login" 
-                FontSize="24"               
-                Background="#FF433F3F"
+                BorderBrush="{StaticResource ButtonsBorderBrush}"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Content="Login"
+                FontSize="24"
+                Background="Transparent"
                 Foreground="White"
-                BorderBrush="#FF2C2B2B"
-                Command="{Binding LoginCommand, UpdateSourceTrigger=PropertyChanged}" Height="70" Width="160"></Button>
+                Command="{Binding LoginCommand, UpdateSourceTrigger=PropertyChanged}" Height="70" Width="160"/>
 
 
         <!--Register-->
@@ -130,8 +130,8 @@
             FontSize="25"
             Click="Register"
             Foreground="White"
-            Background="#FF433F3F"
-            BorderBrush="#FF2C2B2B" Height="70" Width="160"></Button>
+            Background="Transparent"
+           BorderBrush="{StaticResource ButtonsBorderBrush}" Height="70" Width="160"></Button>
 
         <TextBlock Text="{Binding Status}"
                    DataContext="{Binding HomeLogger}"
