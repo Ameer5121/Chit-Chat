@@ -57,7 +57,7 @@
             <SolidColorBrush x:Key="PrivateChatDarkTheme" Color="#FF2E2E2E"></SolidColorBrush>
             <SolidColorBrush x:Key="UserSettingsDarkTheme" Color="#2F3136"></SolidColorBrush>
             <SolidColorBrush x:Key="UsersDarkTheme" Color="#2F3136"></SolidColorBrush>
-            <SolidColorBrush x:Key="ButtonsDarkTheme" Color="#FF433F3F"></SolidColorBrush>
+            <SolidColorBrush x:Key="ButtonsDarkTheme" Color="#303338"></SolidColorBrush>
             <SolidColorBrush x:Key="ButtonsBorderBrushDarkTheme" Color="#FF2C2B2B"></SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxBorderBrushDarkTheme" Color="AliceBlue"></SolidColorBrush>
             <SolidColorBrush x:Key="TextDarkTheme" Color="AliceBlue"></SolidColorBrush>

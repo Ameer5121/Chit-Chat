@@ -114,7 +114,6 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="5"/>
@@ -132,6 +131,16 @@
                 </DockPanel>
             </Border>
 
+            <DockPanel LastChildFill="False">
+                <materialDesign:PackIcon Kind="ChatBubbleOutline" Height="20" Width="28" VerticalAlignment="Center"></materialDesign:PackIcon>
+                <TextBlock Text="Chit Chat" 
+                   TextAlignment="Center"
+                       VerticalAlignment="Center"
+                   FontSize="15"
+                   Foreground="White" Style="{StaticResource MaterialDesignHeadline3TextBlock}" 
+                   Width="70"/>
+            </DockPanel>
+            
             <Grid Margin="0,0" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" Background="{DynamicResource UserSettings}">
                 
                 <Grid.RowDefinitions>
@@ -230,7 +239,8 @@
                     
                 </StackPanel>
 
-                <Button Foreground="Silver"    
+                <StackPanel Grid.Row="3">
+                    <Button Foreground="Silver"    
                                    Margin="10,10,0,10"
                                  Grid.Row="3"
                                  Width="Auto"
@@ -238,13 +248,14 @@
                                Background="{DynamicResource Buttons}"                               
                                BorderBrush="{DynamicResource ButtonsBorderBrush}" 
                                Command="{Binding ShowNameChangerDialogCommand}">
-                    <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
-                        <materialDesign:PackIcon Kind="User" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
-                        <TextBlock Text="Change Display Name" 
+                        <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
+                            <materialDesign:PackIcon Kind="User" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
+                            <TextBlock Text="Change Display Name" 
                                                Foreground="{DynamicResource Text2}"
                                                TextAlignment="Center" Height="18" Width="Auto"/>
-                    </StackPanel>
-                </Button>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
 
 
                 <StackPanel Grid.Row="5">
@@ -356,17 +367,19 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <materialDesign:Card UniformCornerRadius="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Margin="10,0,0,0" Background="{DynamicResource MessageHistoryBorder}">
+            <materialDesign:Card UniformCornerRadius="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Margin="0,0,0,0" Background="{DynamicResource MessageHistoryBorder}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
                     <TextBlock Width="116" Text="Message History" VerticalAlignment="Center" Foreground="{DynamicResource Text}"></TextBlock>
                 </StackPanel>
             </materialDesign:Card>
-            <materialDesign:Card Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="3" Margin="10,5,0,0"></materialDesign:Card>
+            <materialDesign:Card Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="3" Margin="0,0,0,0"></materialDesign:Card>
 
+            <Border Background="Black" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" Height="0.5" Grid.ColumnSpan="8" Opacity="0.5"></Border>
+        
             <ListBox x:Name="PublicChat" Grid.Column="1"
                   Grid.ColumnSpan="4"  
-                  Margin="10,5,0,0"
+                  Margin="0,0,0,0"
                   Background="Transparent"
                   Grid.Row="2"                   
                   ItemsSource="{Binding PublicMessages}"                  
@@ -408,7 +421,7 @@
             Grid.Row="3"
             Grid.ColumnSpan="2"
             Margin="20,0,0,0"
-            Grid.Column="2"
+            Grid.Column="1"
             Background="{DynamicResource TextBox}">
             </materialDesign:Card>
 
@@ -418,7 +431,7 @@
             Grid.Row="3"
             Grid.ColumnSpan="1"
             Margin="20,0,0,0"
-            Grid.Column="2"
+            Grid.Column="1"
             Background="Transparent">
                 <DockPanel LastChildFill="False">
                     <materialDesign:PopupBox Margin="0,4,0,0" DockPanel.Dock="Left" VerticalAlignment="Top" PlacementMode="TopAndAlignCentres" HorizontalAlignment="Right">
@@ -455,7 +468,7 @@
             </materialDesign:Card>
 
 
-            <Button Background="Transparent" BorderBrush="Transparent" Grid.Column="3" Grid.Row="3" VerticalAlignment="Top" Click="Emoji_Click" Height="33" HorizontalAlignment="Right" Padding="0" IsEnabled="{Binding ControlsEnabled}">
+            <Button Background="Transparent" BorderBrush="Transparent" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" Click="Emoji_Click" Height="33" HorizontalAlignment="Right" Padding="0" IsEnabled="{Binding ControlsEnabled}">
                 <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>
             </Button>
 
@@ -506,7 +519,7 @@
 
 
             <!--Emoji Window-->
-            <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,0"  SelectedIndex="1" Width="408" Height="333" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,0"  SelectedIndex="1" Width="408" Height="333" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                     <local:EmojiView Margin="0,0,0,0"></local:EmojiView>
                 </materialDesign:TransitionerSlide>
