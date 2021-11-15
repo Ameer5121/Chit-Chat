@@ -124,10 +124,10 @@
 
 
             <!--Black Border & Exit Button-->
-            <Border Background="{DynamicResource WindowBorder}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7">
+            <Border Background="{DynamicResource WindowBorder}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Height="25">
                 <DockPanel LastChildFill="False">
-                    <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" DockPanel.Dock="Right" Click="Exit_Click" Cursor="Hand" Width="54">
-                        <Image Source="/Resources/Exit.png" Height="41" Width="49"></Image>
+                    <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" DockPanel.Dock="Right" Click="Exit_Click" Cursor="Hand">
+                        <Image Source="/Resources/Exit.png" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Right"></Image>
                     </Button>
                 </DockPanel>
             </Border>
