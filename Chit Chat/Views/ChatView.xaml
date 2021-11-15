@@ -367,12 +367,10 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <materialDesign:Card UniformCornerRadius="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Margin="0,0,0,0" Background="{DynamicResource MessageHistoryBorder}">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
-                    <TextBlock Width="116" Text="Message History" VerticalAlignment="Center" Foreground="{DynamicResource Text}"></TextBlock>
-                </StackPanel>
-            </materialDesign:Card>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Background="{DynamicResource MessageHistoryBorder}">
+                <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
+                <TextBlock Width="116" Text="Message History" VerticalAlignment="Center" Foreground="{DynamicResource Text}"></TextBlock>
+            </StackPanel>
             <materialDesign:Card Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="3" Margin="0,0,0,0"></materialDesign:Card>
 
             <Border Background="Black" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" Height="0.5" Grid.ColumnSpan="8" Opacity="0.5"></Border>
@@ -380,7 +378,7 @@
             <ListBox x:Name="PublicChat" Grid.Column="1"
                   Grid.ColumnSpan="4"  
                   Margin="0,0,0,0"
-                  Background="Transparent"
+                  Background="{DynamicResource Chat}"
                   Grid.Row="2"                   
                   ItemsSource="{Binding PublicMessages}"                  
                   VirtualizingStackPanel.IsVirtualizing="False"
@@ -519,7 +517,7 @@
 
 
             <!--Emoji Window-->
-            <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,0"  SelectedIndex="1" Width="408" Height="333" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Margin="0,0,0,0"  SelectedIndex="1" Width="408" Height="333" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                     <local:EmojiView Margin="0,0,0,0"></local:EmojiView>
                 </materialDesign:TransitionerSlide>
