@@ -8,7 +8,7 @@
              Background="{StaticResource HomeWindow}"
              xmlns:local="clr-namespace:ChitChat.Views"
              mc:Ignorable="d" 
-             Height="497.667" Width="654.5">
+             Height="519" Width="654.5">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -120,8 +120,8 @@
             Grid.Column="1"
             VerticalAlignment="Bottom"
             Foreground="White"
-            Background="Transparent"
-            BorderBrush="{StaticResource ButtonsBorderBrush}"/>
+            Background="#303338"
+            BorderBrush="#FF2C2B2B"/>
 
         <TextBlock Text="{Binding Status}"
                    Margin="0,5,0,0"
@@ -168,8 +168,8 @@
             VerticalAlignment="Bottom"
             Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
             Foreground="White"
-            Background="Transparent"
-            BorderBrush="{StaticResource ButtonsBorderBrush}"
+            Background="#303338"
+            BorderBrush="#FF2C2B2B"
             Click="Exit"/>
     </Grid>
 </UserControl>

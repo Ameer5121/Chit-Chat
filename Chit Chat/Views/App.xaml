@@ -29,7 +29,7 @@
             <SolidColorBrush x:Key="PrivateChat" Color="#FF2E2E2E"></SolidColorBrush>
             <SolidColorBrush x:Key="UserSettings" Color="#2F3136"></SolidColorBrush>
             <SolidColorBrush x:Key="Users" Color="#2F3136"></SolidColorBrush>
-            <SolidColorBrush x:Key="Buttons" Color="#FF433F3F"></SolidColorBrush>
+            <SolidColorBrush x:Key="Buttons" Color="#303338"></SolidColorBrush>
             <SolidColorBrush x:Key="ButtonsBorderBrush" Color="#FF2C2B2B"></SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxBorderBrush" Color="AliceBlue"></SolidColorBrush>
             <SolidColorBrush x:Key="Text" Color="AliceBlue"></SolidColorBrush>

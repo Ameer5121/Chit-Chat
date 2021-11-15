@@ -183,7 +183,7 @@
                                Margin="10,10,0,10"
                                Width="Auto"
                                HorizontalAlignment="Left"
-                               Background="Transparent"
+                               Background="{DynamicResource Buttons}"
                                BorderBrush="{StaticResource ButtonsBorderBrush}"             
                                Command="{Binding ChooseProfilePictureCommand}">
                         <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
@@ -235,7 +235,7 @@
                                  Grid.Row="3"
                                  Width="Auto"
                                 HorizontalAlignment="Left"
-                               Background="Transparent"                               
+                               Background="{DynamicResource Buttons}"                               
                                BorderBrush="{DynamicResource ButtonsBorderBrush}" 
                                Command="{Binding ShowNameChangerDialogCommand}">
                     <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
@@ -301,7 +301,7 @@
                 <StackPanel Grid.Row="7">
                     <Button Foreground="Red" Grid.Row="7" Grid.ColumnSpan="2"                               
                                 HorizontalAlignment="Left"
-                               Background="Transparent"
+                               Background="{DynamicResource Buttons}"
                                BorderBrush="{DynamicResource ButtonsBorderBrush}"
                                Margin="10,10,0,10"
                                Command="{Binding DisconnectCommand}">

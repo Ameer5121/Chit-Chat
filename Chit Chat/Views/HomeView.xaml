@@ -25,7 +25,7 @@
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -48,20 +48,24 @@
         </materialDesign:Transitioner>
 
         <!--Black Border & Exit Button-->
-        <Border Background="{StaticResource HomeWindow}" Grid.Row="0" Grid.ColumnSpan="3">
-            <DockPanel LastChildFill="False">
-                <materialDesign:PackIcon Kind="ChatBubbleOutline" Height="48" Width="28"></materialDesign:PackIcon>
-                <TextBlock Text="Chit Chat" 
+        <Border Background="#202225" Grid.Row="0" Grid.ColumnSpan="3">
+            
+        </Border>
+        
+        <DockPanel LastChildFill="False">
+            <materialDesign:PackIcon Kind="ChatBubbleOutline" Height="20" Width="28" VerticalAlignment="Center"></materialDesign:PackIcon>
+            <TextBlock Text="Chit Chat" 
                    TextAlignment="Center"
+                       VerticalAlignment="Center"
                    FontSize="15"
                    Foreground="White" Style="{StaticResource MaterialDesignHeadline3TextBlock}" 
-                  Margin="5,15,0,10" Width="70"/>
-                <Button  BorderBrush="Transparent" Style="{StaticResource ExitButton}" DockPanel.Dock="Right" Click="Exit_Click" Width="55">
-                    <Image Source="/Resources/Exit.png" Height="44" Width="54"></Image>
-                </Button>
-            </DockPanel>
-        </Border>
-
+                   Width="70"/>
+        </DockPanel>
+        
+        <Button  BorderBrush="Transparent" Style="{StaticResource ExitButton}" DockPanel.Dock="Right" Click="Exit_Click" Grid.Column="2" HorizontalAlignment="Right">
+            <Image Source="/Resources/Exit.png" Height="35" Width="35" VerticalAlignment="Center"></Image>
+        </Button>
+        
         <DockPanel Grid.Row="1" Grid.Column="1" LastChildFill="False" VerticalAlignment="Bottom">
             <materialDesign:PackIcon DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,20,0,0" Kind="Account" Grid.Row="1" Height="25" Width="22">
             </materialDesign:PackIcon>
@@ -112,11 +116,12 @@
         <Button 
                 Grid.Row="3"
                 Grid.Column="1"
-                BorderBrush="{StaticResource ButtonsBorderBrush}"
+                
+                BorderBrush="#FF2C2B2B"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Content="Login"
                 FontSize="24"
-                Background="Transparent"
+                Background="#303338"
                 Foreground="White"
                 Command="{Binding LoginCommand, UpdateSourceTrigger=PropertyChanged}" Height="70" Width="160"/>
 
@@ -130,8 +135,8 @@
             FontSize="25"
             Click="Register"
             Foreground="White"
-            Background="Transparent"
-           BorderBrush="{StaticResource ButtonsBorderBrush}" Height="70" Width="160"></Button>
+            Background="#303338"
+           BorderBrush="#FF2C2B2B" Height="70" Width="160"></Button>
 
         <TextBlock Text="{Binding Status}"
                    DataContext="{Binding HomeLogger}"
