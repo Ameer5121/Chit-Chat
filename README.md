@@ -3,19 +3,19 @@ Social chatting application with MySQL database features for windows.
 
 Login             |  Register
 :-------------------------:|:-------------------------:
-![1](https://user-images.githubusercontent.com/71935713/110955002-ca075580-8351-11eb-97ce-832d15ac0ad1.png)  |  ![2](https://user-images.githubusercontent.com/71935713/110955050-d68bae00-8351-11eb-9e12-406220e313a7.png)
+![1](https://user-images.githubusercontent.com/71935713/142069939-4a848591-1dd9-464e-8b9b-02eaff76cf97.png)  |  ![2](https://user-images.githubusercontent.com/71935713/142070023-979d4f8e-7062-4a65-8bdb-df4afa38db54.png)
 
 Public Chat
-![publicchat](https://user-images.githubusercontent.com/71935713/141117923-0a7ccd65-8011-430a-a00a-2615d55e761a.png)
+![publicchat](https://user-images.githubusercontent.com/71935713/142070066-2b4c091e-646f-496c-9576-d2236beba0b5.png)
 
 Private Chat
-![privatechat](https://user-images.githubusercontent.com/71935713/141117955-18a0522d-2698-4f43-8252-a0efb1ae82e0.png)
+![private chat](https://user-images.githubusercontent.com/71935713/142070100-2fc26403-dc05-482b-95e9-5cf083ae30e2.png)
 
 Light Theme
-![light](https://user-images.githubusercontent.com/71935713/141117993-a80709a6-7555-4a12-9894-2090900d75b5.png)
+![lighttheme](https://user-images.githubusercontent.com/71935713/142070127-7cd5d5f4-b1d5-4f21-903c-f17ccbd28ed3.png)
 
 Image Sending
-![imagesending](https://user-images.githubusercontent.com/71935713/141118017-1c753732-8727-4801-84bf-8d2fa878a518.png)
+![picturesending](https://user-images.githubusercontent.com/71935713/142070165-978f0dbe-ad02-4328-9d73-7a5d3ef57a65.png)
 
 
 # Contains usages of:
