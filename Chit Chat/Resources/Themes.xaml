@@ -1,0 +1,78 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--Default Properties ~~ Changeable-->
+    <SolidColorBrush x:Key="WindowBorder" Color="#202225"></SolidColorBrush>
+    <SolidColorBrush x:Key="Menu" Color="#FF3A3838"></SolidColorBrush>
+    <SolidColorBrush x:Key="MessageHistoryBorder" Color="#36393F"></SolidColorBrush>
+    <SolidColorBrush x:Key="Chat" Color="#36393F"></SolidColorBrush>
+    <SolidColorBrush x:Key="PrivateChat" Color="#32353b"></SolidColorBrush>
+    <SolidColorBrush x:Key="UserSettings" Color="#2F3136"></SolidColorBrush>
+    <SolidColorBrush x:Key="Users" Color="#2F3136"></SolidColorBrush>
+    <SolidColorBrush x:Key="Buttons" Color="#303338"></SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonsBorderBrush" Color="#FF2C2B2B"></SolidColorBrush>
+    <SolidColorBrush x:Key="TextBoxBorderBrush" Color="AliceBlue"></SolidColorBrush>
+    <SolidColorBrush x:Key="Text" Color="AliceBlue"></SolidColorBrush>
+    <SolidColorBrush x:Key="Text2" Color="Silver"></SolidColorBrush>
+    <SolidColorBrush x:Key="Icons" Color="White"></SolidColorBrush>
+    <SolidColorBrush x:Key="ExpanderButton" Color="#DDFFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="TextBox" Color="#40444B"></SolidColorBrush>
+    <SolidColorBrush x:Key="ChatWindow" Color="#202225"></SolidColorBrush>
+    <SolidColorBrush x:Key="HomeWindow" Color="#2F3136"></SolidColorBrush>
+    <SolidColorBrush x:Key="EmojiWindow" Color="#2F3136"></SolidColorBrush>
+    <SolidColorBrush x:Key="LanguageChangeWindow" Color="#2F3136"></SolidColorBrush>
+    <SolidColorBrush x:Key="SubWindow">#FF303030</SolidColorBrush>
+    <SolidColorBrush x:Key="ChatDisplayName" Color="Silver"></SolidColorBrush>
+    <SolidColorBrush x:Key="UnderLineBrush" Color="Silver"></SolidColorBrush>
+
+
+
+
+
+
+    <!--Dark Theme Properties-->
+    <SolidColorBrush x:Key="WindowBorderDarkTheme" Color="#202225"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuDarkTheme" Color="#FF3A3838"></SolidColorBrush>
+    <SolidColorBrush x:Key="MessageHistoryBorderDarkTheme" Color="#36393F"></SolidColorBrush>
+    <SolidColorBrush x:Key="ChatDarkTheme" Color="#36393F"></SolidColorBrush>
+    <SolidColorBrush x:Key="PrivateChatDarkTheme" Color="#32353b"></SolidColorBrush>
+    <SolidColorBrush x:Key="UserSettingsDarkTheme" Color="#2F3136"></SolidColorBrush>
+    <SolidColorBrush x:Key="UsersDarkTheme" Color="#2F3136"></SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonsDarkTheme" Color="#303338"></SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonsBorderBrushDarkTheme" Color="#FF2C2B2B"></SolidColorBrush>
+    <SolidColorBrush x:Key="TextBoxBorderBrushDarkTheme" Color="AliceBlue"></SolidColorBrush>
+    <SolidColorBrush x:Key="TextDarkTheme" Color="AliceBlue"></SolidColorBrush>
+    <SolidColorBrush x:Key="Text2DarkTheme" Color="Silver"></SolidColorBrush>
+    <SolidColorBrush x:Key="IconsDarkTheme" Color="White"></SolidColorBrush>
+    <SolidColorBrush x:Key="ExpanderButtonDarkTheme" Color="#DDFFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="TextBoxDarkTheme" Color="#40444B"></SolidColorBrush>
+    <SolidColorBrush x:Key="WindowDarkTheme" Color="#202225"></SolidColorBrush>
+    <SolidColorBrush x:Key="EmojiWindowDarkTheme" Color="#2F3136"></SolidColorBrush>
+    <SolidColorBrush x:Key="LanguageChangeWindowDarkTheme" Color="#2F3136"></SolidColorBrush>
+    <SolidColorBrush x:Key="SubWindowDarkTheme" >#FF303030</SolidColorBrush>
+    <SolidColorBrush x:Key="ChatDisplayNameDarkTheme" Color="Silver"></SolidColorBrush>
+    <SolidColorBrush x:Key="UnderLineBrushDarkTheme" Color="Silver"></SolidColorBrush>
+
+    <!--Light Theme Properties-->
+    <SolidColorBrush x:Key="WindowBorderLightTheme" Color="#FF9E9C9C"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuLightTheme" Color="#FFC7C5C5"></SolidColorBrush>
+    <SolidColorBrush x:Key="MessageHistoryBorderLightTheme" Color="#FFC7C5C5"></SolidColorBrush>
+    <SolidColorBrush x:Key="ChatLightTheme" Color="#FFBFBCBC"></SolidColorBrush>
+    <SolidColorBrush x:Key="PrivateChatLightTheme" Color="#FFAAA7A7"></SolidColorBrush>
+    <SolidColorBrush x:Key="UserSettingsLightTheme" Color="#FFDAD6D6"></SolidColorBrush>
+    <SolidColorBrush x:Key="UsersLightTheme" Color="#FFDAD6D6"></SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonsLightTheme" Color="#FFC9C9C9"></SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonsBorderBrushLightTheme" Color="#FFACAAAA"></SolidColorBrush>
+    <SolidColorBrush x:Key="TextBoxBorderBrushLightTheme" Color="AliceBlue"></SolidColorBrush>
+    <SolidColorBrush x:Key="TextLightTheme" Color="#FF3A3838"></SolidColorBrush>
+    <SolidColorBrush x:Key="Text2LightTheme" Color="#FF4F4C4C"></SolidColorBrush>
+    <SolidColorBrush x:Key="IconsLightTheme" Color="#FF3A3838"></SolidColorBrush>
+    <SolidColorBrush x:Key="ExpanderButtonLightTheme" Color="#FF433F3F"></SolidColorBrush>
+    <SolidColorBrush x:Key="TextBoxLightTheme" Color="#FFC7C5C5"></SolidColorBrush>
+    <SolidColorBrush x:Key="WindowLightTheme" Color="#FFAEAEAE"></SolidColorBrush>
+    <SolidColorBrush x:Key="EmojiWindowLightTheme" Color="#FFAEAEAE"></SolidColorBrush>
+    <SolidColorBrush x:Key="LanguageChangeWindowLightTheme" Color="#FFAEAEAE"></SolidColorBrush>
+    <SolidColorBrush x:Key="SubWindowLightTheme">#FFAEAEAE</SolidColorBrush>
+    <SolidColorBrush x:Key="ChatDisplayNameLightTheme" Color="#FF4F4C4C"></SolidColorBrush>
+    <SolidColorBrush x:Key="UnderLineBrushLightTheme" Color="Gray"></SolidColorBrush>
+</ResourceDictionary>

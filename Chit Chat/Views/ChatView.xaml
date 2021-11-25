@@ -133,11 +133,11 @@
 
             <DockPanel LastChildFill="False">
                 <materialDesign:PackIcon Kind="ChatBubbleOutline" Height="20" Width="28" VerticalAlignment="Center"></materialDesign:PackIcon>
-                <TextBlock Text="Chit Chat" 
+                <TextBlock Text="Chit Chat"
                    TextAlignment="Center"
-                       VerticalAlignment="Center"
+                   VerticalAlignment="Center"
                    FontSize="15"
-                   Foreground="White" Style="{StaticResource MaterialDesignHeadline3TextBlock}" 
+                   Foreground="{DynamicResource Text}" Style="{StaticResource MaterialDesignHeadline3TextBlock}" 
                    Width="70"/>
             </DockPanel>
             
@@ -307,6 +307,24 @@
                         </ComboBox>
                     </materialDesign:Card>
 
+
+
+                    <Button Foreground="Silver"    
+                                   Margin="10,10,0,10"
+                                 Grid.Row="2"
+                                 Width="Auto"
+                                HorizontalAlignment="Left"
+                               Background="{DynamicResource Buttons}"                               
+                               BorderBrush="{DynamicResource ButtonsBorderBrush}" 
+                               Click="LanguageChangeClick">
+                        <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
+                            <materialDesign:PackIcon Kind="Language" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
+                            <TextBlock Text="Change Language" 
+                                               Foreground="{DynamicResource Text2}"
+                                               TextAlignment="Center" Height="18" Width="Auto"/>
+                        </StackPanel>
+                    </Button>
+
                 </StackPanel>
 
                 <StackPanel Grid.Row="7">
@@ -418,7 +436,7 @@
             UniformCornerRadius="5"
             Grid.Row="3"
             Grid.ColumnSpan="2"
-            Margin="20,0,0,0"
+            Margin="15,0,0,0"
             Grid.Column="1"
             Background="{DynamicResource TextBox}">
             </materialDesign:Card>
@@ -428,7 +446,7 @@
             UniformCornerRadius="5"
             Grid.Row="3"
             Grid.ColumnSpan="1"
-            Margin="20,0,0,0"
+            Margin="15,0,0,0"
             Grid.Column="1"
             Background="Transparent">
                 <DockPanel LastChildFill="False">
@@ -520,6 +538,16 @@
             <materialDesign:Transitioner x:Name="EmojiTransitioner" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Margin="0,0,0,0"  SelectedIndex="1" Width="408" Height="333" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                     <local:EmojiView Margin="0,0,0,0"></local:EmojiView>
+                </materialDesign:TransitionerSlide>
+                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
+
+                </materialDesign:TransitionerSlide>
+            </materialDesign:Transitioner>
+
+            <!--Language Window-->
+            <materialDesign:Transitioner x:Name="LanguageTransitioner" Grid.Row="2" Grid.Column="1" Margin="0,0,0,0"  SelectedIndex="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
+                    <local:LanguageChangeView Margin="0,0,0,0"></local:LanguageChangeView>
                 </materialDesign:TransitionerSlide>
                 <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
 

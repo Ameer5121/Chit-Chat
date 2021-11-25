@@ -160,6 +160,7 @@ namespace ChitChat.ViewModels
         }
         public Array Themes { get; } = Enum.GetValues(typeof(Helper.Enums.Theme));
         public Array MessageDisplayOptions { get; } = Enum.GetValues(typeof(MessageDisplay));
+        public Array Languages { get; } = Enum.GetValues(typeof(Language));
 
         public Helper.Enums.Theme CurrentTheme
         {

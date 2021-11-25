@@ -13,6 +13,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Threading;
+using System.Globalization;
 
 namespace ChitChat.Views
 {
@@ -24,6 +26,7 @@ namespace ChitChat.Views
         private ChatViewModel _chatVM;
         public ChatView(ChatViewModel context)
         {
+            
             InitializeComponent();
             DataContext = context;
             Loaded += OnLoaded;
@@ -79,6 +82,10 @@ namespace ChitChat.Views
         private void Emoji_Click(object sender, RoutedEventArgs e)
         {
             EmojiTransitioner.SelectedIndex = 0;
+        }
+        private void LanguageChangeClick(object sender, RoutedEventArgs e)
+        {
+            LanguageTransitioner.SelectedIndex = 0;
         }
 
         private void ClearPublicTextBox(object sender, EventArgs e)

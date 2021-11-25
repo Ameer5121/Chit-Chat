@@ -26,7 +26,7 @@
     </Window.Resources>
     <Grid MouseDown="Grid_MouseDown">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -36,14 +36,14 @@
         </Grid.ColumnDefinitions>
 
         <!--Black Border & Exit Button-->
-        <Border Background="{DynamicResource MessageHistoryBorder}" Grid.Row="0" Grid.ColumnSpan="2">
+        <Border Background="{DynamicResource WindowBorder}" Grid.Row="0" Grid.ColumnSpan="2">
             <DockPanel LastChildFill="False">
                 <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" Command="{Binding PrivateChatExitCommand}"
                         Click="OnExitClick"
-                        Width="53" DockPanel.Dock="Right">
-                    <Image Source="/Resources/Exit.png" Height="44" Width="53"></Image>
+                        Width="25" DockPanel.Dock="Right">
+                    <Image Source="/Resources/Exit.png" Height="25" Width="25"></Image>
                 </Button>
-                <TextBlock Width="336" VerticalAlignment="Center" Margin="0,14" Foreground="{DynamicResource Text}">
+                <TextBlock FontSize="15" Width="336" VerticalAlignment="Center" Margin="0,0" Foreground="{DynamicResource Text}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}Privately chatting to {0}">
                             <Binding Path="SelectedUser.DisplayName" />
@@ -53,19 +53,14 @@
             </DockPanel>
         </Border>
 
-        <materialDesign:Card Grid.Row="1" Grid.ColumnSpan="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="2">
-        </materialDesign:Card>
-
         <!--Message Window-->
         <ListBox x:Name="PrivateChat"
-                  Background="Transparent" 
+                  Background="{DynamicResource PrivateChat}" 
                   Grid.ColumnSpan="2"
                   Grid.Row="1"                   
                   ItemsSource="{Binding PrivateMessages}" 
-                  RenderTransformOrigin="0.5,0.5"
-                  HorizontalContentAlignment="Stretch"
                   VirtualizingStackPanel.IsVirtualizing="False"
-                  AttachedProperties:ScrollBehavior.ScrollOnNewItem="True" Margin="0,0,0,0">
+                  AttachedProperties:ScrollBehavior.ScrollOnNewItem="True">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel VerticalAlignment="Bottom"/>
@@ -95,28 +90,19 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-
-        <materialDesign:Card 
-            UniformCornerRadius="5"
-            Grid.ColumnSpan="2"
-            Grid.Row="2" Background="{DynamicResource DefaultTextBoxTheme}">
-        </materialDesign:Card>
-
-        <!--Chat typing-->
-        <materialDesign:Card 
-            UniformCornerRadius="5"
-            Grid.Row="2" Background="{DynamicResource TextBox}">
-            <DockPanel>
-                <materialDesign:PopupBox Margin="0,4,0,0" DockPanel.Dock="Left" VerticalAlignment="Top" PlacementMode="TopAndAlignCentres" HorizontalAlignment="Right">
-                    <DockPanel LastChildFill="False">
-                        <materialDesign:PackIcon Kind="Upload" DockPanel.Dock="Left" VerticalAlignment="Center" Width="25" Height="25"></materialDesign:PackIcon>
-                        <Button Margin="10,0,0,0" Command="{Binding ChooseImageCommand}" CommandParameter="{StaticResource TrueValue}" Content="Upload a Picture" Padding="0" Width="150" VerticalContentAlignment="Center" Background="{DynamicResource Buttons}" Foreground="{DynamicResource Text}" HorizontalContentAlignment="Left" HorizontalAlignment="Left"></Button>
-                    </DockPanel>
-                </materialDesign:PopupBox>
-                <RichTextBox 
+        <Border Grid.Row="2" Grid.Column="2" Background="{DynamicResource TextBox}"></Border>
+        <DockPanel Grid.Row="2" Background="{DynamicResource TextBox}" >
+            <materialDesign:PopupBox Margin="0,4,0,0" DockPanel.Dock="Left" VerticalAlignment="Top" PlacementMode="TopAndAlignCentres" HorizontalAlignment="Right">
+                <DockPanel LastChildFill="False">
+                    <materialDesign:PackIcon Kind="Upload" DockPanel.Dock="Left" VerticalAlignment="Center" Width="25" Height="25"></materialDesign:PackIcon>
+                    <Button Margin="10,0,0,0" Command="{Binding ChooseImageCommand}" CommandParameter="{StaticResource TrueValue}" Content="Upload a Picture" Padding="0" Width="150" VerticalContentAlignment="Center" Background="{DynamicResource Buttons}" Foreground="{DynamicResource Text}" HorizontalContentAlignment="Left" HorizontalAlignment="Left"></Button>
+                </DockPanel>
+            </materialDesign:PopupBox>
+            <RichTextBox 
                      x:Name="PrivateChatTextBox"
                      TextChanged="PrivateChatTextBox_TextChanged"
                      DockPanel.Dock="Left"
+                    Background="Transparent"
                      FontSize="15"
                      Height="Auto" 
                      Width="Auto"
@@ -124,15 +110,14 @@
                      CaretBrush="White"
                      VerticalContentAlignment="Center"
                      materialDesign:TextFieldAssist.UnderlineBrush="AliceBlue">
-                    <RichTextBox.InputBindings>
-                        <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding ConstructPrivateMessageCommand}" Key="Enter" />
-                    </RichTextBox.InputBindings>
-                    <materialDesign:HintAssist.Hint>
-                        <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
-                    </materialDesign:HintAssist.Hint>
-                </RichTextBox>
-            </DockPanel>
-        </materialDesign:Card>
+                <RichTextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding SelectedUser}" Command="{Binding ConstructPrivateMessageCommand}" Key="Enter" />
+                </RichTextBox.InputBindings>
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
+                </materialDesign:HintAssist.Hint>
+            </RichTextBox>
+        </DockPanel>
 
         <Button Background="Transparent" BorderBrush="Transparent" Width="36" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Emoji_Click" Height="Auto" Padding="0" Grid.Row="2" Grid.Column="1">
             <Image Source="/Resources/Emojis/Smile.png" Height="33" Width="31"/>

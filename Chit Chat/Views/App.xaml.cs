@@ -21,13 +21,14 @@ namespace ChitChat.Views
             {
                 this.Resources["ChatWindow"] = this.Resources["WindowLightTheme"];
                 this.Resources["EmojiWindow"] = this.Resources["EmojiWindowLightTheme"];
+                this.Resources["LanguageChangeWindow"] = this.Resources["LanguageChangeWindowLightTheme"];
                 this.Resources["SubWindow"] = this.Resources["SubWindowLightTheme"];
                 this.Resources["WindowBorder"] = this.Resources["WindowBorderLightTheme"];
                 this.Resources["Menu"] = this.Resources["MenuLightTheme"];
                 this.Resources["MessageHistoryBorder"] = this.Resources["MessageHistoryBorderLightTheme"];
                 this.Resources["Chat"] = this.Resources["ChatLightTheme"];
                 this.Resources["PrivateChat"] = this.Resources["PrivateChatLightTheme"];
-                this.Resources["UserSettings"] = this.Resources["MenuOptionsLightTheme"];
+                this.Resources["UserSettings"] = this.Resources["UserSettingsLightTheme"];
                 this.Resources["Users"] = this.Resources["UsersLightTheme"];
                 this.Resources["Buttons"] = this.Resources["ButtonsLightTheme"];
                 this.Resources["ButtonsBorderBrush"] = this.Resources["ButtonsBorderBrushLightTheme"];
@@ -44,6 +45,7 @@ namespace ChitChat.Views
             {
                 this.Resources["ChatWindow"] = this.Resources["WindowDarkTheme"];
                 this.Resources["EmojiWindow"] = this.Resources["EmojiWindowDarkTheme"];
+                this.Resources["LanguageChangeWindow"] = this.Resources["LanguageChangeWindowDarkTheme"];
                 this.Resources["SubWindow"] = this.Resources["SubWindowDarkTheme"];
                 this.Resources["WindowBorder"] = this.Resources["WindowBorderDarkTheme"];
                 this.Resources["Menu"] = this.Resources["MenuDarkTheme"];
