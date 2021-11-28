@@ -13,6 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="/Resources/Themes.xaml"/>
+                <ResourceDictionary Source="/Resources/Languages.xaml"/>
                 <materialDesign:CustomColorTheme  BaseTheme="Dark" PrimaryColor="White" SecondaryColor="WhiteSmoke"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>

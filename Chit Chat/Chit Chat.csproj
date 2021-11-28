@@ -257,6 +257,7 @@
     <Compile Include="Helper\Extensions\TextBoxExtensions.cs" />
     <Compile Include="Helper\Converters\IsEnabledConverter.cs" />
     <Compile Include="Helper\Extensions\HTTPResponseExtension.cs" />
+    <Compile Include="Helper\Language\Arabic.cs" />
     <Compile Include="Helper\Language\ILanguage.cs" />
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Helper\Exceptions\RegistrationException.cs" />
@@ -344,6 +345,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Languages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

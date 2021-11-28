@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace ChitChat.Helper.Language
 {
-    public interface ILanguage
+    class Arabic : ILanguage
     {
-        void ChangeLanguage();
+        public void ChangeLanguage()
+        {
+            
+        }
     }
 }

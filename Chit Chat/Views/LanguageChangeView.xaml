@@ -5,8 +5,14 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChitChat.Views"
+             xmlns:l="clr-namespace:ChitChat.Helper.Language"
              mc:Ignorable="d" 
              Width="500" Height="500" Background="{DynamicResource LanguageChangeWindow}">
+    <UserControl.Resources>
+        <l:Arabic x:Key="Arabic"></l:Arabic>
+    </UserControl.Resources>
+    
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -29,7 +35,7 @@
                                Grid.Row="1"
                                Background="{DynamicResource Buttons}"                               
                                BorderBrush="{DynamicResource ButtonsBorderBrush}" 
-                               Command="{Binding ChangeLanguageCommand}"
+                               Command="{Binding ChangeLanguageCommand}" CommandParameter="{StaticResource Arabic}"
                                HorizontalContentAlignment="Stretch">
             <DockPanel LastChildFill="False">
                 <TextBlock Text="Arabic" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>

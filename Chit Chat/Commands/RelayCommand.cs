@@ -1,4 +1,5 @@
-﻿using ChitChat.Models;
+﻿using ChitChat.Helper.Language;
+using ChitChat.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace ChitChat.Commands
         private readonly Action<string> execute6;
         private readonly Func<NameChangeModel, Task> execute7;
         private readonly Func<bool, Task> execute8;
+        private readonly Action<ILanguage> execute9;
         private readonly Func<bool> canExecute;
         public RelayCommand(Func<Task> execute) : this(execute, canExecute: null)
         {
@@ -42,6 +44,10 @@ namespace ChitChat.Commands
         {
         }
         public RelayCommand(Func<bool, Task> execute8) : this(execute8, canExecute: null)
+        {
+        }
+
+        public RelayCommand(Action<ILanguage> execute9) : this(execute9, canExecute: null)
         {
         }
 
@@ -105,6 +111,14 @@ namespace ChitChat.Commands
             this.execute8 = execute8;
             this.canExecute = canExecute;
         }
+        public RelayCommand(Action<ILanguage> execute9, Func<bool> canExecute)
+        {
+            if (execute9 == null)
+                throw new ArgumentNullException("execute9 is null");
+
+            this.execute9 = execute9;
+            this.canExecute = canExecute;
+        }
 
         public event EventHandler CanExecuteChanged
         {
@@ -156,6 +170,10 @@ namespace ChitChat.Commands
             else if (execute8 != null)
             {
                 await execute8((bool)parameter);
+            }
+            else if (execute9 != null)
+            {             
+                execute9(parameter as ILanguage);
             }
         }
     }

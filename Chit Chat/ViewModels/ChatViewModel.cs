@@ -27,6 +27,7 @@ using ChitChat.Helper.Exceptions;
 using System.Windows.Forms;
 using Application = System.Windows.Application;
 using System.Windows.Media.Imaging;
+using ChitChat.Helper.Language;
 
 namespace ChitChat.ViewModels
 {
@@ -90,6 +91,7 @@ namespace ChitChat.ViewModels
         public ICommand ChooseProfilePictureCommand => new RelayCommand(UploadProfileImageAsync);
         public ICommand ShowNameChangerDialogCommand => new RelayCommand(ShowNameChangerDialog);
         public ICommand ChangeDisplayNameCommand => new RelayCommand(ChangeDisplayName);
+        public ICommand ChangeLanguageCommand => new RelayCommand(ChangeLanguage);
         public ICommand ConstructPublicMessageCommand => new RelayCommand(ConstructPublicMessageAsync, CanConstructPublicMessage);
         public ICommand ConstructPrivateMessageCommand => new RelayCommand(ConstructPrivateMessageAsync, CanConstructPrivateMessage);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
@@ -465,6 +467,11 @@ namespace ChitChat.ViewModels
         {
             await DialogHost.Show(Error, "ChatDialog");
             Error = null;
+        }
+
+        private void ChangeLanguage(ILanguage language)
+        {
+            language.ChangeLanguage();
         }
         private async Task DisconnectFromServer()
         {

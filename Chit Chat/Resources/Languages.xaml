@@ -1,0 +1,81 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <!--Arabic, English, Finnish, Hebrew, Japanese-->
+
+    <!--Default-->
+    <System:String x:Key="UserSettingsDefault">User Settings</System:String>
+    <System:String x:Key="AccountDefault">Account</System:String>
+    <System:String x:Key="ChangeProfilePictureDefault">Change Profile Picture</System:String>
+    <System:String x:Key="ChangeDisplayNameDefault">Change Display Name</System:String>
+    <System:String x:Key="AppearanceDefault">Appearance</System:String>
+    <System:String x:Key="ThemeDefault">Theme</System:String>
+    <System:String x:Key="MessageDisplayDefault">Message Display</System:String>
+    <System:String x:Key="ChangeLanguageDefault">Change Language</System:String>
+    <System:String x:Key="ApplicationDefault">Application</System:String>
+    <System:String x:Key="LogOutDefault">Log Out</System:String>
+
+
+    <!--Arabic-->
+    <System:String x:Key="UserSettingsArabic">إعدادات المستخدم</System:String>
+    <System:String x:Key="AccountArabic">حساب</System:String>
+    <System:String x:Key="ChangeProfilePictureArabic">تغيير صورة الملف الشخصي</System:String>
+    <System:String x:Key="ChangeDisplayNameArabic">تغيير اسم العرض</System:String>
+    <System:String x:Key="AppearanceArabic">مظهر خارجي</System:String>
+    <System:String x:Key="ThemeArabic">سمة</System:String>
+    <System:String x:Key="MessageDisplayArabic">عرض الرسالة</System:String>
+    <System:String x:Key="ChangeLanguageArabic">تغيير اللغة</System:String>
+    <System:String x:Key="ApplicationArabic">تطبيق</System:String>
+    <System:String x:Key="LogOutArabic">تسجيل خروج</System:String>
+
+    <!--English-->
+    <System:String x:Key="UserSettingsEnglish">User Settings</System:String>
+    <System:String x:Key="AccountEnglish">Account</System:String>
+    <System:String x:Key="ChangeProfilePictureEnglish">Change Profile Picture</System:String>
+    <System:String x:Key="ChangeDisplayNameEnglish">Change Display Name</System:String>
+    <System:String x:Key="AppearanceEnglish">Appearance</System:String>
+    <System:String x:Key="ThemeEnglish">Theme</System:String>
+    <System:String x:Key="MessageDisplayEnglish">Message Display</System:String>
+    <System:String x:Key="ChangeLanguageEnglish">Change Language</System:String>
+    <System:String x:Key="ApplicationEnglish">Application</System:String>
+    <System:String x:Key="LogOutEnglish">Log Out</System:String>
+
+    <!--Finnish-->
+    <System:String x:Key="UserSettingsFinnish">Käyttäjäasetukset</System:String>
+    <System:String x:Key="AccountFinnish">Tili</System:String>
+    <System:String x:Key="ChangeProfilePictureFinnish">Vaihda profiilikuva</System:String>
+    <System:String x:Key="ChangeDisplayNameFinnish">Vaihda näyttönimi</System:String>
+    <System:String x:Key="AppearanceFinnish">Ulkomuoto</System:String>
+    <System:String x:Key="ThemeFinnish">Teema</System:String>
+    <System:String x:Key="MessageDisplayFinnish">Viestinäyttö</System:String>
+    <System:String x:Key="ChangeLanguageFinnish">Vaihda kieltä</System:String>
+    <System:String x:Key="ApplicationFinnish">Sovellus</System:String>
+    <System:String x:Key="LogOutFinnish">Kirjautua ulos</System:String>
+
+    <!--Hebrew-->
+    <System:String x:Key="UserSettingsHebrew">הגדרות משתמש</System:String>
+    <System:String x:Key="AccountHebrew">חֶשְׁבּוֹן</System:String>
+    <System:String x:Key="ChangeProfilePictureHebrew">שנה תמונת פרופיל</System:String>
+    <System:String x:Key="ChangeDisplayNameHebrew">שנה את שם התצוגה</System:String>
+    <System:String x:Key="AppearanceHebrew">מראה חיצוני</System:String>
+    <System:String x:Key="ThemeHebrew">נושא</System:String>
+    <System:String x:Key="MessageDisplayHebrew">תצוגת הודעות</System:String>
+    <System:String x:Key="ChangeLanguageHebrew">שנה שפה</System:String>
+    <System:String x:Key="ApplicationHebrew">יישום</System:String>
+    <System:String x:Key="LogOutHebrew">להתנתק</System:String>
+
+    <!--Japanese-->
+    <System:String x:Key="UserSettingsJapanese">ユーザー設定</System:String>
+    <System:String x:Key="AccountJapanese">アカウント</System:String>
+    <System:String x:Key="ChangeProfilePictureJapanese">プロフィール画像を変更</System:String>
+    <System:String x:Key="ChangeDisplayNameJapanese">表示名の変更</System:String>
+    <System:String x:Key="AppearanceJapanese">外観</System:String>
+    <System:String x:Key="ThemeJapanese">テーマ</System:String>
+    <System:String x:Key="MessageDisplayJapanese">メッセージ表示</System:String>
+    <System:String x:Key="ChangeLanguageJapanese">言語を変更</System:String>
+    <System:String x:Key="ApplicationJapanese">応用</System:String>
+    <System:String x:Key="LogOutJapanese">ログアウト</System:String>
+
+
+</ResourceDictionary>
