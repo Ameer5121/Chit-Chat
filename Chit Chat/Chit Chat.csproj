@@ -258,7 +258,11 @@
     <Compile Include="Helper\Converters\IsEnabledConverter.cs" />
     <Compile Include="Helper\Extensions\HTTPResponseExtension.cs" />
     <Compile Include="Helper\Language\Arabic.cs" />
+    <Compile Include="Helper\Language\English.cs" />
+    <Compile Include="Helper\Language\Finnish.cs" />
+    <Compile Include="Helper\Language\Hebrew.cs" />
     <Compile Include="Helper\Language\ILanguage.cs" />
+    <Compile Include="Helper\Language\Japanese.cs" />
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Helper\Exceptions\RegistrationException.cs" />
     <Compile Include="Helper\AttachedProperties\ScrollBehavior.cs" />
