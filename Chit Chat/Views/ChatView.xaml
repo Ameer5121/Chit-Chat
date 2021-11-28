@@ -160,12 +160,12 @@
                 <DockPanel  LastChildFill="False" HorizontalAlignment="Center">
                     <materialDesign:PackIcon DockPanel.Dock="Left" Kind="Settings" Height="30" Width="33" Foreground="{DynamicResource Icons}" VerticalAlignment="Center"></materialDesign:PackIcon>
 
-                    <TextBlock DockPanel.Dock="Left" Text="User Settings" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="{DynamicResource Text}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="Auto"></TextBlock>
+                    <TextBlock DockPanel.Dock="Left" Text="{DynamicResource UserSettingsDefault}" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="{DynamicResource Text}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="Auto"></TextBlock>
                 </DockPanel>
 
                 <DockPanel LastChildFill="False" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1">
                     <materialDesign:PackIcon Kind="AccountSettings" Width="20" Height="20" Grid.Row="0" VerticalAlignment="Center" DockPanel.Dock="Left"></materialDesign:PackIcon>
-                    <TextBlock Text="Account" VerticalAlignment="Center"  TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                    <TextBlock Text="{DynamicResource AccountDefault}" VerticalAlignment="Center"  TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
                 </DockPanel>
 
                 <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"></Border>
@@ -173,7 +173,7 @@
 
                 <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center">
                     <materialDesign:PackIcon Kind="ThemeOutline" Width="20" Height="20" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
-                    <TextBlock Text="Appearance" VerticalAlignment="Center" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                    <TextBlock Text="{DynamicResource AppearanceDefault}" VerticalAlignment="Center" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
                 </DockPanel>
 
                 <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"></Border>
@@ -181,7 +181,7 @@
 
                 <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center">
                     <materialDesign:PackIcon Kind="Application" Width="20" Height="20" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
-                    <TextBlock Text="Application" VerticalAlignment="Center" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                    <TextBlock Text="{DynamicResource ApplicationDefault}" VerticalAlignment="Center" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
                 </DockPanel>
 
                 <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left"></Border>
@@ -197,7 +197,7 @@
                                Command="{Binding ChooseProfilePictureCommand}">
                         <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
                             <materialDesign:PackIcon Kind="FaceProfile" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
-                            <TextBlock Text="Change Profile Picture" 
+                            <TextBlock Text="{DynamicResource ChangeProfilePictureDefault}" 
                                                Foreground="{DynamicResource Text2}"
                                                TextAlignment="Center" Height="18" Width="Auto"/>
                         </StackPanel>
@@ -250,7 +250,7 @@
                                Command="{Binding ShowNameChangerDialogCommand}">
                         <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
                             <materialDesign:PackIcon Kind="User" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
-                            <TextBlock Text="Change Display Name" 
+                            <TextBlock Text="{DynamicResource ChangeDisplayNameDefault}" 
                                                Foreground="{DynamicResource Text2}"
                                                TextAlignment="Center" Height="18" Width="Auto"/>
                         </StackPanel>
@@ -272,7 +272,7 @@
                                           materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource UnderLineBrush}"
                                           Foreground="{DynamicResource Text}">
                             <materialDesign:HintAssist.Hint>
-                                <TextBlock TextAlignment="Center" Foreground="{DynamicResource Text}">Theme</TextBlock>
+                                <TextBlock TextAlignment="Center" Text="{DynamicResource ThemeDefault}" Foreground="{DynamicResource Text}"></TextBlock>
                             </materialDesign:HintAssist.Hint>
                             <ComboBox.ItemContainerStyle>
                                 <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}" >
@@ -296,7 +296,7 @@
                                           Foreground="{DynamicResource Text}"
 >
                             <materialDesign:HintAssist.Hint>
-                                <TextBlock TextAlignment="Center" Foreground="{DynamicResource Text}">Message Display</TextBlock>
+                                <TextBlock TextAlignment="Center" Text="{DynamicResource MessageDisplayDefault}" Foreground="{DynamicResource Text}"></TextBlock>
                             </materialDesign:HintAssist.Hint>
                             <ComboBox.ItemContainerStyle>
                                 <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}" >
@@ -319,7 +319,7 @@
                                Click="LanguageChangeClick">
                         <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
                             <materialDesign:PackIcon Kind="Language" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
-                            <TextBlock Text="Change Language" 
+                            <TextBlock Text="{DynamicResource ChangeLanguageDefault}" 
                                                Foreground="{DynamicResource Text2}"
                                                TextAlignment="Center" Height="18" Width="Auto"/>
                         </StackPanel>
@@ -336,7 +336,7 @@
                                Command="{Binding DisconnectCommand}">
                         <StackPanel Orientation="Horizontal" Width="121" Height="28">
                             <materialDesign:PackIcon Kind="Logout" Width="22" Height="18" Margin="0,5,0,0"/>
-                            <TextBlock Text="Log Out" 
+                            <TextBlock Text="{DynamicResource LogOutDefault}" 
                                                Foreground="Red"
                                                TextAlignment="Center" Height="18" Width="55"/>
                         </StackPanel>
@@ -346,7 +346,7 @@
             <Border Grid.Column="6" Grid.Row="1" Background="{DynamicResource Users}">
                 <DockPanel HorizontalAlignment="Center" Grid.Column="6" Grid.Row="1" LastChildFill="False">
                     <materialDesign:PackIcon DockPanel.Dock="Left" VerticalAlignment="Center" Kind="People" Height="33" Width="33" Foreground="{DynamicResource Icons}"></materialDesign:PackIcon>
-                    <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="Users" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="{DynamicResource Text}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource UsersDefault}" FontSize="20" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Foreground="{DynamicResource Text}" HorizontalAlignment="Center"></TextBlock>
                 </DockPanel>
             </Border>
 
@@ -387,7 +387,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Background="{DynamicResource MessageHistoryBorder}">
                 <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
-                <TextBlock Width="116" Text="Message History" VerticalAlignment="Center" Foreground="{DynamicResource Text}"></TextBlock>
+                <TextBlock Width="116" Text="{DynamicResource MessageHistoryDefault}" VerticalAlignment="Center" Foreground="{DynamicResource Text}"></TextBlock>
             </StackPanel>
             <materialDesign:Card Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="3" Margin="0,0,0,0"></materialDesign:Card>
 
