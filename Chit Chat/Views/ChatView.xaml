@@ -338,7 +338,7 @@
                             <materialDesign:PackIcon Kind="Logout" Width="22" Height="18" Margin="0,5,0,0"/>
                             <TextBlock Text="{DynamicResource LogOutDefault}" 
                                                Foreground="Red"
-                                               TextAlignment="Center" Height="18" Width="55"/>
+                                               TextAlignment="Center" Height="18" Width="Auto"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -477,7 +477,7 @@
                             <KeyBinding Command="{Binding ConstructPublicMessageCommand}" Key="Enter"></KeyBinding>
                         </RichTextBox.InputBindings>
                         <materialDesign:HintAssist.Hint>
-                            <TextBlock Foreground="{DynamicResource Text}">Message</TextBlock>
+                            <TextBlock Text="{DynamicResource SendAMessageDefault}" Foreground="{DynamicResource Text}"></TextBlock>
                         </materialDesign:HintAssist.Hint>
                     </RichTextBox>
                 </DockPanel>
