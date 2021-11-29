@@ -24,6 +24,11 @@ namespace ChitChat.Helper.Language
             Application.Current.Resources["MessageHistoryDefault"] = Application.Current.Resources["MessageHistoryArabic"];
             Application.Current.Resources["UsersDefault"] = Application.Current.Resources["UsersArabic"];
             Application.Current.Resources["SendAMessageDefault"] = Application.Current.Resources["SendAMessageArabic"];
+            Application.Current.Resources["ArabicDefault"] = Application.Current.Resources["ArabicArabic"];
+            Application.Current.Resources["EnglishDefault"] = Application.Current.Resources["EnglishArabic"];
+            Application.Current.Resources["FinnishDefault"] = Application.Current.Resources["FinnishArabic"];
+            Application.Current.Resources["HebrewDefault"] = Application.Current.Resources["HebrewArabic"];
+            Application.Current.Resources["JapaneseDefault"] = Application.Current.Resources["JapaneseArabic"];
         }
     }
 }

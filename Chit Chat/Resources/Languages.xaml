@@ -18,6 +18,11 @@
     <System:String x:Key="MessageHistoryDefault">Message History</System:String>
     <System:String x:Key="UsersDefault">Users</System:String>
     <System:String x:Key="SendAMessageDefault">Message</System:String>
+    <System:String x:Key="ArabicDefault">Arabic</System:String>
+    <System:String x:Key="EnglishDefault">English</System:String>
+    <System:String x:Key="FinnishDefault">Finnish</System:String>
+    <System:String x:Key="HebrewDefault">Hebrew</System:String>
+    <System:String x:Key="JapaneseDefault">Japanese</System:String>
 
 
     <!--Arabic-->
@@ -34,6 +39,11 @@
     <System:String x:Key="MessageHistoryArabic">تاريخ الرسالة</System:String>
     <System:String x:Key="UsersArabic">المستخدمون</System:String>
     <System:String x:Key="SendAMessageArabic">ارسل رسالة</System:String>
+    <System:String x:Key="ArabicArabic">عربي</System:String>
+    <System:String x:Key="EnglishArabic">إنجليزي</System:String>
+    <System:String x:Key="FinnishArabic">فنلندية</System:String>
+    <System:String x:Key="HebrewArabic">عبرية</System:String>
+    <System:String x:Key="JapaneseArabic">يابانية</System:String>
 
     <!--English-->
     <System:String x:Key="UserSettingsEnglish">User Settings</System:String>
@@ -48,6 +58,11 @@
     <System:String x:Key="LogOutEnglish">Log Out</System:String>
     <System:String x:Key="MessageHistoryEnglish">Message History</System:String>
     <System:String x:Key="SendAMessageEnglish">Message</System:String>
+    <System:String x:Key="ArabicEnglish">Arabic</System:String>
+    <System:String x:Key="EnglishEnglish">English</System:String>
+    <System:String x:Key="FinnishEnglish">Finnish</System:String>
+    <System:String x:Key="HebrewEnglish">Hebrew</System:String>
+    <System:String x:Key="JapaneseEnglish">Japanese</System:String>
 
     <!--Finnish-->
     <System:String x:Key="UserSettingsFinnish">Käyttäjäasetukset</System:String>
@@ -63,6 +78,11 @@
     <System:String x:Key="MessageHistoryFinnish">Viestihistoria</System:String>
     <System:String x:Key="UsersFinnish">Käyttäjät</System:String>
     <System:String x:Key="SendAMessageFinnish">Kirjoita Viesti</System:String>
+    <System:String x:Key="ArabicFinnish">Arabia</System:String>
+    <System:String x:Key="EnglishFinnish">Englanti</System:String>
+    <System:String x:Key="FinnishFinnish">Suomi</System:String>
+    <System:String x:Key="HebrewFinnish">Heprea</System:String>
+    <System:String x:Key="JapaneseFinnish">Japani</System:String>
 
     <!--Hebrew-->
     <System:String x:Key="UserSettingsHebrew">הגדרות משתמש</System:String>
@@ -78,6 +98,11 @@
     <System:String x:Key="MessageHistoryHebrew">היסטוריית הודעות</System:String>
     <System:String x:Key="UsersHebrew">משתמשים</System:String>
     <System:String x:Key="SendAMessageHebrew">שלח הודעה</System:String>
+    <System:String x:Key="ArabicHebrew">עֲרָבִית</System:String>
+    <System:String x:Key="EnglishHebrew">אנגלית</System:String>
+    <System:String x:Key="FinnishHebrew">פִינִית</System:String>
+    <System:String x:Key="HebrewHebrew">עִברִית</System:String>
+    <System:String x:Key="JapaneseHebrew">יַפָּנִית</System:String>
 
     <!--Japanese-->
     <System:String x:Key="UserSettingsJapanese">ユーザー設定</System:String>
@@ -93,6 +118,11 @@
     <System:String x:Key="MessageHistoryJapanese">メッセージ履歴</System:String>
     <System:String x:Key="UsersJapanese">ユーザー</System:String>
     <System:String x:Key="SendAMessageJapanese">メッセージを送る</System:String>
+    <System:String x:Key="ArabicJapanese">アラビア語</System:String>
+    <System:String x:Key="EnglishJapanese">英語</System:String>
+    <System:String x:Key="FinnishJapanese">フィンランド語</System:String>
+    <System:String x:Key="HebrewJapanese">ヘブライ語</System:String>
+    <System:String x:Key="JapaneseJapanese">日本</System:String>
 
 
 </ResourceDictionary>

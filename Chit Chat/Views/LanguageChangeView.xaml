@@ -42,7 +42,7 @@
                                Command="{Binding ChangeLanguageCommand}" CommandParameter="{StaticResource Arabic}"
                                HorizontalContentAlignment="Stretch">
             <DockPanel LastChildFill="False">
-                <TextBlock Text="Arabic" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock Text="{DynamicResource ArabicDefault}" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
             </DockPanel>
         </Button>
         
@@ -55,7 +55,7 @@
                                Command="{Binding ChangeLanguageCommand}" CommandParameter="{StaticResource English}"
                                HorizontalContentAlignment="Stretch">
             <DockPanel LastChildFill="False">
-                <TextBlock Text="English" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock Text="{DynamicResource EnglishDefault}" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
             </DockPanel>
         </Button>
 
@@ -68,7 +68,7 @@
                                Command="{Binding ChangeLanguageCommand}" CommandParameter="{StaticResource Finnish}"
                                HorizontalContentAlignment="Stretch">
             <DockPanel LastChildFill="False">
-                <TextBlock Text="Finnish" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock Text="{DynamicResource FinnishDefault}" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
             </DockPanel>
         </Button>
 
@@ -81,7 +81,7 @@
                                Command="{Binding ChangeLanguageCommand}" CommandParameter="{StaticResource Hebrew}"
                                HorizontalContentAlignment="Stretch">
             <DockPanel LastChildFill="False">
-                <TextBlock Text="Hebrew" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock Text="{DynamicResource HebrewDefault}" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
             </DockPanel>
         </Button>
 
@@ -94,7 +94,7 @@
                                Command="{Binding ChangeLanguageCommand}" CommandParameter="{StaticResource Japanese}"
                                HorizontalContentAlignment="Stretch">
             <DockPanel LastChildFill="False">
-                <TextBlock Text="Japanese" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock Text="{DynamicResource JapaneseDefault}" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
             </DockPanel>
         </Button>
     </Grid>
