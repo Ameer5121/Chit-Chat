@@ -196,7 +196,7 @@
                                BorderBrush="{StaticResource ButtonsBorderBrush}"             
                                Command="{Binding ChooseProfilePictureCommand}">
                         <StackPanel Orientation="Horizontal" Width="Auto" Height="28">
-                            <materialDesign:PackIcon Kind="FaceProfile" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
+                            <materialDesign:PackIcon Kind="EmoticonManProfile" Width="22" Height="18" Margin="0,5,0,0" Foreground="Gray"/>
                             <TextBlock Text="{DynamicResource ChangeProfilePictureDefault}" 
                                                Foreground="{DynamicResource Text2}"
                                                TextAlignment="Center" Height="18" Width="Auto"/>

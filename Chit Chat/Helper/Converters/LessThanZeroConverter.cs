@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
 
@@ -14,9 +15,13 @@ namespace ChitChat.Helper.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            int characterLimit = (int)values[0];
-            int messageLength = (int)values[1];
-            return characterLimit - messageLength < 0 ? true : false;
+            if (values[0] != DependencyProperty.UnsetValue)
+            {
+                int characterLimit = (int)values[0];
+                int messageLength = (int)values[1];
+                return characterLimit - messageLength < 0 ? true : false;
+            }
+            return null;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

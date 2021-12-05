@@ -23,6 +23,10 @@
     <System:String x:Key="FinnishDefault">Finnish</System:String>
     <System:String x:Key="HebrewDefault">Hebrew</System:String>
     <System:String x:Key="JapaneseDefault">Japanese</System:String>
+    <System:String x:Key="Dark">Dark</System:String>
+    <System:String x:Key="Light">Light</System:String>
+    <System:String x:Key="Cozy">Cozy</System:String>
+    <System:String x:Key="Compact">Compact</System:String>
 
 
     <!--Arabic-->
@@ -44,6 +48,10 @@
     <System:String x:Key="FinnishArabic">فنلندية</System:String>
     <System:String x:Key="HebrewArabic">عبرية</System:String>
     <System:String x:Key="JapaneseArabic">يابانية</System:String>
+    <System:String x:Key="DarkArabic">داكن</System:String>
+    <System:String x:Key="LightArabic">ضوء</System:String>
+    <System:String x:Key="CozyArabic">أنيق</System:String>
+    <System:String x:Key="CompactArabic">مدمج</System:String>
 
     <!--English-->
     <System:String x:Key="UserSettingsEnglish">User Settings</System:String>
@@ -83,6 +91,10 @@
     <System:String x:Key="FinnishFinnish">Suomi</System:String>
     <System:String x:Key="HebrewFinnish">Heprea</System:String>
     <System:String x:Key="JapaneseFinnish">Japani</System:String>
+    <System:String x:Key="DarkFinnish">Tumma</System:String>
+    <System:String x:Key="LightFinnish">Vaalea</System:String>
+    <System:String x:Key="CozyFinnish">Tyylikäs</System:String>
+    <System:String x:Key="CompactFinnish">Kompakti</System:String>
 
     <!--Hebrew-->
     <System:String x:Key="UserSettingsHebrew">הגדרות משתמש</System:String>
@@ -103,6 +115,10 @@
     <System:String x:Key="FinnishHebrew">פִינִית</System:String>
     <System:String x:Key="HebrewHebrew">עִברִית</System:String>
     <System:String x:Key="JapaneseHebrew">יַפָּנִית</System:String>
+    <System:String x:Key="DarkHebrew">אפל</System:String>
+    <System:String x:Key="LightHebrew">אוֹר</System:String>
+    <System:String x:Key="CozyHebrew">מסוגנן</System:String>
+    <System:String x:Key="CompactHebrew">קוֹמפָּקטִי</System:String>
 
     <!--Japanese-->
     <System:String x:Key="UserSettingsJapanese">ユーザー設定</System:String>
@@ -123,6 +139,10 @@
     <System:String x:Key="FinnishJapanese">フィンランド語</System:String>
     <System:String x:Key="HebrewJapanese">ヘブライ語</System:String>
     <System:String x:Key="JapaneseJapanese">日本</System:String>
+    <System:String x:Key="DarkJapanese">暗い</System:String>
+    <System:String x:Key="LightJapanese">光</System:String>
+    <System:String x:Key="CozyJapanese">スタイリッシュ</System:String>
+    <System:String x:Key="CompactJapanese">コンパクト</System:String>
 
 
 </ResourceDictionary>

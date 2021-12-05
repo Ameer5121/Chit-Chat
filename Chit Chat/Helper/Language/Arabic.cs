@@ -28,7 +28,7 @@ namespace ChitChat.Helper.Language
             Application.Current.Resources["EnglishDefault"] = Application.Current.Resources["EnglishArabic"];
             Application.Current.Resources["FinnishDefault"] = Application.Current.Resources["FinnishArabic"];
             Application.Current.Resources["HebrewDefault"] = Application.Current.Resources["HebrewArabic"];
-            Application.Current.Resources["JapaneseDefault"] = Application.Current.Resources["JapaneseArabic"];
+            Application.Current.Resources["JapaneseDefault"] = Application.Current.Resources["JapaneseArabic"];              
         }
     }
 }

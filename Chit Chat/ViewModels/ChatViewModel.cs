@@ -65,6 +65,7 @@ namespace ChitChat.ViewModels
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
             _currentPublicMessage = new FlowDocument();
+
             _currentPrivateMessage = new FlowDocument();
             _currentUser = currentuser;
             _users = data.Users;
@@ -160,15 +161,15 @@ namespace ChitChat.ViewModels
             get => _privateMessageLength;
             set => SetPropertyValue(ref _privateMessageLength, value);
         }
-        public Array Themes { get; } = Enum.GetValues(typeof(Helper.Enums.Theme));
-        public Array MessageDisplayOptions { get; } = Enum.GetValues(typeof(MessageDisplay));
-        public Array Languages { get; } = Enum.GetValues(typeof(Language));
+        public Array Themes { get; } = Enum.GetNames(typeof(Helper.Enums.Theme));
+        public Array MessageDisplayOptions { get; } = Enum.GetNames(typeof(MessageDisplay));
 
         public Helper.Enums.Theme CurrentTheme
         {
             get => _currentTheme;
             set
             {
+                
                 ThemeChange?.Invoke(this, new ThemeEventArgs { NewTheme = value });
                 _currentTheme = value;
             }

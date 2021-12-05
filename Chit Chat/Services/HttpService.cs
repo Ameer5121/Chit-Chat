@@ -33,6 +33,7 @@ namespace ChitChat.Services
             return await _httpClient.PostAsync($"/api/chat/{endPoint}",
                new StringContent(SerializeModel(dataTransferObject), Encoding.UTF8, "application/json"));
         }
+
         
         public async Task<UserModel> PostUserDataAsync(string endPoint, UserCredentials userCredentials)
         {
