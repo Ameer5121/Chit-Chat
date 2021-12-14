@@ -182,8 +182,11 @@ namespace ChitChat.ViewModels
             get => _currentTheme;
             set
             {
-                ThemeChange?.Invoke(this, new ThemeEventArgs { NewTheme = value });
-                _currentTheme = value;
+                if (value != null)
+                {
+                    ThemeChange?.Invoke(this, new ThemeEventArgs { NewTheme = value });
+                    _currentTheme = value;
+                }
             }
         }
 
@@ -192,8 +195,11 @@ namespace ChitChat.ViewModels
             get => _messageDisplay;
             set
             {
-                MessageDisplayChange?.Invoke(this, new MessageDisplayEventArgs { NewMessageDisplay = value });
-                _messageDisplay = value;
+                if (value != null)
+                {
+                    MessageDisplayChange?.Invoke(this, new MessageDisplayEventArgs { NewMessageDisplay = value });
+                    _messageDisplay = value;
+                }
             }
         }
         private bool CanConstructPublicMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString());
