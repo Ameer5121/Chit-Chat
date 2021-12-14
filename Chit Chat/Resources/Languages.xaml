@@ -23,10 +23,7 @@
     <System:String x:Key="FinnishDefault">Finnish</System:String>
     <System:String x:Key="HebrewDefault">Hebrew</System:String>
     <System:String x:Key="JapaneseDefault">Japanese</System:String>
-    <System:String x:Key="Dark">Dark</System:String>
-    <System:String x:Key="Light">Light</System:String>
-    <System:String x:Key="Cozy">Cozy</System:String>
-    <System:String x:Key="Compact">Compact</System:String>
+   
 
 
     <!--Arabic-->
@@ -71,6 +68,10 @@
     <System:String x:Key="FinnishEnglish">Finnish</System:String>
     <System:String x:Key="HebrewEnglish">Hebrew</System:String>
     <System:String x:Key="JapaneseEnglish">Japanese</System:String>
+    <System:String x:Key="DarkEnglish">Dark</System:String>
+    <System:String x:Key="LightEnglish">Light</System:String>
+    <System:String x:Key="CozyEnglish">Cozy</System:String>
+    <System:String x:Key="CompactEnglish">Compact</System:String>
 
     <!--Finnish-->
     <System:String x:Key="UserSettingsFinnish">Käyttäjäasetukset</System:String>

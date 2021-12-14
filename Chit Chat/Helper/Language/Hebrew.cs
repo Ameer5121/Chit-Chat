@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ChitChat.Views;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ namespace ChitChat.Helper.Language
     {
         public void ChangeLanguage()
         {
+            App.Culture = new CultureInfo("he-IL");
             Application.Current.Resources["UserSettingsDefault"] = Application.Current.Resources["UserSettingsHebrew"];
             Application.Current.Resources["AccountDefault"] = Application.Current.Resources["AccountHebrew"];
             Application.Current.Resources["ChangeProfilePictureDefault"] = Application.Current.Resources["ChangeProfilePictureHebrew"];

@@ -30,8 +30,9 @@
         <Converters:IsEnabledConverter x:Key="IsEnabledConverter"></Converters:IsEnabledConverter>
         <Converters:LessThanZeroConverter x:Key="LessThanZeroConverter"></Converters:LessThanZeroConverter>
         <Converters:CharacterCountConverter x:Key="CharacterCountConverter"></Converters:CharacterCountConverter>
+        <Converters:EnumLanguageConverter x:Key="EnumLanguageConverter"></Converters:EnumLanguageConverter>
 
-        <DataTemplate DataType="{x:Type model:ErrorModel}">
+            <DataTemplate DataType="{x:Type model:ErrorModel}">
             <Grid Background="{DynamicResource Menu}" Width="400" Height="150">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -165,7 +166,7 @@
 
                 <DockPanel LastChildFill="False" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1">
                     <materialDesign:PackIcon Kind="AccountSettings" Width="20" Height="20" Grid.Row="0" VerticalAlignment="Center" DockPanel.Dock="Left"></materialDesign:PackIcon>
-                    <TextBlock Text="{DynamicResource AccountDefault}" VerticalAlignment="Center"  TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                    <TextBlock Text="{DynamicResource AccountDefault}" Margin="5,0,0,0" VerticalAlignment="Center"  TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
                 </DockPanel>
 
                 <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"></Border>
@@ -173,15 +174,15 @@
 
                 <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center">
                     <materialDesign:PackIcon Kind="ThemeOutline" Width="20" Height="20" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
-                    <TextBlock Text="{DynamicResource AppearanceDefault}" VerticalAlignment="Center" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                    <TextBlock Text="{DynamicResource AppearanceDefault}" Margin="5,0,0,0" VerticalAlignment="Center" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
                 </DockPanel>
 
                 <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"></Border>
                 <Border Background="Gray" Width="60" Height="1" Margin="0,0,10,0" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"></Border>
 
                 <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center">
-                    <materialDesign:PackIcon Kind="Application" Width="20" Height="20" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
-                    <TextBlock Text="{DynamicResource ApplicationDefault}" VerticalAlignment="Center" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                    <materialDesign:PackIcon Kind="ApplicationCogOutline" Width="20" Height="20" Margin="0,0,0,0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
+                    <TextBlock Text="{DynamicResource ApplicationDefault}" VerticalAlignment="Center" Margin="5,0,0,0" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
                 </DockPanel>
 
                 <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left"></Border>
@@ -268,7 +269,7 @@
                                           Height="32">
                         <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
                                           ItemsSource="{Binding Themes}"                          
-                                          SelectedItem="{Binding CurrentTheme, Mode=TwoWay}"
+                                          SelectedItem="{Binding CurrentTheme, Mode=OneWayToSource, Converter={StaticResource EnumLanguageConverter}, ConverterParameter='Dark Light Cozy Compact'}"
                                           materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource UnderLineBrush}"
                                           Foreground="{DynamicResource Text}">
                             <materialDesign:HintAssist.Hint>
@@ -291,7 +292,7 @@
                                           Height="32">
                         <ComboBox Template="{StaticResource MaterialDesignDataGridComboBoxTemplate}"
                                           ItemsSource="{Binding MessageDisplayOptions}"
-                                          SelectedItem="{Binding CurrentMessageDisplay, Mode=OneWayToSource}"                                         
+                                          SelectedItem="{Binding CurrentMessageDisplay, Mode=OneWayToSource, Converter={StaticResource EnumLanguageConverter}, ConverterParameter='Dark Light Cozy Compact'}"                                         
                                           materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource UnderLineBrush}"
                                           Foreground="{DynamicResource Text}"
 >

@@ -1,7 +1,10 @@
-﻿using System;
+﻿using ChitChat.Views;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -11,6 +14,7 @@ namespace ChitChat.Helper.Language
     {
         public void ChangeLanguage()
         {
+            App.Culture = new CultureInfo("ar-SA");
             Application.Current.Resources["UserSettingsDefault"] = Application.Current.Resources["UserSettingsArabic"];
             Application.Current.Resources["AccountDefault"] = Application.Current.Resources["AccountArabic"];
             Application.Current.Resources["ChangeProfilePictureDefault"] = Application.Current.Resources["ChangeProfilePictureArabic"];
@@ -28,7 +32,7 @@ namespace ChitChat.Helper.Language
             Application.Current.Resources["EnglishDefault"] = Application.Current.Resources["EnglishArabic"];
             Application.Current.Resources["FinnishDefault"] = Application.Current.Resources["FinnishArabic"];
             Application.Current.Resources["HebrewDefault"] = Application.Current.Resources["HebrewArabic"];
-            Application.Current.Resources["JapaneseDefault"] = Application.Current.Resources["JapaneseArabic"];              
+            Application.Current.Resources["JapaneseDefault"] = Application.Current.Resources["JapaneseArabic"];
         }
     }
 }

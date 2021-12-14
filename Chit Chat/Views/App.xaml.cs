@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,7 +16,8 @@ namespace ChitChat.Views
     /// </summary>
     public partial class App : Application
     {
-        public void ChangeTheme(Theme theme)
+        public static CultureInfo Culture { get; set; }
+        public void ChangeTheme(Theme? theme)
         {
             if (theme == Theme.Light)
             {

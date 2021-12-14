@@ -117,7 +117,7 @@ namespace ChitChat.Views
             }
         }
 
-        private void ChangeMessagesColor(Theme currentTheme, ObservableCollection<MessageModel> messages)
+        private void ChangeMessagesColor(Theme? currentTheme, ObservableCollection<MessageModel> messages)
         {
             var app = (App)Application.Current;
             foreach (MessageModel messageModel in messages)
@@ -134,7 +134,7 @@ namespace ChitChat.Views
             }
         }
 
-        private void ChangeMessagesColor(Theme theme, Inline message, App app)
+        private void ChangeMessagesColor(Theme? theme, Inline message, App app)
         {
             if (theme == Theme.Light)
             {

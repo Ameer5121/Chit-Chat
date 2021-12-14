@@ -48,7 +48,9 @@ namespace ChitChat.ViewModels
         private const int _characterLimit = 600;
         private int _publicMessageLength;
         private int _privateMessageLength;
-        private static Helper.Enums.Theme _currentTheme;
+        private Array _themes;
+        private Array _messageDisplayOptions;
+        private static Helper.Enums.Theme? _currentTheme;
         private FlowDocument _currentPublicMessage;
         private FlowDocument _currentPrivateMessage;
         private HubConnection _connection;
@@ -65,13 +67,16 @@ namespace ChitChat.ViewModels
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
             _currentPublicMessage = new FlowDocument();
-
             _currentPrivateMessage = new FlowDocument();
             _currentUser = currentuser;
             _users = data.Users;
             _messages = data.Messages;
+
             // Set a default value so the binding doesn't fail.
             SelectedUser = new UserModel();
+
+            _themes = Enum.GetNames(typeof(Helper.Enums.Theme));
+            _messageDisplayOptions = Enum.GetNames(typeof(MessageDisplay));
 
             PublicMessages = CollectionViewSource.GetDefaultView(_messages);
             PublicMessages.Filter = FilterPublicMessages;
@@ -161,15 +166,22 @@ namespace ChitChat.ViewModels
             get => _privateMessageLength;
             set => SetPropertyValue(ref _privateMessageLength, value);
         }
-        public Array Themes { get; } = Enum.GetNames(typeof(Helper.Enums.Theme));
-        public Array MessageDisplayOptions { get; } = Enum.GetNames(typeof(MessageDisplay));
+        public Array Themes
+        {
+            get => _themes;
+            set => SetPropertyValue(ref _themes, value);
+        }
+        public Array MessageDisplayOptions
+        {
+            get => _messageDisplayOptions;
+            set => SetPropertyValue(ref _messageDisplayOptions, value);
+        }
 
-        public Helper.Enums.Theme CurrentTheme
+        public Helper.Enums.Theme? CurrentTheme
         {
             get => _currentTheme;
             set
             {
-                
                 ThemeChange?.Invoke(this, new ThemeEventArgs { NewTheme = value });
                 _currentTheme = value;
             }
@@ -436,7 +448,7 @@ namespace ChitChat.ViewModels
                 ConstructError(e.Subject, e.Message);
                 await DisplayError();
                 return;
-                
+
             }
             if (image != null)
             {
@@ -473,6 +485,12 @@ namespace ChitChat.ViewModels
         private void ChangeLanguage(ILanguage language)
         {
             language.ChangeLanguage();
+            string[] defaultThemes = Enum.GetNames(typeof(Helper.Enums.Theme));
+            string[] defaultMessageDisplayOptions = Enum.GetNames(typeof(MessageDisplay));
+            var newThemes = language.ChangeBoundEnumLanguage(defaultThemes);
+            var newMessageDisplayOptions = language.ChangeBoundEnumLanguage(defaultMessageDisplayOptions);
+            Themes = newThemes;
+            MessageDisplayOptions = newMessageDisplayOptions;
         }
         private async Task DisconnectFromServer()
         {
