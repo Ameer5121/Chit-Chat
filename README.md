@@ -6,16 +6,16 @@ Login             |  Register
 ![1](https://user-images.githubusercontent.com/71935713/142069939-4a848591-1dd9-464e-8b9b-02eaff76cf97.png)  |  ![2](https://user-images.githubusercontent.com/71935713/142070023-979d4f8e-7062-4a65-8bdb-df4afa38db54.png)
 
 Public Chat
-![publicchat](https://user-images.githubusercontent.com/71935713/142070066-2b4c091e-646f-496c-9576-d2236beba0b5.png)
+![142070066-2b4c091e-646f-496c-9576-d2236beba0b5](https://user-images.githubusercontent.com/71935713/147118569-4d61d3ba-74b2-4a50-a01b-db7316030b7e.png)
 
 Private Chat
-![private chat](https://user-images.githubusercontent.com/71935713/142070100-2fc26403-dc05-482b-95e9-5cf083ae30e2.png)
+![142070100-2fc26403-dc05-482b-95e9-5cf083ae30e2](https://user-images.githubusercontent.com/71935713/147118538-e891a89c-c644-41fb-9e97-91277a0c8d98.png)
 
 Light Theme
-![lighttheme](https://user-images.githubusercontent.com/71935713/142070127-7cd5d5f4-b1d5-4f21-903c-f17ccbd28ed3.png)
+![142070127-7cd5d5f4-b1d5-4f21-903c-f17ccbd28ed3](https://user-images.githubusercontent.com/71935713/147118499-1c5878c0-c3fb-47a7-9b53-5bc2f68d4906.png)
 
 Image Sending
-![picturesending](https://user-images.githubusercontent.com/71935713/142070165-978f0dbe-ad02-4328-9d73-7a5d3ef57a65.png)
+![142070165-978f0dbe-ad02-4328-9d73-7a5d3ef57a65](https://user-images.githubusercontent.com/71935713/147118454-13bab06f-7b4f-4d20-b14e-65c633e4839d.png)
 
 
 # Contains usages of:
