@@ -478,7 +478,7 @@
                             <KeyBinding Command="{Binding ConstructPublicMessageCommand}" Key="Enter"></KeyBinding>
                         </RichTextBox.InputBindings>
                         <materialDesign:HintAssist.Hint>
-                            <TextBlock Text="{DynamicResource SendAMessageDefault}" Foreground="{DynamicResource Text}"></TextBlock>
+                            <TextBlock Text="{DynamicResource SendAMessageDefault}" Margin="5,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource Text}"></TextBlock>
                         </materialDesign:HintAssist.Hint>
                     </RichTextBox>
                 </DockPanel>

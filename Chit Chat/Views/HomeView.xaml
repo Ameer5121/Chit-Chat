@@ -39,9 +39,17 @@
         </Grid.ColumnDefinitions>
 
 
-        <materialDesign:Transitioner x:Name="Transitioner" Grid.RowSpan="5" Grid.Row="1" Grid.ColumnSpan="3" Panel.ZIndex="1" SelectedIndex="1">
+        <materialDesign:Transitioner x:Name="RegisterTransitioner" Grid.RowSpan="5" Grid.Row="1" Grid.ColumnSpan="3" Panel.ZIndex="1" SelectedIndex="1">
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                 <local:RegisterView Margin="0,0,0,-1"></local:RegisterView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
+            </materialDesign:TransitionerSlide>
+        </materialDesign:Transitioner>
+        
+        <materialDesign:Transitioner x:Name="RecoveryTransitioner" Grid.RowSpan="5" Grid.Row="1" Grid.ColumnSpan="3" Panel.ZIndex="1" SelectedIndex="1">
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
+                <local:PasswordRecoveryWindow Margin="0,0,0,-1"></local:PasswordRecoveryWindow>
             </materialDesign:TransitionerSlide>
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
             </materialDesign:TransitionerSlide>
@@ -125,6 +133,18 @@
                 Foreground="White"
                 Command="{Binding LoginCommand, UpdateSourceTrigger=PropertyChanged}" Height="70" Width="160"/>
 
+        <!--Recovery-->
+        <Button 
+                Grid.Row="5"
+                Grid.Column="1"       
+                BorderBrush="Transparent"
+                Content="Forgot your password?"
+                Click="RecoveryClick"
+                FontSize="15"
+                Background="Transparent"
+                Foreground="Silver"
+                Height="20" Width="Auto" HorizontalContentAlignment="Center" VerticalAlignment="Top" Padding="0"/>
+
 
         <!--Register-->
         <Button
@@ -142,9 +162,10 @@
                    DataContext="{Binding HomeLogger}"
                    Grid.Row="5"
                    Grid.Column="1"
-                   VerticalAlignment="Top"
+                   VerticalAlignment="Bottom"
                    FontSize="15"
                    TextAlignment="Center"
+                   Margin="0,0,0,15"
                    Foreground="White"></TextBlock>
 
         <ProgressBar
