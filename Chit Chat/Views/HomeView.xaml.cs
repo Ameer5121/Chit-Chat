@@ -53,12 +53,12 @@ namespace ChitChat.Views
 
         private void Register(object sender, RoutedEventArgs e)
         {
-            RegisterTransitioner.SelectedIndex = 0;
+            Transitioner.SelectedIndex = 0;
         }
 
         private void RecoveryClick(object sender, RoutedEventArgs e)
         {
-            RecoveryTransitioner.SelectedIndex = 0;
+            Transitioner.SelectedIndex = 1;
         }
     }
 }

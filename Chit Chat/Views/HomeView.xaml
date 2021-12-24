@@ -39,21 +39,17 @@
         </Grid.ColumnDefinitions>
 
 
-        <materialDesign:Transitioner x:Name="RegisterTransitioner" Grid.RowSpan="5" Grid.Row="1" Grid.ColumnSpan="3" Panel.ZIndex="1" SelectedIndex="1">
+        <materialDesign:Transitioner x:Name="Transitioner" Grid.RowSpan="5" Grid.Row="1" Grid.ColumnSpan="3" Panel.ZIndex="1" SelectedIndex="2">
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                 <local:RegisterView Margin="0,0,0,-1"></local:RegisterView>
             </materialDesign:TransitionerSlide>
-            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
-            </materialDesign:TransitionerSlide>
-        </materialDesign:Transitioner>
-        
-        <materialDesign:Transitioner x:Name="RecoveryTransitioner" Grid.RowSpan="5" Grid.Row="1" Grid.ColumnSpan="3" Panel.ZIndex="1" SelectedIndex="1">
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                 <local:PasswordRecoveryWindow Margin="0,0,0,-1"></local:PasswordRecoveryWindow>
             </materialDesign:TransitionerSlide>
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
+       
 
         <!--Black Border & Exit Button-->
         <Border Background="#202225" Grid.Row="0" Grid.ColumnSpan="3">

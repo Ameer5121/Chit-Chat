@@ -166,7 +166,7 @@
             Width="155"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
-            Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
+            Command="{x:Static materialDesign:Transitioner.MoveLastCommand}"
             Foreground="White"
             Background="#303338"
             BorderBrush="#FF2C2B2B"
