@@ -16,13 +16,14 @@ using System.Windows.Shapes;
 namespace ChitChat.Views
 {
     /// <summary>
-    /// Interaction logic for PasswordRecoveryWindow.xaml
+    /// Interaction logic for PasswordRecoveryView.xaml
     /// </summary>
-    public partial class PasswordRecoveryWindow : UserControl
+    public partial class PasswordRecoveryView: UserControl
     {
-        public PasswordRecoveryWindow()
+        public PasswordRecoveryView()
         {
             InitializeComponent();
+
         }
     }
 }

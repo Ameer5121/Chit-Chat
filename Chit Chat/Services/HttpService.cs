@@ -40,7 +40,7 @@ namespace ChitChat.Services
             
             var response = await _httpClient.PostAsync($"{endPoint}",
                new StringContent(SerializeModel(userCredentials), Encoding.UTF8, "application/json"));
-
+            
             var userResponse = await ValidateResponseCodeAsync(response);
             return userResponse.Payload != null ? userResponse.Payload : null;
         }

@@ -44,7 +44,7 @@
                 <local:RegisterView Margin="0,0,0,-1"></local:RegisterView>
             </materialDesign:TransitionerSlide>
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
-                <local:PasswordRecoveryWindow Margin="0,0,0,-1"></local:PasswordRecoveryWindow>
+                <local:PasswordRecoveryView Margin="0,0,0,-1"></local:PasswordRecoveryView>
             </materialDesign:TransitionerSlide>
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromBottom}">
             </materialDesign:TransitionerSlide>

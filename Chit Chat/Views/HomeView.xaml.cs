@@ -32,10 +32,7 @@ namespace ChitChat.Views
                 this.DragMove();
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        private void Exit_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
 
         private void ChangeWindow(object sender, ConnectionEventArgs e)
         {
@@ -51,14 +48,7 @@ namespace ChitChat.Views
             (DataContext as HomeViewModel).Password = passwordBox.SecurePassword;
         }
 
-        private void Register(object sender, RoutedEventArgs e)
-        {
-            Transitioner.SelectedIndex = 0;
-        }
-
-        private void RecoveryClick(object sender, RoutedEventArgs e)
-        {
-            Transitioner.SelectedIndex = 1;
-        }
+        private void Register(object sender, RoutedEventArgs e) =>  Transitioner.SelectedIndex = 0;
+        private void RecoveryClick(object sender, RoutedEventArgs e) => Transitioner.SelectedIndex = 1;
     }
 }
