@@ -1,4 +1,4 @@
-﻿using ChitChat.Models.Markers;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChitChat.Models
 {
-    class ImageUploadDataModel : DataTransferObject
+    class ImageUploadDataModel
     {
         public string Base64ImageData { get; set; }
         public UserModel Uploader { get; set; }

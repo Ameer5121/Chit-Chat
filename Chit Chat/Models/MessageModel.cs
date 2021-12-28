@@ -7,11 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using Newtonsoft.Json;
-using ChitChat.Models.Markers;
 
 namespace ChitChat.Models
 {
-    public class MessageModel : DataTransferObject
+    public class MessageModel
     {
         public UserModel User { get; set; }
         public byte[]  RTFData { get; set; }

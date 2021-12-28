@@ -1,5 +1,4 @@
 ﻿using ChitChat.Models;
-using ChitChat.Models.Markers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +10,9 @@ namespace ChitChat.Services
 {
     public interface IHttpService
     {
-        Task<HttpResponseMessage> PostDataAsync(string endPoint, DataTransferObject dataTransferObject);
-        Task<UserModel> PostUserDataAsync(string endPoint, UserCredentials userCredentials);
+        Task<HttpResponseMessage> PostDataAsync(string endPoint, object data);
+        Task<UserModel> PostUserCredentialsAsync(string endPoint, UserCredentials userCredentials);
+        Task PostEmailAsync(string email);
         Task<HttpResponseMessage> GetDataAsync(string endponit);
     }
 }
