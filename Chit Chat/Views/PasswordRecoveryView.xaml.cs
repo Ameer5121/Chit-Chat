@@ -28,12 +28,15 @@ namespace ChitChat.Views
             InitializeComponent();
             DataContext = new RecoveryViewModel(HttpService.HttpServiceInstance);
             _dataContext = DataContext as RecoveryViewModel;
-            _dataContext.EmailSent += ChangeView;
+            Loaded += OnLoad;
+            Unloaded += OnUnLoaded;
         }
 
-        private void ChangeView(object sender, EventArgs e)
-        {
-            Transitioner.SelectedIndex = 1;
-        }
+
+        private void OnLoad(object sender, RoutedEventArgs e) => _dataContext.EmailSent += ChangeView;
+
+        private void OnUnLoaded(object sender, RoutedEventArgs e) => _dataContext.EmailSent -= ChangeView;
+
+        private void ChangeView(object sender, EventArgs e) => Transitioner.SelectedIndex = 0;
     }
 }

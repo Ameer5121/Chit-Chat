@@ -85,6 +85,8 @@ namespace ChitChat.ViewModels
                 IsSendingEmail = false;
                 return;
             }
+            IsSendingEmail = false;
+            RecoveryStatus = default;
             EmailSent?.Invoke(this, EventArgs.Empty);
         }
     }
