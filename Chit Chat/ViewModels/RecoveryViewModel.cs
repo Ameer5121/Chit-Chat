@@ -22,6 +22,7 @@ namespace ChitChat.ViewModels
         private bool _codeVerified;
         private bool _isSendingEmail;
         private IHttpService _httpService;
+        public event EventHandler EmailSent;
         public RecoveryViewModel(IHttpService httpService)
         {
             _httpService = httpService;
@@ -65,7 +66,7 @@ namespace ChitChat.ViewModels
             try
             {
                 Email.Validate();
-                await _httpService.PostEmailAsync(_email);
+               await _httpService.PostEmailAsync(Email);
 
             }catch(FormatException e)
             {
@@ -84,7 +85,7 @@ namespace ChitChat.ViewModels
                 IsSendingEmail = false;
                 return;
             }
-           
+            EmailSent?.Invoke(this, EventArgs.Empty);
         }
     }
 }

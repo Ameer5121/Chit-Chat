@@ -22,10 +22,18 @@ namespace ChitChat.Views
     /// </summary>
     public partial class PasswordRecoveryView: UserControl
     {
+        private RecoveryViewModel _dataContext;
         public PasswordRecoveryView()
         {
             InitializeComponent();
             DataContext = new RecoveryViewModel(HttpService.HttpServiceInstance);
+            _dataContext = DataContext as RecoveryViewModel;
+            _dataContext.EmailSent += ChangeView;
+        }
+
+        private void ChangeView(object sender, EventArgs e)
+        {
+            Transitioner.SelectedIndex = 1;
         }
     }
 }
