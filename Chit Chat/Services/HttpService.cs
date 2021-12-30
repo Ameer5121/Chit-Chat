@@ -50,8 +50,7 @@ namespace ChitChat.Services
         {
             var response = await _httpClient.PostAsync("/api/chat/PostEmail",
                new StringContent(JsonConvert.SerializeObject(email), Encoding.UTF8, "application/json"));
-            var deserializedResponse = await response.Content.ReadAsStringAsync();
-            if (response.StatusCode == HttpStatusCode.NotFound) throw new RegistrationException(deserializedResponse);
+            if (response.StatusCode == HttpStatusCode.NotFound) throw new RecoveryException("Email not found");
         }
         private async Task<UserResponseModel> GetDeserializedUserResponseModel(HttpResponseMessage response)
         {

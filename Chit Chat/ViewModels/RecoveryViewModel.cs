@@ -10,6 +10,7 @@ using ChitChat.Services;
 using ChitChat.Helper.Extensions;
 using System.Net.Http;
 using ChitChat.Helper.Exceptions;
+using ChitChat.Models;
 
 namespace ChitChat.ViewModels
 {
@@ -24,6 +25,7 @@ namespace ChitChat.ViewModels
         public RecoveryViewModel(IHttpService httpService)
         {
             _httpService = httpService;
+            _email = "";
         }
         public string Email
         {
@@ -46,33 +48,40 @@ namespace ChitChat.ViewModels
             get => _codeVerified;
             set => SetPropertyValue(ref _codeVerified, value);
         }
+        public bool IsSendingEmail
+        {
+            get => _isSendingEmail;
+            set => SetPropertyValue(ref _isSendingEmail, value);
+        }
         public SecureString Password { get; set; }
 
-        public ICommand SendEmailCommand => new RelayCommand(SendEmail);
+        public ICommand SendEmailCommand => new RelayCommand(SendEmail, CanSendEmail);
+
+        private bool CanSendEmail() => _email.Length > 0 || _isSendingEmail;
 
         private async Task SendEmail()
         {
-            _isSendingEmail = true;
+            IsSendingEmail = true;
             try
             {
                 Email.Validate();
-                await _httpService.PostDataAsync("PostEmail", _email);
+                await _httpService.PostEmailAsync(_email);
 
             }catch(FormatException e)
             {
                 RecoveryStatus = "Invalid Email Format.";
-                _isSendingEmail = false;
+                IsSendingEmail = false;
                 return;
             }
             catch (HttpRequestException)
             {
                 RecoveryStatus = "Could not connect to the server.";
-                _isSendingEmail = false;
+                IsSendingEmail = false;
                 return;
             }catch(RecoveryException e)
             {
                 RecoveryStatus = e.Message;
-                _isSendingEmail = false;
+                IsSendingEmail = false;
                 return;
             }
            
