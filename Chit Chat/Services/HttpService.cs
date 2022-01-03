@@ -50,7 +50,17 @@ namespace ChitChat.Services
         {
             var response = await _httpClient.PostAsync("/api/chat/PostEmail",
                new StringContent(JsonConvert.SerializeObject(email), Encoding.UTF8, "application/json"));
-            if (response.StatusCode == HttpStatusCode.NotFound) throw new RecoveryException("Email not found");
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                var deserializedResponse = await response.Content.ReadAsStringAsync();
+                throw new RecoveryException(deserializedResponse);
+            }
+        }
+        public async Task<bool> PostCodeAsync(int code)
+        {
+            var response = await _httpClient.PostAsync("/api/chat/PostCode",
+              new StringContent(JsonConvert.SerializeObject(code), Encoding.UTF8, "application/json"));
+            return response.StatusCode == HttpStatusCode.OK ? true : false;
         }
         private async Task<UserResponseModel> GetDeserializedUserResponseModel(HttpResponseMessage response)
         {

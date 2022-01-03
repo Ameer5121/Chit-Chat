@@ -13,6 +13,7 @@ namespace ChitChat.Services
         Task<HttpResponseMessage> PostDataAsync(string endPoint, object data);
         Task<UserModel> PostUserCredentialsAsync(string endPoint, UserCredentials userCredentials);
         Task PostEmailAsync(string email);
+        Task<bool> PostCodeAsync(int code);
         Task<HttpResponseMessage> GetDataAsync(string endponit);
     }
 }

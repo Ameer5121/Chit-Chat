@@ -20,7 +20,7 @@ namespace ChitChat.ViewModels
         private string _recoveryStatus;
         private int _code;
         private bool _codeVerified;
-        private bool _isSendingEmail;
+        private bool _isSending;
         private IHttpService _httpService;
         public event EventHandler EmailSent;
         public RecoveryViewModel(IHttpService httpService)
@@ -49,20 +49,22 @@ namespace ChitChat.ViewModels
             get => _codeVerified;
             set => SetPropertyValue(ref _codeVerified, value);
         }
-        public bool IsSendingEmail
+        public bool IsSending
         {
-            get => _isSendingEmail;
-            set => SetPropertyValue(ref _isSendingEmail, value);
+            get => _isSending;
+            set => SetPropertyValue(ref _isSending, value);
         }
         public SecureString Password { get; set; }
 
         public ICommand SendEmailCommand => new RelayCommand(SendEmail, CanSendEmail);
+        public ICommand VerifyCodeCommand => new RelayCommand(VerifyCode, CanVerifyCode);
 
-        private bool CanSendEmail() => _email.Length > 0 || _isSendingEmail;
+
+        private bool CanSendEmail() => _email.Length > 0 || _isSending;
 
         private async Task SendEmail()
         {
-            IsSendingEmail = true;
+            IsSending = true;
             try
             {
                 Email.Validate();
@@ -71,23 +73,48 @@ namespace ChitChat.ViewModels
             }catch(FormatException e)
             {
                 RecoveryStatus = "Invalid Email Format.";
-                IsSendingEmail = false;
+                IsSending = false;
                 return;
             }
             catch (HttpRequestException)
             {
                 RecoveryStatus = "Could not connect to the server.";
-                IsSendingEmail = false;
+                IsSending = false;
                 return;
             }catch(RecoveryException e)
             {
                 RecoveryStatus = e.Message;
-                IsSendingEmail = false;
+                IsSending = false;
                 return;
             }
-            IsSendingEmail = false;
+            IsSending = false;
             RecoveryStatus = default;
             EmailSent?.Invoke(this, EventArgs.Empty);
+        }
+
+        private bool CanVerifyCode() => _code >= 100000 && _code <= 999999;
+
+        private async Task VerifyCode()
+        {
+            IsSending = true;
+            try
+            {
+                
+            }
+            catch (HttpRequestException)
+            {
+                RecoveryStatus = "Could not connect to the server.";
+                IsSending = false;
+                return;
+            }
+            catch (RecoveryException e)
+            {
+                RecoveryStatus = e.Message;
+                IsSending = false;
+                return;
+            }
+            IsSending = false;
+            RecoveryStatus = default;
         }
     }
 }

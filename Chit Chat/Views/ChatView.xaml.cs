@@ -113,6 +113,7 @@ namespace ChitChat.Views
             if (_chatVM.CurrentTheme != e.NewTheme)
             {
                 app.ChangeTheme(e.NewTheme);
+                
                 ChangeMessagesColor(e.NewTheme, _chatVM.AllMessages);
             }
         }
@@ -123,27 +124,15 @@ namespace ChitChat.Views
             foreach (MessageModel messageModel in messages)
             {
                 Inline inline = (messageModel.Message.Blocks.FirstBlock as Paragraph).Inlines.FirstInline;
-                if (currentTheme == Theme.Light)
-                {
-                    inline.Foreground = (SolidColorBrush)app.Resources["TextLightTheme"];
-                }
-                else
-                {
-                    inline.Foreground = (SolidColorBrush)app.Resources["TextDarkTheme"];
-                }
+                if (currentTheme == Theme.Light) inline.Foreground = (SolidColorBrush)app.Resources["TextLightTheme"];
+                else inline.Foreground = (SolidColorBrush)app.Resources["TextDarkTheme"];
             }
         }
 
         private void ChangeMessagesColor(Theme? theme, Inline message, App app)
         {
-            if (theme == Theme.Light)
-            {
-                message.Foreground = (SolidColorBrush)app.Resources["TextLightTheme"];
-            }
-            else
-            {
-                message.Foreground = (SolidColorBrush)app.Resources["TextDarkTheme"];
-            }
+            if (theme == Theme.Light) message.Foreground = (SolidColorBrush)app.Resources["TextLightTheme"];
+            else message.Foreground = (SolidColorBrush)app.Resources["TextDarkTheme"];
         }
         private void CheckMessageTheme(object sender, MessageEventArgs e)
         {
