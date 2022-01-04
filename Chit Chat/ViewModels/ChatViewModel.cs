@@ -328,7 +328,7 @@ namespace ChitChat.ViewModels
                 await Task.Delay(2000);
                 try
                 {
-                    var response = await _httpService.GetDataAsync("GetHeartBeat");
+                   await _httpService.GetHeartBeat();
                 }
                 catch (HttpRequestException)
                 {
@@ -458,10 +458,9 @@ namespace ChitChat.ViewModels
             }
             if (image != null)
             {
-                ImageUploadDataModel profileImageDataModel = new ImageUploadDataModel(image.ConvertImageToBase64(), _currentUser);
+                ProfileImageUploadDataModel profileImageDataModel = new ProfileImageUploadDataModel(image.ConvertImageToBase64(), _currentUser);
                 IsUploading = true;
-                var response = await _httpService.PostDataAsync("PostImage", profileImageDataModel);
-                var imageLink = await response.Content.ReadAsStringAsync();
+                var imageLink = await _httpService.PostProfileImage(profileImageDataModel);
                 ChangeProfilePicture(imageLink);
                 IsUploading = false;
             }

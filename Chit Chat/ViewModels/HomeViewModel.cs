@@ -96,7 +96,7 @@ namespace ChitChat.ViewModels
             {        
                 await Task.Run(async () =>
                 {
-                    currentUser = await _httpService.PostUserCredentialsAsync("Login", new UserCredentials(_currentUserName, Password.DecryptPassword()));                       
+                    currentUser = await _httpService.PostLoginCredentialsAsync(new UserCredentials(_currentUserName, Password.DecryptPassword()));                       
                 });
             }
             catch (HttpRequestException)
@@ -142,7 +142,7 @@ namespace ChitChat.ViewModels
             try
             {
                 Email.Validate();
-                await _httpService.PostUserCredentialsAsync("PostUser", new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName));             
+                await _httpService.PostRegisterCredentialsAsync(new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName));             
             }
             catch (FormatException)
             {

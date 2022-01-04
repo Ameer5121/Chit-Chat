@@ -68,7 +68,7 @@ namespace ChitChat.ViewModels
             try
             {
                 Email.Validate();
-               await _httpService.PostEmailAsync(Email);
+               await _httpService.PostRecoveryDataAsync("PostEmail", Email);
 
             }catch(FormatException e)
             {
@@ -99,7 +99,7 @@ namespace ChitChat.ViewModels
             IsSending = true;
             try
             {
-                
+                await _httpService.PostRecoveryDataAsync("PostCode" ,new VerificationModel(_code, _email));
             }
             catch (HttpRequestException)
             {
@@ -114,7 +114,8 @@ namespace ChitChat.ViewModels
                 return;
             }
             IsSending = false;
-            RecoveryStatus = default;
+            RecoveryStatus = "Code has been verified! You can now change your password!";
+            _codeVerified = true;
         }
     }
 }

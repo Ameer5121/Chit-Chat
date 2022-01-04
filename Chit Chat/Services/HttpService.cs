@@ -24,49 +24,43 @@ namespace ChitChat.Services
         private HttpService() { }
         public static HttpService HttpServiceInstance => _httpService;
 
-        public async Task<HttpResponseMessage> GetDataAsync(string endpoint)
-        {
-            var response = await _httpClient.GetAsync(endpoint);
-            return response;
-        }
-
+        public async Task GetHeartBeat() => await _httpClient.GetAsync("/api/chat/GetHeartBeat");
         public async Task<HttpResponseMessage> PostDataAsync(string endPoint, object data)
         {
             return await _httpClient.PostAsync($"/api/chat/{endPoint}",
-               new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
+             new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
         }
-
-        public async Task<UserModel> PostUserCredentialsAsync(string endPoint, UserCredentials userCredentials)
-        {           
-            var response = await _httpClient.PostAsync($"/api/chat/{endPoint}",
-               new StringContent(JsonConvert.SerializeObject(userCredentials), Encoding.UTF8, "application/json"));
-
-            var userResponseModel = await GetDeserializedUserResponseModel(response);
-            if (userResponseModel.ResponseCode == HttpStatusCode.NotFound) throw new LoginException(userResponseModel.Message);
-            else if (userResponseModel.ResponseCode == HttpStatusCode.BadRequest) throw new RegistrationException(userResponseModel.Message);
-            return userResponseModel.Payload;           
-        }
-        public async Task PostEmailAsync(string email)
+        public async Task<UserModel> PostLoginCredentialsAsync(UserCredentials userCredentials)
         {
-            var response = await _httpClient.PostAsync("/api/chat/PostEmail",
-               new StringContent(JsonConvert.SerializeObject(email), Encoding.UTF8, "application/json"));
-            if (response.StatusCode == HttpStatusCode.NotFound)
+            var response = await PostDataAsync("Login", userCredentials);
+            var jsonResponseData = await response.Content.ReadAsStringAsync();
+            var userResponseModel = JsonConvert.DeserializeObject<UserResponseModel>(jsonResponseData);
+            if (response.StatusCode == HttpStatusCode.NotFound) throw new LoginException(userResponseModel.Message);          
+            return userResponseModel.Payload;
+        }
+        public async Task PostRegisterCredentialsAsync(UserCredentials userCredentials)
+        {
+            var response = await PostDataAsync("PostUser", userCredentials);
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                var body = await response.Content.ReadAsStringAsync();
+                throw new RegistrationException(body);
+            }
+        }
+        public async Task PostRecoveryDataAsync(string endPoint, object data)
+        {
+            var response =  await PostDataAsync(endPoint, data);
+            if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode != HttpStatusCode.OK)
             {
                 var deserializedResponse = await response.Content.ReadAsStringAsync();
                 throw new RecoveryException(deserializedResponse);
             }
         }
-        public async Task<bool> PostCodeAsync(int code)
+        public async Task<string> PostProfileImage(ProfileImageUploadDataModel imageUploadDataModel)
         {
-            var response = await _httpClient.PostAsync("/api/chat/PostCode",
-              new StringContent(JsonConvert.SerializeObject(code), Encoding.UTF8, "application/json"));
-            return response.StatusCode == HttpStatusCode.OK ? true : false;
+            var response = await PostDataAsync("PostImage", imageUploadDataModel);
+            return await response.Content.ReadAsStringAsync();
         }
-        private async Task<UserResponseModel> GetDeserializedUserResponseModel(HttpResponseMessage response)
-        {
-            var jsonResponseData = await response.Content.ReadAsStringAsync();
-            var userResponse = JsonConvert.DeserializeObject<UserResponseModel>(jsonResponseData);
-            return userResponse;
-        }
+
     }
 }

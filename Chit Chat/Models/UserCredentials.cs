@@ -10,10 +10,10 @@ namespace ChitChat.Models
     public class UserCredentials
     {
 
-        public readonly string UserName;
-        public readonly string DisplayName;
-        public readonly string Email;
-        public readonly string DecryptedPassword;
+        public string UserName { get; }
+        public string DisplayName { get; }
+        public string Email { get; }
+        public string DecryptedPassword { get; }
         public UserCredentials(string userName, string decryptedPassword)
         {
             UserName = userName;
