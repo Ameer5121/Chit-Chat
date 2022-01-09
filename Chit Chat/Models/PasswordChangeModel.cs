@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ChitChat.Models
 {
-    public class VerificationModel
+    public class PasswordChangeModel
     {
-        public int? Code { get; }
+        public string Password { get; }
         public string Email { get; }
-        public VerificationModel(int? code, string email)
+        public PasswordChangeModel(string password, string email)
         {
-            Code = code;
+            Password = password;
             Email = email;
         }
     }

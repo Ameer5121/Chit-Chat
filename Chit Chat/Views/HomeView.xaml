@@ -158,10 +158,10 @@
                    DataContext="{Binding HomeLogger}"
                    Grid.Row="5"
                    Grid.Column="1"
-                   VerticalAlignment="Bottom"
+                   VerticalAlignment="Center"
                    FontSize="15"
                    TextAlignment="Center"
-                   Margin="0,0,0,15"
+                   Margin="0,0,0,10"
                    Foreground="White"></TextBlock>
 
         <ProgressBar
@@ -169,7 +169,8 @@
          IsIndeterminate="True" 
             Grid.Row="5"
             Grid.Column="1"
-            VerticalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Margin="0,0,0,15"
             Height="25"
             Width="30"
             Foreground="Silver">

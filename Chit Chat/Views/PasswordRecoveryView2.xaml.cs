@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChitChat.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,13 @@ namespace ChitChat.Views
         {
             InitializeComponent();
         }
+
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var passwordBox = sender as PasswordBox;
+            (DataContext as RecoveryViewModel).Password = passwordBox.SecurePassword;
+        }
+
+        private void OnBackClick(object sender, RoutedEventArgs e) => (DataContext as RecoveryViewModel).Reset();
     }
 }

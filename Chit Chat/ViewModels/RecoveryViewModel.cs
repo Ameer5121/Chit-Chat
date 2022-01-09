@@ -18,14 +18,16 @@ namespace ChitChat.ViewModels
     {
         private string _email;
         private string _recoveryStatus;
-        private int _code;
+        private int? _code;
         private bool _codeVerified;
+        private bool _passwordChanged;
         private bool _isSending;
         private IHttpService _httpService;
         public event EventHandler EmailSent;
         public RecoveryViewModel(IHttpService httpService)
         {
             _httpService = httpService;
+            Password = new SecureString();
             _email = "";
         }
         public string Email
@@ -39,7 +41,7 @@ namespace ChitChat.ViewModels
             set => SetPropertyValue(ref _recoveryStatus, value);
         }
 
-        public int Code
+        public int? Code
         {
             get => _code;
             set => SetPropertyValue(ref _code, value);
@@ -57,10 +59,11 @@ namespace ChitChat.ViewModels
         public SecureString Password { get; set; }
 
         public ICommand SendEmailCommand => new RelayCommand(SendEmail, CanSendEmail);
+        public ICommand SendPasswordCommand => new RelayCommand(SendPassword, CanSendPassword);
         public ICommand VerifyCodeCommand => new RelayCommand(VerifyCode, CanVerifyCode);
 
 
-        private bool CanSendEmail() => _email.Length > 0 || _isSending;
+        private bool CanSendEmail() => _email.Length > 0 || !_isSending;
 
         private async Task SendEmail()
         {
@@ -92,7 +95,7 @@ namespace ChitChat.ViewModels
             EmailSent?.Invoke(this, EventArgs.Empty);
         }
 
-        private bool CanVerifyCode() => _code >= 100000 && _code <= 999999;
+        private bool CanVerifyCode() => _code >= 100000 && _code <= 999999 && !_codeVerified;
 
         private async Task VerifyCode()
         {
@@ -115,7 +118,34 @@ namespace ChitChat.ViewModels
             }
             IsSending = false;
             RecoveryStatus = "Code has been verified! You can now change your password!";
-            _codeVerified = true;
+            CodeVerified = true;
+        }
+
+        private bool CanSendPassword() => Password.Length > 0 && CodeVerified && !_passwordChanged;
+
+        private async Task SendPassword()
+        {
+            IsSending = true;
+            try
+            {
+                await _httpService.PostDataAsync("PostPassword", new PasswordChangeModel(Password.DecryptPassword(), _email));
+            }
+            catch (HttpRequestException)
+            {
+                RecoveryStatus = "Could not connect to the server.";
+                IsSending = false;
+                return;
+            }
+            IsSending = false;
+            _passwordChanged = true;
+            RecoveryStatus = "Password has been changed!";
+        }
+
+        public void Reset()
+        {
+            _passwordChanged = false;
+            _codeVerified = false;
+            RecoveryStatus = default;
         }
     }
 }

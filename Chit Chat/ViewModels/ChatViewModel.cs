@@ -458,7 +458,7 @@ namespace ChitChat.ViewModels
             }
             if (image != null)
             {
-                ProfileImageUploadDataModel profileImageDataModel = new ProfileImageUploadDataModel(image.ConvertImageToBase64(), _currentUser);
+                ImageUploadDataModel profileImageDataModel = new ImageUploadDataModel(image.ConvertImageToBase64(), _currentUser);
                 IsUploading = true;
                 var imageLink = await _httpService.PostProfileImage(profileImageDataModel);
                 ChangeProfilePicture(imageLink);

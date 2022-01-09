@@ -14,7 +14,7 @@ namespace ChitChat.Services
         Task<UserModel> PostLoginCredentialsAsync(UserCredentials userCredentials);
         Task PostRegisterCredentialsAsync(UserCredentials userCredentials);
         Task PostRecoveryDataAsync(string endPoint, object data);
-        Task<string> PostProfileImage(ProfileImageUploadDataModel imageUploadDataModel);
+        Task<string> PostProfileImage(ImageUploadDataModel imageUploadDataModel);
         Task GetHeartBeat();
     }
 }

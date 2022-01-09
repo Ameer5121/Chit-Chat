@@ -56,7 +56,7 @@ namespace ChitChat.Services
                 throw new RecoveryException(deserializedResponse);
             }
         }
-        public async Task<string> PostProfileImage(ProfileImageUploadDataModel imageUploadDataModel)
+        public async Task<string> PostProfileImage(ImageUploadDataModel imageUploadDataModel)
         {
             var response = await PostDataAsync("PostImage", imageUploadDataModel);
             return await response.Content.ReadAsStringAsync();
