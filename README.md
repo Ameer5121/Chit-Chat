@@ -1,10 +1,14 @@
 # Chit-Chat
 Social chatting application with MySQL database features for windows.
 
-Login             |  Register
+Login  |  Register 
 :-------------------------:|:-------------------------:
-![1](https://user-images.githubusercontent.com/71935713/142069939-4a848591-1dd9-464e-8b9b-02eaff76cf97.png)  |  ![2](https://user-images.githubusercontent.com/71935713/142070023-979d4f8e-7062-4a65-8bdb-df4afa38db54.png)
+![1](https://user-images.githubusercontent.com/71935713/148786170-f16f5a46-5a10-4469-8f2c-bfd50c775b83.png)  |  ![2](https://user-images.githubusercontent.com/71935713/142070023-979d4f8e-7062-4a65-8bdb-df4afa38db54.png) 
 
+Password Recovery 1 |  Password Recovery 2 
+:-------------------------:|:-------------------------:
+![2](https://user-images.githubusercontent.com/71935713/148786353-56141f35-cf02-47a6-b1cf-a18f6b563f48.png)  |  ![3](https://user-images.githubusercontent.com/71935713/148786525-5009ff11-634a-48a6-b526-90f22b0743e4.png)
+ 
 Public Chat
 ![142070066-2b4c091e-646f-496c-9576-d2236beba0b5](https://user-images.githubusercontent.com/71935713/147118569-4d61d3ba-74b2-4a50-a01b-db7316030b7e.png)
 
@@ -26,6 +30,7 @@ Image Sending
 
 # Core functionality:
 * Login / Register options
+* Password Recovery
 * List of connected users, automatically updating when one joins/leaves
 * Returning to home view automatically when server is down
 * Private chatting
