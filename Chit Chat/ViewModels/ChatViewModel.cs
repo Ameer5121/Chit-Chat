@@ -41,9 +41,9 @@ namespace ChitChat.ViewModels
         private CancellationTokenSource _heartbeatToken;
         private IHttpService _httpService;
         private bool _isUploading;
-        private bool _controlsEnabled = true;
-        private bool _isPrivateChatting = false;
-        private MessageDisplay? _messageDisplay = null;
+        private bool _controlsEnabled;
+        private bool _isPrivateChatting;
+        private MessageDisplay? _messageDisplay;
         private ErrorModel _error;
         private const int _characterLimit = 600;
         private int _publicMessageLength;
@@ -66,6 +66,11 @@ namespace ChitChat.ViewModels
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
+            _controlsEnabled = true;
+            _isPrivateChatting = false;
+            // Set a null value so the ComboBox is empty.
+            _messageDisplay = null;
+
             _currentPublicMessage = new FlowDocument();
             _currentPrivateMessage = new FlowDocument();
             _currentUser = currentuser;
@@ -302,22 +307,13 @@ namespace ChitChat.ViewModels
             ControlsEnabled = true;
             _isPrivateChatting = false;
         }
-        private void SetSelectedUser(UserModel selectedUser)
-        {
-            SelectedUser = selectedUser;
-        }
-
-        private void ConstructPrivateChat()
-        {
-            PrivateChatEnter?.Invoke(this, EventArgs.Empty);
-        }
-
+        private void SetSelectedUser(UserModel selectedUser) => SelectedUser = selectedUser;
+        private void ConstructPrivateChat() => PrivateChatEnter?.Invoke(this, EventArgs.Empty);
         private void RefreshPrivateCollectionView()
         {
             Refresh?.Invoke(this, EventArgs.Empty);
             PrivateMessages.Refresh();
         }
-
         private async Task SendHeartBeatAsync(CancellationToken token)
         {
             while (true)
@@ -328,7 +324,7 @@ namespace ChitChat.ViewModels
                 await Task.Delay(2000);
                 try
                 {
-                   await _httpService.GetHeartBeat();
+                    await _httpService.GetHeartBeat();
                 }
                 catch (HttpRequestException)
                 {
@@ -361,11 +357,7 @@ namespace ChitChat.ViewModels
             }
         }
 
-        private void ReceiveUsers(ObservableCollection<UserModel> users)
-        {
-            Users = users;
-        }
-
+        private void ReceiveUsers(ObservableCollection<UserModel> users) => Users = users;
         private BitmapImage ChoosePicture()
         {
             var openfiledialog = new OpenFileDialog();
@@ -389,10 +381,7 @@ namespace ChitChat.ViewModels
             var nameChangeModel = new NameChangeModel(_currentUser);
             DialogHost.Show(nameChangeModel, "ChatDialog");
         }
-        private void CloseDialog()
-        {
-            DialogHost.CloseDialogCommand.Execute(null, null);
-        }
+        private void CloseDialog() => DialogHost.CloseDialogCommand.Execute(null, null);
 
         private async Task ChangeDisplayName(NameChangeModel nameChangeModel)
         {
@@ -466,10 +455,7 @@ namespace ChitChat.ViewModels
             }
         }
 
-        private void ChangeProfilePicture(string profilePictureSource)
-        {
-            _currentUser.ProfilePicture = profilePictureSource;
-        }
+        private void ChangeProfilePicture(string profilePictureSource) => _currentUser.ProfilePicture = profilePictureSource;
 
         private void CreateHandlers()
         {
@@ -477,10 +463,8 @@ namespace ChitChat.ViewModels
             _connection.On<ObservableCollection<MessageModel>>("ReceiveMessages", ReceiveMessages);
         }
 
-        private void ConstructError(string errorSubject, string errorMessage)
-        {
-            Error = new ErrorModel(errorSubject, errorMessage);
-        }
+        private void ConstructError(string errorSubject, string errorMessage) => Error = new ErrorModel(errorSubject, errorMessage);
+
         private async Task DisplayError()
         {
             await DialogHost.Show(Error, "ChatDialog");

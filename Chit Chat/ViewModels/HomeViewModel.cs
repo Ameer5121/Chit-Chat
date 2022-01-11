@@ -126,7 +126,7 @@ namespace ChitChat.ViewModels
         private void BuildConnection()
         {
             connection = new HubConnectionBuilder()
-                      .WithUrl("https://localhost:44358/chathub")
+                      .WithUrl("https://localhost:5001/chathub")
                       .Build();
         }
 
@@ -197,23 +197,14 @@ namespace ChitChat.ViewModels
                         ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)
                     });
                 });
-                RemoveHandlers();
+                RemoveHandler();
             });
         }
 
-        private void ConvertRTFDataToMessages(IEnumerable<MessageModel> data)
-        {
-            data.ConvertRTFToFlowDocument();
-        }
+        private void ConvertRTFDataToMessages(IEnumerable<MessageModel> data) => data.ConvertRTFToFlowDocument();
 
-        private void SetConnectionID(UserModel user)
-        {
-            user.ConnectionID = connection.ConnectionId;
-        }
+        private void SetConnectionID(UserModel user) => user.ConnectionID = connection.ConnectionId;
 
-        private void RemoveHandlers()
-        {
-           connection.Remove("Connected");
-        }
+        private void RemoveHandler() => connection.Remove("Connected");
     }
 }
