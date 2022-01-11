@@ -18,7 +18,7 @@ namespace ChitChat.ViewModels
     {
         private string _email;
         private string _recoveryStatus;
-        private int? _code;
+        private int _code;
         private bool _codeVerified;
         private bool _passwordChanged;
         private bool _isSending;
@@ -41,7 +41,7 @@ namespace ChitChat.ViewModels
             set => SetPropertyValue(ref _recoveryStatus, value);
         }
 
-        public int? Code
+        public int Code
         {
             get => _code;
             set => SetPropertyValue(ref _code, value);

@@ -8,9 +8,9 @@ namespace ChitChat.Models
 {
     public class VerificationModel
     {
-        public int? Code { get; }
+        public int Code { get; }
         public string Email { get; }
-        public VerificationModel(int? code, string email)
+        public VerificationModel(int code, string email)
         {
             Code = code;
             Email = email;
