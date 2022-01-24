@@ -427,6 +427,7 @@
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                       HorizontalContentAlignment="Left" Margin="2,0,0,0"
                                                       Padding="-10"></FlowDocumentScrollViewer>
+                            
                         </DockPanel>
 
                     </DataTemplate>

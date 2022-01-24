@@ -38,6 +38,7 @@ namespace ChitChat.ViewModels
         private ObservableCollection<UserModel> _users;
         private CollectionViewSource _privateMessagesCollectionView;
         private ObservableCollection<MessageModel> _messages;
+        private List<UnLoadedMessagesIntervalModel> _unLoadedMessagesIntervals;
         private CancellationTokenSource _heartbeatToken;
         private IHttpService _httpService;
         private bool _isUploading;
@@ -68,6 +69,7 @@ namespace ChitChat.ViewModels
         {
             _controlsEnabled = true;
             _isPrivateChatting = false;
+            _unLoadedMessagesIntervals = new List<UnLoadedMessagesIntervalModel>();
             // Set a null value so the ComboBox is empty.
             _messageDisplay = null;
 
@@ -285,9 +287,9 @@ namespace ChitChat.ViewModels
                 // We want to show messages that are directed to the selected user,
                 //and to see the messages that are directed to us from the selected user
                 return
-                currentMessage.DestinationUser.DisplayName == SelectedUser.DisplayName
-               || currentMessage.User.DisplayName == SelectedUser.DisplayName
-               && currentMessage.DestinationUser.DisplayName == _currentUser.DisplayName;
+                currentMessage.DestinationUser.ConnectionID == SelectedUser.ConnectionID
+               || currentMessage.User.ConnectionID == SelectedUser.ConnectionID
+               && currentMessage.DestinationUser.ConnectionID == _currentUser.ConnectionID;
             }
             return false;
         }
@@ -346,8 +348,9 @@ namespace ChitChat.ViewModels
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     messages.LastOrDefault().ConvertRTFToFlowDocument();
-
                     _messages.Add(messages.LastOrDefault());
+                    if (CanReducePrivateMessages()) ReduceMessages(true);
+                    else if (CanReducePublicMessages()) ReduceMessages(false);
                     MessageReceived?.Invoke(this, new MessageEventArgs
                     {
                         MessageModel = messages.LastOrDefault(),
@@ -355,6 +358,28 @@ namespace ChitChat.ViewModels
                     });
                 });
             }
+        }
+
+        private bool CanReducePublicMessages() => _messages.TakeWhile(x => x.DestinationUser == null).Count() - 5 == 5;
+
+        private bool CanReducePrivateMessages() => _messages.TakePrivateMessages(_currentUser, SelectedUser).Count() - 5 == 5;
+
+        private void ReduceMessages(bool privateReduce)
+        {
+            IEnumerable<MessageModel> messagesToRemove;
+            if (privateReduce)
+            {
+                messagesToRemove = _messages.TakePrivateMessages(_currentUser, SelectedUser).Take(5).ToList();
+                _unLoadedMessagesIntervals.Add(new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
+                    messagesToRemove.Last().MessageDate, SelectedUser, _currentUser));
+            }
+            else
+            {
+                messagesToRemove = _messages.TakeWhile(x => x.DestinationUser == null).Take(5).ToList();
+                _unLoadedMessagesIntervals.Add(new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
+                    messagesToRemove.Last().MessageDate));
+            }
+            foreach (MessageModel message in messagesToRemove) _messages.Remove(message);
         }
 
         private void ReceiveUsers(ObservableCollection<UserModel> users) => Users = users;

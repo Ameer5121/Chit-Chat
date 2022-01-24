@@ -24,6 +24,7 @@ using Newtonsoft.Json;
 using System.Security;
 using System.Runtime.InteropServices;
 using ChitChat.Services;
+using System.Net.Security;
 
 namespace ChitChat.ViewModels
 {
@@ -77,13 +78,12 @@ namespace ChitChat.ViewModels
             {
                 if (value.Length > 20)
                     return;
-                SetPropertyValue(ref _displayName, value);                    
+                SetPropertyValue(ref _displayName, value);
             }
         }
 
         public ICommand RegisterCommand => new RelayCommand(RegisterAccountAsync, CanRegisterAccount);
         public ICommand LoginCommand => new RelayCommand(LoginToServerAsync, CanLogin);
-
 
         private bool CanLogin() => !string.IsNullOrEmpty(_currentUserName) && Password.Length > 0 && !_isConnecting;
 
@@ -93,13 +93,13 @@ namespace ChitChat.ViewModels
             UserModel currentUser = null;
             _ = HomeLogger.LogMessage("Connecting...");
             try
-            {        
+            {
                 await Task.Run(async () =>
                 {
-                    currentUser = await _httpService.PostLoginCredentialsAsync(new UserCredentials(_currentUserName, Password.DecryptPassword()));                       
+                    currentUser = await _httpService.PostLoginCredentialsAsync(new UserCredentials(_currentUserName, Password.DecryptPassword()));
                 });
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException e)
             {
                 _ = HomeLogger.LogMessage($"Could not connect to the server.");
                 IsConnecting = false;
@@ -126,8 +126,22 @@ namespace ChitChat.ViewModels
         private void BuildConnection()
         {
             connection = new HubConnectionBuilder()
-                      .WithUrl("https://localhost:5001/chathub")
-                      .Build();
+                      .WithUrl("https://109.67.32.221:5001/chathub", (opts) =>
+                      {
+                          opts.HttpMessageHandlerFactory = (message) =>
+                          {
+                              if (message is HttpClientHandler clientHandler)
+                                  clientHandler.ServerCertificateCustomValidationCallback +=
+                                      (sender, certificate, chain, sslPolicyErrors) =>
+                                      {
+                                          if (sslPolicyErrors == SslPolicyErrors.None) return true;
+                                          if (certificate.GetCertHashString() == "6178922209F45C7A6D4F3C321CDA4FD775A6A1CA") return true;
+                                          return false;
+                                      };
+                              return message;
+                          };
+                      })
+                        .Build();
         }
 
         private bool CanRegisterAccount() => !string.IsNullOrEmpty(UserName) &&
@@ -142,7 +156,7 @@ namespace ChitChat.ViewModels
             try
             {
                 Email.Validate();
-                await _httpService.PostRegisterCredentialsAsync(new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName));             
+                await _httpService.PostRegisterCredentialsAsync(new UserCredentials(UserName, Password.DecryptPassword(), Email, DisplayName));
             }
             catch (FormatException)
             {
@@ -179,7 +193,7 @@ namespace ChitChat.ViewModels
             UserName = "";
             Email = "";
             DisplayName = "";
-            Password.Clear();         
+            Password.Clear();
         }
         private void CreateHandlers()
         {
@@ -193,18 +207,15 @@ namespace ChitChat.ViewModels
                     ConvertRTFDataToMessages(data.Messages);
                     SuccessfulConnect?.Invoke(this, new ConnectionEventArgs
                     {
-                        
+
                         ChatViewModelContext = new ChatViewModel(data, _currentUser, connection, _httpService)
                     });
                 });
                 RemoveHandler();
             });
         }
-
         private void ConvertRTFDataToMessages(IEnumerable<MessageModel> data) => data.ConvertRTFToFlowDocument();
-
         private void SetConnectionID(UserModel user) => user.ConnectionID = connection.ConnectionId;
-
         private void RemoveHandler() => connection.Remove("Connected");
     }
 }
