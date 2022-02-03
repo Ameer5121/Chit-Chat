@@ -64,7 +64,6 @@ namespace ChitChat.ViewModels
         public event EventHandler<MessageDisplayEventArgs> MessageDisplayChange;
         public EventHandler<UploadEventArgs> PictureSelected;
         public event EventHandler PrivateChatEnter;
-        public event EventHandler<DocumentEventArgs> DocumentParentNotNull;
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
@@ -305,11 +304,6 @@ namespace ChitChat.ViewModels
             return currentMessage.DestinationUser == null;
         }
 
-        private void TryDisconnectingParent(FlowDocument document)
-        {
-            if (document.Parent != null) DocumentParentNotNull?.Invoke(this, new DocumentEventArgs(document));
-        }
-
         private void DisableControls()
         {
             ControlsEnabled = false;
@@ -416,10 +410,6 @@ namespace ChitChat.ViewModels
 
         private void LoadPreviousMessages(List<MessageModel> messages)
         {
-            // Takes every current FlowDocuments to remove their Parents, since we are going to refresh the view
-            // and we don't want to get an exception.
-            foreach(MessageModel messageModel in _messages) TryDisconnectingParent(messageModel.Message);
-
             messages.ConvertRTFToFlowDocument();
             foreach (var message in messages) _messages.Add(message);
         }

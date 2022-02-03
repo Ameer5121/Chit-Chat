@@ -46,7 +46,6 @@ namespace ChitChat.Views
             _chatVM.PrivateChatEnter += OnPrivateChatEnter;
             _chatVM.PictureSelected += SetPictureMessage;
             _chatVM.MessageDisplayChange += ChangeMessageDisplay;
-            _chatVM.DocumentParentNotNull += RemoveParent;
             //Set the correct color for messages upon logging in
             ChangeMessagesColor(_chatVM.CurrentTheme, _chatVM.AllMessages);
         }
@@ -61,7 +60,6 @@ namespace ChitChat.Views
             _chatVM.PrivateChatEnter -= OnPrivateChatEnter;
             _chatVM.PictureSelected -= SetPictureMessage;
             _chatVM.MessageDisplayChange -= ChangeMessageDisplay;
-            _chatVM.DocumentParentNotNull -= RemoveParent;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
@@ -180,12 +178,5 @@ namespace ChitChat.Views
                 PublicChat.ItemTemplate = (DataTemplate)Application.Current.Resources[Enum.GetName(typeof(MessageDisplay), e.NewMessageDisplay)];
             }
         }
-
-        private void RemoveParent(object sender, DocumentEventArgs e)
-        {
-            var parent = e.FlowDocument.Parent as FlowDocumentScrollViewer;
-            parent.Document = null;
-        }
-
     }
 }
