@@ -385,11 +385,20 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-
-            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Background="{DynamicResource MessageHistoryBorder}">
+            
+            <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Background="{DynamicResource MessageHistoryBorder}">
                 <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
                 <TextBlock Width="116" Text="{DynamicResource MessageHistoryDefault}" VerticalAlignment="Center" Foreground="{DynamicResource Text}"></TextBlock>
-            </StackPanel>
+                <Button  Background="{DynamicResource Buttons}"
+                         BorderBrush="{StaticResource ButtonsBorderBrush}"     
+                         DockPanel.Dock="Right"
+                         VerticalAlignment="Center"
+                         Margin="0,0,5,0"
+                         Command="{Binding GetPreviousPublicMessagesCommand}"
+                         Foreground="{DynamicResource Text2}">Load Previous Messages</Button>
+
+            </DockPanel>
+            
             <materialDesign:Card Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="3" Margin="0,0,0,0"></materialDesign:Card>
 
             <Border Background="Black" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" Height="0.5" Grid.ColumnSpan="8" Opacity="0.5"></Border>

@@ -31,7 +31,7 @@ namespace ChitChat.Services
                 };
             _httpClient = new HttpClient(handler);
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
-            _httpClient.BaseAddress = new Uri("https://109.67.32.221:5001");
+            _httpClient.BaseAddress = new Uri("https://localhost:5001");
         }
         private HttpService() { }
         public static HttpService HttpServiceInstance => _httpService;

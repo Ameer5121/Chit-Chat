@@ -64,12 +64,13 @@ namespace ChitChat.ViewModels
         public event EventHandler<MessageDisplayEventArgs> MessageDisplayChange;
         public EventHandler<UploadEventArgs> PictureSelected;
         public event EventHandler PrivateChatEnter;
+        public event EventHandler<DocumentEventArgs> DocumentParentNotNull;
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
+
             _controlsEnabled = true;
             _isPrivateChatting = false;
-            _unLoadedMessagesIntervals = new List<UnLoadedMessagesIntervalModel>();
             // Set a null value so the ComboBox is empty.
             _messageDisplay = null;
 
@@ -78,6 +79,7 @@ namespace ChitChat.ViewModels
             _currentUser = currentuser;
             _users = data.Users;
             _messages = data.Messages;
+            _unLoadedMessagesIntervals = data.UnLoadedMessagesIntervalModels;
 
             // Set a default value so the binding doesn't fail.
             SelectedUser = new UserModel();
@@ -85,19 +87,22 @@ namespace ChitChat.ViewModels
             _themes = Enum.GetNames(typeof(Helper.Enums.Theme));
             _messageDisplayOptions = Enum.GetNames(typeof(MessageDisplay));
 
-            PublicMessages = CollectionViewSource.GetDefaultView(_messages);
+            PublicMessages = CollectionViewSource.GetDefaultView(_messages) as ListCollectionView;
             PublicMessages.Filter = FilterPublicMessages;
+            PublicMessages.SortDescriptions.Add(new SortDescription("MessageDate", ListSortDirection.Ascending));
 
             _privateMessagesCollectionView = new CollectionViewSource();
             _privateMessagesCollectionView.Source = _messages;
             PrivateMessages = _privateMessagesCollectionView.View;
             PrivateMessages.Filter = FilterPrivateMessages;
+            PrivateMessages.SortDescriptions.Add(new SortDescription("MessageDate", ListSortDirection.Ascending));
 
             _connection = connection;
             _httpService = httpService;
             _heartbeatToken = new CancellationTokenSource();
             CreateHandlers();
             SendHeartBeatAsync(_heartbeatToken.Token);
+           
         }
 
         public ICommand ChooseImageCommand => new RelayCommand(UploadImageAsync);
@@ -111,7 +116,8 @@ namespace ChitChat.ViewModels
         public ICommand DisconnectCommand => new RelayCommand(DisconnectFromServer);
         public ICommand PrivateChatEnterCommand => new RelayCommand(ConstructPrivateChat, SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
         public ICommand PrivateChatExitCommand => new RelayCommand(EnableControls);
-
+        public ICommand GetPreviousPublicMessagesCommand => new RelayCommand(GetPreviousPublicMessages, CanGetPreviousPublicMessages);
+        public ICommand GetPreviousPrivateMessagesCommand => new RelayCommand(GetPreviousPrivateMessages, CanGetPreviousPrivateMessages);
         public UserModel SelectedUser
         {
             get => _selectedUser;
@@ -123,7 +129,7 @@ namespace ChitChat.ViewModels
             get => _currentUser;
         }
 
-        public ICollectionView PublicMessages { get; }
+        public ICollectionView PublicMessages { get; set; }
         public ICollectionView PrivateMessages { get; }
         public ObservableCollection<MessageModel> AllMessages => _messages;
 
@@ -287,9 +293,9 @@ namespace ChitChat.ViewModels
                 // We want to show messages that are directed to the selected user,
                 //and to see the messages that are directed to us from the selected user
                 return
-                currentMessage.DestinationUser.ConnectionID == SelectedUser.ConnectionID
-               || currentMessage.User.ConnectionID == SelectedUser.ConnectionID
-               && currentMessage.DestinationUser.ConnectionID == _currentUser.ConnectionID;
+                currentMessage.DestinationUser.DisplayName == SelectedUser.DisplayName
+               || currentMessage.User.DisplayName == SelectedUser.DisplayName
+               && currentMessage.DestinationUser.DisplayName == _currentUser.DisplayName;               
             }
             return false;
         }
@@ -297,6 +303,11 @@ namespace ChitChat.ViewModels
         {
             MessageModel currentMessage = item as MessageModel;
             return currentMessage.DestinationUser == null;
+        }
+
+        private void TryDisconnectingParent(FlowDocument document)
+        {
+            if (document.Parent != null) DocumentParentNotNull?.Invoke(this, new DocumentEventArgs(document));
         }
 
         private void DisableControls()
@@ -349,7 +360,7 @@ namespace ChitChat.ViewModels
                 {
                     messages.LastOrDefault().ConvertRTFToFlowDocument();
                     _messages.Add(messages.LastOrDefault());
-                    if (CanReducePrivateMessages()) ReduceMessages(true);
+                    if (_isPrivateChatting && CanReducePrivateMessages()) ReduceMessages(true);
                     else if (CanReducePublicMessages()) ReduceMessages(false);
                     MessageReceived?.Invoke(this, new MessageEventArgs
                     {
@@ -367,19 +378,50 @@ namespace ChitChat.ViewModels
         private void ReduceMessages(bool privateReduce)
         {
             IEnumerable<MessageModel> messagesToRemove;
+            UnLoadedMessagesIntervalModel unLoadedMessagesIntervalModel;
             if (privateReduce)
             {
                 messagesToRemove = _messages.TakePrivateMessages(_currentUser, SelectedUser).Take(5).ToList();
-                _unLoadedMessagesIntervals.Add(new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
-                    messagesToRemove.Last().MessageDate, SelectedUser, _currentUser));
+                unLoadedMessagesIntervalModel = new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
+                    messagesToRemove.Last().MessageDate, SelectedUser, _currentUser);
+                _unLoadedMessagesIntervals.Add(unLoadedMessagesIntervalModel);
             }
             else
             {
                 messagesToRemove = _messages.TakeWhile(x => x.DestinationUser == null).Take(5).ToList();
-                _unLoadedMessagesIntervals.Add(new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
-                    messagesToRemove.Last().MessageDate));
+                unLoadedMessagesIntervalModel = new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
+                    messagesToRemove.Last().MessageDate);
+                _unLoadedMessagesIntervals.Add(unLoadedMessagesIntervalModel);
             }
             foreach (MessageModel message in messagesToRemove) _messages.Remove(message);
+
+            //no need to await since it is impossible for this to throw and we don't need anything in return
+            _httpService.PostDataAsync("PostMessagesInterval", unLoadedMessagesIntervalModel);           
+        }
+
+        private bool CanGetPreviousPublicMessages() => _unLoadedMessagesIntervals.Any(x => x.From == null && x.To == null);
+        private bool CanGetPreviousPrivateMessages() => _unLoadedMessagesIntervals.HasPrivateIntervals(_currentUser, _selectedUser);
+
+        private void GetPreviousPublicMessages()
+        {
+            var interval = _unLoadedMessagesIntervals.LastOrDefault(x => x.From == null && x.To == null);
+            _connection.SendAsync("SendPreviousPublicMessages", interval);              
+        }
+
+        private void GetPreviousPrivateMessages()
+        {
+            var interval = _unLoadedMessagesIntervals.TakePrivateIntervals(_currentUser, _selectedUser).LastOrDefault();
+            _connection.SendAsync("SendPreviousPrivateMessages", interval);
+        }
+
+        private void LoadPreviousMessages(List<MessageModel> messages)
+        {
+            // Takes every current FlowDocuments to remove their Parents, since we are going to refresh the view
+            // and we don't want to get an exception.
+            foreach(MessageModel messageModel in _messages) TryDisconnectingParent(messageModel.Message);
+
+            messages.ConvertRTFToFlowDocument();
+            foreach (var message in messages) _messages.Add(message);
         }
 
         private void ReceiveUsers(ObservableCollection<UserModel> users) => Users = users;
@@ -486,6 +528,7 @@ namespace ChitChat.ViewModels
         {
             _connection.On<ObservableCollection<UserModel>>("ReceiveUsers", ReceiveUsers);
             _connection.On<ObservableCollection<MessageModel>>("ReceiveMessages", ReceiveMessages);
+            _connection.On<List<MessageModel>>("LoadPreviousMessages", LoadPreviousMessages);
         }
 
         private void ConstructError(string errorSubject, string errorMessage) => Error = new ErrorModel(errorSubject, errorMessage);
