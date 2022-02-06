@@ -399,13 +399,15 @@ namespace ChitChat.ViewModels
         private void GetPreviousPublicMessages()
         {
             var interval = _unLoadedMessagesIntervals.LastOrDefault(x => x.From == null && x.To == null);
-            _connection.SendAsync("SendPreviousPublicMessages", interval);              
+            _connection.SendAsync("SendPreviousPublicMessages", interval);
+            _unLoadedMessagesIntervals.Remove(interval);
         }
 
         private void GetPreviousPrivateMessages()
         {
             var interval = _unLoadedMessagesIntervals.TakePrivateIntervals(_currentUser, _selectedUser).LastOrDefault();
             _connection.SendAsync("SendPreviousPrivateMessages", interval);
+            _unLoadedMessagesIntervals.Remove(interval);
         }
 
         private void LoadPreviousMessages(List<MessageModel> messages)
