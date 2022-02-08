@@ -57,13 +57,12 @@ namespace ChitChat.ViewModels
         private HubConnection _connection;
         public event EventHandler Disconnect;
         public event EventHandler MessageSent;
-        public event EventHandler Refresh;
         public event EventHandler<MessageEventArgs> MessageReceived;
         public event EventHandler<EmojiEventArgs> EmojiClick;
         public event EventHandler<ThemeEventArgs> ThemeChange;
         public event EventHandler<MessageDisplayEventArgs> MessageDisplayChange;
         public EventHandler<UploadEventArgs> PictureSelected;
-        public event EventHandler PrivateChatEnter;
+        public event EventHandler PrivateChatClick;
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
@@ -113,7 +112,7 @@ namespace ChitChat.ViewModels
         public ICommand ConstructPrivateMessageCommand => new RelayCommand(ConstructPrivateMessageAsync, CanConstructPrivateMessage);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
         public ICommand DisconnectCommand => new RelayCommand(DisconnectFromServer);
-        public ICommand PrivateChatEnterCommand => new RelayCommand(ConstructPrivateChat, SetSelectedUser, RefreshPrivateCollectionView, DisableControls);
+        public ICommand PrivateChatEnterCommand => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, ConstructPrivateChat, DisableControls);
         public ICommand PrivateChatExitCommand => new RelayCommand(EnableControls);
         public ICommand GetPreviousPublicMessagesCommand => new RelayCommand(GetPreviousPublicMessages, CanGetPreviousPublicMessages);
         public ICommand GetPreviousPrivateMessagesCommand => new RelayCommand(GetPreviousPrivateMessages, CanGetPreviousPrivateMessages);
@@ -315,12 +314,9 @@ namespace ChitChat.ViewModels
             _isPrivateChatting = false;
         }
         private void SetSelectedUser(UserModel selectedUser) => SelectedUser = selectedUser;
-        private void ConstructPrivateChat() => PrivateChatEnter?.Invoke(this, EventArgs.Empty);
-        private void RefreshPrivateCollectionView()
-        {
-            Refresh?.Invoke(this, EventArgs.Empty);
-            PrivateMessages.Refresh();
-        }
+        private void ConstructPrivateChat() => PrivateChatClick?.Invoke(this, EventArgs.Empty);
+        private void RefreshPrivateCollectionView() => PrivateMessages.Refresh();
+
         private async Task SendHeartBeatAsync(CancellationToken token)
         {
             while (true)

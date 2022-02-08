@@ -13,8 +13,8 @@ namespace ChitChat.Commands
     {
         private readonly Func<Task> execute;
         private readonly Func<UserModel, Task> execute1;
-        private readonly Action execute2;
-        private readonly Action<UserModel> execute3;
+        private readonly Action execute3;
+        private readonly Action<UserModel> execute2;
         private readonly Action execute4;
         private readonly Action execute5;
         private readonly Action<string> execute6;
@@ -29,7 +29,7 @@ namespace ChitChat.Commands
         {
         }
 
-        public RelayCommand(Action execute2, Action<UserModel> execute3, Action execute4, Action execute5) : this(execute2, execute3, execute4, execute5, canExecute: null)
+        public RelayCommand(Action<UserModel> execute2, Action execute3, Action execute4, Action execute5) : this(execute2, execute3, execute4, execute5, canExecute: null)
         {
         }
 
@@ -68,7 +68,7 @@ namespace ChitChat.Commands
             this.execute1 = execute1;
             this.canExecute = canExecute;
         }
-        public RelayCommand(Action execute2, Action<UserModel> execute3, Action execute4, Action execute5, Func<bool> canExecute)
+        public RelayCommand(Action<UserModel> execute2, Action execute3, Action execute4, Action execute5, Func<bool> canExecute)
         {
             if (execute2 == null || execute3 == null || execute4 == null || execute5 == null)
                 throw new ArgumentNullException("execute2, 3,4 or 5 are null");
@@ -150,8 +150,8 @@ namespace ChitChat.Commands
             }
             else if (execute2 != null && execute3 != null && execute4 != null && execute5 != null)
             {
-                execute2();
-                execute3(parameter as UserModel);
+                execute2(parameter as UserModel);
+                execute3();
                 execute4();
                 execute5();
             }

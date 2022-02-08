@@ -42,7 +42,6 @@ namespace ChitChat.Views
         {
             _chatVM.MessageSent -= ClearPrivateTextBox;
             _chatVM.EmojiClick -= SetEmoji;
-            _chatVM.Refresh -= OnRefresh;
             _chatVM.MessageDisplayChange -= ChangeMessageDisplay;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
@@ -51,7 +50,6 @@ namespace ChitChat.Views
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             _chatVM.CurrentPrivateMessage = PrivateChatTextBox.Document;
-            _chatVM.Refresh += OnRefresh;
             _chatVM.MessageSent += ClearPrivateTextBox;
             _chatVM.EmojiClick += SetEmoji;
             _chatVM.MessageDisplayChange += ChangeMessageDisplay;
@@ -59,6 +57,7 @@ namespace ChitChat.Views
 
         private void OnExitClick(object sender, RoutedEventArgs e)
         {
+            ClearParent();
             Close();
         }
 
@@ -78,11 +77,11 @@ namespace ChitChat.Views
             EmojiTransitioner.SelectedIndex = 0;
         }
 
-        private void OnRefresh(object sender, EventArgs e)
+        private void ClearParent()
         {
             foreach (MessageModel messageModel in PrivateChat.Items)
             {
-                var flowDocumentScrollViewer = messageModel.Message.Parent as FlowDocumentScrollViewer; ;
+                var flowDocumentScrollViewer = messageModel.Message.Parent as FlowDocumentScrollViewer;
                 if (flowDocumentScrollViewer.Document != null) flowDocumentScrollViewer.Document = null;
             }
         }

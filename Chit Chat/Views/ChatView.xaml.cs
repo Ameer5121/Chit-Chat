@@ -43,7 +43,7 @@ namespace ChitChat.Views
             _chatVM.MessageReceived += CheckMessageTheme;
             _chatVM.EmojiClick += SetEmoji;
             _chatVM.ThemeChange += ChangeTheme;
-            _chatVM.PrivateChatEnter += OnPrivateChatEnter;
+            _chatVM.PrivateChatClick += OnPrivateChatEnter;
             _chatVM.PictureSelected += SetPictureMessage;
             _chatVM.MessageDisplayChange += ChangeMessageDisplay;
             //Set the correct color for messages upon logging in
@@ -57,7 +57,7 @@ namespace ChitChat.Views
             _chatVM.MessageReceived -= CheckMessageTheme;
             _chatVM.EmojiClick -= SetEmoji;
             _chatVM.ThemeChange -= ChangeTheme;
-            _chatVM.PrivateChatEnter -= OnPrivateChatEnter;
+            _chatVM.PrivateChatClick -= OnPrivateChatEnter;
             _chatVM.PictureSelected -= SetPictureMessage;
             _chatVM.MessageDisplayChange -= ChangeMessageDisplay;
             Loaded -= OnLoaded;
@@ -102,7 +102,7 @@ namespace ChitChat.Views
         }
 
         private void OnPrivateChatEnter(object sender, EventArgs e)
-        {
+        {           
             PrivateChatView privateChatView = new PrivateChatView(_chatVM);
             privateChatView.Show();
         }
@@ -178,5 +178,6 @@ namespace ChitChat.Views
                 PublicChat.ItemTemplate = (DataTemplate)Application.Current.Resources[Enum.GetName(typeof(MessageDisplay), e.NewMessageDisplay)];
             }
         }
+
     }
 }

@@ -43,13 +43,20 @@
                         Width="25" DockPanel.Dock="Right">
                     <Image Source="/Resources/Exit.png" Height="25" Width="25"></Image>
                 </Button>
-                <TextBlock FontSize="15" Width="336" VerticalAlignment="Center" Margin="0,0" Foreground="{DynamicResource Text}">
+                <TextBlock FontSize="15" Width="250" VerticalAlignment="Center" Margin="0,0" Foreground="{DynamicResource Text}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}Privately chatting to {0}">
                             <Binding Path="SelectedUser.DisplayName" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
+                <Button  Background="{DynamicResource Buttons}"
+                         BorderBrush="{StaticResource ButtonsBorderBrush}"     
+                         DockPanel.Dock="Left"
+                         VerticalAlignment="Center"
+                         Margin="0,0,5,0"
+                         Command="{Binding GetPreviousPrivateMessagesCommand}"
+                         Foreground="{DynamicResource Text2}">Load Previous Messages</Button>
             </DockPanel>
         </Border>
 
@@ -178,6 +185,7 @@
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
 
+        
 
     </Grid>
 </Window>

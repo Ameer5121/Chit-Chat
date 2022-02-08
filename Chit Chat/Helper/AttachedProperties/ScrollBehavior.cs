@@ -36,30 +36,31 @@ namespace ChitChat.Helper.AttachedProperties
         {
             var listBox = d as ListBox;
             _listBoxes.Add(listBox);
-            InitializeEvents(listBox);
+            listBox.Loaded += OnLoaded;
         }
 
         private static void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            _listBoxes.Clear();
-            _privateMessagesCollection = null;
-            _publicMessagesCollection = null;
+            _listBoxes.Remove(sender as ListBox);
+            if (_listBoxes.Count == 0)
+            {
+                _privateMessagesCollection = null;
+                _publicMessagesCollection = null;
+            }
         }
         private static void OnLoaded(object sender, RoutedEventArgs e)
         {
             var listBox = sender as ListBox;
             if (listBox.ItemsSource != null)
             {
-                _publicMessagesCollection = listBox.ItemsSource as INotifyCollectionChanged;
-                _publicMessagesCollection.CollectionChanged += OnCollectionChanged;
+                listBox.Unloaded += OnUnLoaded;
+                var messageCollection = listBox.ItemsSource as INotifyCollectionChanged;
+                if (_listBoxes.Count == 1) _publicMessagesCollection = messageCollection;
+                else _privateMessagesCollection = messageCollection;
+                messageCollection.CollectionChanged += OnCollectionChanged;
             }
         }
 
-        private static void InitializeEvents(ListBox listBox)
-        {
-            listBox.Loaded += OnLoaded;
-            if (_listBoxes.Count == 1) listBox.Unloaded += OnUnLoaded;
-        }
 
         private static void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
