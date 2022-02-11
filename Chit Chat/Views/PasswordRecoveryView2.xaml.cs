@@ -29,7 +29,7 @@ namespace ChitChat.Views
         private void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
             var passwordBox = sender as PasswordBox;
-            (DataContext as RecoveryViewModel).Password = passwordBox.SecurePassword;
+            (DataContext as RecoveryViewModel).NewPassword = passwordBox.SecurePassword;
         }
 
         private void OnBackClick(object sender, RoutedEventArgs e) => (DataContext as RecoveryViewModel).Reset();

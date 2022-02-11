@@ -361,7 +361,7 @@ namespace ChitChat.ViewModels
             }
         }
 
-        private bool CanReducePublicMessages() => _messages.TakeWhile(x => x.DestinationUser == null).Count() - 5 == 5;
+        private bool CanReducePublicMessages() => _messages.Where(x => x.DestinationUser == null).Count() - 5 == 5;
 
         private bool CanReducePrivateMessages() => _messages.TakePrivateMessages(_currentUser, SelectedUser).Count() - 5 == 5;
 

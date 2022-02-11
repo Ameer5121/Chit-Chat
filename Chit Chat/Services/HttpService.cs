@@ -62,7 +62,7 @@ namespace ChitChat.Services
         public async Task PostRecoveryDataAsync(string endPoint, object data)
         {
             var response = await PostDataAsync(endPoint, data);
-            if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode != HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
                 var deserializedResponse = await response.Content.ReadAsStringAsync();
                 throw new RecoveryException(deserializedResponse);
