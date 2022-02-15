@@ -7,7 +7,7 @@ Login  |  Register
 
 Password Recovery 1 |  Password Recovery 2 
 :-------------------------:|:-------------------------:
-![2](https://user-images.githubusercontent.com/71935713/148786353-56141f35-cf02-47a6-b1cf-a18f6b563f48.png)  |  ![3](https://user-images.githubusercontent.com/71935713/148786525-5009ff11-634a-48a6-b526-90f22b0743e4.png)
+![2](https://user-images.githubusercontent.com/71935713/148786353-56141f35-cf02-47a6-b1cf-a18f6b563f48.png)  |  ![3](https://user-images.githubusercontent.com/71935713/154128894-df1caaf1-32f1-412a-be79-1dc2d4bcd918.png)
  
 Public Chat
 ![142070066-2b4c091e-646f-496c-9576-d2236beba0b5](https://user-images.githubusercontent.com/71935713/147118569-4d61d3ba-74b2-4a50-a01b-db7316030b7e.png)
@@ -33,6 +33,7 @@ Image Sending
 * Password Recovery
 * List of connected users, automatically updating when one joins/leaves
 * Returning to home view automatically when server is down
+* Message control and loading old messages
 * Private chatting
 * Colored Emojis
 * Profile Pictures
@@ -40,6 +41,11 @@ Image Sending
 * Light and Dark themes
 * Character Limit
 * Logging out manually.
+
+# Memory Performance Features:
+* Loading only 50 messages at a time.
+   * Only 50 messages are shown at a time to preserve memory. This feature comes with the ability to load previous messages, however, this works differently for private chats. 
+You are able to have multiple stacks of 50 messages for each individual you're private chatting to. It doesn't count the messages globally.
 
 # Framework:
 * Made in WPF
