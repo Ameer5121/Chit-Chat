@@ -13,22 +13,26 @@ namespace ChitChat.Helper.Extensions
         {
             return messages.Where(
                              x => x.DestinationUser?.DisplayName == toUser.DisplayName
-                            || x.User.DisplayName == toUser.DisplayName
+                            || x.Sender?.DisplayName == toUser.DisplayName
                             && x.DestinationUser?.DisplayName == fromUser.DisplayName);
         }
+        public static IEnumerable<MessageModel> TakePublicMessages(this IEnumerable<MessageModel> messages) => messages.Where(x => x.DestinationUser == null);
+
         public static IEnumerable<UnLoadedMessagesIntervalModel> TakePrivateIntervals(this IEnumerable<UnLoadedMessagesIntervalModel> intervals, UserModel fromUser, UserModel toUser)
         {
             return intervals.Where(
-                             x => x.To?.DisplayName == toUser.DisplayName
-                            || x.From.DisplayName == toUser.DisplayName
-                            && x.To?.DisplayName == fromUser.DisplayName);
+                             x => x.User1?.DisplayName == toUser.DisplayName
+                            || x.User2?.DisplayName == toUser.DisplayName
+                            && x.User1?.DisplayName == fromUser.DisplayName);
         }
 
         public static bool HasPrivateIntervals(this IEnumerable<UnLoadedMessagesIntervalModel> intervals, UserModel fromUser, UserModel toUser)
         {
-            return intervals.Any(x => x.To?.DisplayName == toUser.DisplayName
-                         || x.From.DisplayName == toUser.DisplayName
-                         && x.To?.DisplayName == fromUser.DisplayName);
+            return intervals.Any(x => x.User1?.DisplayName == toUser.DisplayName
+                         || x.User2?.DisplayName == toUser.DisplayName
+                         && x.User1?.DisplayName == fromUser.DisplayName);
         }
+
+
     }
 }

@@ -12,7 +12,7 @@ namespace ChitChat.Models
 {
     public class MessageModel
     {
-        public UserModel User { get; set; }
+        public UserModel Sender { get; set; }
         public byte[]  RTFData { get; set; }
         [JsonIgnore]
         public FlowDocument Message { get; set; }

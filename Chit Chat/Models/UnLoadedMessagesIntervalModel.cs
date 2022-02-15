@@ -11,17 +11,17 @@ namespace ChitChat.Models
     {
         public DateTime FirstDate { get; }
         public DateTime LastDate { get; }
-        public UserModel To { get; }
-        public UserModel From { get; }
+        public UserModel User1 { get; }
+        public UserModel User2 { get; }
 
 
         [JsonConstructor]
-        public UnLoadedMessagesIntervalModel(DateTime firstDate, DateTime lastDate, UserModel to, UserModel from)
+        public UnLoadedMessagesIntervalModel(DateTime firstDate, DateTime lastDate, UserModel user1, UserModel user2)
         {
             FirstDate = firstDate;
             LastDate = lastDate;
-            To = to;
-            From = from;
+            User1 = user1;
+            User2 = user2;
         }
         public UnLoadedMessagesIntervalModel(DateTime firstDate, DateTime lastDate)
         {

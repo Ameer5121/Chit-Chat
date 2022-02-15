@@ -78,11 +78,11 @@
                     <DockPanel>
                         <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="{Binding User.ProfilePicture}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
+                                <ImageBrush ImageSource="{Binding Sender.ProfilePicture}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
                             </Ellipse.Fill>
                         </Ellipse>
                         <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">                              
-                            <Run Text="{Binding User.DisplayName}" Foreground="{DynamicResource ChatDisplayName}"></Run>
+                            <Run Text="{Binding Sender.DisplayName}" Foreground="{DynamicResource ChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t}" Foreground="Gray" FontSize="10"></Run>
                         </TextBlock>

@@ -49,6 +49,8 @@ namespace ChitChat.ViewModels
         private const int _characterLimit = 600;
         private int _publicMessageLength;
         private int _privateMessageLength;
+        private DateTime _firstUnloadedPublicMessageDate;
+        private DateTime _firstUnloadedPrivateMessageDate;
         private Array _themes;
         private Array _messageDisplayOptions;
         private static Helper.Enums.Theme? _currentTheme;
@@ -79,6 +81,10 @@ namespace ChitChat.ViewModels
             _messages = data.Messages;
             _unLoadedMessagesIntervals = data.UnLoadedMessagesIntervalModels;
 
+            var firstMessage = _messages.TakePublicMessages().FirstOrDefault();
+            if (firstMessage != null) _firstUnloadedPublicMessageDate = firstMessage.MessageDate;
+
+
             // Set a default value so the binding doesn't fail.
             SelectedUser = new UserModel();
 
@@ -100,7 +106,7 @@ namespace ChitChat.ViewModels
             _heartbeatToken = new CancellationTokenSource();
             CreateHandlers();
             SendHeartBeatAsync(_heartbeatToken.Token);
-           
+
         }
 
         public ICommand ChooseImageCommand => new RelayCommand(UploadImageAsync);
@@ -223,7 +229,7 @@ namespace ChitChat.ViewModels
             {
                 RTFData = CurrentPublicMessage.GetRTFData(),
                 Message = _currentPublicMessage,
-                User = _currentUser,
+                Sender = _currentUser,
                 MessageDate = DateTime.Now
             };
             try
@@ -247,7 +253,7 @@ namespace ChitChat.ViewModels
             messagetoSend = new MessageModel
             {
                 RTFData = CurrentPrivateMessage.GetRTFData(),
-                User = _currentUser,
+                Sender = _currentUser,
                 Message = _currentPrivateMessage,
                 DestinationUser = destinationUser,
                 MessageDate = DateTime.Now
@@ -292,8 +298,8 @@ namespace ChitChat.ViewModels
                 //and to see the messages that are directed to us from the selected user
                 return
                 currentMessage.DestinationUser.DisplayName == SelectedUser.DisplayName
-               || currentMessage.User.DisplayName == SelectedUser.DisplayName
-               && currentMessage.DestinationUser.DisplayName == _currentUser.DisplayName;               
+               || currentMessage.Sender.DisplayName == SelectedUser.DisplayName
+               && currentMessage.DestinationUser.DisplayName == _currentUser.DisplayName;
             }
             return false;
         }
@@ -349,8 +355,15 @@ namespace ChitChat.ViewModels
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     messages.LastOrDefault().ConvertRTFToFlowDocument();
-                    _messages.Add(messages.LastOrDefault());
-                    if (_isPrivateChatting && CanReducePrivateMessages()) ReduceMessages(true);
+                    var receivedMessage = messages.LastOrDefault();
+
+                    if (_firstUnloadedPublicMessageDate == default && receivedMessage.DestinationUser == null)
+                        _firstUnloadedPublicMessageDate = receivedMessage.MessageDate;
+                    else if (_firstUnloadedPrivateMessageDate == default && receivedMessage.DestinationUser != null)
+                        _firstUnloadedPrivateMessageDate = receivedMessage.MessageDate;
+
+                    _messages.Add(receivedMessage);                  
+                    if (HasPrivateMessage(receivedMessage) && CanReducePrivateMessages() || _isPrivateChatting && CanReducePrivateMessages()) ReduceMessages(true);
                     else if (CanReducePublicMessages()) ReduceMessages(false);
                     MessageReceived?.Invoke(this, new MessageEventArgs
                     {
@@ -361,40 +374,73 @@ namespace ChitChat.ViewModels
             }
         }
 
-        private bool CanReducePublicMessages() => _messages.Where(x => x.DestinationUser == null).Count() - 5 == 5;
+        private bool HasPrivateMessage(MessageModel message)
+        {
+            if (message.DestinationUser.ConnectionID == CurrentUser.ConnectionID)
+            {
+                SetSelectedUser(message.Sender);
+                return true;                 
+            }
+            return false;
+        }
 
-        private bool CanReducePrivateMessages() => _messages.TakePrivateMessages(_currentUser, SelectedUser).Count() - 5 == 5;
+             
+        private bool CanReducePublicMessages()
+        { 
+            var publicMessages = _messages.TakePublicMessages();
+            var loadedMessages = publicMessages.Where(x => x.MessageDate < _firstUnloadedPublicMessageDate).Count();
+            return publicMessages.Skip(loadedMessages).Count() - 5 == 5;
+        }
+
+        private bool CanReducePrivateMessages()
+        {
+            var privateMessages = _messages.TakePrivateMessages(_currentUser, SelectedUser);
+            var loadedMessages = privateMessages.Where(x => x.MessageDate < _firstUnloadedPrivateMessageDate).Count();
+            return privateMessages.Skip(loadedMessages).Count() - 5 == 5;
+        }
 
         private void ReduceMessages(bool privateReduce)
         {
             IEnumerable<MessageModel> messagesToRemove;
             UnLoadedMessagesIntervalModel unLoadedMessagesIntervalModel;
+            bool hasLoadedMessages = false;
             if (privateReduce)
             {
-                messagesToRemove = _messages.TakePrivateMessages(_currentUser, SelectedUser).Take(5).ToList();
+                hasLoadedMessages = HasLoadedPrivateMessages();
+                var allPrivateMessages = _messages.TakePrivateMessages(_currentUser, SelectedUser).Where(x => x.MessageDate >= _firstUnloadedPrivateMessageDate);
+                messagesToRemove = allPrivateMessages.Take(5).ToList();
                 unLoadedMessagesIntervalModel = new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
                     messagesToRemove.Last().MessageDate, SelectedUser, _currentUser);
-                _unLoadedMessagesIntervals.Add(unLoadedMessagesIntervalModel);
+                if (!hasLoadedMessages)
+                    _unLoadedMessagesIntervals.Add(unLoadedMessagesIntervalModel);
+                _firstUnloadedPrivateMessageDate = allPrivateMessages.Skip(5).FirstOrDefault().MessageDate;
             }
             else
             {
-                messagesToRemove = _messages.TakeWhile(x => x.DestinationUser == null).Take(5).ToList();
+                hasLoadedMessages = HasLoadedPublicMessages();
+                var allPublicMessages = _messages.TakePublicMessages().Where(x => x.MessageDate >= _firstUnloadedPublicMessageDate);
+                messagesToRemove = allPublicMessages.Take(5).ToList();
                 unLoadedMessagesIntervalModel = new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
                     messagesToRemove.Last().MessageDate);
-                _unLoadedMessagesIntervals.Add(unLoadedMessagesIntervalModel);
+                if (!hasLoadedMessages)
+                    _unLoadedMessagesIntervals.Add(unLoadedMessagesIntervalModel);
+                _firstUnloadedPublicMessageDate = allPublicMessages.Skip(5).FirstOrDefault().MessageDate;
             }
-            foreach (MessageModel message in messagesToRemove) _messages.Remove(message);
+            if (!hasLoadedMessages)
+                foreach (MessageModel message in messagesToRemove) _messages.Remove(message);
 
             //no need to await since it is impossible for this to throw and we don't need anything in return
-            _httpService.PostDataAsync("PostMessagesInterval", unLoadedMessagesIntervalModel);           
+            _httpService.PostDataAsync("PostMessagesInterval", unLoadedMessagesIntervalModel);
         }
+        private bool HasLoadedPrivateMessages() => _messages.TakePrivateMessages(_currentUser, SelectedUser).Where(x => x.MessageDate < _firstUnloadedPrivateMessageDate).Count() != 0;
+        private bool HasLoadedPublicMessages() => _messages.TakePublicMessages().Where(x => x.MessageDate < _firstUnloadedPublicMessageDate).Count() != 0;
 
-        private bool CanGetPreviousPublicMessages() => _unLoadedMessagesIntervals.Any(x => x.From == null && x.To == null);
+        private bool CanGetPreviousPublicMessages() => _unLoadedMessagesIntervals.Any(x => x.User2 == null && x.User1 == null);
         private bool CanGetPreviousPrivateMessages() => _unLoadedMessagesIntervals.HasPrivateIntervals(_currentUser, _selectedUser);
 
         private void GetPreviousPublicMessages()
         {
-            var interval = _unLoadedMessagesIntervals.LastOrDefault(x => x.From == null && x.To == null);
+            var interval = _unLoadedMessagesIntervals.LastOrDefault(x => x.User2 == null && x.User1 == null);
             _connection.SendAsync("SendPreviousPublicMessages", interval);
             _unLoadedMessagesIntervals.Remove(interval);
         }
