@@ -27,6 +27,8 @@ namespace ChitChat.Helper.Language
             Application.Current.Resources["MessageHistoryDefault"] = Application.Current.Resources["MessageHistoryJapanese"];
             Application.Current.Resources["UsersDefault"] = Application.Current.Resources["UsersJapanese"];
             Application.Current.Resources["SendAMessageDefault"] = Application.Current.Resources["SendAMessageJapanese"];
+            Application.Current.Resources["PrivatelyChattingDefault"] = Application.Current.Resources["PrivatelyChattingJapanese"];
+            Application.Current.Resources["LoadPreviousMessagesDefault"] = Application.Current.Resources["LoadPreviousMessagesJapanese"];
             Application.Current.Resources["ArabicDefault"] = Application.Current.Resources["ArabicJapanese"];
             Application.Current.Resources["EnglishDefault"] = Application.Current.Resources["EnglishJapanese"];
             Application.Current.Resources["FinnishDefault"] = Application.Current.Resources["FinnishJapanese"];
