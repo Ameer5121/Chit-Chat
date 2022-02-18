@@ -389,14 +389,14 @@ namespace ChitChat.ViewModels
         { 
             var publicMessages = _messages.TakePublicMessages();
             var loadedMessages = publicMessages.Where(x => x.MessageDate < _firstUnloadedPublicMessageDate).Count();
-            return publicMessages.Skip(loadedMessages).Count() - 5 == 5;
+            return publicMessages.Skip(loadedMessages).Count() - 50 == 50;
         }
 
         private bool CanReducePrivateMessages()
         {
             var privateMessages = _messages.TakePrivateMessages(_currentUser, SelectedUser);
             var loadedMessages = privateMessages.Where(x => x.MessageDate < _firstUnloadedPrivateMessageDate).Count();
-            return privateMessages.Skip(loadedMessages).Count() - 5 == 5;
+            return privateMessages.Skip(loadedMessages).Count() - 50 == 50;
         }
 
         private void ReduceMessages(bool privateReduce)
@@ -408,7 +408,7 @@ namespace ChitChat.ViewModels
             {
                 hasLoadedMessages = HasLoadedPrivateMessages();
                 var allPrivateMessages = _messages.TakePrivateMessages(_currentUser, SelectedUser).Where(x => x.MessageDate >= _firstUnloadedPrivateMessageDate);
-                messagesToRemove = allPrivateMessages.Take(5).ToList();
+                messagesToRemove = allPrivateMessages.Take(50).ToList();
                 unLoadedMessagesIntervalModel = new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
                     messagesToRemove.Last().MessageDate, SelectedUser, _currentUser);
                 TryAddInterval(allPrivateMessages, unLoadedMessagesIntervalModel, ref _firstUnloadedPrivateMessageDate);
@@ -417,7 +417,7 @@ namespace ChitChat.ViewModels
             {
                 hasLoadedMessages = HasLoadedPublicMessages();
                 var allPublicMessages = _messages.TakePublicMessages().Where(x => x.MessageDate >= _firstUnloadedPublicMessageDate);
-                messagesToRemove = allPublicMessages.Take(5).ToList();               
+                messagesToRemove = allPublicMessages.Take(50).ToList();               
                 unLoadedMessagesIntervalModel = new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
                     messagesToRemove.Last().MessageDate);
                 TryAddInterval(allPublicMessages, unLoadedMessagesIntervalModel, ref _firstUnloadedPublicMessageDate);
@@ -427,7 +427,7 @@ namespace ChitChat.ViewModels
             {
                 if (!hasLoadedMessages)
                     _unLoadedMessagesIntervals.Add(unLoadedMessagesIntervalModel);
-                firstUnloadedMessageDate = messages.Skip(5).FirstOrDefault().MessageDate;
+                firstUnloadedMessageDate = messages.Skip(50).FirstOrDefault().MessageDate;
             }
            
             if (!hasLoadedMessages)
