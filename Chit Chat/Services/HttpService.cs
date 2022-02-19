@@ -19,17 +19,7 @@ namespace ChitChat.Services
         private static readonly HttpClient _httpClient;
         static HttpService()
         {
-
-            var handler = new HttpClientHandler();
-            handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-            handler.ServerCertificateCustomValidationCallback =
-                (httpRequestMessage, cert, cetChain, policyErrors) =>
-                {
-                    if (policyErrors == SslPolicyErrors.None) return true;
-                    if (cert.GetCertHashString() == "6178922209F45C7A6D4F3C321CDA4FD775A6A1CA") return true;
-                    return false;
-                };
-            _httpClient = new HttpClient(handler);
+            _httpClient = new HttpClient();
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
             _httpClient.BaseAddress = new Uri("https://localhost:5001");
         }

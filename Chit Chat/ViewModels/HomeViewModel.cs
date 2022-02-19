@@ -126,21 +126,7 @@ namespace ChitChat.ViewModels
         private void BuildConnection()
         {
             connection = new HubConnectionBuilder()
-                      .WithUrl("https://localhost:5001/chathub", (opts) =>
-                      {
-                          opts.HttpMessageHandlerFactory = (message) =>
-                          {
-                              if (message is HttpClientHandler clientHandler)
-                                  clientHandler.ServerCertificateCustomValidationCallback +=
-                                      (sender, certificate, chain, sslPolicyErrors) =>
-                                      {
-                                          if (sslPolicyErrors == SslPolicyErrors.None) return true;
-                                          if (certificate.GetCertHashString() == "6178922209F45C7A6D4F3C321CDA4FD775A6A1CA") return true;
-                                          return false;
-                                      };
-                              return message;
-                          };
-                      })
+                      .WithUrl("https://localhost:5001/chathub")
                         .Build();
         }
 

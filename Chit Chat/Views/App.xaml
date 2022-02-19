@@ -29,7 +29,7 @@
                     <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="10,0,0,0">
                             <Run Text="{Binding MessageDate, StringFormat=t, Mode=OneTime}" Foreground="Gray" FontSize="10"></Run>
                             <Run Text=""></Run>
-                            <Run Text="{Binding User.DisplayName, Mode=OneTime}" Foreground="{DynamicResource ChatDisplayName}"></Run>
+                            <Run Text="{Binding Sender.DisplayName, Mode=OneTime}" Foreground="{DynamicResource ChatDisplayName}"></Run>
                     </TextBlock>
                     <FlowDocumentScrollViewer DockPanel.Dock="Left" Document="{Binding Message, Mode=OneTime}" 
                                                       HorizontalAlignment="Left" Height="Auto"
@@ -44,11 +44,11 @@
                 <DockPanel LastChildFill="False">
                     <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding User.ProfilePicture, Mode=OneTime}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
+                            <ImageBrush ImageSource="{Binding Sender.ProfilePicture, Mode=OneTime}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
                         </Ellipse.Fill>
                     </Ellipse>
                     <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">
-                            <Run Text="{Binding User.DisplayName, Mode=OneTime}" Foreground="{DynamicResource ChatDisplayName}"></Run>
+                            <Run Text="{Binding Sender.DisplayName, Mode=OneTime}" Foreground="{DynamicResource ChatDisplayName}"></Run>
                             <Run Text=""></Run>
                             <Run Text="{Binding MessageDate, StringFormat=t, Mode=OneTime}" Foreground="Gray" FontSize="10"></Run>
                     </TextBlock>
