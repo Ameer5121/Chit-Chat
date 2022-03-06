@@ -219,8 +219,10 @@ namespace ChitChat.ViewModels
                 }
             }
         }
-        private bool CanConstructPublicMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString());
-        private bool CanConstructPrivateMessage() => !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString());
+        private bool CanConstructPublicMessage() => !string.IsNullOrEmpty(CurrentPublicMessage?.GetDocumentString()) && !HasImageInTextBox(CurrentPublicMessage);
+        private bool CanConstructPrivateMessage() => !string.IsNullOrEmpty(CurrentPrivateMessage?.GetDocumentString()) && !HasImageInTextBox(CurrentPrivateMessage);
+
+        private bool HasImageInTextBox(FlowDocument document) => document.HasImage();
 
         private async Task ConstructPublicMessageAsync()
         {
@@ -362,7 +364,7 @@ namespace ChitChat.ViewModels
                     else if (_firstUnloadedPrivateMessageDate == default && receivedMessage.DestinationUser != null)
                         _firstUnloadedPrivateMessageDate = receivedMessage.MessageDate;
 
-                    _messages.Add(receivedMessage);                  
+                    _messages.Add(receivedMessage);
                     if (HasPrivateMessage(receivedMessage) && CanReducePrivateMessages() || _isPrivateChatting && CanReducePrivateMessages()) ReduceMessages(true);
                     else if (CanReducePublicMessages()) ReduceMessages(false);
                     MessageReceived?.Invoke(this, new MessageEventArgs
@@ -379,14 +381,14 @@ namespace ChitChat.ViewModels
             if (message.DestinationUser?.ConnectionID == CurrentUser.ConnectionID)
             {
                 SetSelectedUser(message.Sender);
-                return true;                 
+                return true;
             }
             return false;
         }
 
-             
+
         private bool CanReducePublicMessages()
-        { 
+        {
             var publicMessages = _messages.TakePublicMessages();
             var loadedMessages = publicMessages.Where(x => x.MessageDate < _firstUnloadedPublicMessageDate).Count();
             return publicMessages.Skip(loadedMessages).Count() - 50 == 50;
@@ -417,11 +419,11 @@ namespace ChitChat.ViewModels
             {
                 hasLoadedMessages = HasLoadedPublicMessages();
                 var allPublicMessages = _messages.TakePublicMessages().Where(x => x.MessageDate >= _firstUnloadedPublicMessageDate);
-                messagesToRemove = allPublicMessages.Take(50).ToList();               
+                messagesToRemove = allPublicMessages.Take(50).ToList();
                 unLoadedMessagesIntervalModel = new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
                     messagesToRemove.Last().MessageDate);
                 TryAddInterval(allPublicMessages, unLoadedMessagesIntervalModel, ref _firstUnloadedPublicMessageDate);
-               
+
             }
             void TryAddInterval(IEnumerable<MessageModel> messages, UnLoadedMessagesIntervalModel unLoadedMessagesInterval, ref DateTime firstUnloadedMessageDate)
             {
@@ -429,7 +431,7 @@ namespace ChitChat.ViewModels
                     _unLoadedMessagesIntervals.Add(unLoadedMessagesIntervalModel);
                 firstUnloadedMessageDate = messages.Skip(50).FirstOrDefault().MessageDate;
             }
-           
+
             if (!hasLoadedMessages)
                 foreach (MessageModel message in messagesToRemove) _messages.Remove(message);
 

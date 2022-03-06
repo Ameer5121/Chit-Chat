@@ -36,5 +36,38 @@ namespace ChitChat.Helper.Extensions
         {
             document.Document = null;
         }
+
+        public static bool HasImage(this FlowDocument document)
+        {
+            foreach (Block block in document.Blocks)
+            {
+                if (block.GetType() == typeof(BlockUIContainer))
+                {
+                    BlockUIContainer blockUIContainer = block as BlockUIContainer;
+                    if (blockUIContainer.Child.GetType() == typeof(Image))
+                    {
+                        var image = blockUIContainer.Child as Image;
+                        return image.Source.ToString().Contains("Emojis") ? false : true;
+                    }
+                }
+                else
+                {
+                    Paragraph paragraph = block as Paragraph;
+                    foreach(Inline inline in paragraph.Inlines)
+                    {
+                        if (inline.GetType() == typeof(InlineUIContainer))
+                        {
+                            InlineUIContainer inlineUIContainer = inline as InlineUIContainer;
+                            if (inlineUIContainer.Child.GetType() == typeof(Image))
+                            {
+                                var image = inlineUIContainer.Child as Image;
+                                return image.Source.ToString().Contains("Emojis") ? false : true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
