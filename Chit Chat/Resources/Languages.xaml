@@ -14,6 +14,7 @@
     <System:String x:Key="MessageDisplayDefault">Message Display</System:String>
     <System:String x:Key="ChangeLanguageDefault">Change Language</System:String>
     <System:String x:Key="ApplicationDefault">Application</System:String>
+    <System:String x:Key="LogsDefault">Logs</System:String>
     <System:String x:Key="LogOutDefault">Log Out</System:String>
     <System:String x:Key="MessageHistoryDefault">Message History</System:String>
     <System:String x:Key="UsersDefault">Users</System:String>
@@ -39,6 +40,7 @@
     <System:String x:Key="MessageDisplayArabic">عرض الرسالة</System:String>
     <System:String x:Key="ChangeLanguageArabic">تغيير اللغة</System:String>
     <System:String x:Key="ApplicationArabic">تطبيق</System:String>
+    <System:String x:Key="LogsArabic">السجلات</System:String>
     <System:String x:Key="LogOutArabic">تسجيل خروج</System:String>
     <System:String x:Key="MessageHistoryArabic">تاريخ الرسالة</System:String>
     <System:String x:Key="UsersArabic">المستخدمون</System:String>
@@ -65,6 +67,7 @@
     <System:String x:Key="MessageDisplayEnglish">Message Display</System:String>
     <System:String x:Key="ChangeLanguageEnglish">Change Language</System:String>
     <System:String x:Key="ApplicationEnglish">Application</System:String>
+    <System:String x:Key="LogsEnglish">Logs</System:String>
     <System:String x:Key="LogOutEnglish">Log Out</System:String>
     <System:String x:Key="MessageHistoryEnglish">Message History</System:String>
     <System:String x:Key="SendAMessageEnglish">Message</System:String>
@@ -90,6 +93,7 @@
     <System:String x:Key="MessageDisplayFinnish">Viestien ulkoasu</System:String>
     <System:String x:Key="ChangeLanguageFinnish">Vaihda kieltä</System:String>
     <System:String x:Key="ApplicationFinnish">Sovellus</System:String>
+    <System:String x:Key="LogsFinnish">Valvontaloki</System:String>
     <System:String x:Key="LogOutFinnish">Kirjaudu ulos</System:String>
     <System:String x:Key="MessageHistoryFinnish">Viestihistoria</System:String>
     <System:String x:Key="UsersFinnish">Käyttäjät</System:String>
@@ -116,6 +120,7 @@
     <System:String x:Key="MessageDisplayHebrew">תצוגת הודעות</System:String>
     <System:String x:Key="ChangeLanguageHebrew">שנה שפה</System:String>
     <System:String x:Key="ApplicationHebrew">יישום</System:String>
+    <System:String x:Key="LogsHebrew">יומני ניטור</System:String>
     <System:String x:Key="LogOutHebrew">להתנתק</System:String>
     <System:String x:Key="MessageHistoryHebrew">היסטוריית הודעות</System:String>
     <System:String x:Key="UsersHebrew">משתמשים</System:String>
@@ -142,6 +147,7 @@
     <System:String x:Key="MessageDisplayJapanese">メッセージ表示</System:String>
     <System:String x:Key="ChangeLanguageJapanese">言語を変更</System:String>
     <System:String x:Key="ApplicationJapanese">応用</System:String>
+    <System:String x:Key="LogsJapanese">ログの監視</System:String>
     <System:String x:Key="LogOutJapanese">ログアウト</System:String>
     <System:String x:Key="MessageHistoryJapanese">メッセージ履歴</System:String>
     <System:String x:Key="UsersJapanese">ユーザー</System:String>

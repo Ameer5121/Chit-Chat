@@ -64,7 +64,7 @@ namespace ChitChat.ViewModels
         public event EventHandler<EmojiEventArgs> EmojiClick;
         public event EventHandler<ThemeEventArgs> ThemeChange;
         public event EventHandler<MessageDisplayEventArgs> MessageDisplayChange;
-        public EventHandler<UploadEventArgs> PictureSelected;
+        public event EventHandler<UploadEventArgs> PictureSelected;
         public event EventHandler PrivateChatClick;
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
@@ -137,6 +137,7 @@ namespace ChitChat.ViewModels
         public ICollectionView PublicMessages { get; set; }
         public ICollectionView PrivateMessages { get; }
         public ObservableCollection<MessageModel> AllMessages => _messages;
+        public ObservableCollection<LogModel> Logs { get; set; }
 
         public ObservableCollection<UserModel> Users
         {

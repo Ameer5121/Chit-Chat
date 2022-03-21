@@ -23,6 +23,7 @@ namespace ChitChat.Helper.Language
             Application.Current.Resources["MessageDisplayDefault"] = Application.Current.Resources["MessageDisplayEnglish"];
             Application.Current.Resources["ChangeLanguageDefault"] = Application.Current.Resources["ChangeLanguageEnglish"];
             Application.Current.Resources["ApplicationDefault"] = Application.Current.Resources["ApplicationEnglish"];
+            Application.Current.Resources["LogsDefault"] = Application.Current.Resources["LogsEnglish"];
             Application.Current.Resources["LogOutDefault"] = Application.Current.Resources["LogOutEnglish"];
             Application.Current.Resources["MessageHistoryDefault"] = Application.Current.Resources["MessageHistoryEnglish"];
             Application.Current.Resources["UsersDefault"] = Application.Current.Resources["UsersEnglish"];
