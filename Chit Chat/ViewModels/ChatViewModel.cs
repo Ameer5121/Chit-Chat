@@ -44,6 +44,7 @@ namespace ChitChat.ViewModels
         private bool _isUploading;
         private bool _controlsEnabled;
         private bool _isPrivateChatting;
+        private bool _isSendingMessage = false;
         private MessageDisplay? _messageDisplay;
         private ErrorModel _error;
         private const int _characterLimit = 600;
@@ -278,9 +279,12 @@ namespace ChitChat.ViewModels
 
         private async Task SendMessageAsync(MessageModel messageModel)
         {
+            if (_isSendingMessage) return;
+            _isSendingMessage = true;
             if (MessageTooLong(messageModel)) throw new SendException("Message too large!", $"Please make your message {messageModel.Message.GetDocumentString().Length - _characterLimit} characters shorter!");
             await _httpService.PostDataAsync("PostMessage", messageModel);
             MessageSent?.Invoke(this, EventArgs.Empty);
+            _isSendingMessage = false;
         }
 
         private bool MessageTooLong(MessageModel messageModel) => _characterLimit - messageModel.Message.GetDocumentString().Length < 0;

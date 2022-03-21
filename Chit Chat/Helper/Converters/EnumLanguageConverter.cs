@@ -24,7 +24,7 @@ namespace ChitChat.Helper.Converters
             else
             {
                 var values = parameter.ToString().Split(" ");
-                var currentLanguage = App.Culture.DisplayName.Split(" ")[0];
+                var currentLanguage = App.Culture.EnglishName.Split(" ")[0];
                 var currentTheme = value as string;
                 foreach(var resource in values)
                 {

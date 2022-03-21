@@ -63,9 +63,10 @@ namespace ChitChat.ViewModels
             try
             {
                 Email.Validate();
-               await _httpService.PostRecoveryDataAsync("PostEmail", Email);
+                await _httpService.PostRecoveryDataAsync("PostEmail", Email);
 
-            }catch(FormatException e)
+            }
+            catch (FormatException e)
             {
                 RecoveryStatus = "Invalid Email Format.";
                 IsSending = false;
@@ -76,7 +77,8 @@ namespace ChitChat.ViewModels
                 RecoveryStatus = "Could not connect to the server.";
                 IsSending = false;
                 return;
-            }catch(RecoveryException e)
+            }
+            catch (RecoveryException e)
             {
                 RecoveryStatus = e.Message;
                 IsSending = false;
