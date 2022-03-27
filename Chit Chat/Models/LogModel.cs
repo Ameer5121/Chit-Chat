@@ -9,6 +9,7 @@ namespace ChitChat.Models
 {
     public class LogModel
     {
-        public string Message { get; set; }
+        public string Message { get; }
+        public LogModel(string message) => Message = message;
     }
 }

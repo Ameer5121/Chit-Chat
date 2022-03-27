@@ -81,6 +81,7 @@ namespace ChitChat.ViewModels
             _users = data.Users;
             _messages = data.Messages;
             _unLoadedMessagesIntervals = data.UnLoadedMessagesIntervalModels;
+            Logs = new ObservableCollection<LogModel>();
 
             var firstMessage = _messages.TakePublicMessages().FirstOrDefault();
             if (firstMessage != null) _firstUnloadedPublicMessageDate = firstMessage.MessageDate;
@@ -372,6 +373,7 @@ namespace ChitChat.ViewModels
                     _messages.Add(receivedMessage);
                     if (HasPrivateMessage(receivedMessage) && CanReducePrivateMessages() || _isPrivateChatting && CanReducePrivateMessages()) ReduceMessages(true);
                     else if (CanReducePublicMessages()) ReduceMessages(false);
+                    if (receivedMessage.DestinationUser.DisplayName == CurrentUser.DisplayName) AddLog(new LogModel($"{receivedMessage.Sender.DisplayName} has sent you a message!"));
                     MessageReceived?.Invoke(this, new MessageEventArgs
                     {
                         MessageModel = messages.LastOrDefault(),
@@ -468,7 +470,11 @@ namespace ChitChat.ViewModels
             foreach (var message in messages) _messages.Add(message);
         }
 
-        private void ReceiveUsers(ObservableCollection<UserModel> users) => Users = users;
+        private void ReceiveUsers(ObservableCollection<UserModel> users)
+        {
+            if (users.Count > Users.Count) AddLog(new LogModel($"{users.LastOrDefault().DisplayName} has entered the chat!"));
+            Users = users;          
+        }
         private BitmapImage ChoosePicture()
         {
             var openfiledialog = new OpenFileDialog();
@@ -576,6 +582,8 @@ namespace ChitChat.ViewModels
         }
 
         private void ConstructError(string errorSubject, string errorMessage) => Error = new ErrorModel(errorSubject, errorMessage);
+
+        private void AddLog(LogModel log) => Logs.Add(log);
 
         private async Task DisplayError()
         {
