@@ -19,11 +19,13 @@ namespace ChitChat.Views
     /// </summary>
     public partial class HomeView : Window
     {
+        private HomeViewModel _homeViewModel;
         public HomeView()
         {
             InitializeComponent();
             DataContext = new HomeViewModel(HttpService.HttpServiceInstance, new Logger());
-            (DataContext as HomeViewModel).SuccessfulConnect += ChangeWindow;
+            _homeViewModel = (DataContext as HomeViewModel);
+            _homeViewModel.SuccessfulConnect += ChangeWindow;
         }
 
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -38,17 +40,21 @@ namespace ChitChat.Views
         {
             ChatView chatView = new ChatView(e.ChatViewModelContext);
             chatView.Show();
-           (DataContext as HomeViewModel).SuccessfulConnect -= ChangeWindow;
+            _homeViewModel.SuccessfulConnect -= ChangeWindow;
             this.Close();
         }
 
         private void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
             var passwordBox = sender as PasswordBox;
-            (DataContext as HomeViewModel).Password = passwordBox.SecurePassword;
+            _homeViewModel.Password = passwordBox.SecurePassword;
         }
 
-        private void Register(object sender, RoutedEventArgs e) =>  Transitioner.SelectedIndex = 0;
+        private void Register(object sender, RoutedEventArgs e)
+        {
+            _homeViewModel.InRegisterScreen = true;
+            Transitioner.SelectedIndex = 0;
+        }
         private void RecoveryClick(object sender, RoutedEventArgs e) => Transitioner.SelectedIndex = 1;
     }
 }

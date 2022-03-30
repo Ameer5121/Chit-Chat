@@ -25,6 +25,7 @@ using System.Security;
 using System.Runtime.InteropServices;
 using ChitChat.Services;
 using System.Net.Security;
+using System.ComponentModel.DataAnnotations;
 
 namespace ChitChat.ViewModels
 {
@@ -35,6 +36,8 @@ namespace ChitChat.ViewModels
         private string _currentUserName;
         private string _email;
         private string _displayName;
+        private string _passwordConstraintMessage;
+        private SecureString _password;
         private HubConnection connection;
         private UserModel _currentUser;
         private IHttpService _httpService;
@@ -45,7 +48,6 @@ namespace ChitChat.ViewModels
         {
             _httpService = httpService;
             HomeLogger = logger;
-            Password = new SecureString();
         }
 
         public Logger HomeLogger { get; }
@@ -59,13 +61,30 @@ namespace ChitChat.ViewModels
             get => _isRegistering;
             set => SetPropertyValue(ref _isRegistering, value);
         }
+        public bool InRegisterScreen { get; set; }
         public string UserName
         {
             get => _currentUserName;
             set => SetPropertyValue(ref _currentUserName, value.Trim());
         }
-        public SecureString Password { get; set; }
+        public SecureString Password
+        {
+            get => _password;
+            set
+            {
+                _password = value;
+               if (InRegisterScreen)
+                    if (value.Length < 6) PasswordConstraintMessage = "Password must be 6 or longer in length!";
+                    else if (value.PasswordIsWeak()) PasswordConstraintMessage = "Password is too weak or common to use!";
+                    else PasswordConstraintMessage = default;
+            }
+        }
 
+        public string PasswordConstraintMessage
+        {
+            get => _passwordConstraintMessage;
+            set => SetPropertyValue(ref _passwordConstraintMessage, value);
+        }
         public string Email
         {
             get => _email;
@@ -85,7 +104,7 @@ namespace ChitChat.ViewModels
         public ICommand RegisterCommand => new RelayCommand(RegisterAccountAsync, CanRegisterAccount);
         public ICommand LoginCommand => new RelayCommand(LoginToServerAsync, CanLogin);
 
-        private bool CanLogin() => !string.IsNullOrEmpty(_currentUserName) && Password.Length > 0 && !_isConnecting;
+        private bool CanLogin() => !string.IsNullOrEmpty(_currentUserName) && Password?.Length >= 6 && !_isConnecting;
 
         private async Task LoginToServerAsync()
         {
@@ -131,7 +150,7 @@ namespace ChitChat.ViewModels
         }
 
         private bool CanRegisterAccount() => !string.IsNullOrEmpty(UserName) &&
-                Password.Length > 0 &&
+                Password?.Length >= 6 && !Password.PasswordIsWeak() &&
                 !string.IsNullOrEmpty(Email) &&
                 !string.IsNullOrEmpty(DisplayName) &&
                 !_isRegistering;
@@ -179,6 +198,7 @@ namespace ChitChat.ViewModels
             UserName = "";
             Email = "";
             DisplayName = "";
+            PasswordConstraintMessage = "";
             Password.Clear();
         }
         private void CreateHandlers()

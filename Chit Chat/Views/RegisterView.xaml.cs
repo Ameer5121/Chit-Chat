@@ -23,6 +23,7 @@ namespace ChitChat.Views
     /// </summary>
     public partial class RegisterView : UserControl
     {
+        private HomeViewModel _homeViewModel;
         public RegisterView()
         {
             InitializeComponent();
@@ -36,29 +37,33 @@ namespace ChitChat.Views
         {
             this.Loaded -= OnLoaded;
             this.Unloaded -= OnUnLoaded;
-            (DataContext as HomeViewModel).Register -= ClearPassword;
+            _homeViewModel.Register -= ClearPassword;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as HomeViewModel).Register += ClearPassword;
+            _homeViewModel = (DataContext as HomeViewModel);
+            _homeViewModel.Register += ClearPassword;
         }
 
         private void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
-            var passwordBox = sender as PasswordBox;
-            (DataContext as HomeViewModel).Password = passwordBox.SecurePassword;
+            var passwordBox = sender as PasswordBox;        
+            _homeViewModel.Password = passwordBox.SecurePassword;
         }
 
         private void ClearPassword(object sender, EventArgs e)
         {
+            passBox.PasswordChanged -= OnPasswordChanged;
             passBox.Clear();
+            passBox.PasswordChanged += OnPasswordChanged;
         }
 
         private void Exit(object sender, RoutedEventArgs e)
         {
             ClearPassword(this, EventArgs.Empty);
-            (DataContext as HomeViewModel).ClearCredentials();
+            _homeViewModel.InRegisterScreen = false;
+            _homeViewModel.ClearCredentials();
         }
     }
 }

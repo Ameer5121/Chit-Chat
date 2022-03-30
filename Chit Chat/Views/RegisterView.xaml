@@ -71,6 +71,16 @@
                  PasswordChanged="OnPasswordChanged"></PasswordBox>
         </DockPanel>
 
+        <TextBlock Text="{Binding PasswordConstraintMessage}"
+                   Margin="0,5,0,0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="3"
+                   Grid.Row="3"
+                   VerticalAlignment="Top"
+                   TextAlignment="Center"
+                   Foreground="Red"
+                   FontSize="15"></TextBlock>               
+
         <DockPanel Grid.Row="3" Grid.Column="1" LastChildFill="False" VerticalAlignment="Bottom">
             <materialDesign:PackIcon Kind="Email" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,20,0,0" Height="25" Width="22"/>
             <!--Email-->
@@ -132,6 +142,8 @@
                    FontSize="15"
                    TextAlignment="Center"
                    Foreground="White"/>
+        
+        
         <ProgressBar
          Value="0"
          IsIndeterminate="True" 
