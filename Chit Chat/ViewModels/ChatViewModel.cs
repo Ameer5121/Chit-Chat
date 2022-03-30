@@ -373,7 +373,7 @@ namespace ChitChat.ViewModels
                     _messages.Add(receivedMessage);
                     if (HasPrivateMessage(receivedMessage) && CanReducePrivateMessages() || _isPrivateChatting && CanReducePrivateMessages()) ReduceMessages(true);
                     else if (CanReducePublicMessages()) ReduceMessages(false);
-                    if (receivedMessage.DestinationUser.DisplayName == CurrentUser.DisplayName) AddLog(new LogModel($"{receivedMessage.Sender.DisplayName} has sent you a message!"));
+                    if (receivedMessage.DestinationUser?.DisplayName == CurrentUser.DisplayName) AddLog(new LogModel($"{receivedMessage.Sender.DisplayName} has sent you a message!"));
                     MessageReceived?.Invoke(this, new MessageEventArgs
                     {
                         MessageModel = messages.LastOrDefault(),
