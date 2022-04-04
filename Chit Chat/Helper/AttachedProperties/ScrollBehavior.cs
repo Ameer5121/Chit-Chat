@@ -7,14 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace ChitChat.Helper.AttachedProperties
 {
     class ScrollBehavior
     {
         private static List<ListBox> _listBoxes = new List<ListBox>();
-        private static INotifyCollectionChanged _publicMessagesCollection;
-        private static INotifyCollectionChanged _privateMessagesCollection;
         public static bool GetScrollOnNewItem(DependencyObject obj)
         {
             return (bool)obj.GetValue(ScrollOnNewItemProperty);
@@ -39,15 +38,7 @@ namespace ChitChat.Helper.AttachedProperties
             listBox.Loaded += OnLoaded;
         }
 
-        private static void OnUnLoaded(object sender, RoutedEventArgs e)
-        {
-            _listBoxes.Remove(sender as ListBox);
-            if (_listBoxes.Count == 0)
-            {
-                _privateMessagesCollection = null;
-                _publicMessagesCollection = null;
-            }
-        }
+        private static void OnUnLoaded(object sender, RoutedEventArgs e) => _listBoxes.Remove(sender as ListBox);
         private static void OnLoaded(object sender, RoutedEventArgs e)
         {
             var listBox = sender as ListBox;
@@ -55,8 +46,6 @@ namespace ChitChat.Helper.AttachedProperties
             {
                 listBox.Unloaded += OnUnLoaded;
                 var messageCollection = listBox.ItemsSource as INotifyCollectionChanged;
-                if (_listBoxes.Count == 1) _publicMessagesCollection = messageCollection;
-                else _privateMessagesCollection = messageCollection;
                 messageCollection.CollectionChanged += OnCollectionChanged;
             }
         }
@@ -66,16 +55,14 @@ namespace ChitChat.Helper.AttachedProperties
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                var messageModel = e.NewItems[0] as MessageModel;
-                if (messageModel.DestinationUser == null)
+                var model = e.NewItems[0];
+                foreach(var listbox in _listBoxes)
                 {
-                    _listBoxes[0].ScrollIntoView(messageModel);
-                    _listBoxes[0].SelectedItem = messageModel;
-                }
-                else
-                {
-                    _listBoxes[1].ScrollIntoView(messageModel);
-                    _listBoxes[1].SelectedItem = messageModel;
+                    if (listbox.ItemsSource == sender)
+                    {
+                        listbox.ScrollIntoView(model);
+                        listbox.SelectedItem = model;
+                    }
                 }
             }
         }

@@ -353,10 +353,10 @@
                     </Button>
                 </StackPanel>
 
-                <ListBox Grid.Row="9" Margin="0,0,5,0" Height="200" BorderThickness="1" BorderBrush="Silver" ItemsSource="{Binding Logs}">
+                <ListBox AttachedProperties:ScrollBehavior.ScrollOnNewItem="True"  Grid.Row="9" Margin="0,0,5,0" Height="200" BorderThickness="1" BorderBrush="Silver" ItemsSource="{Binding Logs}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock TextWrapping="WrapWithOverflow">
+                            <TextBlock Padding="2.5" TextWrapping="WrapWithOverflow">
                                     <Run Text="Info: " Foreground="ForestGreen" FontSize="13"></Run>
                                     <Run Text="{Binding Message, Mode=OneWay}" Foreground="{DynamicResource Text2}" FontSize="15"></Run>
                             </TextBlock>
