@@ -473,7 +473,7 @@ namespace ChitChat.ViewModels
         private void ReceiveUsers(ObservableCollection<UserModel> users)
         {
             if (users.Count > Users.Count) AddLog(new LogModel($"{users.LastOrDefault().DisplayName} has entered the chat!"));
-            Users = users;          
+            Users = users;
         }
         private BitmapImage ChoosePicture()
         {
@@ -486,9 +486,28 @@ namespace ChitChat.ViewModels
                 image.BeginInit();
                 image.CacheOption = BitmapCacheOption.OnLoad;
                 image.UriSource = new Uri(openfiledialog.FileName);
+                BitmapImage tempImage = new BitmapImage(new Uri(openfiledialog.FileName));
+                ReScaleImage();
                 image.EndInit();
                 if (image.IsBiggerThan5MB()) throw new SizeException("Picture is too large!", "Picture cannot be bigger than 5 MB!");
                 return image;
+
+                void ReScaleImage()
+                {
+                    if (tempImage.Width > 500 && tempImage.Width <= 1500)
+                        image.DecodePixelWidth = (int)(tempImage.PixelWidth * (1 / 2D));
+                    else if (tempImage.Width > 1500 && tempImage.Width <= 2500)
+                        image.DecodePixelWidth = (int)(tempImage.PixelWidth * (1 / 4D));
+                    else if (tempImage.Width > 2500 && tempImage.Width <= 3500)
+                        image.DecodePixelWidth = (int)(tempImage.PixelWidth * (1 / 5D));
+
+                    if (tempImage.Height > 500 && tempImage.Height <= 1500)
+                        image.DecodePixelHeight = (int)(tempImage.PixelHeight * (1 / 2D));
+                    else if (tempImage.Height > 1500 && tempImage.Height <= 2500)
+                        image.DecodePixelHeight = (int)(tempImage.PixelHeight * (1 / 4D));
+                    else if (tempImage.Height > 2500 && tempImage.Height <= 3500)
+                        image.DecodePixelHeight = (int)(tempImage.PixelHeight * (1 / 5D));
+                }
             }
             return null;
         }

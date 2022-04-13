@@ -73,7 +73,7 @@ namespace ChitChat.ViewModels
             set
             {
                 _password = value;
-               if (InRegisterScreen)
+                if (InRegisterScreen)
                     if (value.Length < 6) PasswordConstraintMessage = "Password must be 6 or longer in length!";
                     else if (value.PasswordIsWeak()) PasswordConstraintMessage = "Password is too weak or common to use!";
                     else PasswordConstraintMessage = default;

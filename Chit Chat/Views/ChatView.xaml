@@ -322,7 +322,7 @@
                     <Button Foreground="Silver"    
                                    Margin="10,10,0,10"
                                  Grid.Row="2"
-                                 Width="Auto"
+                                 Width="Auto"                            
                                 HorizontalAlignment="Left"
                                Background="{DynamicResource Buttons}"                               
                                BorderBrush="{DynamicResource ButtonsBorderBrush}" 
