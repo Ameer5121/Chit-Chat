@@ -44,10 +44,10 @@ namespace ChitChat.ViewModels
         public EventHandler<ConnectionEventArgs> SuccessfulConnect;
         public EventHandler Register;
 
-        public HomeViewModel(IHttpService httpService, Logger logger)
+        public HomeViewModel(IHttpService httpService)
         {
             _httpService = httpService;
-            HomeLogger = logger;
+            HomeLogger = new Logger();
         }
 
         public Logger HomeLogger { get; }
@@ -73,7 +73,7 @@ namespace ChitChat.ViewModels
             set
             {
                 _password = value;
-                if (InRegisterScreen)
+               if (InRegisterScreen)
                     if (value.Length < 6) PasswordConstraintMessage = "Password must be 6 or longer in length!";
                     else if (value.PasswordIsWeak()) PasswordConstraintMessage = "Password is too weak or common to use!";
                     else PasswordConstraintMessage = default;
@@ -136,11 +136,13 @@ namespace ChitChat.ViewModels
                 IsConnecting = false;
                 return;
             }
-            _currentUser = new UserModel { DisplayName = currentUser.DisplayName, ProfilePicture = currentUser.ProfilePicture };
+            SetCurrentUser(currentUser);
             BuildConnection();
             CreateHandlers();
             await connection.StartAsync();
         }
+
+        private void SetCurrentUser(UserModel user) => _currentUser = user;
 
         private void BuildConnection()
         {

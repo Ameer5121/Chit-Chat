@@ -14,5 +14,16 @@ namespace ChitChat.Models
         public string DisplayName { get; set; }
         public string ProfilePicture { get; set; }
         public string ConnectionID { get; set; }
+
+        public UserModel(string displayName, string profilePicture, string connectionID)
+        {
+            DisplayName = displayName;
+            ProfilePicture = profilePicture;
+            ConnectionID = connectionID;
+        }
+        public UserModel()
+        {
+
+        }
     }
 }

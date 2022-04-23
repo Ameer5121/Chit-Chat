@@ -171,17 +171,12 @@ namespace ChitChat.Views
             if (_chatVM.CurrentMessageDisplay != e.NewMessageDisplay)
             {
                 foreach(MessageModel messageModel in _chatVM.PublicMessages)
-                {
-                    
+                {                   
                     var documentScrollViewer = messageModel.Message.Parent as FlowDocumentScrollViewer;
                     documentScrollViewer.Document = null;
                 }
                 PublicChat.ItemTemplate = (DataTemplate)Application.Current.Resources[Enum.GetName(typeof(MessageDisplay), e.NewMessageDisplay)];
             }
         }
-
-     
-      
-
     }
 }
