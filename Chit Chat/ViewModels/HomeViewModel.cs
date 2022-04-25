@@ -73,7 +73,7 @@ namespace ChitChat.ViewModels
             set
             {
                 _password = value;
-               if (InRegisterScreen)
+                if (InRegisterScreen)
                     if (value.Length < 6) PasswordConstraintMessage = "Password must be 6 or longer in length!";
                     else if (value.PasswordIsWeak()) PasswordConstraintMessage = "Password is too weak or common to use!";
                     else PasswordConstraintMessage = default;
@@ -108,15 +108,12 @@ namespace ChitChat.ViewModels
 
         private async Task LoginToServerAsync()
         {
-            IsConnecting = true;
+            SetConnectingToTrue();
             UserModel currentUser = null;
             _ = HomeLogger.LogMessage("Connecting...");
             try
             {
-                await Task.Run(async () =>
-                {
-                    currentUser = await _httpService.PostLoginCredentialsAsync(new UserCredentials(_currentUserName, Password.DecryptPassword()));
-                });
+                currentUser = await GetUser();
             }
             catch (HttpRequestException e)
             {
@@ -142,7 +139,12 @@ namespace ChitChat.ViewModels
             await connection.StartAsync();
         }
 
+        private async Task<UserModel> GetUser()
+        {
+            return await _httpService.PostLoginCredentialsAsync(new UserCredentials(_currentUserName, Password.DecryptPassword()));
+        }
         private void SetCurrentUser(UserModel user) => _currentUser = user;
+        private void SetConnectingToTrue() => IsConnecting = true;
 
         private void BuildConnection()
         {
