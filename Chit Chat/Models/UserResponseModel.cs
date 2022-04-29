@@ -11,5 +11,11 @@ namespace ChitChat.Models
     {
         public string Message { get; set; }
         public UserModel Payload { get; set; }
+
+        public UserResponseModel(UserModel payload, string message)
+        {
+            Payload = payload;  
+            Message = message;
+        }
     }
 }

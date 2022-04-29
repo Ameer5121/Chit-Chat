@@ -1,0 +1,65 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Moq;
+using Moq.Contrib.HttpClient;
+using Autofac.Extras.Moq;
+using ChitChat.Services;
+using ChitChat.Models;
+using System.Net.Http;
+using System.Net;
+using Newtonsoft.Json;
+using Xunit;
+using System.Net.Http.Json;
+using ChitChat.Helper.Exceptions;
+
+namespace Chit_Chat_Tests
+{
+    public class HttpServiceTests
+    {
+        [Fact]
+        public async Task PostLoginCredentialsAsync_ShouldReturnUserModel_IfCredentialsAreFound()
+        {
+            var mockedUserModel = new UserModel("Jack", "ProfilePicture", "ConnectionID");
+            var mockedUserCredentials = new UserCredentials("foo", "bar");
+            var userResponseModel = new UserResponseModel(mockedUserModel, "Works");
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Post, "https://localhost:5001/api/chat/Login")
+                    .ReturnsResponse(JsonConvert.SerializeObject(userResponseModel), "application/json");
+                var cls = mock.Create<HttpClient>();
+                IHttpService httpService = new HttpService(cls);
+
+                var expected = mockedUserModel;
+
+                var actual = await httpService.PostLoginCredentialsAsync(mockedUserCredentials);
+
+                Assert.NotNull(actual);
+                Assert.Equal(expected.DisplayName, actual.DisplayName);
+                Assert.Equal(expected.ProfilePicture, actual.ProfilePicture);
+                Assert.Equal(expected.ConnectionID, actual.ConnectionID);
+            }
+        }
+
+        [Fact]
+        public async Task PostLoginCredentialsAsync_ShouldThrow_IfCredentialsAreNotFound()
+        {           
+            using (var mock = AutoMock.GetLoose())
+            {
+                var mockedUserModel = new UserModel();
+                var mockedUserCredentials = new UserCredentials("foo", "bar");
+                var userResponseModel = new UserResponseModel(mockedUserModel, "Not Found");
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Post, "https://localhost:5001/api/chat/Login")
+                  .ReturnsResponse(HttpStatusCode.NotFound, JsonConvert.SerializeObject(userResponseModel), "application/json");
+                var cls = mock.Create<HttpClient>();
+                IHttpService httpService = new HttpService(cls);
+
+
+               
+                 await Assert.ThrowsAsync<LoginException>(() =>  httpService.PostLoginCredentialsAsync(mockedUserCredentials));
+            }
+        }
+    }
+}

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Autofac;
 
 namespace ChitChat.Views
 {
@@ -26,7 +27,7 @@ namespace ChitChat.Views
         public PasswordRecoveryView()
         {
             InitializeComponent();
-            DataContext = new RecoveryViewModel(HttpService.HttpServiceInstance);
+            DataContext = new RecoveryViewModel(IoCContainerService._container.Resolve<IHttpService>());
             _dataContext = DataContext as RecoveryViewModel;
             Loaded += OnLoad;
             Unloaded += OnUnLoaded;

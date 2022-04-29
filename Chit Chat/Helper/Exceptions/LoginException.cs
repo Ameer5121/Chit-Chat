@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChitChat.Helper.Exceptions
 {
-    class LoginException : Exception
+    public class LoginException : Exception
     {
 
         public LoginException(string message) : base (message)

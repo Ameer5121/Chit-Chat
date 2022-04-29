@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using ChitChat.Services;
 
 namespace ChitChat.Views
 {
@@ -16,6 +17,10 @@ namespace ChitChat.Views
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            IoCContainerService.Register();
+        }
         public static CultureInfo Culture { get; set; }
         public void ChangeTheme(Theme? theme)
         {
