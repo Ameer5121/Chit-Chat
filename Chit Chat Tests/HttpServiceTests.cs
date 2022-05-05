@@ -45,7 +45,7 @@ namespace Chit_Chat_Tests
 
         [Fact]
         public async Task PostLoginCredentialsAsync_ShouldThrow_IfCredentialsAreNotFound()
-        {           
+        {
             using (var mock = AutoMock.GetLoose())
             {
                 var mockedUserModel = new UserModel();
@@ -57,8 +57,43 @@ namespace Chit_Chat_Tests
                 IHttpService httpService = new HttpService(cls);
 
 
-               
-                 await Assert.ThrowsAsync<LoginException>(() =>  httpService.PostLoginCredentialsAsync(mockedUserCredentials));
+
+                await Assert.ThrowsAsync<LoginException>(() => httpService.PostLoginCredentialsAsync(mockedUserCredentials));
+            }
+        }
+
+        [Fact]
+        public async Task PostRegisterCredentialsAsync_ShouldBeCalled()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                var mockedUserCredentials = new UserCredentials("foo", "bar");
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Post, "https://localhost:5001/api/chat/PostUser").
+                ReturnsResponse(HttpStatusCode.OK);
+
+
+                var cls = mock.Create<HttpClient>();
+                IHttpService httpService = new HttpService(cls);
+                await httpService.PostRegisterCredentialsAsync(mockedUserCredentials);
+
+                mock.Mock<HttpMessageHandler>().VerifyRequest("https://localhost:5001/api/chat/PostUser", Times.Once());
+            }
+        }
+
+        [Fact]
+        public async Task PostRegisterCredentialsAsync_ShouldThrow_IfResponseNotOk()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                var mockedUserCredentials = new UserCredentials("foo", "bar");
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Post, "https://localhost:5001/api/chat/PostUser").
+                ReturnsResponse(HttpStatusCode.BadRequest);
+
+
+                var cls = mock.Create<HttpClient>();
+                IHttpService httpService = new HttpService(cls);
+
+                await Assert.ThrowsAsync<RegistrationException>(() => httpService.PostRegisterCredentialsAsync(mockedUserCredentials));
             }
         }
     }

@@ -39,7 +39,7 @@ namespace ChitChat.Services
         public async Task PostRegisterCredentialsAsync(UserCredentials userCredentials)
         {
             var response = await PostDataAsync("PostUser", userCredentials);
-            if (response.StatusCode == HttpStatusCode.BadRequest)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
                 var body = await response.Content.ReadAsStringAsync();
                 throw new RegistrationException(body);
