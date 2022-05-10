@@ -96,5 +96,46 @@ namespace Chit_Chat_Tests
                 await Assert.ThrowsAsync<RegistrationException>(() => httpService.PostRegisterCredentialsAsync(mockedUserCredentials));
             }
         }
+        
+        [Fact]
+        public async Task PostRecoveryDataAsync_ShouldBeCalled()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Post, "https://localhost:5001/api/chat/PostEmail").
+                ReturnsResponse(HttpStatusCode.OK);
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Post, "https://localhost:5001/api/chat/PostPassword").
+                ReturnsResponse(HttpStatusCode.OK);
+
+
+                var cls = mock.Create<HttpClient>();
+                IHttpService httpService = new HttpService(cls);
+                await httpService.PostRecoveryDataAsync("PostEmail", null);
+                await httpService.PostRecoveryDataAsync("PostPassword", null);
+
+                mock.Mock<HttpMessageHandler>().VerifyRequest("https://localhost:5001/api/chat/PostEmail",  Times.Once());
+                mock.Mock<HttpMessageHandler>().VerifyRequest("https://localhost:5001/api/chat/PostPassword", Times.Once());
+            }
+        }
+
+        [Fact]
+        public async Task PostRecoveryDataAsync_ShouldThrow_IfResponseNotOK()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Post, "https://localhost:5001/api/chat/PostEmail").
+                ReturnsResponse(HttpStatusCode.BadRequest);
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Post, "https://localhost:5001/api/chat/PostPassword").
+                ReturnsResponse(HttpStatusCode.BadRequest);
+
+
+                var cls = mock.Create<HttpClient>();
+                IHttpService httpService = new HttpService(cls);
+
+                await Assert.ThrowsAsync<RecoveryException>(() => httpService.PostRecoveryDataAsync("PostEmail", null));
+                await Assert.ThrowsAsync<RecoveryException>(() => httpService.PostRecoveryDataAsync("PostPassword", null));
+            }
+        }
+
     }
 }

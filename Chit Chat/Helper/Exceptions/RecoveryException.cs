@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChitChat.Helper.Exceptions
 {
-    class RecoveryException : Exception
+   public class RecoveryException : Exception
     {
         public RecoveryException(string message) : base(message)
         {
