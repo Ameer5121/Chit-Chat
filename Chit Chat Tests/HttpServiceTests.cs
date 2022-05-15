@@ -36,6 +36,7 @@ namespace Chit_Chat_Tests
 
                 var actual = await httpService.PostLoginCredentialsAsync(mockedUserCredentials);
 
+                mock.Mock<HttpMessageHandler>().VerifyRequest("https://localhost:5001/api/chat/Login", Times.Once());
                 Assert.NotNull(actual);
                 Assert.Equal(expected.DisplayName, actual.DisplayName);
                 Assert.Equal(expected.ProfilePicture, actual.ProfilePicture);
@@ -113,6 +114,7 @@ namespace Chit_Chat_Tests
                 await httpService.PostRecoveryDataAsync("PostEmail", null);
                 await httpService.PostRecoveryDataAsync("PostPassword", null);
 
+
                 mock.Mock<HttpMessageHandler>().VerifyRequest("https://localhost:5001/api/chat/PostEmail",  Times.Once());
                 mock.Mock<HttpMessageHandler>().VerifyRequest("https://localhost:5001/api/chat/PostPassword", Times.Once());
             }
@@ -134,6 +136,28 @@ namespace Chit_Chat_Tests
 
                 await Assert.ThrowsAsync<RecoveryException>(() => httpService.PostRecoveryDataAsync("PostEmail", null));
                 await Assert.ThrowsAsync<RecoveryException>(() => httpService.PostRecoveryDataAsync("PostPassword", null));
+            }
+        }
+
+        [Fact]
+        public async Task PostProfileImage_ShouldReturnPictureLink()
+        {
+            var imageUpdateModel = new ImageUploadDataModel("h54Bhau4jkI", null);
+            var expected = "https://imgur.com/a/RandomImageLink";
+
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Post, "https://localhost:5001/api/chat/PostImage")
+                    .ReturnsResponse(expected);
+                var cls = mock.Create<HttpClient>();
+                IHttpService httpService = new HttpService(cls);
+
+
+                var actual = await httpService.PostProfileImage(imageUpdateModel);
+
+
+                mock.Mock<HttpMessageHandler>().VerifyRequest("https://localhost:5001/api/chat/PostImage", Times.Once());
+                Assert.Equal(expected, actual);
             }
         }
 
