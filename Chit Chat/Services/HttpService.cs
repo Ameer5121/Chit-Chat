@@ -26,7 +26,7 @@ namespace ChitChat.Services
         public async Task<HttpResponseMessage> PostDataAsync(string endPoint, object data)
         {
             return await _httpClient.PostAsync($"/api/chat/{endPoint}",
-             new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));          
+             new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
         }
         public async Task<UserModel> PostLoginCredentialsAsync(UserCredentials userCredentials)
         {

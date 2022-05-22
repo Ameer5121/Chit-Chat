@@ -55,7 +55,7 @@ namespace ChitChat.ViewModels
         public ICommand SendEmailCommand => new RelayCommand(SendEmail, CanSendEmail);
         public ICommand SendPasswordCommand => new RelayCommand(SendPassword, CanSendPassword);
 
-        private bool CanSendEmail() => _email.Length > 0 || !_isSending;
+        private bool CanSendEmail() => _email.Length > 0 && !_isSending;
 
         private async Task SendEmail()
         {
