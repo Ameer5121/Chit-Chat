@@ -203,7 +203,7 @@ namespace ChitChat.ViewModels
             Email = "";
             DisplayName = "";
             PasswordConstraintMessage = "";
-            Password.Clear();
+            Password?.Clear();
         }
         private void CreateHandlers()
         {
