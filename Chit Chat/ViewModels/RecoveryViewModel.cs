@@ -20,6 +20,8 @@ namespace ChitChat.ViewModels
         private string _recoveryStatus;
         private int _code;
         private bool _passwordChanged;
+        private SecureString _newPassword;
+        private string _passwordConstraintMessage;
         private bool _isSending;
         private IHttpService _httpService;
         public event EventHandler EmailSent;
@@ -50,7 +52,25 @@ namespace ChitChat.ViewModels
             get => _isSending;
             set => SetPropertyValue(ref _isSending, value);
         }
-        public SecureString NewPassword { get; set; }
+
+        public string PasswordConstraintMessage
+        {
+            get { return _passwordConstraintMessage; } 
+            set => SetPropertyValue(ref _passwordConstraintMessage, value);
+        }
+
+        public SecureString NewPassword
+        {
+            get => _newPassword;
+            set
+            {
+                _newPassword = value;
+                if (value.Length < 6) PasswordConstraintMessage = "Password must be 6 or longer in length!";
+                else if (value.PasswordIsWeak()) PasswordConstraintMessage = "Password is too weak or common to use!";
+                else PasswordConstraintMessage = default;
+
+            }
+        }
 
         public ICommand SendEmailCommand => new RelayCommand(SendEmail, CanSendEmail);
         public ICommand SendPasswordCommand => new RelayCommand(SendPassword, CanSendPassword);
@@ -89,7 +109,7 @@ namespace ChitChat.ViewModels
             EmailSent?.Invoke(this, EventArgs.Empty);
         }
 
-        private bool CanSendPassword() => NewPassword.Length > 0 && !_passwordChanged && _code >= 100000 && _code <= 999999;
+        private bool CanSendPassword() => NewPassword.Length > 6 && !NewPassword.PasswordIsWeak() && !_passwordChanged && _code >= 100000 && _code <= 999999 ;
 
         private async Task SendPassword()
         {

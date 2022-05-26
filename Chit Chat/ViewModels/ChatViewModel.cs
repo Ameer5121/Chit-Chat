@@ -183,7 +183,7 @@ namespace ChitChat.ViewModels
         }
         public int PrivateMessageLength
         {
-            get => _privateMessageLength;
+            get => _privateMessageLength;   
             set => SetPropertyValue(ref _privateMessageLength, value);
         }
         public Array Themes
