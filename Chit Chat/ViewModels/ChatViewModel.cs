@@ -28,6 +28,7 @@ using System.Windows.Forms;
 using Application = System.Windows.Application;
 using System.Windows.Media.Imaging;
 using ChitChat.Helper.Language;
+using System.IO;
 
 namespace ChitChat.ViewModels
 {
@@ -183,7 +184,7 @@ namespace ChitChat.ViewModels
         }
         public int PrivateMessageLength
         {
-            get => _privateMessageLength;   
+            get => _privateMessageLength;
             set => SetPropertyValue(ref _privateMessageLength, value);
         }
         public Array Themes
@@ -477,39 +478,50 @@ namespace ChitChat.ViewModels
         }
         private BitmapImage ChoosePicture()
         {
-            var openfiledialog = new OpenFileDialog();
-            BitmapImage image = new BitmapImage();
-            openfiledialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
-            if (openfiledialog.ShowDialog() == DialogResult.OK)
+            using (var openfiledialog = new OpenFileDialog())
             {
+                BitmapImage image = new BitmapImage();
 
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = new Uri(openfiledialog.FileName);
-                BitmapImage tempImage = new BitmapImage(new Uri(openfiledialog.FileName));
-                ReScaleImage();
-                image.EndInit();
-                if (image.IsBiggerThan5MB()) throw new SizeException("Picture is too large!", "Picture cannot be bigger than 5 MB!");
-                return image;
-
-                void ReScaleImage()
+                openfiledialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+                if (openfiledialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (tempImage.Width > 500 && tempImage.Width <= 1500)
-                        image.DecodePixelWidth = (int)(tempImage.PixelWidth * (1 / 2D));
-                    else if (tempImage.Width > 1500 && tempImage.Width <= 2500)
-                        image.DecodePixelWidth = (int)(tempImage.PixelWidth * (1 / 4D));
-                    else if (tempImage.Width > 2500 && tempImage.Width <= 3500)
-                        image.DecodePixelWidth = (int)(tempImage.PixelWidth * (1 / 5D));
 
-                    if (tempImage.Height > 500 && tempImage.Height <= 1500)
-                        image.DecodePixelHeight = (int)(tempImage.PixelHeight * (1 / 2D));
-                    else if (tempImage.Height > 1500 && tempImage.Height <= 2500)
-                        image.DecodePixelHeight = (int)(tempImage.PixelHeight * (1 / 4D));
-                    else if (tempImage.Height > 2500 && tempImage.Height <= 3500)
-                        image.DecodePixelHeight = (int)(tempImage.PixelHeight * (1 / 5D));
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.UriSource = new Uri(openfiledialog.FileName);
+
+                    BitmapImage tempImage = new BitmapImage();
+                    tempImage.BeginInit();
+                    tempImage.UriSource = new Uri(openfiledialog.FileName);
+                    tempImage.CacheOption = BitmapCacheOption.OnLoad;
+                    tempImage.EndInit();
+
+                    ReScaleImage();
+                    image.EndInit();
+                    if (image.IsBiggerThan5MB()) throw new SizeException("Picture is too large!", "Picture cannot be bigger than 5 MB!");
+
+                    return image;
+
+                    void ReScaleImage()
+                    {
+                        if (tempImage.Width > 500 && tempImage.Width <= 1500)
+                            image.DecodePixelWidth = (int)(tempImage.PixelWidth * (1 / 2D));
+                        else if (tempImage.Width > 1500 && tempImage.Width <= 2500)
+                            image.DecodePixelWidth = (int)(tempImage.PixelWidth * (1 / 4D));
+                        else if (tempImage.Width > 2500 && tempImage.Width <= 3500)
+                            image.DecodePixelWidth = (int)(tempImage.PixelWidth * (1 / 5D));
+
+                        if (tempImage.Height > 500 && tempImage.Height <= 1500)
+                            image.DecodePixelHeight = (int)(tempImage.PixelHeight * (1 / 2D));
+                        else if (tempImage.Height > 1500 && tempImage.Height <= 2500)
+                            image.DecodePixelHeight = (int)(tempImage.PixelHeight * (1 / 4D));
+                        else if (tempImage.Height > 2500 && tempImage.Height <= 3500)
+                            image.DecodePixelHeight = (int)(tempImage.PixelHeight * (1 / 5D));
+                    }
                 }
+                return null;
             }
-            return null;
+
         }
 
         private void ShowNameChangerDialog()
