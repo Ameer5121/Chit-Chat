@@ -33,7 +33,7 @@
         <Converters:EnumLanguageConverter x:Key="EnumLanguageConverter"></Converters:EnumLanguageConverter>
 
             <DataTemplate DataType="{x:Type model:ErrorModel}">
-            <Grid Background="{DynamicResource Menu}" Width="400" Height="150">
+            <Grid Background="{DynamicResource UserSettings}" Width="400" Height="150">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>

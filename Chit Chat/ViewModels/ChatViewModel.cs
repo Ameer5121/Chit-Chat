@@ -533,6 +533,13 @@ namespace ChitChat.ViewModels
 
         private async Task ChangeDisplayName(NameChangeModel nameChangeModel)
         {
+            if (string.IsNullOrEmpty(nameChangeModel.NewName))
+            {
+                CloseDialog();
+                ConstructError("Warning!", "Name cannot be empty!");
+                await DisplayError();
+                return;
+            }
             CloseDialog();
             try
             {
@@ -545,6 +552,8 @@ namespace ChitChat.ViewModels
             }
             _currentUser.DisplayName = nameChangeModel.NewName;
         }
+
+
 
         private async Task UploadImageAsync(bool isPrivate)
         {

@@ -15,7 +15,7 @@ namespace ChitChat.Services
         {
             var container = new ContainerBuilder();
             container.RegisterType<HttpService>().As<IHttpService>().SingleInstance().WithParameter("httpClient", new HttpClient());
-            _container = container.Build();           
+            _container = container.Build();
         }
     }
 }
