@@ -161,5 +161,26 @@ namespace Chit_Chat_Tests
             }
         }
 
+        [Theory]
+        [InlineData("ChatHub")]
+        [InlineData("Register")]
+        [InlineData("Login")]
+        [InlineData("GetHeartBeat")]
+        public async Task PostDataAsync_ShouldCallCorrectEndPoint(string expected)
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Post, $"https://localhost:5001/api/chat/{expected}").
+                ReturnsResponse(HttpStatusCode.OK);
+
+
+                var cls = mock.Create<HttpClient>();
+                IHttpService httpService = new HttpService(cls);
+                await httpService.PostDataAsync(expected, null);
+
+                mock.Mock<HttpMessageHandler>().VerifyRequest($"https://localhost:5001/api/chat/{expected}", Times.Once());
+            }
+        }
+
     }
 }
