@@ -347,11 +347,15 @@ namespace ChitChat.ViewModels
                 catch (HttpRequestException)
                 {
                     //Server is down.
+                    ConstructError("Connection", "Lost connection to the server!");
+                    await DisplayError();
                     await DisconnectFromServer();
                 }
                 catch (TaskCanceledException)
                 {
                     //Server is down.
+                    ConstructError("Connection", "Lost connection to the server!");
+                    await DisplayError();
                     await DisconnectFromServer();
                 }
             }
