@@ -20,6 +20,7 @@ namespace ChitChat.Views
         public App()
         {
             IoCContainerService.Register();
+            
         }
         public static CultureInfo Culture { get; set; }
         public void ChangeTheme(Theme? theme)

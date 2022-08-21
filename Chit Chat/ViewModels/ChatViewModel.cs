@@ -361,29 +361,28 @@ namespace ChitChat.ViewModels
 
         private void ReceiveMessages(ObservableCollection<MessageModel> messages)
         {
-            if (messages.Count > _messages.Count)
+
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                messages.LastOrDefault().ConvertRTFToFlowDocument();
+                var receivedMessage = messages.LastOrDefault();
+
+                if (_firstUnloadedPublicMessageDate == default && receivedMessage.DestinationUser == null)
+                    _firstUnloadedPublicMessageDate = receivedMessage.MessageDate;
+                else if (_firstUnloadedPrivateMessageDate == default && receivedMessage.DestinationUser != null)
+                    _firstUnloadedPrivateMessageDate = receivedMessage.MessageDate;
+
+                _messages.Add(receivedMessage);
+                if (HasPrivateMessage(receivedMessage) && CanReducePrivateMessages() || _isPrivateChatting && CanReducePrivateMessages()) ReduceMessages(true);
+                else if (CanReducePublicMessages()) ReduceMessages(false);
+                if (receivedMessage.DestinationUser?.DisplayName == CurrentUser.DisplayName) AddLog(new LogModel($"{receivedMessage.Sender.DisplayName} has sent you a message!"));
+                MessageReceived?.Invoke(this, new MessageEventArgs
                 {
-                    messages.LastOrDefault().ConvertRTFToFlowDocument();
-                    var receivedMessage = messages.LastOrDefault();
-
-                    if (_firstUnloadedPublicMessageDate == default && receivedMessage.DestinationUser == null)
-                        _firstUnloadedPublicMessageDate = receivedMessage.MessageDate;
-                    else if (_firstUnloadedPrivateMessageDate == default && receivedMessage.DestinationUser != null)
-                        _firstUnloadedPrivateMessageDate = receivedMessage.MessageDate;
-
-                    _messages.Add(receivedMessage);
-                    if (HasPrivateMessage(receivedMessage) && CanReducePrivateMessages() || _isPrivateChatting && CanReducePrivateMessages()) ReduceMessages(true);
-                    else if (CanReducePublicMessages()) ReduceMessages(false);
-                    if (receivedMessage.DestinationUser?.DisplayName == CurrentUser.DisplayName) AddLog(new LogModel($"{receivedMessage.Sender.DisplayName} has sent you a message!"));
-                    MessageReceived?.Invoke(this, new MessageEventArgs
-                    {
-                        MessageModel = messages.LastOrDefault(),
-                        CurrentTheme = this.CurrentTheme
-                    });
+                    MessageModel = messages.LastOrDefault(),
+                    CurrentTheme = this.CurrentTheme
                 });
-            }
+            });
+
         }
 
         private bool HasPrivateMessage(MessageModel message)
