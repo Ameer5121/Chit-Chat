@@ -43,9 +43,9 @@ Image Sending
 * Logging out manually.
 
 # Memory Performance Features:
-* Loading only 50 messages at a time.
-   * Only 50 messages are shown at a time to preserve memory. This feature comes with the ability to load previous messages, however, this works differently for private chats. 
-You are able to have multiple stacks of 50 messages for each individual you're private chatting to. It doesn't count the messages globally.
+* Loading only up to 100 messages at a time.
+   * Only 100 messages are shown at a time to preserve memory. This feature comes with the ability to load previous messages, however, this works differently for private chats. 
+You are able to have multiple stacks of (up to 100) messages for each individual you're private chatting to. It doesn't count the messages globally.
 
 # Framework:
 * Made in WPF
