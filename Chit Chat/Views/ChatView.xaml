@@ -47,6 +47,8 @@
                 <Button Focusable="False" Background="{DynamicResource Buttons}" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Grid.Row="2" BorderBrush="Transparent" Height="50" VerticalAlignment="Bottom" Content="Okay" Foreground="{DynamicResource Text}" FontSize="15"></Button>
             </Grid>
         </DataTemplate>
+        
+        
 
         <DataTemplate DataType="{x:Type model:NameChangeModel}">
             <Grid Background="{DynamicResource UserSettings }" Width="400" Height="200">

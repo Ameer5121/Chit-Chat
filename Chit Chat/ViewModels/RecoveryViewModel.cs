@@ -55,7 +55,7 @@ namespace ChitChat.ViewModels
 
         public string PasswordConstraintMessage
         {
-            get { return _passwordConstraintMessage; } 
+            get { return _passwordConstraintMessage; }
             set => SetPropertyValue(ref _passwordConstraintMessage, value);
         }
 
@@ -109,7 +109,7 @@ namespace ChitChat.ViewModels
             EmailSent?.Invoke(this, EventArgs.Empty);
         }
 
-        private bool CanSendPassword() => NewPassword.Length > 6 && !NewPassword.PasswordIsWeak() && !_passwordChanged && _code >= 100000 && _code <= 999999 ;
+        private bool CanSendPassword() => NewPassword.Length > 6 && !NewPassword.PasswordIsWeak() && !_passwordChanged && _code >= 100000 && _code <= 999999;
 
         private async Task SendPassword()
         {

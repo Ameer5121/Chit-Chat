@@ -30,7 +30,7 @@ namespace ChitChat.Services
         }
         public async Task<UserModel> PostLoginCredentialsAsync(UserCredentials userCredentials)
         {
-            var response =  await PostDataAsync("Login", userCredentials).ConfigureAwait(false);
+            var response = await PostDataAsync("Login", userCredentials).ConfigureAwait(false);
             var jsonResponseData = await response.Content.ReadAsStringAsync();
             var userResponseModel = JsonConvert.DeserializeObject<UserResponseModel>(jsonResponseData);
             if (response.StatusCode != HttpStatusCode.OK) throw new LoginException(userResponseModel.Message);
