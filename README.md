@@ -33,6 +33,7 @@ Image Sending
 * Password Recovery
 * List of connected users, automatically updating when one joins/leaves
 * Returning to home view automatically when server is down
+* Messages get saved automatically in database
 * Message control and loading old messages
 * Private chatting
 * Colored Emojis
