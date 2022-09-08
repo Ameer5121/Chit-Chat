@@ -14,11 +14,13 @@
         <l:Finnish x:Key="Finnish"></l:Finnish>
         <l:Hebrew x:Key="Hebrew"></l:Hebrew>
         <l:Japanese x:Key="Japanese"></l:Japanese>
+        <l:Polish x:Key="Polish"></l:Polish>
     </UserControl.Resources>
     
     
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -95,6 +97,19 @@
                                HorizontalContentAlignment="Stretch">
             <DockPanel LastChildFill="False">
                 <TextBlock Text="{DynamicResource JapaneseDefault}" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
+            </DockPanel>
+        </Button>
+
+        <Button 
+                               Foreground="Silver"    
+                               Margin="10,10,10,10"
+                               Grid.Row="6"
+                               Background="{DynamicResource Buttons}"                               
+                               BorderBrush="{DynamicResource ButtonsBorderBrush}" 
+                               Command="{Binding ChangeLanguageCommand}" CommandParameter="{StaticResource Polish }"
+                               HorizontalContentAlignment="Stretch">
+            <DockPanel LastChildFill="False">
+                <TextBlock Text="{DynamicResource PolishDefault}" Foreground="{DynamicResource Text2}" DockPanel.Dock="Left" HorizontalAlignment="Left"></TextBlock>
             </DockPanel>
         </Button>
     </Grid>

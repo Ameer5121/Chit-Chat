@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
-    <!--Arabic, English, Finnish, Hebrew, Japanese-->
+    <!--Arabic, English, Finnish, Hebrew, Japanese, Polish-->
 
     <!--Default-->
     <System:String x:Key="UserSettingsDefault">User Settings</System:String>
@@ -26,8 +26,9 @@
     <System:String x:Key="FinnishDefault">Finnish</System:String>
     <System:String x:Key="HebrewDefault">Hebrew</System:String>
     <System:String x:Key="JapaneseDefault">Japanese</System:String>
-    
-   
+    <System:String x:Key="PolishDefault">Polish</System:String>
+
+
 
 
     <!--Arabic-->
@@ -52,6 +53,7 @@
     <System:String x:Key="FinnishArabic">فنلندية</System:String>
     <System:String x:Key="HebrewArabic">عبرية</System:String>
     <System:String x:Key="JapaneseArabic">يابانية</System:String>
+    <System:String x:Key="PolishArabic">بولندي</System:String>
     <System:String x:Key="DarkArabic">داكن</System:String>
     <System:String x:Key="LightArabic">ضوء</System:String>
     <System:String x:Key="CozyArabic">أنيق</System:String>
@@ -78,6 +80,7 @@
     <System:String x:Key="FinnishEnglish">Finnish</System:String>
     <System:String x:Key="HebrewEnglish">Hebrew</System:String>
     <System:String x:Key="JapaneseEnglish">Japanese</System:String>
+    <System:String x:Key="PolishEnglish">Polish</System:String>
     <System:String x:Key="DarkEnglish">Dark</System:String>
     <System:String x:Key="LightEnglish">Light</System:String>
     <System:String x:Key="CozyEnglish">Cozy</System:String>
@@ -105,6 +108,7 @@
     <System:String x:Key="FinnishFinnish">Suomi</System:String>
     <System:String x:Key="HebrewFinnish">Heprea</System:String>
     <System:String x:Key="JapaneseFinnish">Japani</System:String>
+    <System:String x:Key="PolishFinnish">Puolaa</System:String>
     <System:String x:Key="DarkFinnish">Tumma</System:String>
     <System:String x:Key="LightFinnish">Vaalea</System:String>
     <System:String x:Key="CozyFinnish">Tyylikäs</System:String>
@@ -132,6 +136,7 @@
     <System:String x:Key="FinnishHebrew">פִינִית</System:String>
     <System:String x:Key="HebrewHebrew">עִברִית</System:String>
     <System:String x:Key="JapaneseHebrew">יַפָּנִית</System:String>
+    <System:String x:Key="PolishHebrew">פּוֹלָנִית</System:String>
     <System:String x:Key="DarkHebrew">אפל</System:String>
     <System:String x:Key="LightHebrew">אוֹר</System:String>
     <System:String x:Key="CozyHebrew">מסוגנן</System:String>
@@ -159,10 +164,40 @@
     <System:String x:Key="FinnishJapanese">フィンランド語</System:String>
     <System:String x:Key="HebrewJapanese">ヘブライ語</System:String>
     <System:String x:Key="JapaneseJapanese">日本</System:String>
+    <System:String x:Key="PolishJapanese">研磨</System:String>
     <System:String x:Key="DarkJapanese">暗い</System:String>
     <System:String x:Key="LightJapanese">光</System:String>
     <System:String x:Key="CozyJapanese">スタイリッシュ</System:String>
     <System:String x:Key="CompactJapanese">コンパクト</System:String>
+
+
+    <!--Polish-->
+    <System:String x:Key="UserSettingsPolish">Ustawienia użytkownika</System:String>
+    <System:String x:Key="AccountPolish">Rachunek</System:String>
+    <System:String x:Key="ChangeProfilePicturePolish">Zmień zdjęcie profilowe</System:String>
+    <System:String x:Key="ChangeDisplayNamePolish">Zmień wyświetlaną nazwę</System:String>
+    <System:String x:Key="AppearancePolish">Wygląd zewnętrzny</System:String>
+    <System:String x:Key="ThemePolish">Motyw</System:String>
+    <System:String x:Key="MessageDisplayPolish">Wyświetlacz wiadomości</System:String>
+    <System:String x:Key="ChangeLanguagePolish">Zmień język</System:String>
+    <System:String x:Key="ApplicationPolish">Aplikacja</System:String>
+    <System:String x:Key="LogsPolish">Dzienniki</System:String>
+    <System:String x:Key="LogOutPolish">Wyloguj</System:String>
+    <System:String x:Key="MessageHistoryPolish">Historia wiadomości</System:String>
+    <System:String x:Key="UsersPolish">Użytkownicy</System:String>
+    <System:String x:Key="SendAMessagePolish">Wysłać wiadomość</System:String>
+    <System:String x:Key="PrivatelyChattingPolish">Prywatne rozmowy：</System:String>
+    <System:String x:Key="LoadPreviousMessagesPolish">Załaduj poprzednie wiadomości</System:String>
+    <System:String x:Key="ArabicPolish">Arabski</System:String>
+    <System:String x:Key="EnglishPolish">Angielski</System:String>
+    <System:String x:Key="FinnishPolish">Fiński</System:String>
+    <System:String x:Key="HebrewPolish">Hebrajski</System:String>
+    <System:String x:Key="JapanesePolish">Japoński</System:String>
+    <System:String x:Key="PolishPolish">Polski</System:String>
+    <System:String x:Key="DarkPolish">Ciemny</System:String>
+    <System:String x:Key="LightPolish">Światło</System:String>
+    <System:String x:Key="CozyPolish">Przytulny</System:String>
+    <System:String x:Key="CompactPolish">Kompaktowy</System:String>
 
 
 </ResourceDictionary>
