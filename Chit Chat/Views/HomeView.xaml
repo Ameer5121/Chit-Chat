@@ -28,6 +28,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -39,7 +40,7 @@
         </Grid.ColumnDefinitions>
 
 
-        <materialDesign:Transitioner x:Name="Transitioner" Grid.RowSpan="5" Grid.Row="1" Grid.ColumnSpan="3" Panel.ZIndex="1" SelectedIndex="2">
+        <materialDesign:Transitioner x:Name="Transitioner" Grid.RowSpan="6" Grid.Row="1" Grid.ColumnSpan="3" Panel.ZIndex="1" SelectedIndex="2">
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
                 <local:RegisterView Margin="0,0,0,-1"></local:RegisterView>
             </materialDesign:TransitionerSlide>
@@ -94,7 +95,7 @@
         </DockPanel>
 
         <!--Password-->
-        <DockPanel Grid.Row="2" Grid.Column="1" LastChildFill="False" VerticalAlignment="Bottom">
+        <DockPanel Grid.Row="2" Grid.Column="1" LastChildFill="False" VerticalAlignment="Bottom" Margin="0,0,0,10">
             <materialDesign:PackIcon DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,20,0,0" Kind="Key" Foreground="Silver" Grid.Row="1" Height="25" Width="22"></materialDesign:PackIcon>
             <PasswordBox HorizontalAlignment="Right" 
                  Margin="5,0,0,0"
@@ -118,9 +119,9 @@
 
         <!--Login-->
         <Button 
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.Column="1"
-                
+                VerticalAlignment="Center"
                 BorderBrush="#FF2C2B2B"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Content="Login"
@@ -131,7 +132,7 @@
 
         <!--Recovery-->
         <Button 
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.Column="1"       
                 BorderBrush="Transparent"
                 Content="Forgot your password?"
@@ -144,19 +145,20 @@
 
         <!--Register-->
         <Button
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.Column="1"
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Register" 
             FontSize="25"
             Click="Register"
+
             Foreground="White"
             Background="#303338"
            BorderBrush="#FF2C2B2B" Height="70" Width="160"></Button>
 
         <TextBlock Text="{Binding Status}"
                    DataContext="{Binding HomeLogger}"
-                   Grid.Row="5"
+                   Grid.Row="6"
                    Grid.Column="1"
                    VerticalAlignment="Center"
                    FontSize="15"
@@ -167,7 +169,7 @@
         <ProgressBar
          Value="0"
          IsIndeterminate="True" 
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.Column="1"
             VerticalAlignment="Bottom"
             Margin="0,0,0,15"
@@ -188,6 +190,8 @@
                 </Style>
             </ProgressBar.Style>
         </ProgressBar>
+
+        <CheckBox Grid.Row="3" IsChecked="{Binding SaveCredentials}" VerticalAlignment="Center" Foreground="Silver" FontSize="15" HorizontalAlignment="Center" Grid.Column="1" Margin="-10,0,0,0" Content="Save Login" Command="{Binding SaveCredentialsCommand}"></CheckBox>
 
     </Grid>
 </Window>

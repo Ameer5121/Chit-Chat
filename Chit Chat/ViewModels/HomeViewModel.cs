@@ -37,6 +37,7 @@ namespace ChitChat.ViewModels
         private string _email;
         private string _displayName;
         private string _passwordConstraintMessage;
+        private bool _saveCrednentials;
         private SecureString _password;
         private HubConnection connection;
         private UserModel _currentUser;
@@ -66,6 +67,11 @@ namespace ChitChat.ViewModels
         {
             get => _currentUserName;
             set => SetPropertyValue(ref _currentUserName, value.Trim());
+        }
+        public bool SaveCredentials
+        {
+            get => _saveCrednentials;
+            set => SetPropertyValue(ref _saveCrednentials, value);
         }
         public SecureString Password
         {
@@ -103,6 +109,7 @@ namespace ChitChat.ViewModels
 
         public ICommand RegisterCommand => new RelayCommand(RegisterAccountAsync, CanRegisterAccount);
         public ICommand LoginCommand => new RelayCommand(LoginToServerAsync, CanLogin);
+        public ICommand SaveCredentialsCommand => new RelayCommand(SaveCredentialsToFile, CanSaveCredentials);
 
         private bool CanLogin() => !string.IsNullOrEmpty(_currentUserName) && Password?.Length >= 6 && !_isConnecting;
 
@@ -205,6 +212,9 @@ namespace ChitChat.ViewModels
             PasswordConstraintMessage = "";
             Password?.Clear();
         }
+        private bool CanSaveCredentials() => !string.IsNullOrEmpty(_currentUserName) && Password?.Length >= 6 && !_isConnecting;
+        private void SaveCredentialsToFile() => CredentialsSaveService.SaveCredentials(new UserCredentials(UserName, Password.DecryptPassword(), true));
+
         private void CreateHandlers()
         {
             connection.On<DataModel>("Connected", (data) =>

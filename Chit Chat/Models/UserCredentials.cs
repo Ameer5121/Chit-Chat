@@ -14,10 +14,12 @@ namespace ChitChat.Models
         public string DisplayName { get; }
         public string Email { get; }
         public string DecryptedPassword { get; }
-        public UserCredentials(string userName, string decryptedPassword)
+        public bool SavedLocaly { get; set; }
+        public UserCredentials(string userName, string decryptedPassword, bool savedLocally = false)
         {
             UserName = userName;
             DecryptedPassword = decryptedPassword;
+            SavedLocaly = savedLocally;
         }
         public UserCredentials(string userName, string decryptedPassword, string email, string displayName)
         {
