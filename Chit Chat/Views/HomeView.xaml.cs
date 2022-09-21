@@ -27,6 +27,8 @@ namespace ChitChat.Views
             DataContext = new HomeViewModel(IoCContainerService._container.Resolve<IHttpService>());
             _homeViewModel = (DataContext as HomeViewModel);
             _homeViewModel.SuccessfulConnect += ChangeWindow;
+            _homeViewModel.CredentialLoad += OnCredentialsLoad;
+            _homeViewModel.LoadCredentials();
         }
 
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -49,6 +51,11 @@ namespace ChitChat.Views
         {
             var passwordBox = sender as PasswordBox;
             _homeViewModel.Password = passwordBox.SecurePassword;
+        }
+
+        private void OnCredentialsLoad(object sender, string e)
+        {
+            PasswordB.Password = e;
         }
 
         private void Register(object sender, RoutedEventArgs e)

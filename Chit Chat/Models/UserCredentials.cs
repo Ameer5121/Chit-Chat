@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security;
+using Newtonsoft.Json;
 
 namespace ChitChat.Models
 {
@@ -14,12 +15,14 @@ namespace ChitChat.Models
         public string DisplayName { get; }
         public string Email { get; }
         public string DecryptedPassword { get; }
-        public bool SavedLocaly { get; set; }
+        public bool SavedLocally { get; set; }
+
+        [JsonConstructor]
         public UserCredentials(string userName, string decryptedPassword, bool savedLocally = false)
         {
             UserName = userName;
             DecryptedPassword = decryptedPassword;
-            SavedLocaly = savedLocally;
+            SavedLocally = savedLocally;
         }
         public UserCredentials(string userName, string decryptedPassword, string email, string displayName)
         {

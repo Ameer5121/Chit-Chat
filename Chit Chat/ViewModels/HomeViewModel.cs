@@ -44,6 +44,7 @@ namespace ChitChat.ViewModels
         private IHttpService _httpService;
         public EventHandler<ConnectionEventArgs> SuccessfulConnect;
         public EventHandler Register;
+        public EventHandler<string> CredentialLoad;
 
         public HomeViewModel(IHttpService httpService)
         {
@@ -213,8 +214,26 @@ namespace ChitChat.ViewModels
             Password?.Clear();
         }
         private bool CanSaveCredentials() => !string.IsNullOrEmpty(_currentUserName) && Password?.Length >= 6 && !_isConnecting;
-        private void SaveCredentialsToFile() => CredentialsSaveService.SaveCredentials(new UserCredentials(UserName, Password.DecryptPassword(), true));
-
+        private void SaveCredentialsToFile()
+        {
+            if (!SaveCredentials)
+            {
+                if (CredentialsSaveService.CredentialsFileExist()) CredentialsSaveService.RemoveCredentialsFile();
+                return;
+            }
+            CredentialsSaveService.SaveCredentials(new UserCredentials(UserName, Password.DecryptPassword(), true));
+        }
+        public void LoadCredentials()
+        {
+            var credentialFileExists = CredentialsSaveService.CredentialsFileExist();
+            if (credentialFileExists)
+            {
+                UserCredentials credentials = CredentialsSaveService.LoadCredentials();
+                UserName = credentials.UserName;
+                SaveCredentials = credentials.SavedLocally;
+                CredentialLoad?.Invoke(this, credentials.DecryptedPassword);                
+            }
+        }
         private void CreateHandlers()
         {
             connection.On<DataModel>("Connected", (data) =>
