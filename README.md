@@ -3,7 +3,7 @@ Social chatting application with MySQL database features for windows.
 
 Login  |  Register 
 :-------------------------:|:-------------------------:
-![1](https://user-images.githubusercontent.com/71935713/148786170-f16f5a46-5a10-4469-8f2c-bfd50c775b83.png)  |  ![2](https://user-images.githubusercontent.com/71935713/142070023-979d4f8e-7062-4a65-8bdb-df4afa38db54.png) 
+![1](https://user-images.githubusercontent.com/71935713/191581826-74c305f8-fe59-44a6-99ef-2ecea493055f.png)  |  ![2](https://user-images.githubusercontent.com/71935713/142070023-979d4f8e-7062-4a65-8bdb-df4afa38db54.png) 
 
 Password Recovery 1 |  Password Recovery 2 
 :-------------------------:|:-------------------------:
