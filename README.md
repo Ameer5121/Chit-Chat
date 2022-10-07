@@ -30,6 +30,7 @@ Image Sending
 
 # Core functionality:
 * Login / Register options
+* Saving login info locally for faster logins.
 * Password Recovery
 * List of connected users, automatically updating when one joins/leaves
 * Returning to home view automatically when server is down
