@@ -29,6 +29,7 @@ using Application = System.Windows.Application;
 using System.Windows.Media.Imaging;
 using ChitChat.Helper.Language;
 using System.IO;
+using System.Windows.Controls;
 
 namespace ChitChat.ViewModels
 {
@@ -67,6 +68,7 @@ namespace ChitChat.ViewModels
         public event EventHandler<MessageDisplayEventArgs> MessageDisplayChange;
         public event EventHandler<UploadEventArgs> PictureSelected;
         public event EventHandler PrivateChatClick;
+        public event EventHandler MessageDeleted;
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
@@ -388,7 +390,13 @@ namespace ChitChat.ViewModels
 
         }
 
-        private void DeleteMessage(MessageModel message) => _messages.Remove(message);
+        private void DeleteMessage(MessageModel message)
+        {
+            var messageToRemove =  _messages.First(x => x.MessageDate == message.MessageDate);
+            _messages.Remove(messageToRemove);
+            MessageDeleted?.Invoke(this, null);
+            PublicMessages.Refresh();
+        }
 
 
         private bool HasPrivateMessage(MessageModel message)

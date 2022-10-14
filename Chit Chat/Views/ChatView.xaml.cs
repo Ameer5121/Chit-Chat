@@ -26,7 +26,7 @@ namespace ChitChat.Views
         private ChatViewModel _chatVM;
         public ChatView(ChatViewModel context)
         {
-            
+
             InitializeComponent();
             DataContext = context;
             Loaded += OnLoaded;
@@ -46,9 +46,11 @@ namespace ChitChat.Views
             _chatVM.PrivateChatClick += OnPrivateChatEnter;
             _chatVM.PictureSelected += SetPictureMessage;
             _chatVM.MessageDisplayChange += ChangeMessageDisplay;
+            _chatVM.MessageDeleted += ClearPublicChat;
             //Set the correct color for messages upon logging in
             ChangeMessagesColor(_chatVM.CurrentTheme, _chatVM.AllMessages);
         }
+
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
@@ -60,6 +62,7 @@ namespace ChitChat.Views
             _chatVM.PrivateChatClick -= OnPrivateChatEnter;
             _chatVM.PictureSelected -= SetPictureMessage;
             _chatVM.MessageDisplayChange -= ChangeMessageDisplay;
+            _chatVM.MessageDeleted -= ClearPublicChat;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
@@ -92,6 +95,16 @@ namespace ChitChat.Views
         {
             PublicChatTextBox.Document.Blocks.Clear();
         }
+        private void ClearPublicChat(object sender, EventArgs e)
+        {
+            foreach (MessageModel message in PublicChat.Items)
+            {
+                FlowDocument document = message.Message;
+                FlowDocumentScrollViewer flowDocumentScrollViewer = document.Parent as FlowDocumentScrollViewer;
+                flowDocumentScrollViewer.Document = null;
+            }
+        }
+
 
         private void SetEmoji(object sender, EmojiEventArgs e)
         {
@@ -102,7 +115,7 @@ namespace ChitChat.Views
         }
 
         private void OnPrivateChatEnter(object sender, EventArgs e)
-        {           
+        {
             PrivateChatView privateChatView = new PrivateChatView(_chatVM);
             privateChatView.Show();
         }
@@ -113,7 +126,7 @@ namespace ChitChat.Views
             if (_chatVM.CurrentTheme != e.NewTheme)
             {
                 app.ChangeTheme(e.NewTheme);
-                
+
                 ChangeMessagesColor(e.NewTheme, _chatVM.AllMessages);
             }
         }
@@ -170,8 +183,8 @@ namespace ChitChat.Views
         {
             if (_chatVM.CurrentMessageDisplay != e.NewMessageDisplay)
             {
-                foreach(MessageModel messageModel in _chatVM.PublicMessages)
-                {                   
+                foreach (MessageModel messageModel in _chatVM.PublicMessages)
+                {
                     var documentScrollViewer = messageModel.Message.Parent as FlowDocumentScrollViewer;
                     documentScrollViewer.Document = null;
                 }
