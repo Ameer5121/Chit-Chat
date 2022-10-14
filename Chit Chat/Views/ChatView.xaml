@@ -31,8 +31,9 @@
         <Converters:LessThanZeroConverter x:Key="LessThanZeroConverter"></Converters:LessThanZeroConverter>
         <Converters:CharacterCountConverter x:Key="CharacterCountConverter"></Converters:CharacterCountConverter>
         <Converters:EnumLanguageConverter x:Key="EnumLanguageConverter"></Converters:EnumLanguageConverter>
+        <Converters:DeleteMessageVisibilityConverter x:Key="DeleteMessageConverter"></Converters:DeleteMessageVisibilityConverter>
 
-            <DataTemplate DataType="{x:Type model:ErrorModel}">
+        <DataTemplate DataType="{x:Type model:ErrorModel}">
             <Grid Background="{DynamicResource UserSettings}" Width="400" Height="150">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -47,8 +48,8 @@
                 <Button Focusable="False" Background="{DynamicResource Buttons}" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Grid.Row="2" BorderBrush="Transparent" Height="50" VerticalAlignment="Bottom" Content="Okay" Foreground="{DynamicResource Text}" FontSize="15"></Button>
             </Grid>
         </DataTemplate>
-        
-        
+
+
 
         <DataTemplate DataType="{x:Type model:NameChangeModel}">
             <Grid Background="{DynamicResource UserSettings }" Width="400" Height="200">
@@ -143,9 +144,9 @@
                    Foreground="{DynamicResource Text}" Style="{StaticResource MaterialDesignHeadline3TextBlock}" 
                    Width="70"/>
             </DockPanel>
-            
+
             <Grid Margin="0,0" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" Background="{DynamicResource UserSettings}">
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition Height="35"></RowDefinition>
@@ -247,8 +248,8 @@
                             </Style>
                         </ProgressBar.Style>
                     </ProgressBar>
-                    
-                    
+
+
                 </StackPanel>
 
                 <StackPanel Grid.Row="3">
@@ -292,7 +293,7 @@
                                     <Setter Property="Width" Value="140"></Setter>
                                 </Style>
                             </ComboBox.ItemContainerStyle>
-                        
+
                         </ComboBox>
                     </materialDesign:Card>
 
@@ -366,7 +367,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                
+
             </Grid>
             <Border Grid.Column="6" Grid.Row="1" Background="{DynamicResource Users}">
                 <DockPanel HorizontalAlignment="Center" Grid.Column="6" Grid.Row="1" LastChildFill="False">
@@ -409,7 +410,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            
+
             <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Background="{DynamicResource MessageHistoryBorder}">
                 <materialDesign:PackIcon Kind="Chat" Height="48" Foreground="{StaticResource MaterialDesignLightSeparatorBackground}" Width="57"></materialDesign:PackIcon>
                 <TextBlock Width="116" Text="{DynamicResource MessageHistoryDefault}" VerticalAlignment="Center" Foreground="{DynamicResource Text}"></TextBlock>
@@ -423,11 +424,11 @@
                          Foreground="{DynamicResource Text2}"></Button>
 
             </DockPanel>
-            
+
             <materialDesign:Card Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Background="{DynamicResource Chat}" UniformCornerRadius="5" Grid.RowSpan="3" Margin="0,0,0,0"></materialDesign:Card>
 
             <Border Background="Black" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" Height="0.5" Grid.ColumnSpan="8" Opacity="0.5"></Border>
-        
+
             <ListBox x:Name="PublicChat" Grid.Column="1"
                   Grid.ColumnSpan="4"  
                   Margin="0,0,0,0"
@@ -451,8 +452,14 @@
                                     <ImageBrush ImageSource="{Binding Sender.ProfilePicture, Mode=OneTime}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
                                 </Ellipse.Fill>
                             </Ellipse>
-                            <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center" Visibility="{}">
+                            <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
                                 <Button Background="{DynamicResource Buttons}" Command="{Binding DeleteMessageCommand}" Content="Delete Message"></Button>
+                                <materialDesign:PopupBox.Visibility>
+                                    <MultiBinding Converter="{StaticResource DeleteMessageConverter}">
+                                        <Binding Path="Sender.DisplayName"></Binding>
+                                        <Binding Path="DataContext.CurrentUser.DisplayName" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListBox}"></Binding>
+                                    </MultiBinding>
+                                </materialDesign:PopupBox.Visibility>
                             </materialDesign:PopupBox>
                             <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">
                             <Run Text="{Binding Sender.DisplayName, Mode=OneTime}" Foreground="{DynamicResource ChatDisplayName}"></Run>
@@ -489,8 +496,8 @@
             Background="Transparent">
                 <DockPanel LastChildFill="False">
                     <materialDesign:PopupBox Margin="0,4,0,0" DockPanel.Dock="Left" VerticalAlignment="Top" PlacementMode="TopAndAlignCentres" HorizontalAlignment="Right">
-                    
-                    <DockPanel LastChildFill="False">
+
+                        <DockPanel LastChildFill="False">
                             <materialDesign:PackIcon Foreground="{DynamicResource Icons}" Kind="Upload" DockPanel.Dock="Left" VerticalAlignment="Center" Width="25" Height="25"></materialDesign:PackIcon>
                             <Button Margin="10,0,0,0" Command="{Binding ChooseImageCommand}" CommandParameter="{StaticResource FalseValue}" Content="Upload a Picture" Padding="0" Width="150" VerticalContentAlignment="Center" Background="{DynamicResource Buttons}" Foreground="{DynamicResource Text}" HorizontalContentAlignment="Left" HorizontalAlignment="Left"></Button>
                         </DockPanel>
