@@ -451,17 +451,19 @@
                                     <ImageBrush ImageSource="{Binding Sender.ProfilePicture, Mode=OneTime}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
                                 </Ellipse.Fill>
                             </Ellipse>
+                            <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center" Visibility="{}">
+                                <Button Background="{DynamicResource Buttons}" Command="{Binding DeleteMessageCommand}" Content="Delete Message"></Button>
+                            </materialDesign:PopupBox>
                             <TextBlock DockPanel.Dock="Top" Margin="10,0,0,0">
                             <Run Text="{Binding Sender.DisplayName, Mode=OneTime}" Foreground="{DynamicResource ChatDisplayName}"></Run>
                             <Run Text=""></Run>
-                            <Run Text="{Binding MessageDate, StringFormat=t, Mode=OneTime}" Foreground="Gray" FontSize="10"></Run>
+                            <Run Text="{Binding MessageDate, Mode=OneTime}" Foreground="Gray" FontSize="10"></Run>
                             </TextBlock>
                             <FlowDocumentScrollViewer DockPanel.Dock="Left" Document="{Binding Message, Mode=OneTime}" 
                                                       HorizontalAlignment="Left" Height="Auto" 
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                       HorizontalContentAlignment="Left" Margin="2,0,0,0"
                                                       Padding="-10"></FlowDocumentScrollViewer>
-                            
                         </DockPanel>
 
                     </DataTemplate>

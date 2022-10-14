@@ -290,6 +290,11 @@ namespace ChitChat.ViewModels
             _isSendingMessage = false;
         }
 
+        private async Task SendMessageToDelete(MessageModel messageModel)
+        {
+            await _httpService.PostDataAsync("DeleteMessage", messageModel);
+        }
+
         private bool MessageTooLong(MessageModel messageModel) => _characterLimit - messageModel.Message.GetDocumentString().Length < 0;
 
         private void SetEmoji(string emojiName)
@@ -384,6 +389,9 @@ namespace ChitChat.ViewModels
             });
 
         }
+
+        private void DeleteMessage(MessageModel message) => _messages.Remove(message);
+
 
         private bool HasPrivateMessage(MessageModel message)
         {
