@@ -119,6 +119,7 @@ namespace ChitChat.ViewModels
         public ICommand ChangeLanguageCommand => new RelayCommand(ChangeLanguage);
         public ICommand ConstructPublicMessageCommand => new RelayCommand(ConstructPublicMessageAsync, CanConstructPublicMessage);
         public ICommand ConstructPrivateMessageCommand => new RelayCommand(ConstructPrivateMessageAsync, CanConstructPrivateMessage);
+        public ICommand DeleteMessageCommand => new RelayCommand(SendMessageToDelete);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
         public ICommand DisconnectCommand => new RelayCommand(DisconnectFromServer);
         public ICommand PrivateChatEnterCommand => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, ConstructPrivateChat, DisableControls);
@@ -627,6 +628,7 @@ namespace ChitChat.ViewModels
         {
             _connection.On<ObservableCollection<UserModel>>("ReceiveUsers", ReceiveUsers);
             _connection.On<ObservableCollection<MessageModel>>("ReceiveMessages", ReceiveMessages);
+            _connection.On<MessageModel>("DeleteMessage", DeleteMessage);
             _connection.On<List<MessageModel>>("LoadPreviousMessages", LoadPreviousMessages);
         }
 
@@ -655,6 +657,8 @@ namespace ChitChat.ViewModels
             //UnSubscribe and dispose.
             _connection.Remove("ReceiveUsers");
             _connection.Remove("ReceiveMessages");
+            _connection.Remove("DeleteMessage");
+            _connection.Remove("LoadPreviousMessages");
             _heartbeatToken.Cancel();
             await _connection.DisposeAsync();
             Disconnect?.Invoke(this, EventArgs.Empty);

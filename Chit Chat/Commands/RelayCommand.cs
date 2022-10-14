@@ -21,6 +21,7 @@ namespace ChitChat.Commands
         private readonly Func<NameChangeModel, Task> execute7;
         private readonly Func<bool, Task> execute8;
         private readonly Action<ILanguage> execute9;
+        private readonly Func<MessageModel, Task> execute10; 
         private readonly Func<bool> canExecute;
         public RelayCommand(Func<Task> execute) : this(execute, canExecute: null)
         {
@@ -48,6 +49,9 @@ namespace ChitChat.Commands
         }
 
         public RelayCommand(Action<ILanguage> execute9) : this(execute9, canExecute: null)
+        {
+        }
+        public RelayCommand(Func<MessageModel, Task> execute10) : this(execute10, canExecute: null)
         {
         }
 
@@ -120,6 +124,15 @@ namespace ChitChat.Commands
             this.canExecute = canExecute;
         }
 
+        public RelayCommand(Func<MessageModel, Task> execute10, Func<bool> canExecute)
+        {
+            if (execute10 == null)
+                throw new ArgumentNullException("execute10 is null");
+
+            this.execute10 = execute10;
+            this.canExecute = canExecute;
+        }
+
         public event EventHandler CanExecuteChanged
         {
             add
@@ -174,6 +187,10 @@ namespace ChitChat.Commands
             else if (execute9 != null)
             {             
                 execute9(parameter as ILanguage);
+            }
+            else if (execute10 != null)
+            {
+              await execute10(parameter as MessageModel);
             }
         }
     }
