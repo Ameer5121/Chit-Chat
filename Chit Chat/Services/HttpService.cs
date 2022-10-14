@@ -28,6 +28,13 @@ namespace ChitChat.Services
             return await _httpClient.PostAsync($"/api/chat/{endPoint}",
              new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
         }
+        public async Task<HttpResponseMessage> DeleteDataAsync(string endPoint, object data)
+        {
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, $"/api/chat/{endPoint}");
+            var message = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            httpRequestMessage.Content = message;
+            return  await _httpClient.SendAsync(httpRequestMessage);
+        }
         public async Task<UserModel> PostLoginCredentialsAsync(UserCredentials userCredentials)
         {
             var response = await PostDataAsync("Login", userCredentials).ConfigureAwait(false);

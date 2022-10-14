@@ -453,7 +453,7 @@
                                 </Ellipse.Fill>
                             </Ellipse>
                             <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
-                                <Button Background="{DynamicResource Buttons}" Command="{Binding DeleteMessageCommand}" Content="Delete Message"></Button>
+                                <Button Background="{DynamicResource Buttons}" Command="{Binding DataContext.DeleteMessageCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Delete Message"></Button>
                                 <materialDesign:PopupBox.Visibility>
                                     <MultiBinding Converter="{StaticResource DeleteMessageConverter}">
                                         <Binding Path="Sender.DisplayName"></Binding>
