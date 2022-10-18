@@ -10,16 +10,16 @@ Password Recovery 1 |  Password Recovery 2
 ![2](https://user-images.githubusercontent.com/71935713/148786353-56141f35-cf02-47a6-b1cf-a18f6b563f48.png)  |  ![3](https://user-images.githubusercontent.com/71935713/154128894-df1caaf1-32f1-412a-be79-1dc2d4bcd918.png)
  
 Public Chat
-![142070066-2b4c091e-646f-496c-9576-d2236beba0b5](https://user-images.githubusercontent.com/71935713/147118569-4d61d3ba-74b2-4a50-a01b-db7316030b7e.png)
+![147118569-4d61d3ba-74b2-4a50-a01b-db7316030b7e](https://user-images.githubusercontent.com/71935713/196317044-863b1b0d-79b6-4d92-98dc-6044de4ca3f2.png)
 
 Private Chat
-![142070100-2fc26403-dc05-482b-95e9-5cf083ae30e2](https://user-images.githubusercontent.com/71935713/147118538-e891a89c-c644-41fb-9e97-91277a0c8d98.png)
+![147118538-e891a89c-c644-41fb-9e97-91277a0c8d98](https://user-images.githubusercontent.com/71935713/196317086-2af7ebc0-1bbf-4b5e-94e4-bc8ec6c00035.png)
 
 Light Theme
-![142070127-7cd5d5f4-b1d5-4f21-903c-f17ccbd28ed3](https://user-images.githubusercontent.com/71935713/147118499-1c5878c0-c3fb-47a7-9b53-5bc2f68d4906.png)
+![147118499-1c5878c0-c3fb-47a7-9b53-5bc2f68d4906](https://user-images.githubusercontent.com/71935713/196317117-34871b7c-b3df-4193-a779-2b6d7823a466.png)
 
 Image Sending
-![142070165-978f0dbe-ad02-4328-9d73-7a5d3ef57a65](https://user-images.githubusercontent.com/71935713/147118454-13bab06f-7b4f-4d20-b14e-65c633e4839d.png)
+![147118454-13bab06f-7b4f-4d20-b14e-65c633e4839d](https://user-images.githubusercontent.com/71935713/196317145-4adb6247-f004-4759-985d-4060ea692e46.png)
 
 
 # Contains usages of:
@@ -36,6 +36,7 @@ Image Sending
 * Returning to home view automatically when server is down
 * Messages get saved automatically in database
 * Message control and loading old messages
+* Message deletion
 * Private chatting
 * Colored Emojis
 * Profile Pictures
