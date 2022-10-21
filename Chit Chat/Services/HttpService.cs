@@ -33,7 +33,7 @@ namespace ChitChat.Services
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, $"/api/chat/{endPoint}");
             var message = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             httpRequestMessage.Content = message;
-            return  await _httpClient.SendAsync(httpRequestMessage);
+            return await _httpClient.SendAsync(httpRequestMessage);
         }
         public async Task<UserModel> PostLoginCredentialsAsync(UserCredentials userCredentials)
         {

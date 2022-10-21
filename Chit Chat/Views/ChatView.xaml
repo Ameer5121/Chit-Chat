@@ -452,7 +452,7 @@
                                     <ImageBrush ImageSource="{Binding Sender.ProfilePicture, Mode=OneTime}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
                                 </Ellipse.Fill>
                             </Ellipse>
-                            <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center">
+                            <materialDesign:PopupBox DockPanel.Dock="Right" VerticalAlignment="Center" Foreground="{DynamicResource ExpanderButton}">
                                 <Button Background="{DynamicResource Buttons}" Command="{Binding DataContext.DeleteMessageCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Delete Message"></Button>
                                 <materialDesign:PopupBox.Visibility>
                                     <MultiBinding Converter="{StaticResource DeleteMessageConverter}">

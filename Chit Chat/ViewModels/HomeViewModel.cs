@@ -231,7 +231,7 @@ namespace ChitChat.ViewModels
                 UserCredentials credentials = CredentialsSaveService.LoadCredentials();
                 UserName = credentials.UserName;
                 SaveCredentials = credentials.SavedLocally;
-                CredentialLoad?.Invoke(this, credentials.DecryptedPassword);                
+                CredentialLoad?.Invoke(this, credentials.DecryptedPassword);
             }
         }
         private void CreateHandlers()
