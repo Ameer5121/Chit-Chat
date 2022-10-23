@@ -565,7 +565,10 @@ namespace ChitChat.ViewModels
                 ConstructError("Connection Error", "Could not change name");
                 await DisplayError();
             }
+            var ownMessages = _messages.Where(x => x.Sender.DisplayName == _currentUser.DisplayName).ToList();
             _currentUser.DisplayName = nameChangeModel.NewName;
+            foreach (var message in ownMessages) message.Sender.DisplayName = nameChangeModel.NewName;
+                       
         }
 
 
