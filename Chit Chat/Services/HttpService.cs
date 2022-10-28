@@ -28,9 +28,9 @@ namespace ChitChat.Services
             return await _httpClient.PostAsync($"/api/chat/{endPoint}",
              new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
         }
-        public async Task<HttpResponseMessage> DeleteDataAsync(string endPoint, object data)
+        public async Task<HttpResponseMessage> DeleteDataAsync(object data)
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, $"/api/chat/{endPoint}");
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, "/api/chat/DeleteMessage");
             var message = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             httpRequestMessage.Content = message;
             return await _httpClient.SendAsync(httpRequestMessage);

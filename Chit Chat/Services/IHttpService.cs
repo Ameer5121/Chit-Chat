@@ -11,7 +11,7 @@ namespace ChitChat.Services
     public interface IHttpService
     {
         Task<HttpResponseMessage> PostDataAsync(string endPoint, object data);
-        Task<HttpResponseMessage> DeleteDataAsync(string endPoint, object data);
+        Task<HttpResponseMessage> DeleteDataAsync(object data);
         Task<UserModel> PostLoginCredentialsAsync(UserCredentials userCredentials);
         Task PostRegisterCredentialsAsync(UserCredentials userCredentials);
         Task PostRecoveryDataAsync(string endPoint, object data);

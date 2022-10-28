@@ -160,6 +160,23 @@ namespace Chit_Chat_Tests
                 Assert.Equal(expected, actual);
             }
         }
+        [Fact]
+        public async Task DeleteDataAsync_ShouldBeCalled()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                var mockedObjectToDelete = new MessageModel();
+                mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Delete, "https://localhost:5001/api/chat/DeleteMessage")
+                    .ReturnsResponse(HttpStatusCode.OK);
+                var cls = mock.Create<HttpClient>();
+                IHttpService httpservice = new HttpService(cls);
+
+                await httpservice.DeleteDataAsync(mockedObjectToDelete);
+
+                mock.Mock<HttpMessageHandler>().VerifyRequest("https://localhost:5001/api/chat/DeleteMessage", Times.Once());
+
+            }
+        }
 
         [Theory]
         [InlineData("ChatHub")]

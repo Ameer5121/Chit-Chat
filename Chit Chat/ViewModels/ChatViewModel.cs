@@ -293,7 +293,7 @@ namespace ChitChat.ViewModels
             _isSendingMessage = false;
         }
 
-        private async Task SendMessageToDelete(MessageModel messageModel) => await _httpService.DeleteDataAsync("DeleteMessage", messageModel);
+        private async Task SendMessageToDelete(MessageModel messageModel) => await _httpService.DeleteDataAsync(messageModel);
 
         private bool MessageTooLong(MessageModel messageModel) => _characterLimit - messageModel.Message.GetDocumentString().Length < 0;
 
