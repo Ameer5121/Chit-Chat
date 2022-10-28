@@ -168,13 +168,13 @@ namespace Chit_Chat_Tests
                 var mockedObjectToDelete = new MessageModel();
                 mock.Mock<HttpMessageHandler>().SetupRequest(HttpMethod.Delete, "https://localhost:5001/api/chat/DeleteMessage")
                     .ReturnsResponse(HttpStatusCode.OK);
+
                 var cls = mock.Create<HttpClient>();
                 IHttpService httpservice = new HttpService(cls);
 
                 await httpservice.DeleteDataAsync(mockedObjectToDelete);
 
                 mock.Mock<HttpMessageHandler>().VerifyRequest("https://localhost:5001/api/chat/DeleteMessage", Times.Once());
-
             }
         }
 
@@ -183,6 +183,9 @@ namespace Chit_Chat_Tests
         [InlineData("Register")]
         [InlineData("Login")]
         [InlineData("GetHeartBeat")]
+        [InlineData("Test1TestTest")]
+        [InlineData("Test3Tes2tT3est")]
+        [InlineData("PassingTestsAreTheBest")]
         public async Task PostDataAsync_ShouldCallCorrectEndPoint(string expected)
         {
             using (var mock = AutoMock.GetLoose())
