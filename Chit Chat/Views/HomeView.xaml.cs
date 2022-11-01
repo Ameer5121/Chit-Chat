@@ -12,6 +12,7 @@ using ChitChat.Events;
 using ChitChat.Helper;
 using ChitChat.Services;
 using ChitChat.ViewModels;
+using System.Diagnostics;
 
 namespace ChitChat.Views
 {
@@ -23,6 +24,11 @@ namespace ChitChat.Views
         private HomeViewModel _homeViewModel;
         public HomeView()
         {
+            if (ApplicationAlreadyOpen())
+            {
+                MessageBox.Show("Chit Chat is already open!");
+                Application.Current.Shutdown();
+            }
             InitializeComponent();
             DataContext = new HomeViewModel(IoCContainerService._container.Resolve<IHttpService>());
             _homeViewModel = (DataContext as HomeViewModel);
@@ -64,5 +70,11 @@ namespace ChitChat.Views
             Transitioner.SelectedIndex = 0;
         }
         private void RecoveryClick(object sender, RoutedEventArgs e) => Transitioner.SelectedIndex = 1;
+
+        private bool ApplicationAlreadyOpen()
+        {
+            if (Process.GetProcessesByName("Chit Chat").Length != 0) return true;
+            return false;
+        }
     }
 }
