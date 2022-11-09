@@ -73,7 +73,7 @@ namespace ChitChat.Views
 
         private bool ApplicationAlreadyOpen()
         {
-            if (Process.GetProcessesByName("Chit Chat").Length != 0) return true;
+            if (Process.GetProcessesByName("Chit Chat").Length > 1) return true;
             return false;
         }
     }
