@@ -10,6 +10,6 @@ namespace ChitChat.Events
 {
     public class ConnectionEventArgs : EventArgs
     {
-        public ChatViewModel ChatViewModelContext;
+        public ChatViewModel ChatViewModelContext { get; set; }
     }
 }

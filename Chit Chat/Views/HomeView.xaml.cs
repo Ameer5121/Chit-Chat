@@ -26,8 +26,8 @@ namespace ChitChat.Views
         {
             if (ApplicationAlreadyOpen())
             {
-                MessageBox.Show("Chit Chat is already open!");
-                Application.Current.Shutdown();
+               /// MessageBox.Show("Chit Chat is already open!");
+                ///Application.Current.Shutdown();
             }
             InitializeComponent();
             DataContext = new HomeViewModel(IoCContainerService._container.Resolve<IHttpService>());
