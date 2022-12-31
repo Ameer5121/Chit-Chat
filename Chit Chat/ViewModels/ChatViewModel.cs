@@ -446,7 +446,6 @@ namespace ChitChat.ViewModels
                 unLoadedMessagesIntervalModel = new UnLoadedMessagesIntervalModel(messagesToRemove.First().MessageDate,
                     messagesToRemove.Last().MessageDate);
                 TryAddInterval(allPublicMessages, unLoadedMessagesIntervalModel, ref _firstUnloadedPublicMessageDate);
-
             }
             void TryAddInterval(IEnumerable<MessageModel> messages, UnLoadedMessagesIntervalModel unLoadedMessagesInterval, ref DateTime firstUnloadedMessageDate)
             {

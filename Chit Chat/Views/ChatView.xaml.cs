@@ -82,19 +82,12 @@ namespace ChitChat.Views
             this.Close();
         }
 
-        private void Emoji_Click(object sender, RoutedEventArgs e)
-        {
-            EmojiTransitioner.SelectedIndex = 0;
-        }
-        private void LanguageChangeClick(object sender, RoutedEventArgs e)
-        {
-            LanguageTransitioner.SelectedIndex = 0;
-        }
+        private void Emoji_Click(object sender, RoutedEventArgs e) => EmojiTransitioner.SelectedIndex = 0;
 
-        private void ClearPublicTextBox(object sender, EventArgs e)
-        {
-            PublicChatTextBox.Document.Blocks.Clear();
-        }
+        private void LanguageChangeClick(object sender, RoutedEventArgs e) => LanguageTransitioner.SelectedIndex = 0;
+
+        private void ClearPublicTextBox(object sender, EventArgs e) => PublicChatTextBox.Document.Blocks.Clear();
+
         private void ClearPublicChat(object sender, EventArgs e)
         {
             foreach (MessageModel message in PublicChat.Items)
