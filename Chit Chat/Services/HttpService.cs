@@ -36,7 +36,7 @@ namespace ChitChat.Services
             return await _httpClient.SendAsync(httpRequestMessage);
         }
         public async Task<UserModel> PostLoginCredentialsAsync(UserCredentials userCredentials)
-        {
+        {           
             var response = await PostDataAsync("Login", userCredentials).ConfigureAwait(false);
             var jsonResponseData = await response.Content.ReadAsStringAsync();
             var userResponseModel = JsonConvert.DeserializeObject<UserResponseModel>(jsonResponseData);

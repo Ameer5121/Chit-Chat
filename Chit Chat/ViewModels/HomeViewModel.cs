@@ -111,7 +111,6 @@ namespace ChitChat.ViewModels
         public ICommand RegisterCommand => new RelayCommand(RegisterAccountAsync, CanRegisterAccount);
         public ICommand LoginCommand => new RelayCommand(LoginToServerAsync, CanLogin);
         public ICommand SaveCredentialsCommand => new RelayCommand(SaveCredentialsToFile, CanSaveCredentials);
-
         private bool CanLogin() => !string.IsNullOrEmpty(_currentUserName) && Password?.Length >= 6 && !_isConnecting;
 
         private async Task LoginToServerAsync()
@@ -235,10 +234,11 @@ namespace ChitChat.ViewModels
             }
         }
         private void CreateHandlers()
+
         {
             connection.On<DataModel>("Connected", (data) =>
             {
-
+                
                 // Invoke the handler from the UI thread.
                 Application.Current.Dispatcher.Invoke(() =>
                 {
