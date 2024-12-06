@@ -193,8 +193,8 @@
                 <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left"></Border>
                 <Border Background="Gray" Width="60" Height="1" Margin="0,0,10,0" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Right"></Border>
                 <DockPanel LastChildFill="False" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center">
-                    <materialDesign:PackIcon Kind="Information" Width="20" Height="20" Margin="0,0,0,0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
-                    <TextBlock Text="{DynamicResource LogsDefault}" VerticalAlignment="Center" Margin="5,0,0,0" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                    <materialDesign:PackIcon Kind="VoiceChat" Width="20" Height="20" Margin="0,0,0,0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
+                    <TextBlock Text="Voice Chat Channels" VerticalAlignment="Center" Margin="5,0,0,0" TextAlignment="Left" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
                 </DockPanel>
 
                 <Border Background="Gray" Width="60" Height="1" Margin="10,0,0,0" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left"></Border>
@@ -357,16 +357,26 @@
                     </Button>
                 </StackPanel>
 
-                <ListBox AttachedProperties:ScrollBehavior.ScrollOnNewItem="True"  Grid.Row="9" Margin="0,0,5,0" Height="200" BorderThickness="1" BorderBrush="Silver" ItemsSource="{Binding Logs}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Padding="2.5" TextWrapping="WrapWithOverflow">
-                                    <Run Text="Info: " Foreground="ForestGreen" FontSize="13"></Run>
-                                    <Run Text="{Binding Message, Mode=OneWay}" Foreground="{DynamicResource Text2}" FontSize="15"></Run>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+
+                <StackPanel Grid.Row="9">
+                    <DockPanel>
+                        <materialDesign:PackIcon Kind="VoiceChat" Width="20" Height="20" Margin="5,0,0,0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></materialDesign:PackIcon>
+                        <Button Foreground="{DynamicResource Text}"  
+                         HorizontalContentAlignment="Left"
+                         Margin="5,0,0,0"
+                         Background="{DynamicResource Buttons}"
+                         BorderBrush="{DynamicResource ButtonsBorderBrush}"
+                         Command="{Binding DisconnectCommand}">Channel 1</Button>
+                    </DockPanel>
+                    
+                    <ListBox AttachedProperties:ScrollBehavior.ScrollOnNewItem="True"  Margin="0,0,5,0" BorderThickness="1" BorderBrush="Silver" ItemsSource="{Binding Logs}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
 
             </Grid>
             <Border Grid.Column="6" Grid.Row="1" Background="{DynamicResource Users}">
