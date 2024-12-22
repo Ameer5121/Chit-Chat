@@ -30,6 +30,9 @@ using System.Windows.Media.Imaging;
 using ChitChat.Helper.Language;
 using System.IO;
 using System.Windows.Controls;
+using NAudio.Wave;
+using NAudio;
+using System.Net.Sockets;
 
 namespace ChitChat.ViewModels
 {
@@ -71,6 +74,11 @@ namespace ChitChat.ViewModels
         public event EventHandler<UploadEventArgs> PictureSelected;
         public event EventHandler PrivateChatClick;
         public event EventHandler MessageDeleted;
+
+        private IWaveProvider _provider;
+        private UdpClient _client;
+        private WaveInEvent _waveInEvent;
+        private DirectSoundOut _waveoutevent = new DirectSoundOut();
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
@@ -114,6 +122,11 @@ namespace ChitChat.ViewModels
             _heartbeatToken = new CancellationTokenSource();
             CreateHandlers();
             SendHeartBeatAsync(_heartbeatToken.Token);
+
+            _client = new UdpClient();
+            _waveInEvent = new WaveInEvent();
+            _waveInEvent.WaveFormat = new WaveFormat(48000, 2);
+            _waveInEvent.DataAvailable += GetRecordedData;
 
         }
 
@@ -651,20 +664,35 @@ namespace ChitChat.ViewModels
         private void AddVoiceChatUser(UserModel user)
         {
             VoiceChatUsers.Add(user);
-            if (user.ConnectionID == _currentUser.ConnectionID) _connectedToVoiceChat = true;
+            if (user.ConnectionID == _currentUser.ConnectionID)
+            {
+                _connectedToVoiceChat = true;
+                _waveInEvent.StartRecording();
+            }
         }
-        private void ReceiveVoiceData(byte[] obj)
+
+        private void GetRecordedData(object sender, WaveInEventArgs e)
         {
-            
+            _client.Send(e.Buffer, e.Buffer.Length, "localhost", 60015);
+        }
+
+        private void ReceiveVoiceData(byte[] bytes)
+        {
+            _provider = new RawSourceWaveStream(new MemoryStream(bytes), new WaveFormat());
+            _waveoutevent.Init(_provider);
+            _waveoutevent.Play();
         }
 
         private void RemoveVoiceChatUser(UserModel user)
         {
             VoiceChatUsers.Remove(user);
-            if (user.ConnectionID == _currentUser.ConnectionID) _connectedToVoiceChat = false;
+            if (user.ConnectionID == _currentUser.ConnectionID)
+            {
+                _connectedToVoiceChat = false;
+                _connection.Remove("ReceiveVoiceData");
+                _waveInEvent.StopRecording();
+            }
         }
-
-
 
 
         private void CreateHandlers()
@@ -705,6 +733,9 @@ namespace ChitChat.ViewModels
             _connection.Remove("ReceiveMessages");
             _connection.Remove("DeleteMessage");
             _connection.Remove("LoadPreviousMessages");
+            _connection.Remove("AddVoiceChatUser");
+            _connection.Remove("RemoveVoiceChatUser");
+            _connection.Remove("ReceiveVoiceData");
             _heartbeatToken.Cancel();
             await _connection.DisposeAsync();
             Disconnect?.Invoke(this, EventArgs.Empty);
