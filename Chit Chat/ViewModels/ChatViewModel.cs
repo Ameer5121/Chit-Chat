@@ -40,6 +40,7 @@ namespace ChitChat.ViewModels
         private ObservableCollection<UserModel> _users;
         private CollectionViewSource _privateMessagesCollectionView;
         private ObservableCollection<MessageModel> _messages;
+        private ObservableCollection<UserModel> _voiceChatUsers;
         private List<UnLoadedMessagesIntervalModel> _unLoadedMessagesIntervals;
         private CancellationTokenSource _heartbeatToken;
         private IHttpService _httpService;
@@ -47,6 +48,7 @@ namespace ChitChat.ViewModels
         private bool _controlsEnabled;
         private bool _isPrivateChatting;
         private bool _isSendingMessage = false;
+        private bool _connectedToVoiceChat;
         private MessageDisplay? _messageDisplay;
         private ErrorModel _error;
         private const int _characterLimit = 600;
@@ -82,6 +84,7 @@ namespace ChitChat.ViewModels
             _currentPrivateMessage = new FlowDocument();
             _currentUser = currentuser;
             _users = data.Users;
+            _voiceChatUsers = new ObservableCollection<UserModel>();
             _messages = data.Messages;
             _unLoadedMessagesIntervals = data.UnLoadedMessagesIntervalModels;
             Logs = new ObservableCollection<LogModel>();
@@ -123,6 +126,7 @@ namespace ChitChat.ViewModels
         public ICommand ConstructPrivateMessageCommand => new RelayCommand(ConstructPrivateMessageAsync, CanConstructPrivateMessage);
         public ICommand DeleteMessageCommand => new RelayCommand(SendMessageToDelete);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
+        public ICommand ConnectToVoiceChatCommand => new RelayCommand(ConnectToVoiceChatServer, CanConnectToVoiceChat);
         public ICommand DisconnectCommand => new RelayCommand(DisconnectFromServer);
         public ICommand PrivateChatEnterCommand => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, ConstructPrivateChat, DisableControls);
         public ICommand PrivateChatExitCommand => new RelayCommand(EnableControls);
@@ -148,6 +152,11 @@ namespace ChitChat.ViewModels
         {
             get => _users;
             set => SetPropertyValue(ref _users, value);
+        }
+        public ObservableCollection<UserModel> VoiceChatUsers
+        {
+            get => _voiceChatUsers;
+            set => SetPropertyValue(ref _voiceChatUsers, value);
         }
 
         public FlowDocument CurrentPublicMessage
@@ -631,12 +640,42 @@ namespace ChitChat.ViewModels
 
         private void ChangeProfilePicture(string profilePictureSource) => _currentUser.ProfilePicture = profilePictureSource;
 
+
+        private bool CanConnectToVoiceChat() => !_connectedToVoiceChat;
+
+        private async Task ConnectToVoiceChatServer()
+        {
+            await _httpService.PostDataAsync("ConnectToVoiceChat", _currentUser);
+        }
+
+        private void AddVoiceChatUser(UserModel user)
+        {
+            VoiceChatUsers.Add(user);
+            if (user.ConnectionID == _currentUser.ConnectionID) _connectedToVoiceChat = true;
+        }
+        private void ReceiveVoiceData(byte[] obj)
+        {
+            
+        }
+
+        private void RemoveVoiceChatUser(UserModel user)
+        {
+            VoiceChatUsers.Remove(user);
+            if (user.ConnectionID == _currentUser.ConnectionID) _connectedToVoiceChat = false;
+        }
+
+
+
+
         private void CreateHandlers()
         {
             _connection.On<ObservableCollection<UserModel>>("ReceiveUsers", ReceiveUsers);
             _connection.On<ObservableCollection<MessageModel>>("ReceiveMessages", ReceiveMessages);
             _connection.On<MessageModel>("DeleteMessage", DeleteMessage);
             _connection.On<List<MessageModel>>("LoadPreviousMessages", LoadPreviousMessages);
+            _connection.On<UserModel>("AddVoiceChatUser", AddVoiceChatUser);
+            _connection.On<UserModel>("RemoveVoiceChatUser", RemoveVoiceChatUser);
+            _connection.On<byte[]>("ReceiveVoiceData", ReceiveVoiceData);
         }
 
         private void ConstructError(string errorSubject, string errorMessage) => Error = new ErrorModel(errorSubject, errorMessage);

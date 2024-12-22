@@ -366,13 +366,20 @@
                          Margin="5,0,0,0"
                          Background="{DynamicResource Buttons}"
                          BorderBrush="{DynamicResource ButtonsBorderBrush}"
-                         Command="{Binding DisconnectCommand}">Channel 1</Button>
+                         Command="{Binding ConnectToVoiceChatCommand}">Channel 1</Button>
                     </DockPanel>
                     
-                    <ListBox AttachedProperties:ScrollBehavior.ScrollOnNewItem="True"  Margin="0,0,5,0" BorderThickness="1" BorderBrush="Silver" ItemsSource="{Binding Logs}">
+                    <ListBox AttachedProperties:ScrollBehavior.ScrollOnNewItem="True"  Margin="0,0,5,0" BorderThickness="1" BorderBrush="Silver" ItemsSource="{Binding VoiceChatUsers}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                
+                                <DockPanel>
+                                    <Ellipse Height="35" Width="35" DockPanel.Dock="Left">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding ProfilePicture, Mode=OneTime}" RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <TextBlock Text="{Binding DisplayName, Mode=OneTime}" Foreground="{DynamicResource ChatDisplayName}"></TextBlock>
+                                </DockPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
