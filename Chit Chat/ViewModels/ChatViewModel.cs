@@ -33,6 +33,7 @@ using System.Windows.Controls;
 using NAudio.Wave;
 using NAudio;
 using System.Net.Sockets;
+using System.Web.Services.Description;
 
 namespace ChitChat.ViewModels
 {
@@ -673,7 +674,11 @@ namespace ChitChat.ViewModels
 
         private void GetRecordedData(object sender, WaveInEventArgs e)
         {
-            _client.Send(e.Buffer, e.Buffer.Length, "localhost", 60015);
+
+            var jsonData = JsonConvert.SerializeObject(new VoiceChatData(_currentUser.ConnectionID, e.Buffer));
+            var bytesToSend = Encoding.UTF8.GetBytes(jsonData);
+
+            _client.Send(bytesToSend, bytesToSend.Length, "localhost", 60015);
         }
 
         private void ReceiveVoiceData(byte[] bytes)
@@ -736,6 +741,7 @@ namespace ChitChat.ViewModels
             _connection.Remove("AddVoiceChatUser");
             _connection.Remove("RemoveVoiceChatUser");
             _connection.Remove("ReceiveVoiceData");
+            _waveInEvent.StopRecording();
             _heartbeatToken.Cancel();
             await _connection.DisposeAsync();
             Disconnect?.Invoke(this, EventArgs.Empty);
