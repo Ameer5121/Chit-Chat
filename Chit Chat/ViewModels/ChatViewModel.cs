@@ -415,7 +415,7 @@ namespace ChitChat.ViewModels
 
         private void DeleteMessage(MessageModel message)
         {
-            var messageToRemove =  _messages.First(x => x.MessageDate == message.MessageDate);
+            var messageToRemove = _messages.First(x => x.MessageDate == message.MessageDate);
             _messages.Remove(messageToRemove);
             MessageDeleted?.Invoke(this, null);
             PublicMessages.Refresh();
@@ -590,7 +590,7 @@ namespace ChitChat.ViewModels
             var ownMessages = _messages.Where(x => x.Sender.DisplayName == _currentUser.DisplayName).ToList();
             _currentUser.DisplayName = nameChangeModel.NewName;
             foreach (var message in ownMessages) message.Sender.DisplayName = nameChangeModel.NewName;
-                       
+
         }
 
 
@@ -683,9 +683,12 @@ namespace ChitChat.ViewModels
 
         private void ReceiveVoiceData(byte[] bytes)
         {
-            _provider = new RawSourceWaveStream(new MemoryStream(bytes), new WaveFormat());
-            _waveoutevent.Init(_provider);
-            _waveoutevent.Play();
+            if (_connectedToVoiceChat)
+            {
+                _provider = new RawSourceWaveStream(new MemoryStream(bytes), new WaveFormat());
+                _waveoutevent.Init(_provider);
+                _waveoutevent.Play();
+            }
         }
 
         private void RemoveVoiceChatUser(UserModel user)
