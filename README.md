@@ -29,6 +29,7 @@ Image Sending
 * **Web API** project to handle HTTP & database requests. https://github.com/Sound932/WebAPI-ChatHub.git
 
 # Core functionality:
+* Voice Chat
 * Login / Register options
 * Saving login info locally for faster logins.
 * Password Recovery
