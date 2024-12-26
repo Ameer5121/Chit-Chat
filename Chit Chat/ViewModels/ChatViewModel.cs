@@ -671,6 +671,7 @@ namespace ChitChat.ViewModels
         private void AddVoiceChatUser(UserModel user)
         {
             VoiceChatUsers.Add(user);
+            _connection.On<byte[]>("ReceiveVoiceData", ReceiveVoiceData);
             if (user.ConnectionID == _currentUser.ConnectionID)
             {
                 _connectedToVoiceChat = true;
@@ -716,8 +717,7 @@ namespace ChitChat.ViewModels
             _connection.On<MessageModel>("DeleteMessage", DeleteMessage);
             _connection.On<List<MessageModel>>("LoadPreviousMessages", LoadPreviousMessages);
             _connection.On<UserModel>("AddVoiceChatUser", AddVoiceChatUser);
-            _connection.On<UserModel>("RemoveVoiceChatUser", RemoveVoiceChatUser);
-            _connection.On<byte[]>("ReceiveVoiceData", ReceiveVoiceData);
+            _connection.On<UserModel>("RemoveVoiceChatUser", RemoveVoiceChatUser);           
         }
 
         private void ConstructError(string errorSubject, string errorMessage) => Error = new ErrorModel(errorSubject, errorMessage);
