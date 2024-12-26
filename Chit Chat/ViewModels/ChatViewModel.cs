@@ -141,6 +141,7 @@ namespace ChitChat.ViewModels
         public ICommand DeleteMessageCommand => new RelayCommand(SendMessageToDelete);
         public ICommand SetEmojiCommand => new RelayCommand(SetEmoji);
         public ICommand ConnectToVoiceChatCommand => new RelayCommand(ConnectToVoiceChatServer, CanConnectToVoiceChat);
+        public ICommand DisconnectFromVoiceChatCommand => new RelayCommand(DisconnectFromVoiceChatServer, CanDisconnectFromVoiceChat);
         public ICommand DisconnectCommand => new RelayCommand(DisconnectFromServer);
         public ICommand PrivateChatEnterCommand => new RelayCommand(SetSelectedUser, RefreshPrivateCollectionView, ConstructPrivateChat, DisableControls);
         public ICommand PrivateChatExitCommand => new RelayCommand(EnableControls);
@@ -661,6 +662,11 @@ namespace ChitChat.ViewModels
         {
             await _httpService.PostDataAsync("ConnectToVoiceChat", _currentUser);
         }
+        private bool CanDisconnectFromVoiceChat() => _connectedToVoiceChat;
+        private async Task DisconnectFromVoiceChatServer()
+        {
+            await _httpService.PostDataAsync("DisconnectFromVoiceChat", _currentUser);
+        }
 
         private void AddVoiceChatUser(UserModel user)
         {
@@ -693,7 +699,7 @@ namespace ChitChat.ViewModels
 
         private void RemoveVoiceChatUser(UserModel user)
         {
-            VoiceChatUsers.Remove(user);
+            VoiceChatUsers.Remove(VoiceChatUsers.FirstOrDefault(x => x.ConnectionID == user.ConnectionID));
             if (user.ConnectionID == _currentUser.ConnectionID)
             {
                 _connectedToVoiceChat = false;
