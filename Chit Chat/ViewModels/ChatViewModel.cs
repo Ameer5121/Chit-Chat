@@ -676,9 +676,9 @@ namespace ChitChat.ViewModels
         private void AddVoiceChatUser(UserModel user)
         {
             VoiceChatUsers.Add(user);
-            _connection.On<byte[]>("ReceiveVoiceData", ReceiveVoiceData);
             if (user.ConnectionID == _currentUser.ConnectionID)
             {
+                _connection.On<byte[]>("ReceiveVoiceData", ReceiveVoiceData);
                 _connectedToVoiceChat = true;
                 _waveInEvent.StartRecording();
             }
@@ -686,7 +686,6 @@ namespace ChitChat.ViewModels
 
         private void GetRecordedData(object sender, WaveInEventArgs e)
         {
-
             var jsonData = JsonConvert.SerializeObject(new VoiceChatData(_currentUser.ConnectionID, e.Buffer));
             var bytesToSend = Encoding.UTF8.GetBytes(jsonData);
 
