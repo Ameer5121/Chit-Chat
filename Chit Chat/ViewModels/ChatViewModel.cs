@@ -34,6 +34,7 @@ using NAudio.Wave;
 using NAudio;
 using System.Net.Sockets;
 using System.Web.Services.Description;
+using NAudio.CoreAudioApi;
 
 namespace ChitChat.ViewModels
 {
@@ -76,10 +77,10 @@ namespace ChitChat.ViewModels
         public event EventHandler PrivateChatClick;
         public event EventHandler MessageDeleted;
 
-        private IWaveProvider _provider;
         private UdpClient _client;
         private WaveInEvent _waveInEvent;
-        private DirectSoundOut _waveoutevent = new DirectSoundOut();
+        private DirectSoundOut _waveoutevent;
+        private BufferedWaveProvider _provider;
 
         public ChatViewModel(DataModel data, UserModel currentuser, HubConnection connection, IHttpService httpService)
         {
@@ -125,9 +126,13 @@ namespace ChitChat.ViewModels
             SendHeartBeatAsync(_heartbeatToken.Token);
 
             _client = new UdpClient();
+
+            _waveoutevent = new DirectSoundOut();
+            _provider = new BufferedWaveProvider(new WaveFormat(44100, 32, 2));
             _waveInEvent = new WaveInEvent();
-            _waveInEvent.WaveFormat = new WaveFormat(48000, 2);
+            _waveInEvent.WaveFormat = new WaveFormat(44100, 32, 2);
             _waveInEvent.DataAvailable += GetRecordedData;
+            _waveoutevent.Init(_provider);
 
         }
 
@@ -692,8 +697,7 @@ namespace ChitChat.ViewModels
         {
             if (_connectedToVoiceChat)
             {
-                _provider = new RawSourceWaveStream(new MemoryStream(bytes), new WaveFormat());
-                _waveoutevent.Init(_provider);
+                _provider.AddSamples(bytes, 0, bytes.Length);
                 _waveoutevent.Play();
             }
         }
@@ -717,7 +721,7 @@ namespace ChitChat.ViewModels
             _connection.On<MessageModel>("DeleteMessage", DeleteMessage);
             _connection.On<List<MessageModel>>("LoadPreviousMessages", LoadPreviousMessages);
             _connection.On<UserModel>("AddVoiceChatUser", AddVoiceChatUser);
-            _connection.On<UserModel>("RemoveVoiceChatUser", RemoveVoiceChatUser);           
+            _connection.On<UserModel>("RemoveVoiceChatUser", RemoveVoiceChatUser);
         }
 
         private void ConstructError(string errorSubject, string errorMessage) => Error = new ErrorModel(errorSubject, errorMessage);
